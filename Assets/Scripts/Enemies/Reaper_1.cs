@@ -7,7 +7,7 @@ public class Reaper_1 : MonoBehaviour
 {
     Animator animator;
     Rigidbody2D rig;
-    private float speed = 1.2f;
+    private float speed = 0.4f;
     private bool counter = false;
 
     // Start is called before the first frame update

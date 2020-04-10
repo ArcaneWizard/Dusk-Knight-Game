@@ -29,7 +29,7 @@ public class Reaper_3 : MonoBehaviour
         {
             speed *= -1;
             bound = -7.74f;
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            transform.rotation = Quaternion.Euler(new Vector2(0, 180));
         }
         animator = transform.GetComponent<Animator>();
         rig = transform.GetComponent<Rigidbody2D>();
@@ -81,9 +81,9 @@ public class Reaper_3 : MonoBehaviour
         }
 
         if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            transform.rotation = Quaternion.Euler(new Vector2(0, 180));
 
         if (transform.position.x < GameObject.FindGameObjectWithTag("Player").transform.position.x)
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.rotation = Quaternion.Euler(new Vector2(0, 0));
     }
 }

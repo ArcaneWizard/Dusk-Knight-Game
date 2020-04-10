@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Witch orb
+  - Reaper orb
+  - Boulder
   layers:
   - Default
   - TransparentFX
@@ -28,8 +31,8 @@ TagManager:
   - Reaper 2
   - Reaper 3
   - Ground
-  - 
-  - 
+  - Weapon
+  - Boulder
   - 
   - 
   - 
