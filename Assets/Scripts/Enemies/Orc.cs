@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,11 @@ public class Orc : MonoBehaviour
         animator = transform.GetComponent<Animator>();
         rig = transform.GetComponent < Rigidbody2D>();
         rig.velocity = new Vector2(speed, 0);
+    }
+
+    void Update()
+    {
+        transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
     }
 
     void OnCollisionEnter2D(Collision2D col)

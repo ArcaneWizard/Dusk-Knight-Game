@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +22,11 @@ public class Goblin : MonoBehaviour
         rig = transform.GetComponent<Rigidbody2D>();
         rig.velocity = new Vector2(speed, 0);
         StartCoroutine(run());
+    }
+
+    void Update()
+    {
+        transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
     }
 
     private IEnumerator run()
