@@ -21,18 +21,7 @@ public class Boulder : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.layer == 10)
-        {
-           if (gameObject.tag == "Boulder")
-               //do dmg to player
-
+        if (col.gameObject.layer == 10 || col.gameObject.layer == 22)
            gameObject.SetActive(false);
-        }
-
-        if (col.gameObject.layer == 22)
-        {
-            Debug.Log("hit ground");
-            gameObject.SetActive(false);
-        }
     }
 }

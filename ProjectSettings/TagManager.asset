@@ -7,6 +7,7 @@ TagManager:
   - Witch orb
   - Reaper orb
   - Boulder
+  - Canvas
   layers:
   - Default
   - TransparentFX

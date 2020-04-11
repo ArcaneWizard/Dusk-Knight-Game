@@ -22,13 +22,6 @@ public class Orb : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.layer == 10)
-        {
-            /*if (gameObject.tag == "Reaper orb")
-            //do dmg to player
-            if (gameObject.tag == "Witch orb")
-            //do dmg to player */
-
             gameObject.SetActive(false);
-        }
     }
 }
