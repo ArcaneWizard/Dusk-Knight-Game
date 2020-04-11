@@ -25,4 +25,11 @@ public class grenade : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.parent.name == "Enemies")
+        {
+            collision.gameObject.transform.GetComponent<Enemy_Health>().hp -= 100;
+        }
+    }
 }
