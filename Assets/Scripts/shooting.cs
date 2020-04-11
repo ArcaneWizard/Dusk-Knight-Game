@@ -9,10 +9,16 @@ public class shooting : MonoBehaviour
     public Transform muzzle;
     private float cooldown;
     private float startcooldown;
+    private int counter = 0;
+    GameObject[] grenadearr = new GameObject[12];
 
     void Start()
     {
-        startcooldown = 0.3f;
+        Vector3 offscreen = new Vector3(100, 100, 100);
+        for (int i = 0; i< 12; i++ ){
+            GameObject ammo = Instantiate(grenade, offscreen, Quaternion.Euler(0f, 0f, 270f)) as GameObject;
+            grenadearr[i] = ammo;
+        }
         cooldown = 0;
     }
 
@@ -41,6 +47,15 @@ public class shooting : MonoBehaviour
 
     void Fire(float rot)
     {
-        Instantiate(grenade, muzzle.position, Quaternion.Euler(0f, 0f, rot+270));
+        grenadearr[counter].transform.position = muzzle.position;
+        grenadearr[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
+        if (counter < 11)
+        {
+            counter += 1;
+        }
+        else
+        {
+            counter = 0;
+        }
     }
 }
