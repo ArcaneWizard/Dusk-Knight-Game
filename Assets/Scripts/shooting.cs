@@ -8,7 +8,7 @@ public class shooting : MonoBehaviour
     public GameObject grenade;
     public Transform muzzle;
     private float cooldown;
-    private float startcooldown=5;
+    private float startcooldown=3;
     private int counter = 0;
     GameObject[] grenadearr = new GameObject[12];
 
