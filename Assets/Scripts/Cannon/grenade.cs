@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class grenade : MonoBehaviour
 {
-    public float speed;
+    private float speed = 1f;
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class grenade : MonoBehaviour
         }
         else
         {
-            transform.position = new Vector3(100, 100, 100);
+            transform.gameObject.SetActive(false);
         }
         
     }

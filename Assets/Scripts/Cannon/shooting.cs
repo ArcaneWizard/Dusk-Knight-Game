@@ -5,19 +5,17 @@ using UnityEngine;
 public class shooting : MonoBehaviour
 {
 
-    public GameObject grenade;
+    public List<GameObject> ammo;
     public Transform muzzle;
     private float cooldown;
     private float startcooldown=3;
     private int counter = 0;
-    GameObject[] grenadearr = new GameObject[12];
 
     void Start()
     {
         Vector3 offscreen = new Vector3(100, 100, 100);
-        for (int i = 0; i< 12; i++ ){
-            GameObject ammo = Instantiate(grenade, offscreen, Quaternion.Euler(0f, 0f, 270f)) as GameObject;
-            grenadearr[i] = ammo;
+        for (int i = 2; i< 10; i++ ){
+            ammo.Add(transform.GetChild(i).gameObject);
         }
         cooldown = 0;
     }
@@ -47,9 +45,10 @@ public class shooting : MonoBehaviour
 
     void Fire(float rot)
     {
-        grenadearr[counter].transform.position = muzzle.position;
-        grenadearr[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
-        if (counter < 11)
+        ammo[counter].transform.position = muzzle.position;
+        ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
+        ammo[counter].SetActive(true);
+        if (counter < 7)
         {
             counter += 1;
         }
