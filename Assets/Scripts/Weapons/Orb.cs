@@ -23,10 +23,10 @@ public class Orb : MonoBehaviour
     {
         if (col.gameObject.layer == 10)
         {
-            if (gameObject.tag == "Reaper orb")
+            /*if (gameObject.tag == "Reaper orb")
             //do dmg to player
             if (gameObject.tag == "Witch orb")
-            //do dmg to player
+            //do dmg to player */
 
             gameObject.SetActive(false);
         }
