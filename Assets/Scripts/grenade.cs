@@ -15,7 +15,7 @@ public class grenade : MonoBehaviour
     
     void Update()
     {
-        transform.Translate(transform.up * speed * Time.deltaTime);
+        transform.Translate(new Vector3(0, 1, 0) * speed * Time.deltaTime);
         
     }
 

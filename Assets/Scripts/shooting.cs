@@ -41,6 +41,6 @@ public class shooting : MonoBehaviour
 
     void Fire(float rot)
     {
-        Instantiate(grenade, muzzle.position, Quaternion.Euler(0f, 0f, rot - 30));
+        Instantiate(grenade, muzzle.position, Quaternion.Euler(0f, 0f, rot+270));
     }
 }
