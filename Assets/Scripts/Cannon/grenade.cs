@@ -47,7 +47,7 @@ public class grenade : MonoBehaviour
         animator.SetBool("blowup", true);
         yield return new WaitForSeconds(0.5f);
         animator.SetBool("blowup", false);
-        transform.GetComponent<SpriteRenderer>().sprite = ;
+        transform.GetComponent<SpriteRenderer>().sprite = thing;
         transform.gameObject.SetActive(false);
         stop = false;
     }
