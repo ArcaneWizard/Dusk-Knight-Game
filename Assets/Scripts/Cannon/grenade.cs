@@ -33,7 +33,7 @@ public class grenade : MonoBehaviour
     {
         //transform.gameObject.GetComponent<>
         stop = true;
-        transform.GetComponent<PolygonCollider2D>().enabled = false;
+        //transform.GetComponent<PolygonCollider2D>().enabled = false;
         StartCoroutine(boom());
 
             //.gameObject.transform.GetComponent<Enemy_Health>().hp -= 100;
