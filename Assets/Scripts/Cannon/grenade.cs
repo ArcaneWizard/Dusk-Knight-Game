@@ -7,6 +7,7 @@ public class grenade : MonoBehaviour
     private float speed = 6f;
     Animator animator;
     private bool stop = false;
+    public Sprite thing;
 
     void Start()
     {
@@ -46,9 +47,7 @@ public class grenade : MonoBehaviour
         animator.SetBool("blowup", true);
         yield return new WaitForSeconds(0.5f);
         animator.SetBool("blowup", false);
-        animator.SetBool("revert", true);
-        yield return new WaitForSeconds(0.1f);
-        animator.SetBool("revert", false);
+        transform.GetComponent<SpriteRenderer>().sprite = ;
         transform.gameObject.SetActive(false);
         stop = false;
     }
