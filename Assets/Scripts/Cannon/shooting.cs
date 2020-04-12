@@ -8,14 +8,14 @@ public class shooting : MonoBehaviour
     public List<GameObject> ammo;
     public Transform muzzle;
     private float cooldown;
-    private float startcooldown=3;
+    private float startcooldown=2.5f;
     private int counter = 0;
 
     void Start()
     {
         Vector3 offscreen = new Vector3(100, 100, 100);
-        for (int i = 2; i< 10; i++ ){
-            ammo.Add(transform.GetChild(i).gameObject);
+        for (int i = 0; i< 8; i++ ){
+            ammo.Add(transform.parent.transform.GetChild(1).transform.GetChild(i).gameObject);
         }
         cooldown = 0;
     }
