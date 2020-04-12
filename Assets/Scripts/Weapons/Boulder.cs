@@ -13,7 +13,7 @@ public class Boulder : MonoBehaviour
     {
         if (switchBoulders == true)
         {
-            dir = new Vector2(150, 400);
+            dir = new Vector2(200, 300);
             transform.GetComponent<Rigidbody2D>().AddForce(dir);
             switchBoulders = false;
         }

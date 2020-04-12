@@ -24,7 +24,7 @@ public class Orc : MonoBehaviour
 
     void Update()
     {
-        transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
+        //transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
     }
 
     void OnCollisionEnter2D(Collision2D col)

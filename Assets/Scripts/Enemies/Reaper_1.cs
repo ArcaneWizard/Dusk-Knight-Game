@@ -41,7 +41,7 @@ public class Reaper_1 : MonoBehaviour
 
     void Update()
     {
-        transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
+        //transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
 
         if (animator.GetBool("Attack") == false && counter == true)
         {

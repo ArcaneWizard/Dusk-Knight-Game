@@ -27,7 +27,7 @@ public class Ogre : MonoBehaviour
 
     void Update()
     {
-        transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
+       // transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
     }
 
     private IEnumerator stageChange()

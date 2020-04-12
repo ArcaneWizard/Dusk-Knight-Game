@@ -24,8 +24,8 @@ public class Reaper_2 : MonoBehaviour
 
     void Update()
     {
-        if (animator.GetBool("Grounded") == true)
-        transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
+        //if (animator.GetBool("Grounded") == true)
+        //transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
     }
 
     void OnCollisionEnter2D(Collision2D col)
