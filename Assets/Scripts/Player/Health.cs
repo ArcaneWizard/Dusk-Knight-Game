@@ -38,7 +38,7 @@ public class Health : MonoBehaviour
             if (col.gameObject.tag == "Boulder")
                 playerHP -= 25;
 
-            Debug.Log(playerHP);
+            //Debug.Log(playerHP);
         }
     }
 }
