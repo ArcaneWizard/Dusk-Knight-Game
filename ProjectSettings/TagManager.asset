@@ -8,6 +8,7 @@ TagManager:
   - Reaper orb
   - Boulder
   - Canvas
+  - grenade
   layers:
   - Default
   - TransparentFX

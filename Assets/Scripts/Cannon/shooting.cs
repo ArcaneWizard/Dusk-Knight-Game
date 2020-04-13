@@ -11,12 +11,21 @@ public class shooting : MonoBehaviour
     private float startcooldown=2.0f;
     private int counter = 0;
 
+    GameObject weaponType;
+
     void Start()
     {
-        Vector3 offscreen = new Vector3(100, 100, 100);
-        for (int i = 0; i< 8; i++ ){
-            ammo.Add(transform.parent.transform.GetChild(1).transform.GetChild(i).gameObject);
-        }
+        changeWeapon();
+    }
+
+    void changeWeapon()
+    {        
+        //Only need to change this one line for diff weapons (depending on weapon selected when that's implemented)
+        weaponType = GameObject.Find("Grenade");
+
+        for (int i = 0; i < weaponType.transform.childCount; i++)
+            ammo.Add(weaponType.transform.GetChild(i).gameObject);
+
         cooldown = 0;
     }
 
@@ -45,16 +54,15 @@ public class shooting : MonoBehaviour
 
     void Fire(float rot)
     {
-        ammo[counter].transform.position = muzzle.position;
-        ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
+        //Modify the position/rotation code based on weapon type
+        if (weaponType == GameObject.Find("Grenade"))
+        {
+            ammo[counter].transform.position = muzzle.position;
+            ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
+        }
+
         ammo[counter].SetActive(true);
-        if (counter < 7)
-        {
-            counter += 1;
-        }
-        else
-        {
-            counter = 0;
-        }
+        counter += 1;
+        counter %= (weaponType.transform.childCount - 1);
     }
 }

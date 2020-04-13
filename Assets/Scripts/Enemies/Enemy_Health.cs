@@ -56,7 +56,7 @@ public class Enemy_Health : MonoBehaviour
     private IEnumerator checkDeath()
     {
         animator.SetBool("Dead", true);
-        yield return new WaitForSeconds(0.1f); ;
+        yield return new WaitForSeconds(0.01f); 
         death = true;
     }
 }
