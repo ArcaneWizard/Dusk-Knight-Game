@@ -9,7 +9,6 @@ public class grenade : MonoBehaviour
     Animator animator;
     private bool stop = false;
     public Sprite thing;
-    private bool dmgOnce = false;
 
     void Start()
     {
@@ -34,17 +33,12 @@ public class grenade : MonoBehaviour
         stop = true;
         StartCoroutine(boom());
 
-        //dmgOnce ensures the growing collider of 1 grenade doesn't accidenly dmg an enemy multiple times through multiple collisions 
-        if (dmgOnce == false)
-        {
             //Same dmg is done to all Enemies for now but this could change if magical enemies are resistant to explosions later on
             //That's why I added specific enemy layers
             if (col.gameObject.layer == 8 || col.gameObject.layer == 9 || col.gameObject.layer == 11 || col.gameObject.layer == 19 || col.gameObject.layer == 20 || col.gameObject.layer == 21)
             {
                 col.gameObject.transform.GetComponent<Enemy_Health>().hp -= 100;
-                dmgOnce = true;
             }
-        }
     }
 
     private IEnumerator boom()
@@ -65,6 +59,5 @@ public class grenade : MonoBehaviour
         transform.GetComponent<SpriteRenderer>().sprite = thing;
         transform.gameObject.SetActive(false);
         stop = false;
-        dmgOnce = false;
     }
 }

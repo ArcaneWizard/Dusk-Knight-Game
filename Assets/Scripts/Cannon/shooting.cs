@@ -63,6 +63,6 @@ public class shooting : MonoBehaviour
 
         ammo[counter].SetActive(true);
         counter += 1;
-        counter %= (weaponType.transform.childCount - 1);
+        counter %= (weaponType.transform.childCount);
     }
 }

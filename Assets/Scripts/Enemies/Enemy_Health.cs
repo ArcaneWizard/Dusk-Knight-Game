@@ -49,14 +49,14 @@ public class Enemy_Health : MonoBehaviour
         }
         if (death == true && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.85f)
         {
-            gameObject.SetActive(false);
+           // gameObject.SetActive(false);
         }
     }
 
     private IEnumerator checkDeath()
     {
         animator.SetBool("Dead", true);
-        yield return new WaitForSeconds(0.01f); 
+        yield return new WaitForSeconds(0.1f); 
         death = true;
     }
 }
