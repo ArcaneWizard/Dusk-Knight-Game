@@ -18,6 +18,22 @@ public class Spawner : MonoBehaviour
     private int cOrc = 0;
     private int cGoblin = 0;
 
+
+    //Spawn enemies here -->
+    private IEnumerator spawn()
+    {
+        for (int i = 1; i <= 6; i++)
+        {
+            deployEnemy("R2");
+            deployEnemy("R3");
+            deployEnemy("Orc");
+            deployEnemy("Goblin");
+            deployEnemy("Ogre");
+            deployEnemy("R1");
+            yield return new WaitForSeconds(1);
+        }
+    }
+
     void Start()
     {
         /*
@@ -32,6 +48,43 @@ public class Spawner : MonoBehaviour
         */
 
         StartCoroutine(spawn());
+
+      /*  for (int i = 1; i <= GameObject.Find("R1 Group").gameObject.transform.childCount; i++)
+        {
+            GameObject.Find("R1 Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
+            GameObject.Find("R1 Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingOrder = i-1 + 10;
+        }
+
+        for (int i = 1; i <= GameObject.Find("R2 Group").gameObject.transform.childCount; i++)
+        {
+            GameObject.Find("R2 Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
+            GameObject.Find("R2 Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingOrder = i - 1 + 20;
+        }
+
+        for (int i = 1; i <= GameObject.Find("R3 Group").gameObject.transform.childCount; i++)
+        {
+            GameObject.Find("R3 Group").gameObject.transform.GetChild(i - 1).transform.GetChild(0).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
+            GameObject.Find("R3 Group").gameObject.transform.GetChild(i - 1).transform.GetChild(0).transform.GetComponent<SpriteRenderer>().sortingOrder = i - 1 + 30;
+        }
+
+        for (int i = 1; i <= GameObject.Find("Orc Group").gameObject.transform.childCount; i++)
+        {
+            GameObject.Find("Orc Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
+            GameObject.Find("Orc Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingOrder = i - 1 + 40;
+        }
+
+        for (int i = 1; i <= GameObject.Find("Ogre Group").gameObject.transform.childCount; i++)
+        {
+            GameObject.Find("Ogre Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
+            GameObject.Find("Ogre Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingOrder = i - 1 + 50;
+        }
+
+        for (int i = 1; i <= GameObject.Find("Goblin Group").gameObject.transform.childCount; i++)
+        {
+            GameObject.Find("Goblin Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
+            GameObject.Find("Goblin Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingOrder = i - 1 + 60;
+        }*/
+
     }
 
     //See above (for reset)
@@ -40,21 +93,6 @@ public class Spawner : MonoBehaviour
         for (int i = 1; i <= enemyType.transform.childCount; i++)
         {
             enemyList.Add(enemyType.transform.GetChild(i - 1).gameObject);
-        }
-    }
-
-    //Spawn enemies here -->
-    private IEnumerator spawn()
-    {
-        for (int i = 1; i <= 6; i++)
-        {
-            deployEnemy("R2");
-            deployEnemy("R3");
-            deployEnemy("Orc");
-            deployEnemy("Goblin");
-            deployEnemy("Ogre");
-            deployEnemy("R1");
-            yield return new WaitForSeconds(1);
         }
     }
 
