@@ -9,7 +9,7 @@ public class Ogre : MonoBehaviour
     Rigidbody2D rig;
     public float speed = 0.7f;
     private bool stopMoving = false;
-    private bool quit = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +27,7 @@ public class Ogre : MonoBehaviour
 
     void Update()
     {
-       // transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
+        // transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);       
     }
 
     private IEnumerator stageChange()

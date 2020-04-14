@@ -9,6 +9,7 @@ public class Goblin : MonoBehaviour
     Rigidbody2D rig;
     private float speed = 2f;
     private float delay = 1.2f;
+    private bool AttackedOnce = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,18 @@ public class Goblin : MonoBehaviour
     void Update()
     {
         //transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Goblin Slashing") && transform.GetComponent<Enemy_Health>().hp > 0)
+        {
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 < 2f / 12f && AttackedOnce == true)
+            {
+                AttackedOnce = false;
+            }
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 >= 2f / 12f && AttackedOnce == false)
+            {
+                Health.playerHP -= Health.GobDmg;
+                AttackedOnce = true;
+            }
+        }
     }
 
     private IEnumerator run()

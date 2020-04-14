@@ -8,6 +8,10 @@ public class Health : MonoBehaviour
     public static int playerHP;
     public static int maxPlayerHP;
 
+    public static int OrcDmg = 20;
+    public static int GobDmg = 15;
+    public static int R2Dmg = 15;
+
     private Image hp;
 
     // Start is called before the first frame update
@@ -37,8 +41,6 @@ public class Health : MonoBehaviour
 
             if (col.gameObject.tag == "Boulder")
                 playerHP -= 25;
-
-            //Debug.Log(playerHP);
         }
     }
 }

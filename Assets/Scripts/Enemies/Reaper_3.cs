@@ -61,29 +61,38 @@ public class Reaper_3 : MonoBehaviour
         yield return new WaitForSeconds(speed_y);
         height = ampMultiplier * (float) Math.Sin(Math.PI * x) + 1.83f;
         height += height_Add;
-        transform.position = new Vector2(transform.position.x, height);
-        StartCoroutine(varyHeight());
+
+        if (transform.GetComponent<Enemy_Health>().hp > 0)
+        {
+            transform.position = new Vector2(transform.position.x, height);
+            StartCoroutine(varyHeight());
+        }
     }
 
     // Update is called once per frame
     void Update()
-    {     
-        if (bound == 7.74f && transform.position.x > 7.74f)
+    {
+        if (transform.GetComponent<Enemy_Health>().hp > 0)
         {
-            bound = -7.74f;
-            rig.velocity = new Vector2(-speed, 0);
+            if (bound == 7.74f && transform.position.x > 7.74f)
+            {
+                bound = -7.74f;
+                rig.velocity = new Vector2(-speed, 0);
+            }
+
+            if (bound == -7.74f && transform.position.x < -7.74f)
+            {
+                bound = 7.74f;
+                rig.velocity = new Vector2(speed, 0);
+            }
+
+            if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
+                transform.rotation = Quaternion.Euler(new Vector2(0, 180));
+
+            if (transform.position.x < GameObject.FindGameObjectWithTag("Player").transform.position.x)
+                transform.rotation = Quaternion.Euler(new Vector2(0, 0));
         }
-
-        if (bound == -7.74f && transform.position.x < -7.74f)
-        {
-            bound = 7.74f;
-            rig.velocity = new Vector2(speed, 0);
-        }
-
-        if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
-            transform.rotation = Quaternion.Euler(new Vector2(0, 180));
-
-        if (transform.position.x < GameObject.FindGameObjectWithTag("Player").transform.position.x)
-            transform.rotation = Quaternion.Euler(new Vector2(0, 0));
+        else
+            rig.velocity = new Vector2(0, 0);
     }
 }

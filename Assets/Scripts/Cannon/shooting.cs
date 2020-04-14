@@ -8,7 +8,7 @@ public class shooting : MonoBehaviour
     public List<GameObject> ammo;
     public Transform muzzle;
     private float cooldown;
-    private float startcooldown=2.0f;
+    private float startcooldown= 0.5f;
     private int counter = 0;
 
     GameObject weaponType;

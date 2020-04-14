@@ -81,6 +81,9 @@ public class WeaponsCycle : MonoBehaviour
 
                 ammo[cycle].transform.position = transform.GetChild(2).transform.position;
                 ammo[cycle].transform.GetComponent<Boulder>().switchBoulders = true;
+                if (gameObject.layer == 9 && gameObject.transform.position.x < GameObject.FindGameObjectWithTag("Player").transform.position.x)
+                    ammo[cycle].transform.GetComponent<Boulder>().side = "left";
+
                 ammo[cycle].SetActive(true);
 
                 cycle++;

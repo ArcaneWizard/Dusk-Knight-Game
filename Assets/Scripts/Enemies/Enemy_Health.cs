@@ -45,18 +45,43 @@ public class Enemy_Health : MonoBehaviour
     {
         if (hp <= 0 && death == false)
         {
-            StartCoroutine(checkDeath());
-        }
-        if (death == true && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.85f)
-        {
-           // gameObject.SetActive(false);
+            checkDeath();
+            death = true;
         }
     }
 
-    private IEnumerator checkDeath()
+    private IEnumerator fade()
+    {
+        yield return new WaitForSeconds(0.1f);
+        /*while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) {
+            yield return new WaitForSeconds(1.0f);
+            Debug.Log("rip");
+        }*/
+
+        float scale = 0.93f;
+        float rotSpeed = 25f;
+
+        for (int i = 17; i >= 0; i--)
+        {
+            transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, (byte)(15*i));
+            transform.localScale *= scale;
+            transform.Rotate(new Vector3(0, 0, rotSpeed));
+
+            yield return new WaitForSeconds(0.05f); 
+        }
+    }
+
+    private void checkDeath()
     {
         animator.SetBool("Dead", true);
-        yield return new WaitForSeconds(0.1f); 
-        death = true;
+
+        transform.GetComponent<Rigidbody2D>().gravityScale = 0;
+        transform.GetComponent<PolygonCollider2D>().enabled = false;
+        transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+
+        if (gameObject.layer == 21)
+            transform.GetChild(0).gameObject.SetActive(false);
+
+        StartCoroutine(fade());
     }
 }

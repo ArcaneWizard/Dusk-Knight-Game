@@ -7,13 +7,17 @@ public class Boulder : MonoBehaviour
     Vector2 dir;
     [HideInInspector]
     public bool switchBoulders = false;
+    public string side = "right";
 
     // Start is called before the first frame update
     void Update()
     {
         if (switchBoulders == true)
         {
-            dir = new Vector2(200, 300);
+            if (side == "left")
+                dir = new Vector2(200, 300);
+            else
+                dir = new Vector2(-200, 300);
             transform.GetComponent<Rigidbody2D>().AddForce(dir);
             switchBoulders = false;
         }

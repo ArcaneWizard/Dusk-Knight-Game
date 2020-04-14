@@ -31,7 +31,7 @@ public class Reaper_1 : MonoBehaviour
         animator.SetBool("Attack", true);
         rig.velocity = new Vector2(0, 0);
         yield return new WaitForSeconds(0.85f);
-        if (counter == false)
+        if (counter == false && transform.GetComponent<Enemy_Health>().hp > 0)
         {
             animator.SetBool("Attack", false);
             rig.velocity = new Vector2(speed, 0);
