@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 public class bullet : MonoBehaviour
 {
-    private float speed = 2f;
+    private float speed = 10f;
     private bool stop = false;
     public bool oneHit = false;
 

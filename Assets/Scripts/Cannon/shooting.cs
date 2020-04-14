@@ -18,7 +18,7 @@ public class shooting : MonoBehaviour
         changeWeapon();
     }
 
-    void changeWeapon()
+    public void changeWeapon()
     {
         //Only need to change this one line for diff weapons (depending on weapon selected when that's implemented)
         if (transform.gameObject.name == "Launcher")
