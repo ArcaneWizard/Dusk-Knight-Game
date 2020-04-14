@@ -8,7 +8,7 @@ public class shooting : MonoBehaviour
     public List<GameObject> ammo;
     public Transform muzzle;
     private float cooldown;
-    private float startcooldown= 0.5f;
+    private float startcooldown;
     private int counter = 0;
 
     GameObject weaponType;
@@ -19,12 +19,25 @@ public class shooting : MonoBehaviour
     }
 
     void changeWeapon()
-    {        
+    {
         //Only need to change this one line for diff weapons (depending on weapon selected when that's implemented)
-        weaponType = GameObject.Find("Grenade");
+        if (transform.gameObject.name == "Launcher")
+        {
+            weaponType = GameObject.Find("Grenade");
 
-        for (int i = 0; i < weaponType.transform.childCount; i++)
-            ammo.Add(weaponType.transform.GetChild(i).gameObject);
+            for (int i = 0; i < weaponType.transform.childCount; i++)
+                ammo.Add(weaponType.transform.GetChild(i).gameObject);
+            startcooldown = 2f;
+        }
+
+        if (transform.gameObject.name == "Gatling")
+        {
+            weaponType = GameObject.Find("Bullet");
+
+            for (int i = 0; i < weaponType.transform.childCount; i++)
+                ammo.Add(weaponType.transform.GetChild(i).gameObject);
+            startcooldown = 0.6f;
+        }
 
         cooldown = 0;
     }
@@ -59,6 +72,12 @@ public class shooting : MonoBehaviour
         {
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
+        }
+
+        if (weaponType == GameObject.Find("Bullet"))
+        {
+            ammo[counter].transform.position = muzzle.position;
+            ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot-20);
         }
 
         ammo[counter].SetActive(true);

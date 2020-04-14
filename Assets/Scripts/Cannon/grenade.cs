@@ -20,7 +20,7 @@ public class grenade : MonoBehaviour
     void Update()
     {
         //Could you reduce the outer bounds on this? They seem way larger than they need to be. Isn't really important lag wise but any optimization helps.
-        if((Mathf.Abs(transform.position.x) < 9.0f || Mathf.Abs(transform.position.y) < 5.7f) && stop == false)
+        if((Mathf.Abs(transform.position.x) < 8.7f || Mathf.Abs(transform.position.y) < 5.4f) && stop == false)
             transform.Translate(new Vector3(0, 1, 0) * speed * Time.deltaTime);
 
         else if (stop == false)
