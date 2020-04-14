@@ -36,7 +36,7 @@ public class shooting : MonoBehaviour
 
             for (int i = 0; i < weaponType.transform.childCount; i++)
                 ammo.Add(weaponType.transform.GetChild(i).gameObject);
-            startcooldown = 0.6f;
+            startcooldown = 0.3f;
         }
 
         cooldown = 0;
@@ -50,7 +50,10 @@ public class shooting : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position) - transform.position;
             float rot = Mathf.Atan2(touchPosition.y, touchPosition.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, rot);
+            if(weaponType == GameObject.Find("Grenade"))
+                transform.rotation = Quaternion.Euler(0f, 0f, rot);
+            if(weaponType == GameObject.Find("Bullet"))
+                transform.rotation = Quaternion.Euler(0f, 0f, rot-90);
             if (cooldown <= 0)
             {
                 cooldown = startcooldown;
@@ -77,11 +80,21 @@ public class shooting : MonoBehaviour
         if (weaponType == GameObject.Find("Bullet"))
         {
             ammo[counter].transform.position = muzzle.position;
-            ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot-20);
+            ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
+            StartCoroutine(Flash());
         }
 
         ammo[counter].SetActive(true);
         counter += 1;
         counter %= (weaponType.transform.childCount);
+    }
+
+    private IEnumerator Flash()
+    {
+        float r = UnityEngine.Random.Range(0.1f, 0.2f);
+        transform.GetChild(2).gameObject.SetActive(true);
+        yield return new WaitForSeconds(r);
+        transform.GetChild(2).gameObject.SetActive(false);
+
     }
 }
