@@ -24,20 +24,17 @@ public class shooting : MonoBehaviour
         if (transform.gameObject.name == "Launcher")
         {
             weaponType = GameObject.Find("Grenade");
-
-            for (int i = 0; i < weaponType.transform.childCount; i++)
-                ammo.Add(weaponType.transform.GetChild(i).gameObject);
             startcooldown = 2f;
         }
 
         if (transform.gameObject.name == "Gatling")
         {
             weaponType = GameObject.Find("Bullet");
-
-            for (int i = 0; i < weaponType.transform.childCount; i++)
-                ammo.Add(weaponType.transform.GetChild(i).gameObject);
             startcooldown = 0.3f;
         }
+
+        for (int i = 0; i < weaponType.transform.childCount; i++)
+            ammo.Add(weaponType.transform.GetChild(i).gameObject);
 
         cooldown = 0;
     }
@@ -81,6 +78,7 @@ public class shooting : MonoBehaviour
         {
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
+            ammo[counter].transform.GetComponent<bullet>().oneHit = false;
             StartCoroutine(Flash());
         }
 

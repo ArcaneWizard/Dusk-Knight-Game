@@ -49,7 +49,9 @@ public class Spawner : MonoBehaviour
 
         StartCoroutine(spawn());
 
-      /*  for (int i = 1; i <= GameObject.Find("R1 Group").gameObject.transform.childCount; i++)
+      /* Use to reset enemy layers (when more of each type are added)
+       
+        for (int i = 1; i <= GameObject.Find("R1 Group").gameObject.transform.childCount; i++)
         {
             GameObject.Find("R1 Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
             GameObject.Find("R1 Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingOrder = i-1 + 10;
