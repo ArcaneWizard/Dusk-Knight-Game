@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 public class cannon_ball : MonoBehaviour
 {
-    private float speed = 1.2f;
+    private float speed = 2.7f;
     private bool stop = false;
     public bool oneHit = false;
     public bool oneLaunch = false;
@@ -16,8 +16,8 @@ public class cannon_ball : MonoBehaviour
         {
             if (oneLaunch == false)
             {
-                Debug.Log("damn");
-                transform.GetComponent<Rigidbody2D>().AddForce(transform.up * speed * 200);
+                transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                transform.GetComponent<Rigidbody2D>().AddForce(transform.up * speed * 400 * shooting.touchPercent);
                 oneLaunch = true;
             }
         }

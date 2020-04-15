@@ -11,6 +11,7 @@ public class shooting : MonoBehaviour
     private float cooldown;
     private float startcooldown;
     private int counter = 0;
+    public static float touchPercent;
 
     GameObject weaponType;
 
@@ -37,7 +38,7 @@ public class shooting : MonoBehaviour
         if (transform.gameObject.name == "Gunpowder Cannon")
         {
             weaponType = GameObject.FindGameObjectWithTag("CB");
-            startcooldown = 0.3f;
+            startcooldown = 0.8f;
         }
         
         for (int i = 0; i < weaponType.transform.childCount; i++)
@@ -61,9 +62,8 @@ public class shooting : MonoBehaviour
             if (weaponType == GameObject.Find("Bullet"))
                 transform.rotation = Quaternion.Euler(0f, 0f, rot-90);
 
-/*            Vector2 vectorFromTouch = touch.position - new Vector2(Screen.width/2f, Screen.height/2f);
-            float touchDistance = vectorFromTouch.magnitude;
-            Debug.Log(touchDistance);*/
+            Vector2 vectorFromTouch = touch.position - new Vector2(Screen.width/2f, Screen.height/2f);            
+            touchPercent = (vectorFromTouch/new Vector2(Screen.width, Screen.height)).magnitude;
 
             if (cooldown <= 0)
             {
