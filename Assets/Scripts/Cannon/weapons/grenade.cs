@@ -5,10 +5,11 @@ using UnityEngine.Rendering;
 
 public class grenade : MonoBehaviour
 {
-    private float speed = 6f;
+    private float speed = 3f;
     Animator animator;
     private bool stop = false;
     public Sprite thing;
+    public bool oneLaunch = false;
 
     void Start()
     {
@@ -19,9 +20,16 @@ public class grenade : MonoBehaviour
     
     void Update()
     {
-        //Could you reduce the outer bounds on this? They seem way larger than they need to be. Isn't really important lag wise but any optimization helps.
-        if((Mathf.Abs(transform.position.x) < 10f && Mathf.Abs(transform.position.y) < 9f) && stop == false)
-            transform.GetComponent<Rigidbody2D>().velocity = transform.up * speed;
+
+        if ((Mathf.Abs(transform.position.x) < 10f || Mathf.Abs(transform.position.y) < 9f) && stop == false)
+        {
+            if (oneLaunch == false)
+            {
+                transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                transform.GetComponent<Rigidbody2D>().AddForce(transform.up * speed * 400 * shooting.touchPercent);
+                oneLaunch = true;
+            }
+        }
 
         else if (stop == false)
             transform.gameObject.SetActive(false);

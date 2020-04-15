@@ -86,6 +86,7 @@ public class shooting : MonoBehaviour
         {
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
+            ammo[counter].transform.GetComponent<grenade>().oneLaunch = false;
         }
 
         if (weaponType == GameObject.Find("Bullet"))
