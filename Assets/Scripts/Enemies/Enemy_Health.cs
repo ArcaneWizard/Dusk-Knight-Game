@@ -6,6 +6,8 @@ public class Enemy_Health : MonoBehaviour
 {
     //[HideInInspector]
     public int hp = 1;
+    private int lastHP;
+    private int maxHP;
 
     private int orc = 70;
     private int ogre = 120;
@@ -38,6 +40,8 @@ public class Enemy_Health : MonoBehaviour
         if (gameObject.layer == 21)
             hp = reaper_3;
 
+        lastHP = hp;
+        maxHP = hp;
         animator = transform.GetComponent<Animator>();
     }
 
@@ -48,16 +52,21 @@ public class Enemy_Health : MonoBehaviour
             checkDeath();
             death = true;
         }
+
+        if (lastHP != hp)
+        {
+            lastHP = hp;
+            StartCoroutine(alter());
+        }
+
+        /*if (hp > 0 && hp <= maxHP/2)
+            gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(255, 137, 137, 255);*/
+
     }
 
     private IEnumerator fade()
     {
         yield return new WaitForSeconds(0.1f);
-        /*while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) {
-            yield return new WaitForSeconds(1.0f);
-            Debug.Log("rip");
-        }*/
-
         float scale = 0.93f;
         float rotSpeed = 25f;
 
@@ -83,5 +92,12 @@ public class Enemy_Health : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(false);
 
         StartCoroutine(fade());
+    }
+
+    private IEnumerator alter()
+    {
+        gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(245, 0, 0, 255);
+        yield return new WaitForSeconds(0.1f);
+        gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
     }
 }
