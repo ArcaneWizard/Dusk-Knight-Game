@@ -89,7 +89,7 @@ public class shooting : MonoBehaviour
 
     private IEnumerator Flash()
     {
-        float r = UnityEngine.Random.Range(0.1f, 0.2f);
+        float r = UnityEngine.Random.Range(0.08f, 0.15f);
         transform.GetChild(2).gameObject.SetActive(true);
         yield return new WaitForSeconds(r);
         transform.GetChild(2).gameObject.SetActive(false);

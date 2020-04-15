@@ -34,7 +34,7 @@ public class bullet : MonoBehaviour
         {
             if (oneHit == false)
             {
-                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= 40;
+                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= 30;
                 oneHit = true;
             }
         }
