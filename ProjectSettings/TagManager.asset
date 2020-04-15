@@ -9,6 +9,7 @@ TagManager:
   - Boulder
   - Canvas
   - grenade
+  - CB
   layers:
   - Default
   - TransparentFX

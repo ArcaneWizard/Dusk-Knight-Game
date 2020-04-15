@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
     //Spawn enemies here -->
     private IEnumerator spawn()
     {
-        for (int i = 1; i <= 6; i++)
+        for (int i = 1; i <= 1; i++)
         {
             deployEnemy("R2");
             deployEnemy("R3");
@@ -36,16 +36,15 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
-        /*
-        Use to reset enemy lists (add more of each type) 
-
-        prepList(GameObject.Find("R1 Group"), R1);
+        
+        //Use to reset enemy lists (add more of each type) 
+        
+        /*prepList(GameObject.Find("R1 Group"), R1);
         prepList(GameObject.Find("R2 Group"), R2);
         prepList(GameObject.Find("R3 Group"), R3);
         prepList(GameObject.Find("Orc Group"), Orc);
         prepList(GameObject.Find("Goblin Group"), Goblin);
-        prepList(GameObject.Find("Ogre Group"), Ogre);
-        */
+        prepList(GameObject.Find("Ogre Group"), Ogre);*/        
 
         StartCoroutine(spawn());
 
@@ -92,6 +91,7 @@ public class Spawner : MonoBehaviour
     //See above (for reset)
     void prepList(GameObject enemyType, List<GameObject> enemyList)
     {
+        enemyList.Clear();
         for (int i = 1; i <= enemyType.transform.childCount; i++)
         {
             enemyList.Add(enemyType.transform.GetChild(i - 1).gameObject);

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class shooting : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class shooting : MonoBehaviour
         if (transform.gameObject.name == "Launcher")
         {
             weaponType = GameObject.Find("Grenade");
-            startcooldown = 2f;
+            startcooldown = 0.8f;
         }
 
         if (transform.gameObject.name == "Gatling")
@@ -33,6 +34,12 @@ public class shooting : MonoBehaviour
             startcooldown = 0.3f;
         }
 
+        if (transform.gameObject.name == "Gunpowder Cannon")
+        {
+            weaponType = GameObject.FindGameObjectWithTag("CB");
+            startcooldown = 0.3f;
+        }
+        
         for (int i = 0; i < weaponType.transform.childCount; i++)
             ammo.Add(weaponType.transform.GetChild(i).gameObject);
 
@@ -45,12 +52,19 @@ public class shooting : MonoBehaviour
         if(Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position) - transform.position;
+            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position) - transform.position;
             float rot = Mathf.Atan2(touchPosition.y, touchPosition.x) * Mathf.Rad2Deg;
             if(weaponType == GameObject.Find("Grenade"))
                 transform.rotation = Quaternion.Euler(0f, 0f, rot);
-            if(weaponType == GameObject.Find("Bullet"))
+            if (weaponType == GameObject.FindGameObjectWithTag("CB"))
+                transform.rotation = Quaternion.Euler(0f, 0f, rot);
+            if (weaponType == GameObject.Find("Bullet"))
                 transform.rotation = Quaternion.Euler(0f, 0f, rot-90);
+
+/*            Vector2 vectorFromTouch = touch.position - new Vector2(Screen.width/2f, Screen.height/2f);
+            float touchDistance = vectorFromTouch.magnitude;
+            Debug.Log(touchDistance);*/
+
             if (cooldown <= 0)
             {
                 cooldown = startcooldown;
@@ -81,6 +95,14 @@ public class shooting : MonoBehaviour
             ammo[counter].transform.GetComponent<bullet>().oneHit = false;
             StartCoroutine(Flash());
         }
+        if (weaponType == GameObject.Find("Cannon Ball"))
+        {
+            ammo[counter].transform.position = muzzle.position;
+            ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
+            ammo[counter].transform.GetComponent<cannon_ball>().oneHit = false;
+            ammo[counter].transform.GetComponent<cannon_ball>().oneLaunch = false;
+        }
+
 
         ammo[counter].SetActive(true);
         counter += 1;
