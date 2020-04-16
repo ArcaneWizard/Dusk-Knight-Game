@@ -9,21 +9,6 @@ public class Reaper_1 : MonoBehaviour
     Rigidbody2D rig;
     private float speed = 0.4f;
     private bool counter = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
-        {
-            speed *= -1;
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
-        animator = transform.GetComponent<Animator>();
-        rig = transform.GetComponent<Rigidbody2D>();
-        rig.velocity = new Vector2(speed, 0);
-        StartCoroutine(attack());
-    }
-
     private IEnumerator attack()
     {
         float r = UnityEngine.Random.Range(3.0f, 4.0f);
@@ -41,7 +26,23 @@ public class Reaper_1 : MonoBehaviour
 
     void Update()
     {
-        //transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
+        if (transform.GetComponent<Enemy_Health>().deploy == true)
+        {
+            animator = transform.GetComponent<Animator>();
+            animator.SetBool("Attack", false);
+            animator.SetBool("Dead", false);
+
+            speed = Enemy_Health.R1_speed;
+            if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
+            {
+                speed *= -1;
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            rig = transform.GetComponent<Rigidbody2D>();
+            rig.velocity = new Vector2(speed, 0);
+            StartCoroutine(attack());
+            transform.GetComponent<Enemy_Health>().deploy = false;
+        }
 
         if (animator.GetBool("Attack") == false && counter == true)
         {

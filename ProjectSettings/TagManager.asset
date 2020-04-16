@@ -10,6 +10,7 @@ TagManager:
   - Canvas
   - grenade
   - CB
+  - Ranged Shooter
   layers:
   - Default
   - TransparentFX

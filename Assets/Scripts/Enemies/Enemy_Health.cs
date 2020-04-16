@@ -9,18 +9,37 @@ public class Enemy_Health : MonoBehaviour
     private int lastHP;
     private int maxHP;
 
-    private int orc = 70;
-    private int ogre = 120;
+    private int orc = 120;
+    private int ogre = 70;
     private int goblin = 50;
     private int reaper_1 = 60;
     private int reaper_2 = 80;
     private int reaper_3 = 80;
 
+    public static float orc_speed = 0.4f;
+    public static float ogre_speed = 0.5f;
+    public static float goblin_speed = 0.9f;
+    public static float R1_speed = 0.5f;
+    public static float R2_speed = 0.7f;
+
     Animator animator;
     private bool death = false;
+    public bool deploy = true;
+
+    private Vector2 localPos;
+    private float ogScaleX;
+    private float ogScaleY;
 
     // Start is called before the first frame update
     void Awake()
+    {
+        setHP();
+        ogScaleX = transform.localScale.x;
+        ogScaleY = transform.localScale.y;
+        animator = transform.GetComponent<Animator>();
+    }
+
+    public void setHP()
     {
         if (gameObject.layer == 8)
             hp = orc;
@@ -42,7 +61,10 @@ public class Enemy_Health : MonoBehaviour
 
         lastHP = hp;
         maxHP = hp;
-        animator = transform.GetComponent<Animator>();
+        death = false;
+
+        if (gameObject.tag == "Ranged Shooter")
+            transform.localPosition = new Vector2(0, 0);
     }
 
     void Update()
@@ -78,13 +100,24 @@ public class Enemy_Health : MonoBehaviour
 
             yield return new WaitForSeconds(0.05f); 
         }
+
+        if (gameObject.tag != "Ranged Shooter")
+            gameObject.SetActive(false);
+        else
+            gameObject.transform.parent.gameObject.SetActive(false);
+    }
+
+    public void undoFade()
+    {
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.localScale = new Vector2(ogScaleX, ogScaleY);
+        transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
     }
 
     private void checkDeath()
     {
         animator.SetBool("Dead", true);
 
-        transform.GetComponent<Rigidbody2D>().gravityScale = 0;
         transform.GetComponent<PolygonCollider2D>().enabled = false;
         transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 

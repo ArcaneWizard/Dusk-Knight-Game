@@ -10,10 +10,12 @@ public class grenade : MonoBehaviour
     private bool stop = false;
     public Sprite thing;
     public bool oneLaunch = false;
+    private Rigidbody2D rig;
 
     void Start()
     {
         animator = transform.GetComponent<Animator>();
+        rig = transform.GetComponent<Rigidbody2D>();
         animator.SetBool("blowup", false);
     }
 
@@ -34,9 +36,12 @@ public class grenade : MonoBehaviour
         else if (stop == false)
             transform.gameObject.SetActive(false);
 
+        float rot = Mathf.Atan2(rig.velocity.y, rig.velocity.x) * Mathf.Rad2Deg;
+        if (rig.velocity != new Vector2(0, 0)) 
+           transform.rotation = Quaternion.Euler(0f, 0f, rot + 90f);
+
         if (stop == true)
             transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-
     }
 
 

@@ -1140,7 +1140,29 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7511853096424046346, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bba53886c81e5044b81d2f1da0dbc16b,
+        type: 3}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.56
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
 --- !u!1 &172060535
 GameObject:
@@ -1202,7 +1224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 186330005}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.95, y: -2.629044, z: 0}
+  m_LocalPosition: {x: 0, y: -2.629044, z: 0}
   m_LocalScale: {x: 0.42, y: 0.42, z: 1}
   m_Children: []
   m_Father: {fileID: 1365727042}
@@ -1221,6 +1243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!60 &186330008
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1379,7 +1402,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1671,7 +1694,7 @@ GameObject:
   - component: {fileID: 249361348}
   m_Layer: 19
   m_Name: Reaper 1
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1717,6 +1740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &249361350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1868,7 +1892,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1973,7 +1997,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264882747}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.02, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 0.38, y: 0.38, z: 1}
   m_Children: []
   m_Father: {fileID: 983524520}
@@ -1992,6 +2016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &264882750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2385,7 +2410,7 @@ GameObject:
   - component: {fileID: 310108249}
   m_Layer: 21
   m_Name: Reaper 3
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2398,7 +2423,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 310108247}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.57024, y: 0.011520386, z: 0}
+  m_LocalPosition: {x: 0, y: 0.011520386, z: 0}
   m_LocalScale: {x: 0.28800002, y: 0.28800002, z: 1}
   m_Children:
   - {fileID: 1668350427}
@@ -2432,6 +2457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &310108251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2699,7 +2725,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314322466}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.95, y: -2.629044, z: 0}
+  m_LocalPosition: {x: 0, y: -2.629044, z: 0}
   m_LocalScale: {x: 0.42, y: 0.42, z: 1}
   m_Children: []
   m_Father: {fileID: 1365727042}
@@ -2718,6 +2744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!60 &314322469
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2876,7 +2903,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -3747,7 +3774,29 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7511853096424046346, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bba53886c81e5044b81d2f1da0dbc16b,
+        type: 3}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.56
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
 --- !u!1 &459160284
 GameObject:
@@ -3885,7 +3934,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496639491}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.06, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 0.38, y: 0.38, z: 1}
   m_Children: []
   m_Father: {fileID: 983524520}
@@ -3904,6 +3953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 80
+  deploy: 1
 --- !u!114 &496639494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4269,7 +4319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 544255358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.364981, y: -2.629044, z: 0}
+  m_LocalPosition: {x: 0, y: -2.629044, z: 0}
   m_LocalScale: {x: 0.42, y: 0.42, z: 1}
   m_Children: []
   m_Father: {fileID: 1365727042}
@@ -4288,6 +4338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 70
+  deploy: 1
 --- !u!60 &544255361
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -4446,7 +4497,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -5331,6 +5382,38 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2043713896}
   m_PrefabAsset: {fileID: 0}
+--- !u!60 &681827925
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681827924}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.11, y: 0.22}
+      - {x: -0.12, y: 0.17999999}
+      - {x: -0.12, y: -0.22}
+      - {x: 0.07, y: -0.22}
+      - {x: 0.12, y: -0.21}
+      - {x: 0.12, y: 0.17}
+      - {x: 0.07, y: 0.22}
 --- !u!50 &681827930
 Rigidbody2D:
   serializedVersion: 4
@@ -6280,6 +6363,38 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 171796218}
   m_PrefabAsset: {fileID: 0}
+--- !u!60 &772875848
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772875847}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.11, y: 0.22}
+      - {x: -0.12, y: 0.17999999}
+      - {x: -0.12, y: -0.22}
+      - {x: 0.07, y: -0.22}
+      - {x: 0.12, y: -0.21}
+      - {x: 0.12, y: 0.17}
+      - {x: 0.07, y: 0.22}
 --- !u!50 &772875853
 Rigidbody2D:
   serializedVersion: 4
@@ -6307,6 +6422,38 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1167987136}
   m_PrefabAsset: {fileID: 0}
+--- !u!60 &774513565
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774513564}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.11, y: 0.22}
+      - {x: -0.12, y: 0.17999999}
+      - {x: -0.12, y: -0.22}
+      - {x: 0.07, y: -0.22}
+      - {x: 0.12, y: -0.21}
+      - {x: 0.12, y: 0.17}
+      - {x: 0.07, y: 0.22}
 --- !u!50 &774513570
 Rigidbody2D:
   serializedVersion: 4
@@ -6430,7 +6577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &808139779
 Transform:
   m_ObjectHideFlags: 0
@@ -6571,6 +6718,38 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1897994628}
   m_PrefabAsset: {fileID: 0}
+--- !u!60 &810851313
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810851312}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.11, y: 0.22}
+      - {x: -0.12, y: 0.17999999}
+      - {x: -0.12, y: -0.22}
+      - {x: 0.07, y: -0.22}
+      - {x: 0.12, y: -0.21}
+      - {x: 0.12, y: 0.17}
+      - {x: 0.07, y: 0.22}
 --- !u!50 &810851318
 Rigidbody2D:
   serializedVersion: 4
@@ -6813,7 +6992,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 845434517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.14, y: -2.629044, z: 0}
+  m_LocalPosition: {x: 0, y: -2.629044, z: 0}
   m_LocalScale: {x: 0.32999998, y: 0.32000002, z: 1}
   m_Children: []
   m_Father: {fileID: 632088679}
@@ -6832,6 +7011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &845434520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6973,7 +7153,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -7113,7 +7293,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 846539723}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.14, y: -2.629044, z: 0}
+  m_LocalPosition: {x: 0, y: -2.629044, z: 0}
   m_LocalScale: {x: 0.33000004, y: 0.32000002, z: 1}
   m_Children: []
   m_Father: {fileID: 632088679}
@@ -7132,6 +7312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &846539726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7273,7 +7454,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -7613,7 +7794,7 @@ GameObject:
   - component: {fileID: 934124704}
   m_Layer: 21
   m_Name: Reaper 3
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7626,7 +7807,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934124702}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000004371139}
-  m_LocalPosition: {x: -2.58521, y: 5.356277, z: 0}
+  m_LocalPosition: {x: 0, y: 5.356277, z: 0}
   m_LocalScale: {x: 0.28800002, y: 0.28800002, z: 1}
   m_Children:
   - {fileID: 1537565874}
@@ -7662,6 +7843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 80
+  deploy: 1
 --- !u!114 &934124706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7929,7 +8111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935735568}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.02, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 0.38, y: 0.38, z: 1}
   m_Children: []
   m_Father: {fileID: 983524520}
@@ -7948,6 +8130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &935735571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8284,7 +8467,29 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7511853096424046346, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bba53886c81e5044b81d2f1da0dbc16b,
+        type: 3}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.56
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
 --- !u!1 &950303787
 GameObject:
@@ -8334,7 +8539,7 @@ GameObject:
   - component: {fileID: 950803125}
   m_Layer: 9
   m_Name: Ogre
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8380,6 +8585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &950803127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8535,7 +8741,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -8675,7 +8881,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997737017}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.02, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 0.38, y: 0.38, z: 1}
   m_Children: []
   m_Father: {fileID: 983524520}
@@ -8694,6 +8900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &997737020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9206,7 +9413,7 @@ GameObject:
   - component: {fileID: 1051903138}
   m_Layer: 19
   m_Name: Reaper 1
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9252,6 +9459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &1051903140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9403,7 +9611,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -10218,7 +10426,7 @@ GameObject:
   - component: {fileID: 1136103064}
   m_Layer: 9
   m_Name: Ogre
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10264,6 +10472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &1136103066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10419,7 +10628,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -10524,7 +10733,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1143118450}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.14, y: -2.629044, z: 0}
+  m_LocalPosition: {x: 0, y: -2.629044, z: 0}
   m_LocalScale: {x: 0.32999998, y: 0.32000002, z: 1}
   m_Children: []
   m_Father: {fileID: 632088679}
@@ -10543,6 +10752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &1143118453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10684,7 +10894,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -11143,7 +11353,29 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7511853096424046346, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bba53886c81e5044b81d2f1da0dbc16b,
+        type: 3}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.56
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
 --- !u!1 &1184617170 stripped
 GameObject:
@@ -11151,6 +11383,38 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 441793954}
   m_PrefabAsset: {fileID: 0}
+--- !u!60 &1184617171
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184617170}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.11, y: 0.22}
+      - {x: -0.12, y: 0.17999999}
+      - {x: -0.12, y: -0.22}
+      - {x: 0.07, y: -0.22}
+      - {x: 0.12, y: -0.21}
+      - {x: 0.12, y: 0.17}
+      - {x: 0.07, y: 0.22}
 --- !u!50 &1184617176
 Rigidbody2D:
   serializedVersion: 4
@@ -12096,7 +12360,7 @@ GameObject:
   - component: {fileID: 1277734712}
   m_Layer: 19
   m_Name: Reaper 1
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12142,6 +12406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &1277734714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12293,7 +12558,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -12791,7 +13056,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1317510104}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.02, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 0.38, y: 0.38, z: 1}
   m_Children: []
   m_Father: {fileID: 983524520}
@@ -12810,6 +13075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &1317510107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13381,7 +13647,7 @@ GameObject:
   - component: {fileID: 1351874741}
   m_Layer: 21
   m_Name: Reaper 3
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13394,7 +13660,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351874739}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.57024, y: 0.011520386, z: 0}
+  m_LocalPosition: {x: 0, y: 0.011520386, z: 0}
   m_LocalScale: {x: 0.28800002, y: 0.28800002, z: 1}
   m_Children:
   - {fileID: 1863537470}
@@ -13428,6 +13694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &1351874743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13695,7 +13962,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352398192}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.95, y: -2.629044, z: 0}
+  m_LocalPosition: {x: 0, y: -2.629044, z: 0}
   m_LocalScale: {x: 0.42, y: 0.42, z: 1}
   m_Children: []
   m_Father: {fileID: 1365727042}
@@ -13714,6 +13981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!60 &1352398195
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -13872,7 +14140,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -14383,7 +14651,7 @@ GameObject:
   - component: {fileID: 1422270512}
   m_Layer: 19
   m_Name: Reaper 1
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14429,6 +14697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &1422270514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14580,7 +14849,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -14661,6 +14930,38 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1461657327}
   m_PrefabAsset: {fileID: 0}
+--- !u!60 &1422302256
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422302255}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.11, y: 0.22}
+      - {x: -0.12, y: 0.17999999}
+      - {x: -0.12, y: -0.22}
+      - {x: 0.07, y: -0.22}
+      - {x: 0.12, y: -0.21}
+      - {x: 0.12, y: 0.17}
+      - {x: 0.07, y: 0.22}
 --- !u!50 &1422302261
 Rigidbody2D:
   serializedVersion: 4
@@ -14848,7 +15149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1435957212}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.3800015, y: -2.629044, z: 0}
+  m_LocalPosition: {x: 0, y: -2.629044, z: 0}
   m_LocalScale: {x: 0.42, y: 0.42, z: 1}
   m_Children: []
   m_Father: {fileID: 1365727042}
@@ -14867,6 +15168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 70
+  deploy: 1
 --- !u!60 &1435957215
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -15025,7 +15327,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -15118,6 +15420,38 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1553512275}
   m_PrefabAsset: {fileID: 0}
+--- !u!60 &1441207750
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441207749}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.11, y: 0.22}
+      - {x: -0.12, y: 0.17999999}
+      - {x: -0.12, y: -0.22}
+      - {x: 0.07, y: -0.22}
+      - {x: 0.12, y: -0.21}
+      - {x: 0.12, y: 0.17}
+      - {x: 0.07, y: 0.22}
 --- !u!50 &1441207755
 Rigidbody2D:
   serializedVersion: 4
@@ -15157,7 +15491,7 @@ GameObject:
   - component: {fileID: 1441366853}
   m_Layer: 19
   m_Name: Reaper 1
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15203,6 +15537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &1441366855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15354,7 +15689,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -15627,27 +15962,34 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 7511853096424046346, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bba53886c81e5044b81d2f1da0dbc16b,
+        type: 3}
     - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.28
+      value: 2.56
       objectReference: {fileID: 0}
     - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.28
+      value: 2.56
       objectReference: {fileID: 0}
     - target: {fileID: 4826838136550669955, guid: dae2dea13ad209c4285905a0481962e6,
         type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
 --- !u!1 &1484003426
 GameObject:
@@ -16135,7 +16477,29 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7511853096424046346, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bba53886c81e5044b81d2f1da0dbc16b,
+        type: 3}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.56
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
 --- !u!1 &1556351618
 GameObject:
@@ -16783,6 +17147,38 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 941481291}
   m_PrefabAsset: {fileID: 0}
+--- !u!60 &1722625234
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722625233}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.11, y: 0.22}
+      - {x: -0.12, y: 0.17999999}
+      - {x: -0.12, y: -0.22}
+      - {x: 0.07, y: -0.22}
+      - {x: 0.12, y: -0.21}
+      - {x: 0.12, y: 0.17}
+      - {x: 0.07, y: 0.22}
 --- !u!50 &1722625239
 Rigidbody2D:
   serializedVersion: 4
@@ -17124,7 +17520,7 @@ GameObject:
   - component: {fileID: 1757232018}
   m_Layer: 9
   m_Name: Ogre
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17170,6 +17566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &1757232020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17325,7 +17722,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -17448,7 +17845,7 @@ GameObject:
   - component: {fileID: 1770664460}
   m_Layer: 21
   m_Name: Reaper 3
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17461,7 +17858,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1770664458}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.57024, y: 0.011520386, z: 0}
+  m_LocalPosition: {x: 0, y: 0.011520386, z: 0}
   m_LocalScale: {x: 0.28800002, y: 0.28800002, z: 1}
   m_Children:
   - {fileID: 1778777038}
@@ -17495,6 +17892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &1770664462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17750,7 +18148,7 @@ GameObject:
   - component: {fileID: 1771389082}
   m_Layer: 21
   m_Name: Reaper 3
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17763,7 +18161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771389080}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.57024, y: 0.011520386, z: 0}
+  m_LocalPosition: {x: 0, y: 0.011520386, z: 0}
   m_LocalScale: {x: 0.28800002, y: 0.28800002, z: 1}
   m_Children:
   - {fileID: 1785602035}
@@ -17797,6 +18195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &1771389084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18052,7 +18451,7 @@ GameObject:
   - component: {fileID: 1776889265}
   m_Layer: 9
   m_Name: Ogre
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18098,6 +18497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &1776889267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18253,7 +18653,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -18768,7 +19168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836296888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.650002, y: -2.629044, z: 0}
+  m_LocalPosition: {x: 0, y: -2.629044, z: 0}
   m_LocalScale: {x: 0.32999998, y: 0.32000002, z: 1}
   m_Children: []
   m_Father: {fileID: 632088679}
@@ -18787,6 +19187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 50
+  deploy: 1
 --- !u!114 &1836296891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18928,7 +19329,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -19574,7 +19975,29 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7511853096424046346, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bba53886c81e5044b81d2f1da0dbc16b,
+        type: 3}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.56
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
 --- !u!50 &1902043761
 Rigidbody2D:
@@ -19592,7 +20015,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4e18c4d95c092fe48aed958a4eeeca64, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -19633,7 +20056,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1934798044}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.14, y: -2.629044, z: 0}
+  m_LocalPosition: {x: 0, y: -2.629044, z: 0}
   m_LocalScale: {x: 0.32999998, y: 0.32000002, z: 1}
   m_Children: []
   m_Father: {fileID: 632088679}
@@ -19652,6 +20075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &1934798047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19793,7 +20217,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -20918,7 +21342,29 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7511853096424046346, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bba53886c81e5044b81d2f1da0dbc16b,
+        type: 3}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.56
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
 --- !u!1 &2053732658
 GameObject:
@@ -20938,7 +21384,7 @@ GameObject:
   - component: {fileID: 2053732660}
   m_Layer: 9
   m_Name: Ogre
-  m_TagString: Untagged
+  m_TagString: Ranged Shooter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20984,6 +21430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
+  deploy: 1
 --- !u!114 &2053732662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21139,7 +21586,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

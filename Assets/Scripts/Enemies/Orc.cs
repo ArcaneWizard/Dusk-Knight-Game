@@ -9,23 +9,25 @@ public class Orc : MonoBehaviour
     Rigidbody2D rig;
     private float speed = 1.0f;
     private bool AttackedOnce = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
-        {
-            speed *= -1;
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
-        animator = transform.GetComponent<Animator>();
-        rig = transform.GetComponent < Rigidbody2D>();
-        rig.velocity = new Vector2(speed, 0);
-    }
-
     void Update()
     {
-        //transform.GetComponent<SpriteRenderer>().sortingOrder = -(int)Math.Round(transform.position.y * 100);
+        if (transform.GetComponent<Enemy_Health>().deploy == true)
+        {
+            animator = transform.GetComponent<Animator>();
+            animator.SetBool("Attack", false);
+            animator.SetBool("Dead", false);
+
+            speed = Enemy_Health.orc_speed;
+            if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
+            {
+                speed *= -1;
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            rig = transform.GetComponent<Rigidbody2D>();
+            rig.velocity = new Vector2(speed, 0);
+            transform.GetComponent<Enemy_Health>().deploy = false;
+        }
+
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Orc Slashing") && transform.GetComponent<Enemy_Health>().hp > 0)
         {
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 < 2f/12f && AttackedOnce == true)

@@ -20,23 +20,6 @@ public class Reaper_3 : MonoBehaviour
     private bool counter = false;
     private float ampMultiplier = 1;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        speed = UnityEngine.Random.Range(2.0f, 3.0f);
-        height_Add = UnityEngine.Random.Range(-0.2f, 0.1f);
-        if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
-        {
-            speed *= -1;
-            bound = -7.74f;
-            transform.rotation = Quaternion.Euler(new Vector2(0, 180));
-        }
-        animator = transform.GetComponent<Animator>();
-        rig = transform.GetComponent<Rigidbody2D>();
-        rig.velocity = new Vector2(speed, 0);
-        StartCoroutine(varyHeight());
-    }
-
     private IEnumerator varyHeight()
     {
         if (counter == false) {
@@ -72,6 +55,25 @@ public class Reaper_3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.GetComponent<Enemy_Health>().deploy == true)
+        {
+            animator = transform.GetComponent<Animator>();
+            animator.SetBool("Dead", false);
+
+            speed = UnityEngine.Random.Range(2.0f, 3.0f);
+            height_Add = UnityEngine.Random.Range(-0.2f, 0.1f);
+            if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
+            {
+                speed *= -1;
+                bound = -7.74f;
+                transform.rotation = Quaternion.Euler(new Vector2(0, 180));
+            }
+            rig = transform.GetComponent<Rigidbody2D>();
+            rig.velocity = new Vector2(speed, 0);
+            StartCoroutine(varyHeight());
+            transform.GetComponent<Enemy_Health>().deploy = false;
+        }
+
         if (transform.GetComponent<Enemy_Health>().hp > 0)
         {
             if (bound == 7.74f && transform.position.x > 7.74f)
