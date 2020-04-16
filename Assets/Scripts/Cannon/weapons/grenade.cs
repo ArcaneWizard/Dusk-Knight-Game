@@ -18,11 +18,10 @@ public class grenade : MonoBehaviour
         rig = transform.GetComponent<Rigidbody2D>();
         animator.SetBool("blowup", false);
     }
-
     
     void Update()
     {
-
+        //Set bounds + reset settings when its being chosen from the array
         if ((Mathf.Abs(transform.position.x) < 10f || Mathf.Abs(transform.position.y) < 9f) && stop == false)
         {
             if (oneLaunch == false)
@@ -36,10 +35,12 @@ public class grenade : MonoBehaviour
         else if (stop == false)
             transform.gameObject.SetActive(false);
 
+        //This bit of code makes the grenade (or arrow) rotate as it falls
         float rot = Mathf.Atan2(rig.velocity.y, rig.velocity.x) * Mathf.Rad2Deg;
         if (rig.velocity != new Vector2(0, 0)) 
            transform.rotation = Quaternion.Euler(0f, 0f, rot + 90f);
 
+        //Stop moving
         if (stop == true)
             transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
     }
@@ -50,12 +51,10 @@ public class grenade : MonoBehaviour
         stop = true;
         StartCoroutine(boom());
 
-            //Same dmg is done to all Enemies for now but this could change if magical enemies are resistant to explosions later on
-            //That's why I added specific enemy layers
-            if (col.gameObject.layer == 8 || col.gameObject.layer == 9 || col.gameObject.layer == 11 || col.gameObject.layer == 19 || col.gameObject.layer == 20 || col.gameObject.layer == 21)
-            {
-                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= 100;
-            }
+        if (col.gameObject.layer == 8 || col.gameObject.layer == 9 || col.gameObject.layer == 11 || col.gameObject.layer == 19 || col.gameObject.layer == 20 || col.gameObject.layer == 21)
+         {
+            col.gameObject.transform.GetComponent<Enemy_Health>().hp -= 100;
+         }
     }
 
     private IEnumerator boom()
