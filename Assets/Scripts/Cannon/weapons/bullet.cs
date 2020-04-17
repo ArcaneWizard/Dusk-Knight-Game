@@ -14,6 +14,7 @@ public class bullet : MonoBehaviour
         if (Mathf.Abs(transform.position.x) < 10f && Mathf.Abs(transform.position.y) < 9f && stop == false)
         {
             transform.GetComponent<Rigidbody2D>().velocity = transform.up * speed;
+            gameObject.transform.GetComponent<SpriteRenderer>().enabled = true;
         }
         else if (stop == false)
         {

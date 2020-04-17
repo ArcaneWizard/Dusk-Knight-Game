@@ -29,6 +29,12 @@ public class shooting : MonoBehaviour
             startcooldown = 0.8f;
         }
 
+        if (transform.gameObject.name == "Potion Cannon")
+        {
+            weaponType = GameObject.FindGameObjectWithTag("Potion");
+            startcooldown = 0.8f;
+        }
+
         if (transform.gameObject.name == "Gatling")
         {
             weaponType = GameObject.Find("Bullet");
@@ -40,7 +46,13 @@ public class shooting : MonoBehaviour
             weaponType = GameObject.FindGameObjectWithTag("CB");
             startcooldown = 0.8f;
         }
-        
+
+        if (transform.gameObject.name == "Ice Arrow Cannon")
+        {
+            weaponType = GameObject.FindGameObjectWithTag("Arrow");
+            startcooldown = 0.8f;
+        }
+
         for (int i = 0; i < weaponType.transform.childCount; i++)
             ammo.Add(weaponType.transform.GetChild(i).gameObject);
 
@@ -55,12 +67,21 @@ public class shooting : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position) - transform.position;
             float rot = Mathf.Atan2(touchPosition.y, touchPosition.x) * Mathf.Rad2Deg;
+
             if(weaponType == GameObject.Find("Grenade"))
                 transform.rotation = Quaternion.Euler(0f, 0f, rot);
+
             if (weaponType == GameObject.FindGameObjectWithTag("CB"))
                 transform.rotation = Quaternion.Euler(0f, 0f, rot);
+
             if (weaponType == GameObject.Find("Bullet"))
                 transform.rotation = Quaternion.Euler(0f, 0f, rot-90);
+
+            if (weaponType == GameObject.FindGameObjectWithTag("Potion"))
+                transform.rotation = Quaternion.Euler(0f, 0f, rot);
+
+            if (weaponType == GameObject.FindGameObjectWithTag("Arrow"))
+                transform.rotation = Quaternion.Euler(0f, 0f, rot);
 
             Vector2 vectorFromTouch = touch.position - new Vector2(Screen.width/2f, Screen.height/2f);            
             touchPercent = (vectorFromTouch/new Vector2(Screen.width, Screen.height)).magnitude;
@@ -87,6 +108,9 @@ public class shooting : MonoBehaviour
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
             ammo[counter].transform.GetComponent<grenade>().oneLaunch = false;
+            ammo[counter].transform.GetComponent<SpriteRenderer>().enabled = false;
+            for (int i = 0; i < ammo[counter].transform.childCount; i++)
+                ammo[counter].transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
         }
 
         if (weaponType == GameObject.Find("Bullet"))
@@ -96,14 +120,39 @@ public class shooting : MonoBehaviour
             ammo[counter].transform.GetComponent<bullet>().oneHit = false;
             StartCoroutine(Flash());
         }
-        if (weaponType == GameObject.Find("Cannon Ball"))
+
+        if (weaponType == GameObject.FindGameObjectWithTag("CB"))
         {
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
             ammo[counter].transform.GetComponent<cannon_ball>().oneHit = false;
             ammo[counter].transform.GetComponent<cannon_ball>().oneLaunch = false;
+            ammo[counter].transform.GetComponent<SpriteRenderer>().enabled = false;
+            for (int i = 0; i < ammo[counter].transform.childCount; i++)
+                ammo[counter].transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
         }
 
+        if (weaponType == GameObject.FindGameObjectWithTag("Potion"))
+        {
+            ammo[counter].transform.position = muzzle.position;
+            ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
+            ammo[counter].transform.GetComponent<potion>().oneLaunch = false;
+            ammo[counter].transform.GetComponent<potion>().oneHit = false;
+            ammo[counter].transform.GetComponent<SpriteRenderer>().enabled = false;
+            for (int i = 0; i < ammo[counter].transform.childCount; i++)
+                ammo[counter].transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+        }
+
+        if (weaponType == GameObject.FindGameObjectWithTag("Arrow"))
+        {
+            ammo[counter].transform.position = muzzle.position;
+            ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
+            ammo[counter].transform.GetComponent<arrow>().oneLaunch = false;
+            ammo[counter].transform.GetComponent<arrow>().oneHit = false;
+            ammo[counter].transform.GetComponent<SpriteRenderer>().enabled = false;
+            for (int i = 0; i < ammo[counter].transform.childCount; i++) 
+                ammo[counter].transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+        }
 
         ammo[counter].SetActive(true);
         counter += 1;

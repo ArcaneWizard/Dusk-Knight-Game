@@ -11,6 +11,8 @@ TagManager:
   - grenade
   - CB
   - Ranged Shooter
+  - Potion
+  - Arrow
   layers:
   - Default
   - TransparentFX

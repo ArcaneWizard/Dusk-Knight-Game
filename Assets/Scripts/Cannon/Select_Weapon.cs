@@ -16,6 +16,7 @@ public class Select_Weapon : MonoBehaviour
         unselectEverything();
         GameObject.Find("Head").transform.GetChild(0).gameObject.SetActive(true);
     }
+
     public void selectBullet()
     {
         unselectEverything();
@@ -26,12 +27,24 @@ public class Select_Weapon : MonoBehaviour
         unselectEverything();
         GameObject.Find("Head").transform.GetChild(2).gameObject.SetActive(true);
     }
+    public void selectPotion()
+    {
+        unselectEverything();
+        GameObject.Find("Head").transform.GetChild(3).gameObject.SetActive(true);
+    }
+    public void selectArrow()
+    {
+        unselectEverything();
+        GameObject.Find("Head").transform.GetChild(4).gameObject.SetActive(true);
+    }
 
-    //make sure to turn the new weaopn off in this method:
+    //make sure to turn the new weapon off in this method:
     void unselectEverything()
     {
         GameObject.Find("Head").transform.GetChild(0).gameObject.SetActive(false);
         GameObject.Find("Head").transform.GetChild(1).gameObject.SetActive(false);
         GameObject.Find("Head").transform.GetChild(2).gameObject.SetActive(false);
+        GameObject.Find("Head").transform.GetChild(3).gameObject.SetActive(false);
+        GameObject.Find("Head").transform.GetChild(4).gameObject.SetActive(false);
     }
 }

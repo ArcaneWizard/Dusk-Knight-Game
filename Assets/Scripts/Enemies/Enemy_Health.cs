@@ -24,11 +24,15 @@ public class Enemy_Health : MonoBehaviour
 
     Animator animator;
     private bool death = false;
-    public bool deploy = true;
 
     private Vector2 localPos;
     private float ogScaleX;
     private float ogScaleY;
+
+    public bool deploy = true;
+    public bool poison = false;
+    public bool iced = false;
+    public bool isPoisoned = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -69,6 +73,13 @@ public class Enemy_Health : MonoBehaviour
 
     void Update()
     {
+        if (poison == true && isPoisoned == false)
+        {
+            poison = false;
+            isPoisoned = true;
+            StartCoroutine(poisoned());
+        }
+
         if (hp <= 0 && death == false)
         {
             checkDeath();
@@ -78,12 +89,25 @@ public class Enemy_Health : MonoBehaviour
         if (lastHP != hp)
         {
             lastHP = hp;
-            StartCoroutine(alter());
+            if (isPoisoned == false)
+               StartCoroutine(alter());
         }
+    }
 
-        /*if (hp > 0 && hp <= maxHP/2)
-            gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(255, 137, 137, 255);*/
-
+    private IEnumerator poisoned()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            if (death == false)
+            {
+                gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(56, 219, 143, 255);
+                yield return new WaitForSeconds(0.22f);
+                hp -= 10;
+                gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+                yield return new WaitForSeconds(0.8f);
+            }
+        }
+        isPoisoned = false;
     }
 
     private IEnumerator fade()
@@ -119,6 +143,7 @@ public class Enemy_Health : MonoBehaviour
         animator.SetBool("Dead", true);
 
         transform.GetComponent<PolygonCollider2D>().enabled = false;
+        transform.GetComponent<Rigidbody2D>().gravityScale = 0;
         transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 
         if (gameObject.layer == 21)

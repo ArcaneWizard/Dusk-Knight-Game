@@ -67,6 +67,7 @@ public class Spawner : MonoBehaviour
         if (enemy.transform.parent.gameObject.name == "R2 Group")
             enemy.transform.position = new Vector2(deployPos.transform.position.x, deployPos.transform.position.y + 4);
 
+
         enemy.SetActive(true);
 
         if (enemy.transform.GetComponent<Enemy_Health>() != null)
@@ -75,6 +76,8 @@ public class Spawner : MonoBehaviour
             enemy.transform.GetComponent<Enemy_Health>().undoFade();
             enemy.transform.GetComponent<PolygonCollider2D>().enabled = true;
             enemy.transform.GetComponent<Enemy_Health>().deploy = true;
+            if (enemy.transform.gameObject.layer != 21)
+                enemy.transform.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
         else if (enemy.gameObject.name == "Fake Enemy") { }
         else if (enemy.transform.GetChild(0).transform.GetComponent<Enemy_Health>() != null)
@@ -83,6 +86,8 @@ public class Spawner : MonoBehaviour
             enemy.transform.GetChild(0).transform.GetComponent<Enemy_Health>().undoFade();
             enemy.transform.GetChild(0).transform.GetComponent<PolygonCollider2D>().enabled = true;
             enemy.transform.GetChild(0).transform.GetComponent<Enemy_Health>().deploy = true;
+            if (enemy.transform.GetChild(0).transform.gameObject.layer != 21)
+                enemy.transform.GetChild(0).transform.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
     }
 

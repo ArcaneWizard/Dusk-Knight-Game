@@ -24,6 +24,13 @@ public class cannon_ball : MonoBehaviour
         }
         else if (stop == false)
             transform.gameObject.SetActive(false);
+        
+        if (transform.GetComponent<Rigidbody2D>().velocity != new Vector2(0, 0))
+        {
+            gameObject.transform.GetComponent<SpriteRenderer>().enabled = true;
+            for (int i = 0; i < gameObject.transform.childCount; i++)
+                gameObject.transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = true;
+        }
     }
 
 
