@@ -7,7 +7,6 @@ public class Enemy_Health : MonoBehaviour
     //[HideInInspector]
     public int hp = 1;
     private int lastHP;
-    private int maxHP;
 
     private int orc = 120;
     private int ogre = 70;
@@ -25,14 +24,16 @@ public class Enemy_Health : MonoBehaviour
     Animator animator;
     private bool death = false;
 
-    private Vector2 localPos;
     private float ogScaleX;
     private float ogScaleY;
 
     public bool deploy = true;
     public bool poison = false;
-    public bool iced = false;
     public bool isPoisoned = false;
+    public bool iced = false;
+    public bool isIced = false;
+    public int isIcedWhileIced = 0;
+    public int isIcedWhileIcedCheck = 0;
 
     // Start is called before the first frame update
     void Awake()
@@ -64,7 +65,6 @@ public class Enemy_Health : MonoBehaviour
             hp = reaper_3;
 
         lastHP = hp;
-        maxHP = hp;
         death = false;
 
         if (gameObject.tag == "Ranged Shooter")
@@ -83,6 +83,8 @@ public class Enemy_Health : MonoBehaviour
         if (iced == true)
         {
             iced = false;
+            isIced = true;
+            isIcedWhileIced++;
             StartCoroutine(frozen());
         }
 
@@ -103,6 +105,12 @@ public class Enemy_Health : MonoBehaviour
     private IEnumerator frozen()
     {
         transform.GetChild(0).gameObject.SetActive(true);
+        float sign = 1;
+        if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
+            sign = -1;
+
+        setSpeed(sign, 0.5f);
+
         transform.GetComponent<Animator>().enabled = false;
 
         if (gameObject.layer == 8)
@@ -124,27 +132,55 @@ public class Enemy_Health : MonoBehaviour
             transform.GetComponent<Reaper_3>().enabled = false;
 
         yield return new WaitForSeconds(1.5f);
+        isIcedWhileIcedCheck++;
 
-        transform.GetChild(0).gameObject.SetActive(false);
-        transform.GetComponent<Animator>().enabled = true;
+        if (isIcedWhileIcedCheck == isIcedWhileIced)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetComponent<Animator>().enabled = true;
+
+            setSpeed(sign, 1);
+            isIced = false;
+        }
+    }
+
+    private void setSpeed(float sign, float multiplier)
+    {
 
         if (gameObject.layer == 8)
+        {
             transform.GetComponent<Orc>().enabled = true;
+            transform.GetComponent<Rigidbody2D>().velocity = new Vector2(orc_speed * sign * multiplier, 0);
+        }
 
         if (gameObject.layer == 9)
+        {
             transform.GetComponent<Ogre>().enabled = true;
+            transform.GetComponent<Rigidbody2D>().velocity = new Vector2(ogre_speed * sign * multiplier, 0);
+        }
 
         if (gameObject.layer == 11)
+        {
             transform.GetComponent<Goblin>().enabled = true;
+            transform.GetComponent<Rigidbody2D>().velocity = new Vector2(goblin_speed * sign * multiplier, 0);
+        }
 
         if (gameObject.layer == 19)
+        {
             transform.GetComponent<Reaper_1>().enabled = true;
+            transform.GetComponent<Rigidbody2D>().velocity = new Vector2(R1_speed * sign * multiplier, 0);
+        }
 
         if (gameObject.layer == 20)
+        {
             transform.GetComponent<Reaper_2>().enabled = true;
+            transform.GetComponent<Rigidbody2D>().velocity = new Vector2(R2_speed * sign * multiplier, 0);
+        }
 
         if (gameObject.layer == 21)
+        {
             transform.GetComponent<Reaper_3>().enabled = true;
+        }
     }
 
     private IEnumerator poisoned()
@@ -166,6 +202,14 @@ public class Enemy_Health : MonoBehaviour
     private IEnumerator fade()
     {
         yield return new WaitForSeconds(0.1f);
+        //Un-ice and unpoison enemy b4 it fades away
+        transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetComponent<Animator>().enabled = true;
+        setSpeed(1, 0);
+        isIced = false;
+
+        isPoisoned = false;
+
         float scale = 0.93f;
         float rotSpeed = 25f;
 
@@ -177,6 +221,8 @@ public class Enemy_Health : MonoBehaviour
 
             yield return new WaitForSeconds(0.05f); 
         }
+
+        isIcedWhileIced = isIcedWhileIcedCheck;
 
         if (gameObject.tag != "Ranged Shooter")
             gameObject.SetActive(false);

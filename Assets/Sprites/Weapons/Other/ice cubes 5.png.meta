@@ -1,0 +1,547 @@
+fileFormatVersion: 2
+guid: 39a6c2cf026d4a54fb595b156ac93c44
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8882359396750415178
+    second: ice cubes 5_0
+  - first:
+      213: -1599137434514704824
+    second: ice cubes 5_1
+  - first:
+      213: 244966361238859011
+    second: ice cubes 5_2
+  - first:
+      213: -1899122951343213981
+    second: ice cubes 5_3
+  - first:
+      213: 876424739165966801
+    second: ice cubes 5_4
+  - first:
+      213: -7708209006864440203
+    second: ice cubes 5_5
+  - first:
+      213: -3642900884455210904
+    second: ice cubes 5_6
+  - first:
+      213: 8898019227532170120
+    second: ice cubes 5_7
+  - first:
+      213: 5995846488915123152
+    second: ice cubes 5_8
+  - first:
+      213: 5752155875171931316
+    second: ice cubes 5_9
+  - first:
+      213: 3951194528414856780
+    second: ice cubes 5_10
+  - first:
+      213: -4854871080374231175
+    second: ice cubes 5_11
+  - first:
+      213: 1944728996192573044
+    second: ice cubes 5_12
+  - first:
+      213: -4772974464560498320
+    second: ice cubes 5_13
+  - first:
+      213: 5807464334037106789
+    second: ice cubes 5_14
+  - first:
+      213: -7323333739920324185
+    second: ice cubes 5_15
+  - first:
+      213: -7330504210334588610
+    second: ice cubes 5_16
+  - first:
+      213: 5166338242448932857
+    second: ice cubes 5_17
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ice cubes 5_0
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 1136
+        width: 744
+        height: 758
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f75976208351ed849920629131118bac
+      internalID: -8882359396750415178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_1
+      rect:
+        serializedVersion: 2
+        x: 1039
+        y: 1071
+        width: 769
+        height: 805
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 905b2b06d60bee142a32550b9ca72f48
+      internalID: -1599137434514704824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_2
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 195
+        width: 705
+        height: 755
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b6a0248f12f0e541993306da5018c9e
+      internalID: 244966361238859011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_3
+      rect:
+        serializedVersion: 2
+        x: 1181
+        y: 288
+        width: 651
+        height: 655
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f0afdc13d22cb3419e230f08d93bee0
+      internalID: -1899122951343213981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_4
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 72
+        width: 96
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fdfde5ddc08bcd438e5b50dbc02c9ba
+      internalID: 876424739165966801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_5
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 106
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 600fba28247c5ac4aab90a99996536d8
+      internalID: -7708209006864440203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_6
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 64
+        width: 117
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e24e7ab568bb3bc479432e25c3d37615
+      internalID: -3642900884455210904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_7
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 64
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c410d32c8d8f7042b426fb41df51c83
+      internalID: 8898019227532170120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_8
+      rect:
+        serializedVersion: 2
+        x: 967
+        y: 72
+        width: 66
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23b31643ebb36334ba8b6b1cc4a4d68f
+      internalID: 5995846488915123152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_9
+      rect:
+        serializedVersion: 2
+        x: 1034
+        y: 64
+        width: 123
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c243bdf17a093d149abbf76f4091a7a2
+      internalID: 5752155875171931316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_10
+      rect:
+        serializedVersion: 2
+        x: 1156
+        y: 72
+        width: 37
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78f04613795433e43b25ab1ef2218aa2
+      internalID: 3951194528414856780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_11
+      rect:
+        serializedVersion: 2
+        x: 1199
+        y: 72
+        width: 33
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a4d030830e4d0a40ae2a6074d12371d
+      internalID: -4854871080374231175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_12
+      rect:
+        serializedVersion: 2
+        x: 1231
+        y: 72
+        width: 73
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03476d3ec426ffe41b5f689d589e5b8d
+      internalID: 1944728996192573044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_13
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 97
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36d4fc6f26aa6344fa115a1820b66f2a
+      internalID: -4772974464560498320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_14
+      rect:
+        serializedVersion: 2
+        x: 1153
+        y: 76
+        width: 14
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27f07a778673cdb4480fef1d10098811
+      internalID: 5807464334037106789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_15
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 73
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dd447f422ad1f04f899b3fd62361eac
+      internalID: -7323333739920324185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_16
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 74
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b148394cb73daf4aaaab0b05ec18042
+      internalID: -7330504210334588610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice cubes 5_17
+      rect:
+        serializedVersion: 2
+        x: 1263
+        y: 73
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e67721dd9378db438f076c22c78b2c8
+      internalID: 5166338242448932857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

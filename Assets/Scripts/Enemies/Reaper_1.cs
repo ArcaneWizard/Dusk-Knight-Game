@@ -19,6 +19,7 @@ public class Reaper_1 : MonoBehaviour
         if (counter == false && transform.GetComponent<Enemy_Health>().hp > 0)
         {
             animator.SetBool("Attack", false);
+            if (transform.GetComponent<Enemy_Health>().isIced == false)
             rig.velocity = new Vector2(speed, 0);
             StartCoroutine(attack());
         }

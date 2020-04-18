@@ -38,8 +38,6 @@ public class arrow : MonoBehaviour
         if (rig.velocity != new Vector2(0, 0))
             transform.rotation = Quaternion.Euler(0f, 0f, rot + 216f);
 
-        Debug.Log(rig.velocity);
-
         //Stop moving + re-enable sprite (only after proper rotation)
         if (stop == true)
             rig.velocity = new Vector2(0, 0);

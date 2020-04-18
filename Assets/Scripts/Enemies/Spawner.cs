@@ -18,6 +18,8 @@ public class Spawner : MonoBehaviour
     private int cOrc = 0;
     private int cGoblin = 0;
 
+    private int preventSpawnCheckMemoryOverload = 0;
+
     //Spawn enemies
     private IEnumerator spawn()
     {
@@ -65,8 +67,16 @@ public class Spawner : MonoBehaviour
 
         enemy.transform.position = deployPos.transform.position;
         if (enemy.transform.parent.gameObject.name == "R2 Group")
-            enemy.transform.position = new Vector2(deployPos.transform.position.x, deployPos.transform.position.y + 4);
+        {
+            int a = UnityEngine.Random.Range(0, 2);
+            Vector2 spawnPoint;
+            if (a == 0)
+                spawnPoint = new Vector2(UnityEngine.Random.Range(3.1f, 6.7f), 10.1f);
+            else
+                spawnPoint = new Vector2(UnityEngine.Random.Range(-7.0f, -10.6f), 10.1f);
 
+            enemy.transform.localPosition = spawnPoint;
+        }
 
         enemy.SetActive(true);
 
@@ -142,35 +152,44 @@ public class Spawner : MonoBehaviour
 
     //Error check: Can't spawn more of one enemy if all are already active
     GameObject findEnemy2(string enemyName, int cycle)
-    {
-            if (GameObject.Find(enemyName + " Group").transform.GetChild(cycle).gameObject.activeSelf == false)
-                return GameObject.Find(enemyName + " Group").transform.GetChild(cycle).gameObject;
-            else if (checkChildrenActive(GameObject.Find(enemyName + " Group")) == false)
-            {
-                return findEnemy2(enemyName, (cycle + 1) % GameObject.Find(enemyName + " Group").transform.childCount);
-            }
-            else
-            {            
-                return GameObject.Find("Fake Enemy");
-            }
+    {        
+        //bool child = checkChildrenActive(GameObject.Find(enemyName + " Group"));
+        preventSpawnCheckMemoryOverload++;
+
+        if (GameObject.Find(enemyName + " Group").transform.GetChild(cycle).gameObject.activeSelf == false)
+        {
+            preventSpawnCheckMemoryOverload = 0;
+            return GameObject.Find(enemyName + " Group").transform.GetChild(cycle).gameObject;
+        }
+        /*else if (preventSpawnCheckMemoryOverload <= 5)
+        {
+            Debug.Log("2");
+            return findEnemy2(enemyName, (cycle + 1) % GameObject.Find(enemyName + " Group").transform.childCount);
+        }*/
+        else
+        {
+            preventSpawnCheckMemoryOverload = 0;
+            return GameObject.Find("Fake Enemy");
+        }
     }
 
-    bool checkChildrenActive(GameObject enemy)
+   /*bool checkChildrenActive(GameObject enemy)
     {
         int counter = 0;
-        for (int i = 0; i < enemy.transform.childCount; i++)
-        {
-            if (gameObject.transform.GetChild(i).gameObject.activeInHierarchy)
+            for (int i = 0; i < enemy.transform.childCount; i++)
             {
-                counter++;
+                if (gameObject.transform.GetChild(i).gameObject.activeInHierarchy)
+                {
+                    counter++;
+                }
             }
-        }
 
+        Debug.Log("3");
         if (counter >= 5)
             return true;
         else
             return false;
-    }
+    }*/
 
     void Start()
     {

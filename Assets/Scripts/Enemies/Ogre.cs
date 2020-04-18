@@ -49,7 +49,8 @@ public class Ogre : MonoBehaviour
             if (stopMoving == false)
             {
                 animator.SetInteger("Stage", 0);
-                rig.velocity = new Vector2(speed, 0);
+                if (transform.GetComponent<Enemy_Health>().isIced == false)
+                    rig.velocity = new Vector2(speed, 0);
                 if (stopMoving == true)
                     animator.SetInteger("Stage", 2);
                 StartCoroutine(stageChange());
