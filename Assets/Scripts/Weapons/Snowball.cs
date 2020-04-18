@@ -7,7 +7,7 @@ public class Snowball : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+      //  transform.rotation = Quaternion.Euler(0, 180, 0);
     }
 
     // Update is called once per frame
@@ -15,4 +15,6 @@ public class Snowball : MonoBehaviour
     {
         
     }
+
+
 }

@@ -80,6 +80,12 @@ public class Enemy_Health : MonoBehaviour
             StartCoroutine(poisoned());
         }
 
+        if (iced == true)
+        {
+            iced = false;
+            StartCoroutine(frozen());
+        }
+
         if (hp <= 0 && death == false)
         {
             checkDeath();
@@ -92,6 +98,53 @@ public class Enemy_Health : MonoBehaviour
             if (isPoisoned == false)
                StartCoroutine(alter());
         }
+    }
+
+    private IEnumerator frozen()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetComponent<Animator>().enabled = false;
+
+        if (gameObject.layer == 8)
+            transform.GetComponent<Orc>().enabled = false;
+
+        if (gameObject.layer == 9)
+            transform.GetComponent<Ogre>().enabled = false;
+
+        if (gameObject.layer == 11)
+            transform.GetComponent<Goblin>().enabled = false;
+
+        if (gameObject.layer == 19)
+            transform.GetComponent<Reaper_1>().enabled = false;
+
+        if (gameObject.layer == 20)
+            transform.GetComponent<Reaper_2>().enabled = false;
+
+        if (gameObject.layer == 21)
+            transform.GetComponent<Reaper_3>().enabled = false;
+
+        yield return new WaitForSeconds(1.5f);
+
+        transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetComponent<Animator>().enabled = true;
+
+        if (gameObject.layer == 8)
+            transform.GetComponent<Orc>().enabled = true;
+
+        if (gameObject.layer == 9)
+            transform.GetComponent<Ogre>().enabled = true;
+
+        if (gameObject.layer == 11)
+            transform.GetComponent<Goblin>().enabled = true;
+
+        if (gameObject.layer == 19)
+            transform.GetComponent<Reaper_1>().enabled = true;
+
+        if (gameObject.layer == 20)
+            transform.GetComponent<Reaper_2>().enabled = true;
+
+        if (gameObject.layer == 21)
+            transform.GetComponent<Reaper_3>().enabled = true;
     }
 
     private IEnumerator poisoned()
