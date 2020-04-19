@@ -8,25 +8,39 @@ public class arrow : MonoBehaviour
     private float speed = 3f;
     private bool stop = false;
     public bool oneHit = false;
-    public bool oneLaunch = false;
+    public bool oneLaunch = true;
+    public bool launched = false;
+    private float flip=0;
 
     private Rigidbody2D rig;
 
     void Start()
     {
+        oneLaunch = true;
         rig = transform.GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        //Set bounds + reset settings when its being chosen from the array
-        if ((Mathf.Abs(transform.position.x) < 10f || Mathf.Abs(transform.position.y) < 9f) && stop == false)
+
+        if (transform.parent.parent.parent.GetChild(1).GetChild(3).GetChild(4).rotation.y != 0)
         {
-            if (oneLaunch == false)
+            flip = -1;
+        }
+        else
+        {
+            flip = 1;
+        }
+
+        //Set bounds + reset settings when its being chosen from the array
+        if ((Mathf.Abs(transform.position.x) < 10f || Mathf.Abs(transform.position.y) < 9f) && !stop)
+        {
+            if (!oneLaunch)
             {
                 rig.velocity = new Vector2(0, 0);
                 rig.AddForce(transform.up * speed * 400 * shooting.touchPercent);
                 oneLaunch = true;
+                launched = true;
             }
         }
 
@@ -34,12 +48,20 @@ public class arrow : MonoBehaviour
             transform.gameObject.SetActive(false);
 
         //This bit of code makes the grenade (or arrow) rotate as it falls
-        float rot = Mathf.Atan2(rig.velocity.y, rig.velocity.x) * Mathf.Rad2Deg;
-        if (rig.velocity != new Vector2(0, 0))
-            transform.rotation = Quaternion.Euler(0f, 0f, rot + 216f);
+        if (launched)
+        {
+            float rot = Mathf.Atan2(rig.velocity.y, rig.velocity.x) * Mathf.Rad2Deg;
+            if (rig.velocity != new Vector2(0, 0))
+                transform.rotation = Quaternion.Euler(0f, 0f, rot - 90f);
+        }
+        else if(!launched)
+        {
+            transform.rotation = Quaternion.Euler(0f, (flip-1)*90, transform.parent.parent.parent.GetChild(1).GetChild(3).GetChild(4).rotation.eulerAngles.z - 90);
+            transform.position = transform.parent.parent.parent.GetChild(1).GetChild(3).GetChild(4).GetChild(0).position;
+        }
 
         //Stop moving + re-enable sprite (only after proper rotation)
-        if (stop == true)
+        if (stop)
             rig.velocity = new Vector2(0, 0);
 
         if (rig.velocity != new Vector2(0, 0))
@@ -66,5 +88,6 @@ public class arrow : MonoBehaviour
 
         stop = false;
         transform.gameObject.SetActive(false);
+        launched = false;
     }
 }

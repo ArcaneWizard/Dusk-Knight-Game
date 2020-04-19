@@ -12,6 +12,7 @@ public class shooting : MonoBehaviour
     private float startcooldown;
     private int counter = 0;
     public static float touchPercent;
+    private bool loaded = false;
 
     GameObject weaponType;
 
@@ -51,6 +52,7 @@ public class shooting : MonoBehaviour
         {
             weaponType = GameObject.FindGameObjectWithTag("Arrow");
             startcooldown = 0.8f;
+
         }
 
         for (int i = 0; i < weaponType.transform.childCount; i++)
@@ -64,6 +66,7 @@ public class shooting : MonoBehaviour
     {
         if(Input.touchCount > 0)
         {
+            
             Touch touch = Input.GetTouch(0);
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position) - transform.position;
             float rot = Mathf.Atan2(touchPosition.y, touchPosition.x) * Mathf.Rad2Deg;
@@ -73,15 +76,17 @@ public class shooting : MonoBehaviour
 
             if (weaponType == GameObject.FindGameObjectWithTag("CB"))
                 transform.rotation = Quaternion.Euler(0f, 0f, rot);
-
+            
             if (weaponType == GameObject.Find("Bullet"))
                 transform.rotation = Quaternion.Euler(0f, 0f, rot-90);
 
             if (weaponType == GameObject.FindGameObjectWithTag("Potion"))
                 transform.rotation = Quaternion.Euler(0f, 0f, rot);
 
-            if (weaponType == GameObject.FindGameObjectWithTag("Arrow"))
-                transform.rotation = Quaternion.Euler(0f, 0f, rot);
+            if (weaponType == GameObject.FindGameObjectWithTag("Arrow")) 
+                transform.rotation = Quaternion.Euler(0f, (touchPosition.x/Mathf.Abs(touchPosition.x)-1) * 90, (touchPosition.x / Mathf.Abs(touchPosition.x))*rot +90* (touchPosition.x / Mathf.Abs(touchPosition.x)-1));
+
+            Debug.Log(rot);
 
             Vector2 vectorFromTouch = touch.position - new Vector2(Screen.width/2f, Screen.height/2f);            
             touchPercent = (vectorFromTouch/new Vector2(Screen.width, Screen.height)).magnitude;
@@ -98,6 +103,18 @@ public class shooting : MonoBehaviour
             
         }
         cooldown -= Time.deltaTime;
+        if (weaponType == GameObject.FindGameObjectWithTag("Arrow") && !loaded)
+        {
+            ammo[counter].transform.GetComponent<SpriteRenderer>().enabled = false;
+            ammo[counter].transform.position = muzzle.position;
+            ammo[counter].SetActive(true);
+            ammo[counter].transform.GetComponent<Rigidbody2D>().gravityScale = 0;
+            ammo[counter].transform.GetComponent<PolygonCollider2D>().enabled = false;
+            ammo[counter].transform.GetComponent<SpriteRenderer>().enabled = true;
+            loaded = true;
+        }
+
+        
     }
 
     void Fire(float rot)
@@ -122,7 +139,7 @@ public class shooting : MonoBehaviour
         }
 
         if (weaponType == GameObject.FindGameObjectWithTag("CB"))
-        {
+        {            
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
             ammo[counter].transform.GetComponent<cannon_ball>().oneHit = false;
@@ -145,13 +162,16 @@ public class shooting : MonoBehaviour
 
         if (weaponType == GameObject.FindGameObjectWithTag("Arrow"))
         {
-            ammo[counter].transform.position = muzzle.position;
-            ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
+            //ammo[counter].transform.position = muzzle.position;
+            ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot-90);
             ammo[counter].transform.GetComponent<arrow>().oneLaunch = false;
             ammo[counter].transform.GetComponent<arrow>().oneHit = false;
             ammo[counter].transform.GetComponent<SpriteRenderer>().enabled = false;
+            ammo[counter].transform.GetComponent<PolygonCollider2D>().enabled = true;
+            ammo[counter].transform.GetComponent<Rigidbody2D>().gravityScale = 2;
             for (int i = 0; i < ammo[counter].transform.childCount; i++) 
                 ammo[counter].transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+            StartCoroutine(Load());
         }
 
         ammo[counter].SetActive(true);
@@ -166,5 +186,11 @@ public class shooting : MonoBehaviour
         yield return new WaitForSeconds(r);
         transform.GetChild(2).gameObject.SetActive(false);
 
+    }
+
+    private IEnumerator Load()
+    {
+        yield return new WaitForSeconds(0.2f);
+        loaded = false;
     }
 }
