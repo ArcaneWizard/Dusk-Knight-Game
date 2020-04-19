@@ -16,6 +16,9 @@ public class arrow : MonoBehaviour
 
     void Start()
     {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 50);
+        transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 50);
+
         oneLaunch = true;
         rig = transform.GetComponent<Rigidbody2D>();
     }
