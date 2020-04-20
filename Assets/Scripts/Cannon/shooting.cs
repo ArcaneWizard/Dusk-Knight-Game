@@ -55,6 +55,7 @@ public class shooting : MonoBehaviour
 
         }
 
+
         for (int i = 0; i < weaponType.transform.childCount; i++)
             ammo.Add(weaponType.transform.GetChild(i).gameObject);
 
@@ -86,7 +87,8 @@ public class shooting : MonoBehaviour
             if (weaponType == GameObject.FindGameObjectWithTag("Arrow")) 
                 transform.rotation = Quaternion.Euler(0f, (touchPosition.x/Mathf.Abs(touchPosition.x)-1) * 90, (touchPosition.x / Mathf.Abs(touchPosition.x))*rot +90* (touchPosition.x / Mathf.Abs(touchPosition.x)-1));
 
-            Debug.Log(rot);
+            if (transform.gameObject.name == "Flamethrower")
+                transform.rotation = Quaternion.Euler(0f, 0f, rot);
 
             Vector2 vectorFromTouch = touch.position - new Vector2(Screen.width/2f, Screen.height/2f);            
             touchPercent = (vectorFromTouch/new Vector2(Screen.width, Screen.height)).magnitude;

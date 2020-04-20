@@ -38,6 +38,12 @@ public class Select_Weapon : MonoBehaviour
         GameObject.Find("Head").transform.GetChild(4).gameObject.SetActive(true);
     }
 
+    public void selectFlame()
+    {
+        unselectEverything();
+        GameObject.Find("Head").transform.GetChild(5).gameObject.SetActive(true);
+    }
+
     //make sure to turn the new weapon off in this method:
     void unselectEverything()
     {
@@ -46,5 +52,6 @@ public class Select_Weapon : MonoBehaviour
         GameObject.Find("Head").transform.GetChild(2).gameObject.SetActive(false);
         GameObject.Find("Head").transform.GetChild(3).gameObject.SetActive(false);
         GameObject.Find("Head").transform.GetChild(4).gameObject.SetActive(false);
+        GameObject.Find("Head").transform.GetChild(5).gameObject.SetActive(false);
     }
 }

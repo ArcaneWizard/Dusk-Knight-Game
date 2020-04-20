@@ -66,6 +66,7 @@ public class grenade : MonoBehaviour
     private IEnumerator boom()
     {
         //Collider needs to be larger (whenever the grenade hits the ground, enemies close to the land spot are not always reached by the explosion)
+        transform.GetComponent<CircleCollider2D>().enabled = true;
         animator.SetBool("blowup", true);
         yield return new WaitForSeconds(0.03f);
         transform.GetComponent<CircleCollider2D>().radius = 0.3f;
