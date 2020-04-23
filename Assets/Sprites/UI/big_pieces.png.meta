@@ -1,0 +1,1195 @@
+fileFormatVersion: 2
+guid: 508b9ed5498d0ef418c918d08379dee1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7443967823892631346
+    second: big_pieces_0
+  - first:
+      213: -4637279950602639896
+    second: big_pieces_1
+  - first:
+      213: 2037141235344140867
+    second: big_pieces_2
+  - first:
+      213: 7750403704173770704
+    second: big_pieces_3
+  - first:
+      213: -2991569248887447647
+    second: big_pieces_4
+  - first:
+      213: 477776369003694350
+    second: big_pieces_5
+  - first:
+      213: 3471451208306564190
+    second: big_pieces_6
+  - first:
+      213: 4804173688080584837
+    second: big_pieces_7
+  - first:
+      213: -1935240801194343632
+    second: big_pieces_8
+  - first:
+      213: 1983639504128660086
+    second: big_pieces_9
+  - first:
+      213: 3037283808807965449
+    second: big_pieces_10
+  - first:
+      213: 8764455122668027442
+    second: big_pieces_11
+  - first:
+      213: -4385825302533941504
+    second: big_pieces_12
+  - first:
+      213: -72725220758452440
+    second: big_pieces_13
+  - first:
+      213: 530761725939574284
+    second: big_pieces_14
+  - first:
+      213: 5511136374735848183
+    second: big_pieces_15
+  - first:
+      213: 3404171729640696945
+    second: big_pieces_16
+  - first:
+      213: 2484643468264794624
+    second: big_pieces_17
+  - first:
+      213: 3568539095166120509
+    second: big_pieces_18
+  - first:
+      213: 6273621572779775904
+    second: big_pieces_19
+  - first:
+      213: 5731403575448238598
+    second: big_pieces_20
+  - first:
+      213: -2331663290015391184
+    second: big_pieces_21
+  - first:
+      213: -2163206277290149771
+    second: big_pieces_22
+  - first:
+      213: 5550953433935267902
+    second: big_pieces_23
+  - first:
+      213: 132857531810655068
+    second: big_pieces_24
+  - first:
+      213: -6976185435195863349
+    second: big_pieces_25
+  - first:
+      213: -7875785164557231287
+    second: big_pieces_26
+  - first:
+      213: 5014785410324250860
+    second: big_pieces_27
+  - first:
+      213: 4728815839207543443
+    second: big_pieces_28
+  - first:
+      213: -8746301630341930202
+    second: big_pieces_29
+  - first:
+      213: 1085311114507749540
+    second: big_pieces_30
+  - first:
+      213: -8846809151300291737
+    second: big_pieces_31
+  - first:
+      213: 7524406873202716465
+    second: big_pieces_32
+  - first:
+      213: -4206813764429532796
+    second: big_pieces_33
+  - first:
+      213: -3257258119628168260
+    second: big_pieces_34
+  - first:
+      213: 59769046475144401
+    second: big_pieces_35
+  - first:
+      213: 3817334774927966334
+    second: big_pieces_36
+  - first:
+      213: -8469758872236190740
+    second: big_pieces_37
+  - first:
+      213: -7993048713245110614
+    second: big_pieces_38
+  - first:
+      213: -7722764972900610482
+    second: big_pieces_39
+  - first:
+      213: -4863509708671281078
+    second: big_pieces_40
+  - first:
+      213: -8254822357519782619
+    second: big_pieces_41
+  - first:
+      213: 1792175495464798430
+    second: big_pieces_42
+  - first:
+      213: 5229813318092094050
+    second: big_pieces_43
+  - first:
+      213: -297432866503239062
+    second: big_pieces_44
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: big_pieces_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 182
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f738107e022e5474f8f09ac927b32978
+      internalID: 7443967823892631346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_1
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 182
+        width: 36
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3167c88bf2d16e44bf01488c60aff63
+      internalID: -4637279950602639896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_2
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 182
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0db27de17dde43848bd208e185fe29b4
+      internalID: 2037141235344140867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_3
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 182
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b065b2c71236f9f469fb0eb13349fba5
+      internalID: 7750403704173770704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_4
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 182
+        width: 36
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25a00a5c94f246d4189aaa161d3d449d
+      internalID: -2991569248887447647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_5
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 182
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec3febf5358d08046926220bc77a9713
+      internalID: 477776369003694350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_6
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 182
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dafc09004e48b3745b7578b3d3e97b0b
+      internalID: 3471451208306564190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_7
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 182
+        width: 36
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfb548acec89303498f109b381357949
+      internalID: 4804173688080584837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_8
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 182
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f0d24822c511aa48ac5bdeb20227fad
+      internalID: -1935240801194343632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_9
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 186
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45d3b4b3e92e1df45bf58a7c7660e5c3
+      internalID: 1983639504128660086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_10
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 186
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e6e8931543393749b33944c1cfb4df5
+      internalID: 3037283808807965449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_11
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 186
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68c6454abf5422e4b8b16c573679082a
+      internalID: 8764455122668027442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_12
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 145
+        width: 38
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43ce9700c3e739843a17587293d04c77
+      internalID: -4385825302533941504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_13
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 145
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f330572ce2341be448ad1134fd38aa64
+      internalID: -72725220758452440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_14
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 145
+        width: 38
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58c586013f500c0479c7297fa1bf90ec
+      internalID: 530761725939574284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_15
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 145
+        width: 38
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f57dd01c71756aa409a2cc6a1de19f98
+      internalID: 5511136374735848183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_16
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 145
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0961075ba5c0b0a42beeaf75c2c575b0
+      internalID: 3404171729640696945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_17
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 145
+        width: 38
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3101de669841ee64b994a2190d6459dd
+      internalID: 2484643468264794624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_18
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 145
+        width: 38
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c824dfb1c3537df438bbf9b589778eb6
+      internalID: 3568539095166120509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_19
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 145
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40a4270c0c5f373478908a1f65670991
+      internalID: 6273621572779775904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_20
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 145
+        width: 38
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58ce7c8fa9a43d04a94eedac3c8ff0b9
+      internalID: 5731403575448238598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_21
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 143
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bff93d38379aa445bfa15255f8b0018
+      internalID: -2331663290015391184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_22
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 143
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d400b71118fd84d4d952091f6f9e6059
+      internalID: -2163206277290149771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_23
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 143
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b51c7e0b25739a45afee59402ee1ee2
+      internalID: 5550953433935267902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_24
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 106
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88ebddb8c600e5342b98e5e58f1fee52
+      internalID: 132857531810655068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_25
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 106
+        width: 36
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 623e43f1a0bec424791e0efb3b0daab6
+      internalID: -6976185435195863349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_26
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 106
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45762ab8d7be9a942bcc42633cf939f8
+      internalID: -7875785164557231287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_27
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 106
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9b54d9714b811546b5e2788a098c772
+      internalID: 5014785410324250860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_28
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 106
+        width: 36
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24f9966e8b63ef845bbe73fac66594f7
+      internalID: 4728815839207543443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_29
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 106
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fb0f7f0b8469d042a3c7c0b752f048a
+      internalID: -8746301630341930202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_30
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 106
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce7d2adbd99e5e246bf4edba1f41e6de
+      internalID: 1085311114507749540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_31
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 106
+        width: 36
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71b056b59781aa64284d95d7c658221d
+      internalID: -8846809151300291737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_32
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 106
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5636274e540aabc44b56e99c2cbeaecd
+      internalID: 7524406873202716465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_33
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 100
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1a021e9e57da264cb684b414b73a239
+      internalID: -4206813764429532796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_34
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 100
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17c43cd27af129b4cb05cc2c2122797c
+      internalID: -3257258119628168260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_35
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 100
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9012caeac8189b48beaa070a3603014
+      internalID: 59769046475144401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_36
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 62
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e434448ce0203044b8c4a51525e01c9d
+      internalID: 3817334774927966334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_37
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 62
+        width: 28
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37f50fce28591c64bb1043259167b190
+      internalID: -8469758872236190740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_38
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 60
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c59ab84068d78e48b53f2d7ab0e55e8
+      internalID: -7993048713245110614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_39
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 60
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7308eafc849e3464c83f960475249b82
+      internalID: -7722764972900610482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_40
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 28
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12e20238a4495024d909424e41820f78
+      internalID: -4863509708671281078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_41
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 35
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c9a4bf079f383740baa44e36b5c0bc0
+      internalID: -8254822357519782619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_42
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 32
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97e0e863feb5c5448826cb837a964039
+      internalID: 1792175495464798430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_43
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 32
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f4c54b69ae6be34fa9b636e38d5f832
+      internalID: 5229813318092094050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_pieces_44
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 31
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 921646b9069c6074e80c397cd097269a
+      internalID: -297432866503239062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

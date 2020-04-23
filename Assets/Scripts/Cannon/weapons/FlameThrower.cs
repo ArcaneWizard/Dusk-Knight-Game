@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class FWOOOSH : MonoBehaviour
+public class FlameThrower : MonoBehaviour
 {
 
     public List<GameObject> flame;

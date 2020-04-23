@@ -44,10 +44,25 @@ public class cannon_ball : MonoBehaviour
             {
                 col.gameObject.transform.GetComponent<Enemy_Health>().hp -= 40;
                 oneHit = true;
+
+                int dir = -1;
+                if (col.gameObject.transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
+                    dir = 1;
+
+                col.gameObject.transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f * dir, 120f));
+               // StartCoroutine(setSpeedBackToNormal(col.gameObject));
             }
         }
 
         stop = false;
         transform.gameObject.SetActive(false);
+    }
+
+    private IEnumerator setSpeedBackToNormal(GameObject enemy)
+    {
+        yield return new WaitForSeconds(1f);
+
+        float speed = enemy.transform.GetComponent<Enemy_Health>().returnSpeed();
+        enemy.transform.GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 0);
     }
 }

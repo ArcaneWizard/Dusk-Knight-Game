@@ -13,6 +13,8 @@ TagManager:
   - Ranged Shooter
   - Potion
   - Arrow
+  - Buttons
+  - Game buttons
   layers:
   - Default
   - TransparentFX

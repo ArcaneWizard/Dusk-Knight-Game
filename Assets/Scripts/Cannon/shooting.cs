@@ -72,23 +72,6 @@ public class shooting : MonoBehaviour
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position) - transform.position;
             float rot = Mathf.Atan2(touchPosition.y, touchPosition.x) * Mathf.Rad2Deg;
 
-            if(weaponType == GameObject.Find("Grenade"))
-                transform.rotation = Quaternion.Euler(0f, 0f, rot);
-
-            if (weaponType == GameObject.FindGameObjectWithTag("CB"))
-                transform.rotation = Quaternion.Euler(0f, 0f, rot);
-            
-            if (weaponType == GameObject.Find("Bullet"))
-                transform.rotation = Quaternion.Euler(0f, 0f, rot-90);
-
-            if (weaponType == GameObject.FindGameObjectWithTag("Potion"))
-                transform.rotation = Quaternion.Euler(0f, 0f, rot);
-
-            if (weaponType == GameObject.FindGameObjectWithTag("Arrow")) 
-                transform.rotation = Quaternion.Euler(0f, (touchPosition.x/Mathf.Abs(touchPosition.x)-1) * 90, (touchPosition.x / Mathf.Abs(touchPosition.x))*rot +90* (touchPosition.x / Mathf.Abs(touchPosition.x)-1));
-
-            if (transform.gameObject.name == "Flamethrower")
-                transform.rotation = Quaternion.Euler(0f, 0f, rot);
 
             Vector2 vectorFromTouch = touch.position - new Vector2(Screen.width/2f, Screen.height/2f);            
             touchPercent = (vectorFromTouch/new Vector2(Screen.width, Screen.height)).magnitude;
@@ -96,7 +79,7 @@ public class shooting : MonoBehaviour
             if (cooldown <= 0)
             {
                 cooldown = startcooldown;
-                Fire(rot);
+                StartCoroutine(checkForWeaponChangeOrFire(rot, touchPosition));
             }
             else
             {
@@ -117,6 +100,33 @@ public class shooting : MonoBehaviour
         }
 
         
+    }
+
+    private IEnumerator checkForWeaponChangeOrFire(float rot, Vector3 touchPosition)
+    {
+        yield return new WaitForSeconds(0.01f);
+        if (GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Select_Weapon>().weaponChange == false)
+        {
+            if (weaponType == GameObject.Find("Grenade"))
+                transform.rotation = Quaternion.Euler(0f, 0f, rot);
+
+            if (weaponType == GameObject.FindGameObjectWithTag("CB"))
+                transform.rotation = Quaternion.Euler(0f, 0f, rot);
+
+            if (weaponType == GameObject.Find("Bullet"))
+                transform.rotation = Quaternion.Euler(0f, 0f, rot - 90);
+
+            if (weaponType == GameObject.FindGameObjectWithTag("Potion"))
+                transform.rotation = Quaternion.Euler(0f, 0f, rot);
+
+            if (weaponType == GameObject.FindGameObjectWithTag("Arrow"))
+                transform.rotation = Quaternion.Euler(0f, (touchPosition.x / Mathf.Abs(touchPosition.x) - 1) * 90, (touchPosition.x / Mathf.Abs(touchPosition.x)) * rot + 90 * (touchPosition.x / Mathf.Abs(touchPosition.x) - 1));
+
+            if (transform.gameObject.name == "Flamethrower")
+                transform.rotation = Quaternion.Euler(0f, 0f, rot);
+
+            Fire(rot);
+        }
     }
 
     void Fire(float rot)
@@ -150,6 +160,7 @@ public class shooting : MonoBehaviour
             for (int i = 0; i < ammo[counter].transform.childCount; i++)
                 ammo[counter].transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
         }
+        Debug.Log("yo");
 
         if (weaponType == GameObject.FindGameObjectWithTag("Potion"))
         {

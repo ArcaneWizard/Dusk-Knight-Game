@@ -16,10 +16,10 @@ public class Enemy_Health : MonoBehaviour
     private int reaper_3 = 80;
 
     public static float orc_speed = 0.4f;
-    public static float ogre_speed = 0.5f;
+    public static float ogre_speed = 0.4f;
     public static float goblin_speed = 0.9f;
-    public static float R1_speed = 0.5f;
-    public static float R2_speed = 0.7f;
+    public static float R1_speed = 0.9f;
+    public static float R2_speed = 0.9f;
 
     Animator animator;
     private bool death = false;
@@ -67,6 +67,7 @@ public class Enemy_Health : MonoBehaviour
         lastHP = hp;
         death = false;
 
+        transform.GetComponent<PolygonCollider2D>().enabled = true;
         if (gameObject.tag == "Ranged Shooter")
             transform.localPosition = new Vector2(0, 0);
     }
@@ -256,5 +257,27 @@ public class Enemy_Health : MonoBehaviour
         gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(245, 0, 0, 255);
         yield return new WaitForSeconds(0.1f);
         gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+    }
+
+    public float returnSpeed()
+    {
+        GameObject enemy = transform.gameObject;
+        float speed = 0;
+
+        if (enemy.layer == 8)
+            speed = orc_speed;
+        if (enemy.layer == 9)
+            speed = ogre_speed;
+        if (enemy.layer == 11)
+            speed = goblin_speed;
+        if (enemy.layer == 19)
+            speed = R1_speed;
+        if (enemy.layer == 20)
+            speed = R2_speed;
+
+        if (enemy.transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
+            speed *= -1;
+
+        return speed;
     }
 }

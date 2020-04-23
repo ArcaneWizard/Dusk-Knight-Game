@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class fwoofwoo : MonoBehaviour
+public class flame : MonoBehaviour
 {
 
     private void OnTriggerStay2D(Collider2D col)

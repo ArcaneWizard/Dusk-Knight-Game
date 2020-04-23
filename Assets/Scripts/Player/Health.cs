@@ -26,18 +26,18 @@ public class Health : MonoBehaviour
         playerHP = maxPlayerHP;
 
         hp = GameObject.Find("Canvas").transform.GetChild(0).transform.GetChild(0).transform.GetComponent<Image>();
+        Upgrade();
+        Upgrade();
+        Upgrade();
     }
 
     // Update is called once per frame
     void Update()
     {
-        hp.fillAmount = (float) playerHP / maxPlayerHP;
-
-        Debug.Log(maxPlayerHP);
-        Debug.Log(stage);
+        hp.fillAmount = (float)playerHP / maxPlayerHP;
     }
 
-    void OnCollisionEnter2D (Collision2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.layer == 23 || col.gameObject.layer == 24)
         {
@@ -56,6 +56,7 @@ public class Health : MonoBehaviour
     {
         maxPlayerHP = 700;
         playerHP = maxPlayerHP;
+
         boxy.offset = new Vector2(0.02191818f, -0.5f);
         boxy.size = new Vector2(2.344175f, 1.9f);
         boxy2.offset = new Vector2(0.03646278f, 0.9f);
@@ -70,10 +71,9 @@ public class Health : MonoBehaviour
         transform.GetChild(2).GetChild(2).gameObject.SetActive(true);
     }
 
-    public void Upgrade()
+    void Upgrade()
     {
         stage++;
-
         if (stage == 2)
         {
             boxy.offset = new Vector2(0.02191818f, -0.3f);
@@ -104,5 +104,4 @@ public class Health : MonoBehaviour
             maxPlayerHP += 100;
         }
     }
-
 }
