@@ -8,7 +8,7 @@ public class Enemy_Health : MonoBehaviour
     public int hp = 1;
     private int lastHP;
 
-    private int orc = 120;
+    private int orc = 140;
     private int ogre = 70;
     private int goblin = 50;
     private int reaper_1 = 60;
@@ -37,7 +37,7 @@ public class Enemy_Health : MonoBehaviour
 
     // Start is called before the first frame update
     void Awake()
-    {
+    {        
         setHP();
         ogScaleX = transform.localScale.x;
         ogScaleY = transform.localScale.y;
@@ -68,6 +68,7 @@ public class Enemy_Health : MonoBehaviour
         lastHP = hp;
         death = false;
 
+        transform.GetComponent<ParticleSystem>().Stop();
         transform.GetComponent<PolygonCollider2D>().enabled = true;
         if (gameObject.tag == "Ranged Shooter")
             transform.localPosition = new Vector2(0, 0);
@@ -94,6 +95,11 @@ public class Enemy_Health : MonoBehaviour
         {
             checkDeath();
             death = true;
+        }
+
+        if (hp <= 20)
+        {
+            transform.GetComponent<ParticleSystem>().Play();
         }
 
         if (lastHP != hp)
@@ -290,4 +296,5 @@ public class Enemy_Health : MonoBehaviour
             transform.GetComponent<AudioSource>().PlayOneShot(m.enemyHit);
         }
     }
+
 }
