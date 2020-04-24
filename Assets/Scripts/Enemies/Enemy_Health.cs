@@ -42,6 +42,7 @@ public class Enemy_Health : MonoBehaviour
         ogScaleX = transform.localScale.x;
         ogScaleY = transform.localScale.y;
         animator = transform.GetComponent<Animator>();
+        gameObject.AddComponent<AudioSource>();
     }
 
     public void setHP()
@@ -279,5 +280,14 @@ public class Enemy_Health : MonoBehaviour
             speed *= -1;
 
         return speed;
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.layer == 25) //hits a player projectile
+        {
+            Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
+            transform.GetComponent<AudioSource>().PlayOneShot(m.enemyHit);
+        }
     }
 }

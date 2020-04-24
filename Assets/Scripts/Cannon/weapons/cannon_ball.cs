@@ -11,6 +11,11 @@ public class cannon_ball : MonoBehaviour
     public bool oneHit = false;
     public bool oneLaunch = false;
 
+    void Start()
+    {
+        //gameObject.AddComponent<AudioSource>();
+    }
+
     void Update()
     {
         if ((Mathf.Abs(transform.position.x) < 10f || Mathf.Abs(transform.position.y) < 9f) && stop == false)
@@ -45,12 +50,11 @@ public class cannon_ball : MonoBehaviour
                 col.gameObject.transform.GetComponent<Enemy_Health>().hp -= 40;
                 oneHit = true;
 
-                int dir = -1;
-                if (col.gameObject.transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
-                    dir = 1;
-
-                col.gameObject.transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f * dir, 120f));
-               // StartCoroutine(setSpeedBackToNormal(col.gameObject));
+                //int dir = -1;
+                //if (col.gameObject.transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
+                //    dir = 1;
+                // col.gameObject.transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f * dir, 120f));
+                // StartCoroutine(setSpeedBackToNormal(col.gameObject));
             }
         }
 

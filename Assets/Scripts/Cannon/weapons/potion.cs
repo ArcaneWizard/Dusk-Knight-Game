@@ -15,6 +15,7 @@ public class potion : MonoBehaviour
     void Start()
     {
         rig = transform.GetComponent<Rigidbody2D>();
+        //gameObject.AddComponent<AudioSource>();
     }
 
     void Update()

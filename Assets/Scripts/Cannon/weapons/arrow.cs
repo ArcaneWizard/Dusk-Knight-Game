@@ -21,6 +21,7 @@ public class arrow : MonoBehaviour
 
         oneLaunch = true;
         rig = transform.GetComponent<Rigidbody2D>();
+        //gameObject.AddComponent<AudioSource>();
     }
 
     void Update()

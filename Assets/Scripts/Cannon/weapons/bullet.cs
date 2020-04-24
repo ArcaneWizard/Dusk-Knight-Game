@@ -9,6 +9,11 @@ public class bullet : MonoBehaviour
     private bool stop = false;
     public bool oneHit = false;
 
+    void Start()
+    {
+       // gameObject.AddComponent<AudioSource>();
+    }
+
     void Update()
     {
         if (Mathf.Abs(transform.position.x) < 10f && Mathf.Abs(transform.position.y) < 9f && stop == false)
