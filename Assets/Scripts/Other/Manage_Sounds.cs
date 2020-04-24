@@ -5,8 +5,7 @@ using UnityEngine;
 public class Manage_Sounds : MonoBehaviour
 {
     public AudioClip enemyHit;
-
-
+    public AudioClip cannonShot;
 
     //Always refer to clips from here so they are all in one place + ez to swap out for testing :D    I outlined the system I followed below:
 
@@ -28,5 +27,5 @@ public class Manage_Sounds : MonoBehaviour
     }
 
     //Btw, all the projectiles disable immediately upon collision so playing sounds on their scripts is useless.
-    //You'll have to add sounds to the player or enemy_health script
+    //You'll have to add most sounds to the player or enemy_health script directly
 }

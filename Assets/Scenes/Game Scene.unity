@@ -50977,6 +50977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHit: {fileID: 8300000, guid: c26b818cf5fa9804aa25b30eb112861b, type: 3}
+  cannonShot: {fileID: 8300000, guid: 0ead7ed9c6232264aa6304f6b6c0ea1b, type: 3}
 --- !u!4 &2132682075
 Transform:
   m_ObjectHideFlags: 0

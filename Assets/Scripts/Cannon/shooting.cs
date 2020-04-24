@@ -19,6 +19,7 @@ public class shooting : MonoBehaviour
     void Start()
     {
         changeWeapon();
+        gameObject.AddComponent<AudioSource>();
     }
 
     public void changeWeapon()
@@ -131,6 +132,9 @@ public class shooting : MonoBehaviour
 
     void Fire(float rot)
     {
+        Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
+        transform.GetComponent<AudioSource>().PlayOneShot(m.cannonShot);
+
         //Modify the position/rotation code based on weapon type
         if (weaponType == GameObject.Find("Grenade"))
         {
