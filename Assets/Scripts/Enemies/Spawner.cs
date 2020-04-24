@@ -32,7 +32,7 @@ public class Spawner : MonoBehaviour
     {
         deployRandomEnemy();
 
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(2f);
         StartCoroutine(spawnOver());
     }   
 

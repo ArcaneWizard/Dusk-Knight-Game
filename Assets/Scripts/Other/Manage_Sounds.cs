@@ -26,6 +26,6 @@ public class Manage_Sounds : MonoBehaviour
 
     }
 
-    //Btw, all the projectiles disable immediately upon collision so playing sounds on their scripts is useless.
-    //You'll have to add most sounds to the player or enemy_health script directly
+    //Btw, all the weapon projectiles disable immediately upon collision so playing sounds on their scripts is useless.
+    //You'll have to add most sounds to the player or enemy_health script 
 }
