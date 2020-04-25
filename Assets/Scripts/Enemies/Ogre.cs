@@ -42,7 +42,10 @@ public class Ogre : MonoBehaviour
             {
                 animator.SetInteger("Stage", 1);
                 rig.velocity = new Vector2(0, 0);
+                Vector2 dir = GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;
+                rig.AddForce(new Vector2(40, 140) * dir.normalized.x *1.1f);
                 yield return new WaitForSeconds(0.82f);
+                rig.velocity = new Vector2(0, 0);
                 if (stopMoving == true)
                     animator.SetInteger("Stage", 2);
             }

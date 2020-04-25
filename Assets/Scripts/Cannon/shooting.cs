@@ -91,17 +91,29 @@ public class shooting : MonoBehaviour
         cooldown -= Time.deltaTime;
         if (weaponType == GameObject.FindGameObjectWithTag("Arrow") && !loaded)
         {
-            ammo[counter].transform.GetComponent<SpriteRenderer>().enabled = false;
+            ammo[counter].gameObject.transform.GetChild(0).transform.GetComponent<SpriteRenderer>().enabled = false;
             ammo[counter].transform.position = muzzle.position;
-            ammo[counter].SetActive(true);
             ammo[counter].transform.GetComponent<Rigidbody2D>().gravityScale = 0;
             ammo[counter].transform.GetComponent<PolygonCollider2D>().enabled = false;
-            ammo[counter].transform.GetComponent<SpriteRenderer>().enabled = true;
             loaded = true;
+            StartCoroutine(delayAppearance());
         }
-
-        
     }
+
+    private IEnumerator delayAppearance()
+    {
+        yield return new WaitForSeconds(0.01f);
+        int flip = 0;
+        Transform arrowHead = GameObject.Find("Head").transform.GetChild(4).transform;
+        if (arrowHead.rotation.y != 0)
+            flip = -1;
+        else
+            flip = 1;
+        ammo[counter].transform.rotation = Quaternion.Euler(0f, (flip - 1) * 90, arrowHead.rotation.eulerAngles.z - 90);
+        ammo[counter].transform.position = arrowHead.GetChild(0).position;
+        ammo[counter].SetActive(true);
+    }
+
 
     private IEnumerator checkForWeaponChangeOrFire(float rot, Vector3 touchPosition)
     {
@@ -164,7 +176,6 @@ public class shooting : MonoBehaviour
             for (int i = 0; i < ammo[counter].transform.childCount; i++)
                 ammo[counter].transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
         }
-        Debug.Log("yo");
 
         if (weaponType == GameObject.FindGameObjectWithTag("Potion"))
         {
@@ -183,17 +194,14 @@ public class shooting : MonoBehaviour
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot-90);
             ammo[counter].transform.GetComponent<arrow>().oneLaunch = false;
             ammo[counter].transform.GetComponent<arrow>().oneHit = false;
-            ammo[counter].transform.GetComponent<SpriteRenderer>().enabled = false;
             ammo[counter].transform.GetComponent<PolygonCollider2D>().enabled = true;
             ammo[counter].transform.GetComponent<Rigidbody2D>().gravityScale = 2;
-            for (int i = 0; i < ammo[counter].transform.childCount; i++) 
-                ammo[counter].transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
             StartCoroutine(Load());
         }
 
         ammo[counter].SetActive(true);
-        counter += 1;
-        counter %= (weaponType.transform.childCount);
+            counter += 1;
+            counter %= (weaponType.transform.childCount);
     }
 
     private IEnumerator Flash()

@@ -8,33 +8,63 @@ public class Health : MonoBehaviour
     public static int playerHP;
     public static int maxPlayerHP;
 
+    private BoxCollider2D boxy;
+    private BoxCollider2D boxy2;
 
+    private int stage = 1;
+    public static int OrcDmg = 50;
+    public static int GobDmg = 20;
+    public static int R2Dmg = 25;
+    public static int R3Dmg = 8;
+    public static int R1Dmg = 10;
+    public static int OgreDmg = 12;
 
-    public BoxCollider2D boxy;
-    public BoxCollider2D boxy2;
-    public int stage = 1;
-    public static int OrcDmg = 20;
-    public static int GobDmg = 15;
-    public static int R2Dmg = 15;
+    public static int arrow = 40;
+    public static int bullet = 15;
+    public static int CB = 40;
+    public static float flame = 1.3f;
+    public static int grenade = 30;
+    public static int potion = 40;
 
     private Image hp;
+    private GameObject head;
 
     // Start is called before the first frame update
     void Start()
     {
-        maxPlayerHP = 700;
+        maxPlayerHP = 1000;
         playerHP = maxPlayerHP;
 
         hp = GameObject.Find("Canvas").transform.GetChild(0).transform.GetChild(0).transform.GetComponent<Image>();
-        Upgrade();
-        Upgrade();
-        Upgrade();
+        head = GameObject.Find("Head");
     }
 
     // Update is called once per frame
     void Update()
     {
+        stage = PlayerPrefs.GetInt("Tower") + 1;
         hp.fillAmount = (float)playerHP / maxPlayerHP;
+
+        if (stage == 1)
+        {
+            transform.GetChild(2).gameObject.SetActive(true);
+        }
+
+        if (stage >= 2)
+        {
+            transform.GetChild(stage).gameObject.SetActive(false);
+            transform.GetChild(stage + 1).gameObject.SetActive(true);
+            maxPlayerHP = stage * 1000;
+        }
+
+        if (stage == 1)
+            head.transform.localPosition = new Vector2(head.transform.localPosition.x, 1.05f);
+        if (stage == 2)
+            head.transform.localPosition = new Vector2(head.transform.localPosition.x, 1.63f);
+        if (stage == 3)
+            head.transform.localPosition = new Vector2(head.transform.localPosition.x, 2.18f);
+        if (stage == 4)
+            head.transform.localPosition = new Vector2(head.transform.localPosition.x, 2.18f);
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -42,17 +72,17 @@ public class Health : MonoBehaviour
         if (col.gameObject.layer == 23 || col.gameObject.layer == 24)
         {
             if (col.gameObject.tag == "Witch orb")
-                playerHP -= 10;
+                playerHP -= R3Dmg;
 
             if (col.gameObject.tag == "Reaper orb")
-                playerHP -= 20;
+                playerHP -= R1Dmg;
 
             if (col.gameObject.tag == "Boulder")
-                playerHP -= 25;
+                playerHP -= OgreDmg;
         }
     }
 
-    public void Reset()
+    /*public void Reset()
     {
         maxPlayerHP = 700;
         playerHP = maxPlayerHP;
@@ -73,7 +103,6 @@ public class Health : MonoBehaviour
 
     void Upgrade()
     {
-        stage++;
         if (stage == 2)
         {
             boxy.offset = new Vector2(0.02191818f, -0.3f);
@@ -82,6 +111,7 @@ public class Health : MonoBehaviour
             boxy2.size = new Vector2(2.458501f, 0.7449135f);
             transform.GetChild(2).GetChild(3).gameObject.SetActive(true);
             maxPlayerHP += 100;
+            playerHP = maxPlayerHP;
         }
         if (stage == 3)
         {
@@ -91,6 +121,7 @@ public class Health : MonoBehaviour
             boxy2.size = new Vector2(2.458501f, 0.7449135f);
             transform.GetChild(2).GetChild(4).gameObject.SetActive(true);
             maxPlayerHP += 100;
+            playerHP = maxPlayerHP;
         }
         if (stage == 4)
         {
@@ -102,6 +133,7 @@ public class Health : MonoBehaviour
             transform.GetChild(2).GetChild(6).gameObject.SetActive(true);
             transform.GetChild(2).GetChild(7).gameObject.SetActive(true);
             maxPlayerHP += 100;
+            playerHP = maxPlayerHP;
         }
-    }
+    }*/
 }

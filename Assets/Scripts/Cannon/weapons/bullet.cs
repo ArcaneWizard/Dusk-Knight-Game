@@ -6,7 +6,6 @@ using UnityEngine.Rendering;
 public class bullet : MonoBehaviour
 {
     private float speed = 10f;
-    private bool stop = false;
     public bool oneHit = false;
 
     void Start()
@@ -16,34 +15,31 @@ public class bullet : MonoBehaviour
 
     void Update()
     {
-        if (Mathf.Abs(transform.position.x) < 10f && Mathf.Abs(transform.position.y) < 9f && stop == false)
+        if (Mathf.Abs(transform.localPosition.x) < 14.4f && Mathf.Abs(transform.localPosition.y) < 8f)
         {
             transform.GetComponent<Rigidbody2D>().velocity = transform.up * speed;
             gameObject.transform.GetComponent<SpriteRenderer>().enabled = true;
         }
-        else if (stop == false)
-        {
+        else
             transform.gameObject.SetActive(false);
-        }
     }
 
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        //see shooting script (bool oneHit is set to false when a bullet is spawned). 
-        stop = true;
+        //In shooting script, bool oneHit is set to false when a bullet is spawned. 
         if (col.gameObject.layer == 8 || col.gameObject.layer == 9 || col.gameObject.layer == 11 || col.gameObject.layer == 19 || col.gameObject.layer == 20 || col.gameObject.layer == 21)
         {
             if (oneHit == false)
             {
-                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= 40;
+                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= Health.bullet;
                 oneHit = true;
             }
-        }
+        };
 
-        stop = false;
-        //Setting oneHit back to false here at the end of this method would not work. It needs to be done once by a seperate script like above to avoid splash dmg
-        transform.gameObject.SetActive(false);
+        //Hit ground, turn off
+        if (col.gameObject.layer == 10)
+            gameObject.SetActive(false);
     }
 
 }

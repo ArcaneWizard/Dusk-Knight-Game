@@ -21,6 +21,8 @@ public class Shop : MonoBehaviour
 
     private string[] Selection = {"HpBoost", "Bullets", "Grenade", "Flame", "Potion", "CB", "Arrow", "Tower" };
 
+    private bool gameHasStarted = false;
+
     // Start is called before the first frame update
     void Start()
     {  
@@ -29,10 +31,6 @@ public class Shop : MonoBehaviour
         {
             PlayerPrefs.SetInt(Selection[i], 0);
         }
-
-        //Start equipped with Cannon
-        CB();
-        PlayerPrefs.SetInt("CB", 1);
     }
 
     void Update()
@@ -54,6 +52,14 @@ public class Shop : MonoBehaviour
                         buttons[j].gameObject.SetActive(true);
                 }
             }
+        }
+
+        if (gameHasStarted == false && transform.GetChild(0).gameObject.activeSelf == true)
+        {
+            gameHasStarted = true;
+            //Start equipped with Cannon
+            CB();
+            PlayerPrefs.SetInt("CB", 1);
         }
     }
 
@@ -124,6 +130,22 @@ public class Shop : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("Buttons").transform.GetChild(i).transform.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         }
+    }
+
+    public void openShop()
+    {
+        Time.timeScale = 0f;
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.parent.transform.GetChild(0).gameObject.SetActive(false);
+        transform.parent.transform.GetChild(1).gameObject.SetActive(false);
+    }
+
+    public void closeShop()
+    {
+        Time.timeScale = 1f;
+        transform.GetChild(0).gameObject.SetActive(false);
+        transform.parent.transform.GetChild(0).gameObject.SetActive(true);
+        transform.parent.transform.GetChild(1).gameObject.SetActive(true);
     }
 
     public void CB()

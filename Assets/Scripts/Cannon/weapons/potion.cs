@@ -58,7 +58,7 @@ public class potion : MonoBehaviour
         {
             if (oneHit == false)
             {
-                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= 20;
+                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= Health.potion;
                 col.gameObject.transform.GetComponent<Enemy_Health>().poison = true;
                 col.gameObject.transform.GetComponent<Enemy_Health>().isPoisoned = false;
                 oneHit = true;

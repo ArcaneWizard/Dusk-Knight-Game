@@ -13,6 +13,8 @@ public class arrow : MonoBehaviour
     private float flip=0;
 
     private Rigidbody2D rig;
+    private Transform arrowHead;
+    
 
     void Start()
     {
@@ -21,20 +23,15 @@ public class arrow : MonoBehaviour
 
         oneLaunch = true;
         rig = transform.GetComponent<Rigidbody2D>();
-        //gameObject.AddComponent<AudioSource>();
+        arrowHead = GameObject.Find("Head").transform.GetChild(4).transform;
     }
 
     void Update()
     {
-
-        if (transform.parent.parent.parent.GetChild(1).GetChild(3).GetChild(4).rotation.y != 0)
-        {
+        if (arrowHead.rotation.y != 0)
             flip = -1;
-        }
         else
-        {
             flip = 1;
-        }
 
         //Set bounds + reset settings when its being chosen from the array
         if ((Mathf.Abs(transform.position.x) < 10f || Mathf.Abs(transform.position.y) < 9f) && !stop)
@@ -48,9 +45,6 @@ public class arrow : MonoBehaviour
             }
         }
 
-        else if (stop == false)
-            transform.gameObject.SetActive(false);
-
         //This bit of code makes the grenade (or arrow) rotate as it falls
         if (launched)
         {
@@ -58,22 +52,24 @@ public class arrow : MonoBehaviour
             if (rig.velocity != new Vector2(0, 0))
                 transform.rotation = Quaternion.Euler(0f, 0f, rot - 90f);
         }
-        else if(!launched)
+        else 
         {
-            transform.rotation = Quaternion.Euler(0f, (flip-1)*90, transform.parent.parent.parent.GetChild(1).GetChild(3).GetChild(4).rotation.eulerAngles.z - 90);
-            transform.position = transform.parent.parent.parent.GetChild(1).GetChild(3).GetChild(4).GetChild(0).position;
+            transform.rotation = Quaternion.Euler(0f, (flip-1)*90, arrowHead.rotation.eulerAngles.z - 90);
+            transform.position = arrowHead.GetChild(0).position;
         }
 
         //Stop moving + re-enable sprite (only after proper rotation)
         if (stop)
             rig.velocity = new Vector2(0, 0);
 
-        if (rig.velocity != new Vector2(0, 0))
+        if (launched == true)
         {
-            gameObject.transform.GetComponent<SpriteRenderer>().enabled = true;
-            for (int i = 0; i < gameObject.transform.childCount; i++)
-                gameObject.transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = true;
+          //  for (int i = 0; i < gameObject.transform.childCount; i++)
+          //      gameObject.transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = true;
         }
+        else
+            gameObject.transform.GetChild(0).transform.GetComponent<SpriteRenderer>().enabled = false;
+
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -84,7 +80,7 @@ public class arrow : MonoBehaviour
         {
             if (oneHit == false)
             {
-                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= 20;
+                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= Health.arrow;
                 col.gameObject.transform.GetComponent<Enemy_Health>().iced = true;
                 oneHit = true;
             }

@@ -14,7 +14,13 @@ public class Orb : MonoBehaviour
         if (switchOrbs == true)
         {
             dir = GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;
-            transform.GetComponent<Rigidbody2D>().velocity = dir.normalized * 5f;
+            if (gameObject.name == "witch orbs")
+                transform.GetComponent<Rigidbody2D>().velocity = dir.normalized * 5f + new Vector2(0, UnityEngine.Random.Range(-1.5f, 1.5f));
+            else if (gameObject.name == "blue orbs")
+                transform.GetComponent<Rigidbody2D>().velocity = dir.normalized * 5f + new Vector2(0, UnityEngine.Random.Range(0, 4));
+            else
+                Debug.Log("orbs' name was changed. Error in the Orb script");
+
             switchOrbs = false;
         }
     }
@@ -22,6 +28,8 @@ public class Orb : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.layer == 10)
+        {
             gameObject.SetActive(false);
+        }
     }
 }

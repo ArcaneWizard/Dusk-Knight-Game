@@ -5,10 +5,10 @@ using UnityEngine;
 public class Enemy_Health : MonoBehaviour
 {
     //[HideInInspector]
-    public int hp = 1;
-    private int lastHP;
+    public float hp = 1;
+    private float lastHP;
 
-    private int orc = 140;
+    private int orc = 100;
     private int ogre = 70;
     private int goblin = 50;
     private int reaper_1 = 60;
@@ -137,9 +137,22 @@ public class Enemy_Health : MonoBehaviour
             transform.GetComponent<Reaper_2>().enabled = false;
 
         if (gameObject.layer == 21)
-            transform.GetComponent<Reaper_3>().enabled = false;
+            Destroy(transform.GetComponent<Reaper_3>());
 
-        yield return new WaitForSeconds(1.5f);
+        if (transform.parent.parent.name == "R3 Group")
+            transform.GetComponent<Rigidbody2D>().gravityScale = 1;
+
+        yield return new WaitForSeconds(4f);
+
+
+        if (transform.parent.parent.name == "R3 Group")
+        {
+            transform.GetComponent<Rigidbody2D>().gravityScale = 0;
+            transform.gameObject.AddComponent<Reaper_3>();
+        }
+
+
+
         isIcedWhileIcedCheck++;
 
         if (isIcedWhileIcedCheck == isIcedWhileIced)
@@ -294,6 +307,11 @@ public class Enemy_Health : MonoBehaviour
         {
             Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
             transform.GetComponent<AudioSource>().PlayOneShot(m.enemyHit);
+        }
+
+        if (col.gameObject.layer == 22 && transform.parent.parent.name == "R3 Group") //If a flying reaper hits the ground (meaning it was frozen in air and dropped down)
+        {
+            col.gameObject.transform.GetComponent<Enemy_Health>().hp = 0;
         }
     }
 

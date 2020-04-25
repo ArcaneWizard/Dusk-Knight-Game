@@ -8,17 +8,20 @@ public class Boulder : MonoBehaviour
     [HideInInspector]
     public bool switchBoulders = false;
     public string side = "right";
+    private float multiplier;
 
     // Start is called before the first frame update
     void Update()
     {
         if (switchBoulders == true)
         {
+            multiplier = UnityEngine.Random.Range(1f, 1.5f);
+
             if (side == "left")
                 dir = new Vector2(200, 300);
             else
                 dir = new Vector2(-200, 300);
-            transform.GetComponent<Rigidbody2D>().AddForce(dir);
+            transform.GetComponent<Rigidbody2D>().AddForce(dir * multiplier);
             switchBoulders = false;
         }
     }

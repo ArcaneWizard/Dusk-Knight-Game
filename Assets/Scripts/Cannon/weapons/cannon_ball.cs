@@ -47,7 +47,7 @@ public class cannon_ball : MonoBehaviour
         {
             if (oneHit == false)
             {
-                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= 40;
+                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= Health.CB;
                 oneHit = true;
 
                 //int dir = -1;

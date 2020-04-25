@@ -9,7 +9,7 @@ public class flame : MonoBehaviour
     {
         if (col.gameObject.layer == 8 || col.gameObject.layer == 9 || col.gameObject.layer == 11 || col.gameObject.layer == 19 || col.gameObject.layer == 20 || col.gameObject.layer == 21)
         {
-                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= 1;
+                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= Health.flame;
         }
     }
 }

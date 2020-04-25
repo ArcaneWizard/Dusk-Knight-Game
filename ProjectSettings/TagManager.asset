@@ -15,6 +15,9 @@ TagManager:
   - Arrow
   - Buttons
   - Game buttons
+  - Head
+  - Game UI
+  - Game UI 2
   layers:
   - Default
   - TransparentFX
