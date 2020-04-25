@@ -7,7 +7,7 @@ public class Reaper_3 : MonoBehaviour
 {
     Animator animator;
     Rigidbody2D rig;
-    private float speed;
+    private float speed = 0;
     private bool switchDir = false;
 
     private float height_Add;
@@ -79,6 +79,7 @@ public class Reaper_3 : MonoBehaviour
             if (bound == 7.74f && transform.position.x > 7.74f)
             {
                 bound = -7.74f;
+                if (rig != null)
                 rig.velocity = new Vector2(-speed, rig.velocity.y);
             }
 
@@ -94,7 +95,5 @@ public class Reaper_3 : MonoBehaviour
             if (transform.position.x < GameObject.FindGameObjectWithTag("Player").transform.position.x)
                 transform.rotation = Quaternion.Euler(new Vector2(0, 0));
         }
-        else
-            rig.velocity = new Vector2(0, 0);
     }
 }

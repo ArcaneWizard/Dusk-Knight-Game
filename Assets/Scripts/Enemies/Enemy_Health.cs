@@ -197,11 +197,6 @@ public class Enemy_Health : MonoBehaviour
             transform.GetComponent<Reaper_2>().enabled = true;
             transform.GetComponent<Rigidbody2D>().velocity = new Vector2(R2_speed * sign * multiplier, 0);
         }
-
-        if (gameObject.layer == 21)
-        {
-            transform.GetComponent<Reaper_3>().enabled = true;
-        }
     }
 
     private IEnumerator poisoned()
@@ -267,7 +262,7 @@ public class Enemy_Health : MonoBehaviour
         transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 
         if (gameObject.layer == 21)
-            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(false);
 
         StartCoroutine(fade());
     }
@@ -308,10 +303,23 @@ public class Enemy_Health : MonoBehaviour
             Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
             transform.GetComponent<AudioSource>().PlayOneShot(m.enemyHit);
         }
+    }
 
-        if (col.gameObject.layer == 22 && transform.parent.parent.name == "R3 Group") //If a flying reaper hits the ground (meaning it was frozen in air and dropped down)
+    void OnTriggerStay2D(Collider2D col)
+    {
+        if (transform.parent.parent.name == "R3 Group") //If a flying reaper hits the ground (meaning it was frozen in air and dropped down)
         {
-            col.gameObject.transform.GetComponent<Enemy_Health>().hp = 0;
+            Debug.Log("yeah");
+            if (col.gameObject.layer == 22 || col.gameObject.layer == 10)
+                col.gameObject.transform.GetComponent<Enemy_Health>().hp = 0;
+        }
+    }
+    void OnCollisionStay2D(Collision2D col)
+    {
+        if (transform.parent.parent.name == "R3 Group") //If a flying reaper hits the ground (meaning it was frozen in air and dropped down)
+        {
+            if (col.gameObject.layer == 22 || col.gameObject.layer == 10)
+                gameObject.transform.GetComponent<Enemy_Health>().hp = 0f;
         }
     }
 
