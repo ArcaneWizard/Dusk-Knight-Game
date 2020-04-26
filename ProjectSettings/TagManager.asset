@@ -18,6 +18,8 @@ TagManager:
   - Head
   - Game UI
   - Game UI 2
+  - Jewels
+  - Game Over
   layers:
   - Default
   - TransparentFX

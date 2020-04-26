@@ -264,7 +264,20 @@ public class Enemy_Health : MonoBehaviour
         if (gameObject.layer == 21)
             transform.GetChild(1).gameObject.SetActive(false);
 
+        giveJewels(8, 5);
+        giveJewels(9, 3);
+        giveJewels(11, 2);
+        giveJewels(19, 3);
+        giveJewels(20, 3);
+        giveJewels(21, 2);
+
         StartCoroutine(fade());
+    }
+
+    public void giveJewels(int layer, int jewels)
+    {
+        if (gameObject.layer == layer)
+            GameObject.Find("Shop").gameObject.GetComponent<Shop>().jewels += jewels;
     }
 
     private IEnumerator alter()
@@ -309,7 +322,6 @@ public class Enemy_Health : MonoBehaviour
     {
         if (transform.parent.parent.name == "R3 Group") //If a flying reaper hits the ground (meaning it was frozen in air and dropped down)
         {
-            Debug.Log("yeah");
             if (col.gameObject.layer == 22 || col.gameObject.layer == 10)
                 col.gameObject.transform.GetComponent<Enemy_Health>().hp = 0;
         }

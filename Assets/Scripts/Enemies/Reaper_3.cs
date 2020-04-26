@@ -16,7 +16,7 @@ public class Reaper_3 : MonoBehaviour
 
     private float x = 0;
 
-    private float bound = 7.74f;
+    private float bound = 13.3f;
     private bool counter = false;
     private float ampMultiplier = 1;
 
@@ -65,7 +65,7 @@ public class Reaper_3 : MonoBehaviour
             if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
             {
                 speed *= -1;
-                bound = -7.74f;
+                bound = -1.8f;
                 transform.rotation = Quaternion.Euler(new Vector2(0, 180));
             }
             rig = transform.GetComponent<Rigidbody2D>();
@@ -76,16 +76,18 @@ public class Reaper_3 : MonoBehaviour
 
         if (transform.GetComponent<Enemy_Health>().hp > 0)
         {
-            if (bound == 7.74f && transform.position.x > 7.74f)
+            if (bound == 13.3f && transform.position.x > 13.3f)
             {
-                bound = -7.74f;
+                if (rig.velocity.x > 0)
+                  bound = -1.8f;
                 if (rig != null)
                 rig.velocity = new Vector2(-speed, rig.velocity.y);
             }
 
-            if (bound == -7.74f && transform.position.x < -7.74f)
+            if (bound == -1.8f && transform.position.x < -1.8f)
             {
-                bound = 7.74f;
+                if (rig.velocity.x < 0)
+                    bound = 13.3f;
                 rig.velocity = new Vector2(speed, rig.velocity.y);
             }
 

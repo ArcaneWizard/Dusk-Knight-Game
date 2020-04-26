@@ -7,10 +7,11 @@ public class grenade : MonoBehaviour
 {
     private float speed = 3f;
     Animator animator;
-    private bool stop = false;
     public Sprite thing;
     public bool oneLaunch = false;
     private Rigidbody2D rig;
+
+    private bool boomOnAlready = false;
 
     void Start()
     {
@@ -23,7 +24,7 @@ public class grenade : MonoBehaviour
     void Update()
     {
         //Set bounds + reset settings when its being chosen from the array
-        if ((Mathf.Abs(transform.position.x) < 10f || Mathf.Abs(transform.position.y) < 9f) && stop == false)
+        if ((Mathf.Abs(transform.position.x) < 10f && Mathf.Abs(transform.position.y) < 9f))
         {
             if (oneLaunch == false)
             {
@@ -33,17 +34,11 @@ public class grenade : MonoBehaviour
             }
         }
 
-        else if (stop == false)
-            transform.gameObject.SetActive(false);
 
         //This bit of code makes the grenade (or arrow) rotate as it falls
         float rot = Mathf.Atan2(rig.velocity.y, rig.velocity.x) * Mathf.Rad2Deg;
         if (rig.velocity != new Vector2(0, 0))
             transform.rotation = Quaternion.Euler(0f, 0f, rot + 90f);
-
-        //Stop moving
-        if (stop == true)
-            transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 
         if (rig.velocity != new Vector2(0, 0))
         {
@@ -55,19 +50,25 @@ public class grenade : MonoBehaviour
 
         private void OnTriggerEnter2D(Collider2D col)
     {
-        stop = true;
-        StartCoroutine(boom());
-
         if (col.gameObject.layer == 8 || col.gameObject.layer == 9 || col.gameObject.layer == 11 || col.gameObject.layer == 19 || col.gameObject.layer == 20 || col.gameObject.layer == 21)
-         {
+        {          
             col.gameObject.transform.GetComponent<Enemy_Health>().hp -= Health.grenade;
         }
+        yesGoBoom();
     }
 
+    private void yesGoBoom() {
+            rig.velocity = new Vector2(0, 0);
+            StartCoroutine(boom());
+            boomOnAlready = true;
+    }
     private IEnumerator boom()
     {
         //Collider needs to be larger (whenever the grenade hits the ground, enemies close to the land spot are not always reached by the explosion)
+        rig.velocity = new Vector2(0, 0);
         transform.GetComponent<CircleCollider2D>().enabled = true;
+        transform.GetComponent<PolygonCollider2D>().enabled = false;
+        yield return new WaitForSeconds(0.01f);
         animator.SetBool("blowup", true);
         yield return new WaitForSeconds(0.03f);
         transform.GetComponent<CircleCollider2D>().radius = 0.3f;
@@ -76,12 +77,18 @@ public class grenade : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         transform.GetComponent<CircleCollider2D>().radius = 0.7f;
         yield return new WaitForSeconds(0.03f);
-        transform.GetComponent<CircleCollider2D>().radius = 1f;
+        transform.GetComponent<CircleCollider2D>().radius = 1.3f;
 
         animator.SetBool("blowup", false);
         transform.GetComponent<CircleCollider2D>().radius = 0.0001f;
+        transform.GetComponent<PolygonCollider2D>().enabled = true;
         transform.GetComponent<SpriteRenderer>().sprite = thing;
         transform.gameObject.SetActive(false);
-        stop = false;
+    }
+
+    private IEnumerator colliderReshape(float seconds, float size)
+    {
+        yield return new WaitForSeconds(seconds);
+        transform.GetComponent<CircleCollider2D>().radius = size;
     }
 }

@@ -13,15 +13,21 @@ public class Reaper_1 : MonoBehaviour
     {
         float r = UnityEngine.Random.Range(3.0f, 4.0f);
         yield return new WaitForSeconds(r);
-        animator.SetBool("Attack", true);
-        rig.velocity = new Vector2(0, 0);
+        if (transform.GetComponent<Enemy_Health>().hp > 0)
+            animator.SetBool("Attack", true);
+        else
+            yield break;
+
+        if (transform.GetComponent<Enemy_Health>().hp > 0)
+            rig.velocity = new Vector2(0, 0);
         yield return new WaitForSeconds(0.85f);
         if (counter == false && transform.GetComponent<Enemy_Health>().hp > 0)
         {
             animator.SetBool("Attack", false);
             if (transform.GetComponent<Enemy_Health>().isIced == false)
             rig.velocity = new Vector2(speed, 0);
-            StartCoroutine(attack());
+            if (transform.GetComponent<Enemy_Health>().hp > 0)
+               StartCoroutine(attack());
         }
     }
 
@@ -29,6 +35,7 @@ public class Reaper_1 : MonoBehaviour
     {
         if (transform.GetComponent<Enemy_Health>().deploy == true)
         {
+            counter = false;
             animator = transform.GetComponent<Animator>();
             animator.SetBool("Attack", false);
             animator.SetBool("Dead", false);

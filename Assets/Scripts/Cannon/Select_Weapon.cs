@@ -49,7 +49,6 @@ public class Select_Weapon : MonoBehaviour
     //make sure to turn the new weapon off in this method:
     void unselectEverything()
     {
-        Debug.Log("yeah");
         GameObject.Find("Head").transform.GetChild(0).gameObject.SetActive(false);
         GameObject.Find("Head").transform.GetChild(1).gameObject.SetActive(false);
         GameObject.Find("Head").transform.GetChild(2).gameObject.SetActive(false);

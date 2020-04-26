@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Health : MonoBehaviour
@@ -23,11 +24,15 @@ public class Health : MonoBehaviour
     public static int bullet = 15;
     public static int CB = 40;
     public static float flame = 1.3f;
-    public static int grenade = 30;
+    public static float grenade = 30;
     public static int potion = 40;
 
     private Image hp;
     private GameObject head;
+    private int applyTowerChangeOnce = 1;
+    public bool hpBoost = false;
+
+    private bool diedOnce;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +42,8 @@ public class Health : MonoBehaviour
 
         hp = GameObject.Find("Canvas").transform.GetChild(0).transform.GetChild(0).transform.GetComponent<Image>();
         head = GameObject.Find("Head");
+
+        transform.GetChild(2).gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -44,17 +51,16 @@ public class Health : MonoBehaviour
     {
         stage = PlayerPrefs.GetInt("Tower") + 1;
         hp.fillAmount = (float)playerHP / maxPlayerHP;
+        hp.transform.parent.transform.GetChild(1).transform.GetComponent<Text>().text = stage.ToString();
 
-        if (stage == 1)
-        {
-            transform.GetChild(2).gameObject.SetActive(true);
-        }
-
-        if (stage >= 2)
+        if (stage >= 2 && applyTowerChangeOnce != stage)
         {
             transform.GetChild(stage).gameObject.SetActive(false);
             transform.GetChild(stage + 1).gameObject.SetActive(true);
-            maxPlayerHP = stage * 1000;
+
+            applyTowerChangeOnce = stage;
+            maxPlayerHP += 1000;
+            playerHP += 1000;
         }
 
         if (stage == 1)
@@ -65,6 +71,28 @@ public class Health : MonoBehaviour
             head.transform.localPosition = new Vector2(head.transform.localPosition.x, 2.18f);
         if (stage == 4)
             head.transform.localPosition = new Vector2(head.transform.localPosition.x, 2.18f);
+
+        if (hpBoost == true)
+        {
+            playerHP += maxPlayerHP / 2;
+            hpBoost = false;
+        }
+
+        if (playerHP > maxPlayerHP)
+            playerHP = maxPlayerHP;
+
+        if (playerHP <= 0 && diedOnce == false)
+        {
+            diedOnce = true;
+            GameObject.FindGameObjectWithTag("Game Over").transform.GetChild(4).gameObject.SetActive(true);
+            StartCoroutine(reset_level());
+        }
+    }
+
+    private IEnumerator reset_level()
+    {
+        yield return new WaitForSeconds(2.1f);
+        SceneManager.LoadScene(0);
     }
 
     void OnCollisionEnter2D(Collision2D col)

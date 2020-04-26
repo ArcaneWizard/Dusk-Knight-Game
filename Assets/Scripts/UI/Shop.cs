@@ -15,11 +15,10 @@ public class Shop : MonoBehaviour
     public Button purchaseButton;
     public Image bought;
 
-    private string weapon;
-    private string weaponCost;
-    private string Description;
+    public int jewels = 200;
+    private int price;
 
-    private string[] Selection = {"HpBoost", "Bullets", "Grenade", "Flame", "Potion", "CB", "Arrow", "Tower" };
+    private string[] Selection = {"HpBoost", "Bullets", "Grenade", "Flame", "Potion", "CB", "Arrow", "Tower"};
 
     private bool gameHasStarted = false;
 
@@ -27,14 +26,21 @@ public class Shop : MonoBehaviour
     void Start()
     {  
         //Reset Playerprefs every game
-        for (int i = 0; i < Selection.Length; i++)
+        /*for (int i = 0; i < Selection.Length; i++)
         {
             PlayerPrefs.SetInt(Selection[i], 0);
-        }
+        }*/
+
+        jewels = PlayerPrefs.GetInt("Jewels");
     }
 
     void Update()
     {
+        PlayerPrefs.SetInt("Jewels", jewels);
+
+        if (GameObject.FindGameObjectWithTag("Jewels") != null)
+        GameObject.FindGameObjectWithTag("Jewels").transform.GetComponent<Text>().text = jewels.ToString();
+
         for (int i = 0; i < Selection.Length; i++)
         {
             checkWeaponUserIsOn(Selection[i]);
@@ -77,14 +83,23 @@ public class Shop : MonoBehaviour
             bought.gameObject.SetActive(false);
         }
 
-        else if (PlayerPrefs.GetInt(key) == 1 && key != "Tower")
+        else if (PlayerPrefs.GetInt(key) == 1 && key != "Tower" && key != "HpBoost")
         {
             purchaseButton.gameObject.SetActive(false);
             bought.gameObject.SetActive(true);
         }
 
+        else if (key == "Tower")
+            towerStates(key);
+
         else
-        towerStates(key);
+            hpBoost(key);
+    }
+
+    void hpBoost(string key)
+    {
+        purchaseButton.gameObject.SetActive(true);
+        bought.gameObject.SetActive(false);
     }
 
     void towerStates(string key)
@@ -103,15 +118,28 @@ public class Shop : MonoBehaviour
 
         //Fort 2 code located below
         if (PlayerPrefs.GetInt("Tower") == 1)
-            chooseWeapon("Fort 3", 300, "Build up your tower and strengthen its wall against invading hordes. Triple the resistance!");
+            chooseWeapon("Fort 3", 700, "Strengthen your fort with some heavy, metal beams. 3x stronger than Fort 1!");
         if (PlayerPrefs.GetInt("Tower") >= 2)
-            chooseWeapon("Fort 4", 400, "Build up your tower and strengthen its wall against invading hordes. Quadruple the armor!");
+            chooseWeapon("Fort 4", 1150, "Strengthen your fort with a mystical protection charm. 4x stronger than Fort 1.");
     }
 
     public void purchase()
     {
         string key = PlayerPrefs.GetString("Weapon");
-        PlayerPrefs.SetInt(key, PlayerPrefs.GetInt(key) + 1);
+
+        if (jewels >= price)
+        {
+            jewels -= price;
+            PlayerPrefs.SetInt(key, PlayerPrefs.GetInt(key) + 1);
+            Debug.Log("Purchase successful");
+        }
+
+        else
+        {
+            Debug.Log("Error. Not enough jewels. <Add error sound>");
+        }
+
+
     }
 
     void chooseWeapon(string weapon, int weaponCost, string Description)
@@ -119,6 +147,8 @@ public class Shop : MonoBehaviour
         weaponT.text = weapon;
         weaponCostT.text = weaponCost.ToString();
         DescriptionT.text = Description;
+
+        price = weaponCost;
     }
 
     private void clearButtonColor()
@@ -136,22 +166,22 @@ public class Shop : MonoBehaviour
     {
         Time.timeScale = 0f;
         transform.GetChild(0).gameObject.SetActive(true);
-        transform.parent.transform.GetChild(0).gameObject.SetActive(false);
-        transform.parent.transform.GetChild(1).gameObject.SetActive(false);
+        for (int i = 0; i <= 2; i++)
+            transform.parent.transform.GetChild(i).gameObject.SetActive(false);
     }
 
     public void closeShop()
     {
         Time.timeScale = 1f;
         transform.GetChild(0).gameObject.SetActive(false);
-        transform.parent.transform.GetChild(0).gameObject.SetActive(true);
-        transform.parent.transform.GetChild(1).gameObject.SetActive(true);
+        for (int i = 0; i <= 2; i++)
+            transform.parent.transform.GetChild(i).gameObject.SetActive(true);
     }
 
     public void CB()
     {
         clearButtonColor();
-        chooseWeapon("Cannon", 100, "A heavy cannon ball isn't the most pleasant thing to be hit by.");
+        chooseWeapon("Cannon", 200, "A heavy cannon ball isn't the most pleasant thing to be hit by.");
         GameObject.FindGameObjectWithTag("Respawn").transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "CB");
     }
@@ -159,21 +189,21 @@ public class Shop : MonoBehaviour
     public void Arrow()
     {
         clearButtonColor();
-        chooseWeapon("Ballista", 100, "A frosty arrow that slices through skin and freezes enemies to the bone.");
+        chooseWeapon("Ballista", 500, "A frosty arrow that slices through skin and freezes enemies to the bone. Brrrrrrr");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "Arrow");
     }
     public void Potion()
     {
         clearButtonColor();
-        chooseWeapon("Witch", 100, "A swirling green potion that intoxicates enemies and slowly kills them from the inside.");
+        chooseWeapon("Witch", 700, "A swirling green potion that intoxicates enemies and eats them from the inside.");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "Potion");
     }
     public void Flame()
     {
         clearButtonColor();
-        chooseWeapon("Flamethrower", 100, "A fiery flame that burns everything in sight. However, it can only extend so far.");
+        chooseWeapon("Flamethrower", 1050, "A fiery flame that burns everything in sight. However, it only extends so far.");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "Flame");
     }
@@ -181,7 +211,7 @@ public class Shop : MonoBehaviour
     public void Grenade()
     {
         clearButtonColor();
-        chooseWeapon("Boomer", 100, "Shoots out grenades that do splash damage. No one likes getting caught in its deadly blast.");
+        chooseWeapon("Boomer", 1500, "A grenade with splash damage. Catch whole hordes of enemies in a deadly blast.");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "Grenade");
     }
@@ -189,7 +219,7 @@ public class Shop : MonoBehaviour
     public void Bullets()
     {
         clearButtonColor();
-        chooseWeapon("Turret", 100, "Ever wanted to drill enemies with streams of bullets from a gatling gun? This is your chance.");
+        chooseWeapon("Turret", 650, "Ever wanted to drill enemies with streams of bullets from a gatling gun? This is your chance.");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "Bullets");
     }
@@ -197,14 +227,15 @@ public class Shop : MonoBehaviour
     public void HpBoost()
     {
         clearButtonColor();
-        chooseWeapon("Health Boost", 100, "Regain 50% of your tower's health through a mystical, life-giving heart.");
+        chooseWeapon("Health Boost", 400, "Regain 50% of your tower's health through a mystical, life-giving heart.");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "HpBoost");
+        GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Health>().hpBoost = true;
     }
     public void Tower()
     {        
         clearButtonColor();
-        chooseWeapon("Fort 2", 200, "Build up your tower and strengthen its wall against invading hordes. Twice as strong!");
+        chooseWeapon("Fort 2", 450, "Strengthen your fort with more wood. 2x stronger than Fort 1.");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "Tower");
     }

@@ -20,20 +20,33 @@ public class Spawner : MonoBehaviour
 
     private int preventSpawnCheckMemoryOverload = 0;
 
-    //Spawn enemies
-    private IEnumerator spawn()
+    private float reloadTime = 1.5f;
+
+    //Spawn enemies once for debugging
+    private void spawn()
     {
-        StartCoroutine(spawnOver());
-        yield return new WaitForSeconds(0.01f);
+        
     }
 
-    //Spawn enemies every 2 seconds
+    //Spawn enemies every few seconds
     private IEnumerator spawnOver()
     {
-        deployRandomEnemy();
-        yield return new WaitForSeconds(1.5f);
+        deployRandomEnemy(); 
+
+        yield return new WaitForSeconds(reloadTime);
         StartCoroutine(spawnOver());
     }   
+
+    //Lower reload time for spawning Enemies over the course of the game
+    private IEnumerator  quickenSpawn()
+    {
+        yield return new WaitForSeconds(1);
+        if (reloadTime >= 0.9045)
+            reloadTime -= 0.045f;
+
+        StartCoroutine(quickenSpawn());
+    }
+
 
     //Deploy a random enemy
     void deployRandomEnemy()
@@ -70,11 +83,11 @@ public class Spawner : MonoBehaviour
             int a = UnityEngine.Random.Range(0, 2);
             Vector2 spawnPoint;
             if (a == 0)
-                spawnPoint = new Vector2(UnityEngine.Random.Range(3.1f, 6.7f), 10.1f);
+                spawnPoint = new Vector2(UnityEngine.Random.Range(10.3f, 12.9f), 7.3f);
             else
-                spawnPoint = new Vector2(UnityEngine.Random.Range(-7.0f, -10.6f), 10.1f);
+                spawnPoint = new Vector2(UnityEngine.Random.Range(-2f, -0.3f), 7.3f);
 
-            enemy.transform.localPosition = spawnPoint;
+            enemy.transform.position = spawnPoint;
         }
 
         enemy.SetActive(true);
@@ -192,7 +205,9 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(spawn());
+        spawn();
+        StartCoroutine(spawnOver());
+        StartCoroutine(quickenSpawn());
 
         //Use to reset enemy lists (add more of each type) 
 
