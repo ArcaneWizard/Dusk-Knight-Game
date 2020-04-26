@@ -92,7 +92,6 @@ public class shooting : MonoBehaviour
 
         if (weaponType == GameObject.FindGameObjectWithTag("Arrow") && loaded == false)
         {
-            Debug.Log("arrow appear");
             ammo[counter].gameObject.transform.GetChild(0).transform.GetComponent<SpriteRenderer>().enabled = false;
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -114,7 +113,6 @@ public class shooting : MonoBehaviour
         ammo[counter].transform.rotation = Quaternion.Euler(0f, (flip - 1) * 90, arrowHead.rotation.eulerAngles.z - 90);
         ammo[counter].transform.position = arrowHead.GetChild(0).position;
         ammo[counter].SetActive(true);
-        Debug.Log("arrow active" + ammo[counter].gameObject);
     }
 
 

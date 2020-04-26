@@ -86,13 +86,14 @@ public class Health : MonoBehaviour
         {
             diedOnce = true;
             GameObject.FindGameObjectWithTag("Game Over").transform.GetChild(4).gameObject.SetActive(true);
+            GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Animator>().enabled = true;
             StartCoroutine(reset_level());
         }
     }
 
     private IEnumerator reset_level()
     {
-        yield return new WaitForSeconds(2.1f);
+        yield return new WaitForSeconds(2.9f);
         SceneManager.LoadScene(0);
     }
 

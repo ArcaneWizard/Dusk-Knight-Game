@@ -38,7 +38,6 @@ public class Select_Weapon : MonoBehaviour
     {
         unselectEverything();
         GameObject.Find("Head").transform.GetChild(4).gameObject.SetActive(true);
-        Debug.Log("falsified");
         GameObject.Find("Head").transform.GetChild(4).transform.GetComponent<shooting>().loaded = false;
     }
 

@@ -175,21 +175,40 @@ public class Shop : MonoBehaviour
 
     public void openShop()
     {
-        Time.timeScale = 0f;
-        transform.GetChild(0).gameObject.SetActive(true);
-        for (int i = 0; i <= 2; i++)
-            transform.parent.transform.GetChild(i).gameObject.SetActive(false);
-
-        Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
-        transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick);
+        openSomething(0);
     }
 
     public void closeShop()
     {
+        closeSomething(0);
+    }
+
+    public void openSettings()
+    {
+        openSomething(1);
+    }
+
+    public void closeSettings()
+    {
+        closeSomething(1);
+    }
+
+    public void closeSomething(int child)
+    {
         Time.timeScale = 1f;
-        transform.GetChild(0).gameObject.SetActive(false);
-        for (int i = 0; i <= 2; i++)
+        transform.GetChild(child).gameObject.SetActive(false);
+        for (int i = 0; i <= 3; i++)
             transform.parent.transform.GetChild(i).gameObject.SetActive(true);
+
+        Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
+        transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick);
+    }
+    public void openSomething(int child)
+    {
+        Time.timeScale = 0f;
+        transform.GetChild(child).gameObject.SetActive(true);
+        for (int i = 0; i <= 3; i++)
+            transform.parent.transform.GetChild(i).gameObject.SetActive(false);
 
         Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
         transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick);
