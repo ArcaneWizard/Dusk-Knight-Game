@@ -20,6 +20,8 @@ TagManager:
   - Game UI 2
   - Jewels
   - Game Over
+  - Head 2
+  - Ice Arrow Cannon
   layers:
   - Default
   - TransparentFX
