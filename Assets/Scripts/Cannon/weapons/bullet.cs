@@ -38,7 +38,7 @@ public class bullet : MonoBehaviour
         };
 
         //Hit ground, turn off
-        if (col.gameObject.layer == 22)
+        //if (col.gameObject.layer == 10)
             gameObject.SetActive(false);
     }
 

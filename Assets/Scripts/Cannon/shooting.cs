@@ -130,7 +130,7 @@ public class shooting : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0f, 0f, rot - 90);
 
             if (weaponType == GameObject.FindGameObjectWithTag("Potion"))
-                transform.rotation = Quaternion.Euler(0f, 0f, rot);
+                transform.rotation = Quaternion.Euler(0f, 0f, rot+180);
 
             if (weaponType == GameObject.FindGameObjectWithTag("Arrow"))
                 transform.rotation = Quaternion.Euler(0f, (touchPosition.x / Mathf.Abs(touchPosition.x) - 1) * 90, (touchPosition.x / Mathf.Abs(touchPosition.x)) * rot + 90 * (touchPosition.x / Mathf.Abs(touchPosition.x) - 1));
