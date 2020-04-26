@@ -15,7 +15,8 @@ public class Shop : MonoBehaviour
     public Button purchaseButton;
     public Image bought;
 
-    public int jewels = 200;
+    [HideInInspector]
+    public int jewels = 600;
     private int price;
 
     private string[] Selection = {"HpBoost", "Bullets", "Grenade", "Flame", "Potion", "CB", "Arrow", "Tower"};
@@ -30,7 +31,10 @@ public class Shop : MonoBehaviour
         {
             PlayerPrefs.SetInt(Selection[i], 0);
         }*/
+
         jewels = PlayerPrefs.GetInt("Jewels");
+
+        gameObject.AddComponent<AudioSource>();
     }
 
     void Update()
@@ -130,12 +134,18 @@ public class Shop : MonoBehaviour
         {
             jewels -= price;
             PlayerPrefs.SetInt(key, PlayerPrefs.GetInt(key) + 1);
+
             Debug.Log("Purchase successful");
+            Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
+            transform.GetComponent<AudioSource>().PlayOneShot(m.purchase);
         }
 
         else
         {
             Debug.Log("Error. Not enough jewels. <Add error sound>");
+
+            Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
+            transform.GetComponent<AudioSource>().PlayOneShot(m.errorPurchase);
         }
 
 
@@ -147,7 +157,7 @@ public class Shop : MonoBehaviour
         weaponCostT.text = weaponCost.ToString();
         DescriptionT.text = Description;
 
-        price = weaponCost;
+        price = weaponCost;        
     }
 
     private void clearButtonColor()
@@ -159,6 +169,8 @@ public class Shop : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("Buttons").transform.GetChild(i).transform.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         }
+        Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
+        transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick);
     }
 
     public void openShop()
@@ -167,6 +179,9 @@ public class Shop : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(true);
         for (int i = 0; i <= 2; i++)
             transform.parent.transform.GetChild(i).gameObject.SetActive(false);
+
+        Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
+        transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick);
     }
 
     public void closeShop()
@@ -175,6 +190,9 @@ public class Shop : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
         for (int i = 0; i <= 2; i++)
             transform.parent.transform.GetChild(i).gameObject.SetActive(true);
+
+        Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
+        transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick);
     }
 
     public void CB()
