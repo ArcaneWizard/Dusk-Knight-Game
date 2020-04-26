@@ -24,13 +24,13 @@ public class Shop : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {  
+    {
         //Reset Playerprefs every game
         /*for (int i = 0; i < Selection.Length; i++)
         {
             PlayerPrefs.SetInt(Selection[i], 0);
         }*/
-
+        jewels = 9000;
         jewels = PlayerPrefs.GetInt("Jewels");
     }
 
