@@ -138,6 +138,14 @@ public class shooting : MonoBehaviour
             if (transform.gameObject.name == "Flamethrower")
                 transform.rotation = Quaternion.Euler(0f, 0f, rot);
 
+            Vector3 eulerAngle = transform.localRotation.eulerAngles;
+            float angle = eulerAngle.z % 360;
+            if (angle < 0)
+                angle += 360;
+
+            if (angle > 90 && angle < 270)
+               transform.localRotation = Quaternion.Euler(eulerAngle.x, eulerAngle.y - 180f, -eulerAngle.z - 180f);
+
             Fire(rot);
         }
     }
