@@ -42,8 +42,6 @@ public class Health : MonoBehaviour
 
         hp = GameObject.Find("Canvas").transform.GetChild(0).transform.GetChild(0).transform.GetComponent<Image>();
         head = GameObject.Find("Head");
-
-        transform.GetChild(2).gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -52,6 +50,9 @@ public class Health : MonoBehaviour
         stage = PlayerPrefs.GetInt("Tower") + 1;
         hp.fillAmount = (float)playerHP / maxPlayerHP;
         hp.transform.parent.transform.GetChild(1).transform.GetComponent<Text>().text = stage.ToString();
+
+        if (stage == 1)
+            transform.GetChild(2).gameObject.SetActive(true);
 
         if (stage >= 2 && applyTowerChangeOnce != stage)
         {

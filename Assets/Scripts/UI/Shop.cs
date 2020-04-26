@@ -30,7 +30,6 @@ public class Shop : MonoBehaviour
         {
             PlayerPrefs.SetInt(Selection[i], 0);
         }*/
-        jewels = 9000;
         jewels = PlayerPrefs.GetInt("Jewels");
     }
 
