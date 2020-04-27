@@ -89,7 +89,7 @@ public class shooting : MonoBehaviour
             
         }
         cooldown -= Time.deltaTime;
-
+            
         if (weaponType == GameObject.FindGameObjectWithTag("Arrow") && loaded == false)
         {
             ammo[counter].gameObject.transform.GetChild(0).transform.GetComponent<SpriteRenderer>().enabled = false;
@@ -144,7 +144,7 @@ public class shooting : MonoBehaviour
             if (angle < 0)
                 angle += 360;
 
-            if (angle > 90 && angle < 270)
+            if (angle > 90 && angle < 270 && transform.gameObject.name != "Gatling")
                transform.localRotation = Quaternion.Euler(eulerAngle.x, eulerAngle.y - 180f, -eulerAngle.z - 180f);
 
             Fire(rot);
