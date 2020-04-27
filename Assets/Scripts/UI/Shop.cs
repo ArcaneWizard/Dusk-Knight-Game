@@ -14,27 +14,31 @@ public class Shop : MonoBehaviour
 
     public Button purchaseButton;
     public Image bought;
-
-    [HideInInspector]
-    public int jewels = 600;
+    
+    public int jewels;
     private int price;
 
     private string[] Selection = {"HpBoost", "Bullets", "Grenade", "Flame", "Potion", "CB", "Arrow", "Tower"};
 
     private bool gameHasStarted = false;
+    public static Shop ShopInstance { get; private set; }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        //Reset Playerprefs every game
-        /*for (int i = 0; i < Selection.Length; i++)
-        {
-            PlayerPrefs.SetInt(Selection[i], 0);
-        }*/
-
+        if (ShopInstance == null) { ShopInstance = this; }
+       
         jewels = PlayerPrefs.GetInt("Jewels");
 
         gameObject.AddComponent<AudioSource>();
+    }
+
+    public void ResetUpgrades()
+    {
+        for (int i = 0; i < Selection.Length; i++)
+        {
+            PlayerPrefs.SetInt(Selection[i], 0);
+        }
     }
 
     void Update()

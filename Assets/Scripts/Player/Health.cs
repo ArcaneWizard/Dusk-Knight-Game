@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     public static int playerHP;
+    public int displayedHP;
     public static int maxPlayerHP;
 
     private BoxCollider2D boxy;
@@ -31,9 +32,12 @@ public class Health : MonoBehaviour
     private GameObject head;
     private int applyTowerChangeOnce = 1;
     public bool hpBoost = false;
-    public bool debugKill;
+    public bool KillTower;
+    public bool resetUpgrades;
 
     private bool diedOnce;
+    public int jewels;
+
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +52,14 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (resetUpgrades == true)
+        {
+            Shop.ShopInstance.ResetUpgrades();
+            resetUpgrades = false;
+        }
+
+        displayedHP = playerHP;
+
         stage = PlayerPrefs.GetInt("Tower") + 1;
         hp.fillAmount = (float)playerHP / maxPlayerHP;
         hp.transform.parent.transform.GetChild(1).transform.GetComponent<Text>().text = stage.ToString();
@@ -60,19 +72,22 @@ public class Health : MonoBehaviour
             transform.GetChild(stage).gameObject.SetActive(false);
             transform.GetChild(stage + 1).gameObject.SetActive(true);
 
-            applyTowerChangeOnce = stage;
-            maxPlayerHP += 1000;
+            applyTowerChangeOnce++;
             playerHP += 1000;
         }
 
-        if (stage == 1)
+        if (stage == 1) {
             head.transform.localPosition = new Vector2(head.transform.localPosition.x, 1.05f);
-        if (stage == 2)
+            maxPlayerHP = 1000; }
+        if (stage == 2) { 
             head.transform.localPosition = new Vector2(head.transform.localPosition.x, 1.63f);
-        if (stage == 3)
+            maxPlayerHP = 2000; }
+        if (stage == 3) { 
             head.transform.localPosition = new Vector2(head.transform.localPosition.x, 2.18f);
-        if (stage == 4)
+            maxPlayerHP = 3000; }
+        if (stage == 4) { 
             head.transform.localPosition = new Vector2(head.transform.localPosition.x, 2.18f);
+            maxPlayerHP = 4000; }
 
         if (hpBoost == true)
         {
@@ -80,7 +95,7 @@ public class Health : MonoBehaviour
             hpBoost = false;
         }
 
-        if (debugKill)
+        if (KillTower)
             playerHP = 0;
 
         if (playerHP > maxPlayerHP)
@@ -102,21 +117,6 @@ public class Health : MonoBehaviour
     {
         yield return new WaitForSeconds(2.9f);
         SceneManager.LoadScene(0);
-    }
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.layer == 23 || col.gameObject.layer == 24)
-        {
-            if (col.gameObject.tag == "Witch orb")
-                playerHP -= R3Dmg;
-
-            if (col.gameObject.tag == "Reaper orb")
-                playerHP -= R1Dmg;
-
-            if (col.gameObject.tag == "Boulder")
-                playerHP -= OgreDmg;
-        }
     }
 
     /*public void Reset()

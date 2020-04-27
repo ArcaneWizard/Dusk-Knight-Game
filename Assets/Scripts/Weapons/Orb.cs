@@ -27,8 +27,20 @@ public class Orb : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        if (col.gameObject.layer == 22)
+            gameObject.SetActive(false);
+
         if (col.gameObject.layer == 10)
         {
+            if (gameObject.tag == "Witch orb")
+                Health.playerHP -= Health.R3Dmg;
+
+            if (gameObject.tag == "Reaper orb")
+                Health.playerHP -= Health.R1Dmg;
+
+            if (gameObject.tag == "Boulder")
+                Health.playerHP -= Health.OgreDmg;
+
             gameObject.SetActive(false);
         }
     }
