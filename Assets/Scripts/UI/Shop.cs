@@ -193,6 +193,23 @@ public class Shop : MonoBehaviour
         closeSomething(1);
     }
 
+    public void openCredits()
+    {
+        closeSomething(1);
+        openSomething(2);
+    }
+
+    public void closeCredits()
+    {
+        closeSomething(2);
+        openSomething(1);
+    }
+
+    public void Rate()
+    {
+        Debug.Log("Add link to google play page");
+    }
+
     public void closeSomething(int child)
     {
         Time.timeScale = 1f;
