@@ -85,7 +85,7 @@ public class Health : MonoBehaviour
         if (playerHP <= 0 && diedOnce == false)
         {
             diedOnce = true;
-            GameObject.FindGameObjectWithTag("Game Over").transform.GetChild(4).gameObject.SetActive(true);
+            GameObject.Find("Canvas").transform.GetChild(5).gameObject.SetActive(true);
             GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Animator>().enabled = true;
             StartCoroutine(reset_level());
         }

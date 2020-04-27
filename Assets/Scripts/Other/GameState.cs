@@ -8,16 +8,26 @@ public class GameState : MonoBehaviour
     public Text HowToPlay1;
     public Text HowToPlay2;
 
+    private string key;
+
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.GetInt("GameState") < 2)
+        key = "GameState2";
+
+        if (PlayerPrefs.GetInt(key) < 2)
         {
             StartCoroutine(displayInstructions1());
 
-            int state = PlayerPrefs.GetInt("GameState");
+            int state = PlayerPrefs.GetInt(key);
             state++;
-            PlayerPrefs.SetInt("GameState", state);
+            PlayerPrefs.SetInt(key, state);
+        }
+
+        if (PlayerPrefs.GetInt(key) == 1)
+        {
+            PlayerPrefs.SetFloat("Music", 0.9f);
+            PlayerPrefs.SetFloat("Sound", 0.9f);
         }
     }
 

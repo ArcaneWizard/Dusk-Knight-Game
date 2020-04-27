@@ -202,6 +202,8 @@ public class Shop : MonoBehaviour
 
         Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
         transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick);
+
+        GameObject.Find("Music Manager").transform.GetComponent<AudioSource>().UnPause();
     }
     public void openSomething(int child)
     {
@@ -212,6 +214,8 @@ public class Shop : MonoBehaviour
 
         Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
         transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick);
+
+        GameObject.Find("Music Manager").transform.GetComponent<AudioSource>().Pause();
     }
 
     public void CB()
