@@ -38,9 +38,7 @@ public class Orb : MonoBehaviour
             if (gameObject.tag == "Reaper orb")
                 Health.playerHP -= Health.R1Dmg;
 
-            if (gameObject.tag == "Boulder")
-                Health.playerHP -= Health.OgreDmg;
-
+            Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 1f);
             gameObject.SetActive(false);
         }
     }

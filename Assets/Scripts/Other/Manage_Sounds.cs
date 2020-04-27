@@ -14,28 +14,38 @@ public class Manage_Sounds : MonoBehaviour
     public AudioClip arrowhit;
     public AudioClip gatling;
 
+    public AudioClip ogreAttack; //boulder "throw" sound needed
+    public AudioClip orcAttack;
+    public AudioClip goblinAttack;
+    public AudioClip R1Attack; //woosh throw sound needed
+    public AudioClip R2Attack;
+    public AudioClip R3Attack; //woosh throw sound needed
+
+    public AudioClip orbConnect;
+    public AudioClip boulderConnect;
+
     public AudioClip buttonClick;
     public AudioClip errorPurchase;
     public AudioClip purchase;
 
-    //Always refer to clips from here so they are all in one place + ez to swap out for testing :D    I outlined the system I followed below:
+    public static Manage_Sounds Instance { get; private set; }
+    public static float soundMultiplier = 1f;
 
-
-
-
-
-
-
-    void example() {
-
-        //Add to some script's Start Method:
-        gameObject.AddComponent<AudioSource>();
-
-        //Play sound code:
-        Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
-        transform.GetComponent<AudioSource>().PlayOneShot(m.enemyHit);  
+    void Awake()
+    {
+        if (Instance == null) { Instance = this; }
     }
 
-    //Btw, all the weapon projectiles disable immediately upon collision so playing sounds on their scripts is useless.
-    //You'll have to add most sounds to the player or enemy_health script 
+    void example()
+    {
+        // I added the second volume parameter to all weapons in the shooting script but add it to all other weapon sounds you implemented
+        transform.GetComponent<AudioSource>().PlayOneShot(Manage_Sounds.Instance.arrowhit, 0.7f * Manage_Sounds.soundMultiplier);
+    }
+
+    //For boulder and orb collisions with the tower
+    public void playHitSound(AudioClip clip, float volume)
+    {
+        transform.GetComponent<AudioSource>().PlayOneShot(clip, volume * Manage_Sounds.soundMultiplier);
+    }
+
 }

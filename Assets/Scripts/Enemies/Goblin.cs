@@ -10,6 +10,12 @@ public class Goblin : MonoBehaviour
     private float speed = 2f;
     private float delay = 1.2f;
     private bool AttackedOnce = false;
+
+    void Start()
+    {
+        gameObject.AddComponent<AudioSource>();
+    }
+
     void Update()
     {
         if (transform.GetComponent<Enemy_Health>().deploy == true)
@@ -56,7 +62,16 @@ public class Goblin : MonoBehaviour
         if (col.gameObject.layer == LayerMask.NameToLayer("Range activation"))
         {
             animator.SetBool("Attack", true);
+            StartCoroutine(playSound());
             rig.velocity = new Vector2(0, 0);
         }
+    }
+
+    private IEnumerator playSound()
+    {
+        yield return new WaitForSeconds(0.22f);
+        transform.GetComponent<AudioSource>().PlayOneShot(Manage_Sounds.Instance.goblinAttack, 1f * Manage_Sounds.soundMultiplier);
+        yield return new WaitForSeconds(0.78f);
+        StartCoroutine(playSound());
     }
 }

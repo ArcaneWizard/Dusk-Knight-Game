@@ -33,15 +33,9 @@ public class Boulder : MonoBehaviour
 
         if (col.gameObject.layer == 10)
         {
-            if (gameObject.tag == "Witch orb")
-                Health.playerHP -= Health.R3Dmg;
+            Health.playerHP -= Health.OgreDmg;
 
-            if (gameObject.tag == "Reaper orb")
-                Health.playerHP -= Health.R1Dmg;
-
-            if (gameObject.tag == "Boulder")
-                Health.playerHP -= Health.OgreDmg;
-
+            Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.boulderConnect, 1f);
             gameObject.SetActive(false);
         }
     }

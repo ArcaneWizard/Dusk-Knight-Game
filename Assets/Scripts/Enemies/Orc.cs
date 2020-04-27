@@ -47,7 +47,15 @@ public class Orc : MonoBehaviour
         if (col.gameObject.layer == LayerMask.NameToLayer("Range activation"))
         {
             animator.SetBool("Attack", true);
+            StartCoroutine(playSound());
             rig.velocity = new Vector2(0, 0);
         }
+    }
+    private IEnumerator playSound()
+    {
+        yield return new WaitForSeconds(0.22f);
+        transform.GetComponent<AudioSource>().PlayOneShot(Manage_Sounds.Instance.orcAttack, 0.7f * Manage_Sounds.soundMultiplier);
+        yield return new WaitForSeconds(0.78f);
+        StartCoroutine(playSound());
     }
 }
