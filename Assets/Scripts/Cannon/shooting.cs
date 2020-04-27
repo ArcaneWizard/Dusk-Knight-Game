@@ -153,11 +153,12 @@ public class shooting : MonoBehaviour
     void Fire(float rot)
     {
         Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
-        transform.GetComponent<AudioSource>().PlayOneShot(m.cannonShot);
+        
 
         //Modify the position/rotation code based on weapon type
         if (weaponType == GameObject.Find("Grenade"))
         {
+            transform.GetComponent<AudioSource>().PlayOneShot(m.cannonShot);
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
             ammo[counter].transform.GetComponent<grenade>().oneLaunch = false;
@@ -168,6 +169,7 @@ public class shooting : MonoBehaviour
 
         if (weaponType == GameObject.Find("Bullet"))
         {
+            transform.GetComponent<AudioSource>().PlayOneShot(m.gatling);
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
             ammo[counter].transform.GetComponent<bullet>().oneHit = false;
@@ -175,7 +177,8 @@ public class shooting : MonoBehaviour
         }
 
         if (weaponType == GameObject.FindGameObjectWithTag("CB"))
-        {            
+        {
+            transform.GetComponent<AudioSource>().PlayOneShot(m.cannonShot);
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
             ammo[counter].transform.GetComponent<cannon_ball>().oneHit = false;
@@ -187,6 +190,7 @@ public class shooting : MonoBehaviour
 
         if (weaponType == GameObject.FindGameObjectWithTag("Potion"))
         {
+            transform.GetComponent<AudioSource>().PlayOneShot(m.potionshot);
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
             ammo[counter].transform.GetComponent<potion>().oneLaunch = false;
@@ -198,7 +202,7 @@ public class shooting : MonoBehaviour
 
         if (weaponType == GameObject.FindGameObjectWithTag("Arrow"))
         {
-            //ammo[counter].transform.position = muzzle.position;
+            transform.GetComponent<AudioSource>().PlayOneShot(m.arrowshot);
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot-90);
             ammo[counter].transform.GetComponent<arrow>().oneLaunch = false;
             ammo[counter].transform.GetComponent<arrow>().oneHit = false;
@@ -207,9 +211,12 @@ public class shooting : MonoBehaviour
             StartCoroutine(Load());
         }
 
+        if (transform.gameObject.name == "Flamethrower")
+            transform.GetComponent<AudioSource>().PlayOneShot(m.flamesound);
+
         ammo[counter].SetActive(true);
-            counter += 1;
-            counter %= (weaponType.transform.childCount);
+        counter += 1;
+        counter %= (weaponType.transform.childCount);
     }
 
     private IEnumerator Flash()

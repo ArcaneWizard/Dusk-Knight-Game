@@ -6,6 +6,13 @@ public class Manage_Sounds : MonoBehaviour
 {
     public AudioClip enemyHit;
     public AudioClip cannonShot;
+    public AudioClip flamesound;
+    public AudioClip potionshot;
+    public AudioClip potionhit;
+    public AudioClip explode;
+    public AudioClip arrowshot;
+    public AudioClip arrowhit;
+    public AudioClip gatling;
 
     public AudioClip buttonClick;
     public AudioClip errorPurchase;

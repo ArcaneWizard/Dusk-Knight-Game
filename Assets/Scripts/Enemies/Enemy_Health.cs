@@ -283,7 +283,7 @@ public class Enemy_Health : MonoBehaviour
     private IEnumerator alter()
     {
         gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(245, 0, 0, 255);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
         gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
     }
 
@@ -314,6 +314,10 @@ public class Enemy_Health : MonoBehaviour
         if (col.gameObject.layer == 25) //hits a player projectile
         {
             Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
+            if (col.gameObject.name == "arrow")
+            {
+                transform.GetComponent<AudioSource>().PlayOneShot(m.arrowhit);
+            }
             transform.GetComponent<AudioSource>().PlayOneShot(m.enemyHit);
         }
     }

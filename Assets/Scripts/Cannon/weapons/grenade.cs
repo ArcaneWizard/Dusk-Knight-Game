@@ -18,7 +18,7 @@ public class grenade : MonoBehaviour
         animator = transform.GetComponent<Animator>();
         rig = transform.GetComponent<Rigidbody2D>();
         animator.SetBool("blowup", false);
-        //gameObject.AddComponent<AudioSource>();
+        gameObject.AddComponent<AudioSource>();
     }
 
     void Update()
@@ -58,9 +58,11 @@ public class grenade : MonoBehaviour
     }
 
     private void yesGoBoom() {
-            rig.velocity = new Vector2(0, 0);
-            StartCoroutine(boom());
-            boomOnAlready = true;
+        rig.velocity = new Vector2(0, 0);
+        StartCoroutine(boom());
+        Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
+        transform.GetComponent<AudioSource>().PlayOneShot(m.explode);
+        boomOnAlready = true;
     }
     private IEnumerator boom()
     {
@@ -86,9 +88,4 @@ public class grenade : MonoBehaviour
         transform.gameObject.SetActive(false);
     }
 
-    private IEnumerator colliderReshape(float seconds, float size)
-    {
-        yield return new WaitForSeconds(seconds);
-        transform.GetComponent<CircleCollider2D>().radius = size;
-    }
 }
