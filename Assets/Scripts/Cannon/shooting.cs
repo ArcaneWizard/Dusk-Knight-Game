@@ -115,7 +115,6 @@ public class shooting : MonoBehaviour
         ammo[counter].SetActive(true);
     }
 
-
     private IEnumerator checkForWeaponChangeOrFire(float rot, Vector3 touchPosition)
     {
         yield return new WaitForSeconds(0.01f);

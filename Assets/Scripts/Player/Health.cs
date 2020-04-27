@@ -31,6 +31,7 @@ public class Health : MonoBehaviour
     private GameObject head;
     private int applyTowerChangeOnce = 1;
     public bool hpBoost = false;
+    public bool debugKill;
 
     private bool diedOnce;
 
@@ -79,13 +80,19 @@ public class Health : MonoBehaviour
             hpBoost = false;
         }
 
+        if (debugKill)
+            playerHP = 0;
+
         if (playerHP > maxPlayerHP)
             playerHP = maxPlayerHP;
 
         if (playerHP <= 0 && diedOnce == false)
         {
             diedOnce = true;
-            GameObject.Find("Canvas").transform.GetChild(5).gameObject.SetActive(true);
+            if (GameObject.Find("Canvas").transform.GetChild(7).gameObject.name == "Game Over")
+                GameObject.Find("Canvas").transform.GetChild(7).gameObject.SetActive(true);
+            else
+                Debug.LogError("You changed the child positioning of Game Over which was referenced in a script.");
             GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Animator>().enabled = true;
             StartCoroutine(reset_level());
         }

@@ -209,7 +209,7 @@ public class Shop : MonoBehaviour
     {
         Time.timeScale = 0f;
         transform.GetChild(child).gameObject.SetActive(true);
-        for (int i = 0; i <= 3; i++)
+        for (int i = 0; i <= 5; i++)
             transform.parent.transform.GetChild(i).gameObject.SetActive(false);
 
         Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
