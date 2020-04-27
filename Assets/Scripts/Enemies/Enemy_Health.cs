@@ -283,7 +283,7 @@ public class Enemy_Health : MonoBehaviour
     private IEnumerator alter()
     {
         gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(245, 0, 0, 255);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.3f);
         gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
     }
 
