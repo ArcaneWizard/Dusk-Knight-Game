@@ -8,6 +8,10 @@ public class Orb : MonoBehaviour
     [HideInInspector]
     public bool switchOrbs = false;
 
+    void Start()
+    {
+        gameObject.AddComponent<AudioSource>();
+    }
     // Start is called before the first frame update
     void Update()
     {
@@ -21,6 +25,7 @@ public class Orb : MonoBehaviour
             else
                 Debug.Log("orbs' name was changed. Error in the Orb script");
 
+            transform.GetComponent<AudioSource>().PlayOneShot(Manage_Sounds.Instance.R1Attack, 0.4f * Manage_Sounds.soundMultiplier);
             switchOrbs = false;
         }
     }

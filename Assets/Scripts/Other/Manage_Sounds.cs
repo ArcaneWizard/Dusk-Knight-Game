@@ -4,29 +4,28 @@ using UnityEngine;
 
 public class Manage_Sounds : MonoBehaviour
 {
-    public AudioClip enemyHit;
-    public AudioClip cannonShot;
-    public AudioClip flamesound;
-    public AudioClip potionshot;
-    public AudioClip potionhit;
-    public AudioClip explode;
-    public AudioClip arrowshot;
-    public AudioClip arrowhit;
-    public AudioClip gatling;
+    public AudioClip enemyHit; //happy
+    public AudioClip cannonShot; //happy
+    public AudioClip flamesound; 
+    public AudioClip potionshot; //happy
+    public AudioClip potionhit; //happy
+    public AudioClip explode; //happy
+    public AudioClip arrowshot; //happy
+    public AudioClip arrowhit; 
+    public AudioClip gatling; //happy
 
-    public AudioClip ogreAttack; //boulder "throw" sound needed
-    public AudioClip orcAttack;
+    public AudioClip orcAttack; //happy
     public AudioClip goblinAttack;
-    public AudioClip R1Attack; //woosh throw sound needed
+    public AudioClip R1Attack; //happy
     public AudioClip R2Attack;
-    public AudioClip R3Attack; //woosh throw sound needed
+    public AudioClip R3Attack; //happy
 
-    public AudioClip orbConnect;
-    public AudioClip boulderConnect;
+    public AudioClip orbConnect;  //happy
+    public AudioClip boulderConnect; //happy
 
-    public AudioClip buttonClick;
-    public AudioClip errorPurchase;
-    public AudioClip purchase;
+    public AudioClip buttonClick; //happy
+    public AudioClip errorPurchase; //happy
+    public AudioClip purchase; //happy
 
     public static Manage_Sounds Instance { get; private set; }
     public static float soundMultiplier = 1f;

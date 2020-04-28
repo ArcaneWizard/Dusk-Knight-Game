@@ -318,7 +318,7 @@ public class Enemy_Health : MonoBehaviour
             {
                 transform.GetComponent<AudioSource>().PlayOneShot(m.arrowhit, 0.1f * Manage_Sounds.soundMultiplier);
             }
-            transform.GetComponent<AudioSource>().PlayOneShot(m.enemyHit, 0.14f * Manage_Sounds.soundMultiplier);
+            transform.GetComponent<AudioSource>().PlayOneShot(m.enemyHit, 0.3f * Manage_Sounds.soundMultiplier);
         }
     }
 

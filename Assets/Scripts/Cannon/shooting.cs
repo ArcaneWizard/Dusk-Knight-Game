@@ -178,7 +178,7 @@ public class shooting : MonoBehaviour
 
         if (weaponType == GameObject.FindGameObjectWithTag("CB"))
         {
-            transform.GetComponent<AudioSource>().PlayOneShot(m.cannonShot, 0.2f * Manage_Sounds.soundMultiplier);
+            transform.GetComponent<AudioSource>().PlayOneShot(m.cannonShot, 0.4f * Manage_Sounds.soundMultiplier);
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
             ammo[counter].transform.GetComponent<cannon_ball>().oneHit = false;
@@ -202,7 +202,7 @@ public class shooting : MonoBehaviour
 
         if (weaponType == GameObject.FindGameObjectWithTag("Arrow"))
         {
-            transform.GetComponent<AudioSource>().PlayOneShot(m.arrowshot, 0.1f * Manage_Sounds.soundMultiplier);
+            transform.GetComponent<AudioSource>().PlayOneShot(m.arrowshot, 0.5f * Manage_Sounds.soundMultiplier);
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot-90);
             ammo[counter].transform.GetComponent<arrow>().oneLaunch = false;
             ammo[counter].transform.GetComponent<arrow>().oneHit = false;

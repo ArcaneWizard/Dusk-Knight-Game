@@ -9,6 +9,12 @@ public class Reaper_1 : MonoBehaviour
     Rigidbody2D rig;
     private float speed = 0.4f;
     private bool counter = false;
+
+    void Start()
+    {
+        gameObject.AddComponent<AudioSource>();
+    }
+
     private IEnumerator attack()
     {
         float r = UnityEngine.Random.Range(3.0f, 4.0f);
