@@ -34,10 +34,15 @@ public class Manage_Sounds : MonoBehaviour
     {
         if (Instance == null) { Instance = this; }
     }
+    
+    void Update()
+    {
+        soundMultiplier = PlayerPrefs.GetFloat("Sound");
+    }
 
     void example()
     {
-        // I added the second volume parameter to all weapons in the shooting script but add it to all other weapon sounds you implemented
+        // I added the second volume parameter to all weapons in the shooting script but add it to ALL other weapon sounds you implemented
         transform.GetComponent<AudioSource>().PlayOneShot(Manage_Sounds.Instance.arrowhit, 0.7f * Manage_Sounds.soundMultiplier);
     }
 

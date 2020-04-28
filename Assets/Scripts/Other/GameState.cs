@@ -14,7 +14,7 @@ public class GameState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        key = "GameState3";
+        key = "GameState4";
 
         if (PlayerPrefs.GetInt(key) < 2)
         {
