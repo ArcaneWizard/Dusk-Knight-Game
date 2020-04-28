@@ -316,9 +316,9 @@ public class Enemy_Health : MonoBehaviour
             Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
             if (col.gameObject.name == "arrow")
             {
-                transform.GetComponent<AudioSource>().PlayOneShot(m.arrowhit, 0.5f * Manage_Sounds.soundMultiplier);
+                transform.GetComponent<AudioSource>().PlayOneShot(m.arrowhit, 0.1f * Manage_Sounds.soundMultiplier);
             }
-            transform.GetComponent<AudioSource>().PlayOneShot(m.enemyHit, 0.5f * Manage_Sounds.soundMultiplier);
+            transform.GetComponent<AudioSource>().PlayOneShot(m.enemyHit, 0.14f * Manage_Sounds.soundMultiplier);
         }
     }
 

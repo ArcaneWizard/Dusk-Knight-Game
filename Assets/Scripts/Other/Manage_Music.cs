@@ -12,7 +12,6 @@ public class Manage_Music : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Debug.Log(PlayerPrefs.GetFloat("Music"));
         music.value = PlayerPrefs.GetFloat("Music");
         sound.value = PlayerPrefs.GetFloat("Sound");
     }
