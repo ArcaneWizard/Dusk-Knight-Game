@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class GameState : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class GameState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        key = "GameState2";
+        key = "GameState3";
 
         if (PlayerPrefs.GetInt(key) < 2)
         {
@@ -29,6 +30,9 @@ public class GameState : MonoBehaviour
             PlayerPrefs.SetFloat("Music", 0.9f);
             PlayerPrefs.SetFloat("Sound", 0.9f);
         }
+
+
+        Advertisement.Initialize("3577863", true);
     }
 
     private IEnumerator displayInstructions1()

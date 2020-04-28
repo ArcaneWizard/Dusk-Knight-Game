@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Advertisements;
 using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.EventSystems;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
@@ -74,6 +76,64 @@ public class Shop : MonoBehaviour
             CB();
             PlayerPrefs.SetInt("CB", 1);
         }
+    }
+
+    public void deployAd()
+    {
+        StartCoroutine(ShowBannerWhenReady());
+    }
+
+    private IEnumerator ShowBannerWhenReady()
+    {
+        if (!Advertisement.IsReady())
+        {
+            yield return new WaitForSeconds(0.1f);
+            StartCoroutine(ShowBannerWhenReady());
+        }
+        else
+        {
+            if (transform.GetChild(0).transform.GetChild(6).gameObject.name == "Back Button")
+                transform.GetChild(0).transform.GetChild(6).gameObject.SetActive(false);
+            else
+                Debug.LogError("Back Button's child position was changed. Please revert your changes.");
+
+            if (transform.GetChild(0).transform.GetChild(2).gameObject.name == "Ad Panel")
+                transform.GetChild(0).transform.GetChild(2).gameObject.SetActive(false);
+            else
+                Debug.LogError("Ad Panel's child position was changed. Please revert your changes.");
+
+            StartCoroutine(turnOnAdPanel());
+            Advertisement.Show("rewardedVideo", new ShowOptions() { resultCallback = HandleAdResult });
+        }
+    }
+
+    private void HandleAdResult(ShowResult result)
+    {
+        switch (result)
+        {
+            case ShowResult.Finished:
+                Debug.Log("Player watched ad");
+                transform.GetChild(0).transform.GetChild(6).gameObject.SetActive(true);
+                jewels += 50;
+                break;
+            case ShowResult.Skipped:
+                Debug.Log("Player skipped ad");
+                transform.GetChild(0).transform.GetChild(6).gameObject.SetActive(true);
+                break;
+            case ShowResult.Failed:
+                Debug.Log("No internet");
+                transform.GetChild(0).transform.GetChild(6).gameObject.SetActive(true);
+                break;
+        }
+    }
+
+    private IEnumerator turnOnAdPanel()
+    {
+        yield return new WaitForSeconds(60f);
+        if (transform.GetChild(0).transform.GetChild(2).gameObject.name == "Ad Panel")
+            transform.GetChild(0).transform.GetChild(2).gameObject.SetActive(true);
+        else
+            Debug.LogError("Ad Panel's child position was changed. Please revert your changes.");
     }
 
     void checkWeaponUserIsOn(string key)
