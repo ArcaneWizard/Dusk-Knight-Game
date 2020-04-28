@@ -28,6 +28,7 @@ public class grenade : MonoBehaviour
         {
             if (oneLaunch == false)
             {
+                boomOnAlready = false;
                 transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                 transform.GetComponent<Rigidbody2D>().AddForce(transform.up * speed * 400 * shooting.touchPercent);
                 oneLaunch = true;
@@ -54,6 +55,7 @@ public class grenade : MonoBehaviour
         {          
             col.gameObject.transform.GetComponent<Enemy_Health>().hp -= Health.grenade;
         }
+
         if (boomOnAlready == false)
         yesGoBoom();
     }
