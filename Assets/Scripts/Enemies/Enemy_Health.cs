@@ -63,7 +63,12 @@ public class Enemy_Health : MonoBehaviour
             hp = reaper_2;
 
         if (gameObject.layer == 21)
+        {
             hp = reaper_3;
+            if (gameObject.GetComponent<Reaper_3>() != null)
+                Destroy(gameObject.GetComponent<Reaper_3>());
+            gameObject.AddComponent<Reaper_3>();
+        }
 
         lastHP = hp;
         death = false;

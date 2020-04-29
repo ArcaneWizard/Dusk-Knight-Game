@@ -18,17 +18,13 @@ public class Spawner : MonoBehaviour
     private int cOrc = 0;
     private int cGoblin = 0;
 
-    private int preventSpawnCheckMemoryOverload = 0;
-
     private float reloadTime = 1.5f;
 
-    //Spawn enemies once for debugging
     private void spawn()
     {
-        
+        //Spawn enemies once for debugging
     }
 
-    //Spawn enemies every few seconds
     private IEnumerator spawnOver()
     {
         deployRandomEnemy(); 
@@ -41,8 +37,8 @@ public class Spawner : MonoBehaviour
     private IEnumerator  quickenSpawn()
     {
         yield return new WaitForSeconds(1);
-        if (reloadTime >= 0.9045)
-            reloadTime -= 0.045f;
+        if (reloadTime >= 0.75)
+            reloadTime -= 0.005f;
 
         StartCoroutine(quickenSpawn());
     }
@@ -165,43 +161,12 @@ public class Spawner : MonoBehaviour
     //Error check: Can't spawn more of one enemy if all are already active
     GameObject findEnemy2(string enemyName, int cycle)
     {        
-        //bool child = checkChildrenActive(GameObject.Find(enemyName + " Group"));
-        preventSpawnCheckMemoryOverload++;
-
         if (GameObject.Find(enemyName + " Group").transform.GetChild(cycle).gameObject.activeSelf == false)
-        {
-            preventSpawnCheckMemoryOverload = 0;
             return GameObject.Find(enemyName + " Group").transform.GetChild(cycle).gameObject;
-        }
-        /*else if (preventSpawnCheckMemoryOverload <= 5)
-        {
-            Debug.Log("2");
-            return findEnemy2(enemyName, (cycle + 1) % GameObject.Find(enemyName + " Group").transform.childCount);
-        }*/
+
         else
-        {
-            preventSpawnCheckMemoryOverload = 0;
             return GameObject.Find("Fake Enemy");
-        }
     }
-
-   /*bool checkChildrenActive(GameObject enemy)
-    {
-        int counter = 0;
-            for (int i = 0; i < enemy.transform.childCount; i++)
-            {
-                if (gameObject.transform.GetChild(i).gameObject.activeInHierarchy)
-                {
-                    counter++;
-                }
-            }
-
-        Debug.Log("3");
-        if (counter >= 5)
-            return true;
-        else
-            return false;
-    }*/
 
     void Start()
     {
@@ -217,8 +182,6 @@ public class Spawner : MonoBehaviour
         prepList(GameObject.Find("Orc Group"), Orc);
         prepList(GameObject.Find("Goblin Group"), Goblin);
         prepList(GameObject.Find("Ogre Group"), Ogre);*/
-
-        // Use to reset enemy layers (when more of each type are added)
 
           for (int i = 1; i <= GameObject.Find("R1 Group").gameObject.transform.childCount; i++)
           {
@@ -258,7 +221,6 @@ public class Spawner : MonoBehaviour
 
     }
 
-    //See above (for reset)
     void prepList(GameObject enemyType, List<GameObject> enemyList)
     {
         enemyList.Clear();

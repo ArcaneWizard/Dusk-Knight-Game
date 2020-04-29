@@ -201,7 +201,7 @@ public class Shop : MonoBehaviour
 
             Debug.Log("Purchase successful");
             Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
-            transform.GetComponent<AudioSource>().PlayOneShot(m.purchase);
+            transform.GetComponent<AudioSource>().PlayOneShot(m.purchase, 1.0f * Manage_Sounds.soundMultiplier);
         }
 
         else
@@ -209,7 +209,7 @@ public class Shop : MonoBehaviour
             Debug.Log("Error. Not enough jewels. <Add error sound>");
 
             Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
-            transform.GetComponent<AudioSource>().PlayOneShot(m.errorPurchase);
+            transform.GetComponent<AudioSource>().PlayOneShot(m.errorPurchase, 1.0f * Manage_Sounds.soundMultiplier); 
         }
 
 
@@ -234,7 +234,7 @@ public class Shop : MonoBehaviour
             GameObject.FindGameObjectWithTag("Buttons").transform.GetChild(i).transform.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         }
         Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
-        transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick);
+        transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick, 1.0f * Manage_Sounds.soundMultiplier);
     }
 
     public void openShop()
@@ -278,11 +278,13 @@ public class Shop : MonoBehaviour
     {
         Time.timeScale = 1f;
         transform.GetChild(child).gameObject.SetActive(false);
+
         for (int i = 0; i <= 3; i++)
             transform.parent.transform.GetChild(i).gameObject.SetActive(true);
+        transform.parent.transform.GetChild(8).gameObject.SetActive(true);
 
         Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
-        transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick);
+        transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick, 1.0f * Manage_Sounds.soundMultiplier);
 
         GameObject.Find("Music Manager").transform.GetComponent<AudioSource>().UnPause();
     }
@@ -290,11 +292,13 @@ public class Shop : MonoBehaviour
     {
         Time.timeScale = 0f;
         transform.GetChild(child).gameObject.SetActive(true);
+
         for (int i = 0; i <= 5; i++)
             transform.parent.transform.GetChild(i).gameObject.SetActive(false);
+        transform.parent.transform.GetChild(8).gameObject.SetActive(false);
 
         Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
-        transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick);
+        transform.GetComponent<AudioSource>().PlayOneShot(m.buttonClick, 1.0f * Manage_Sounds.soundMultiplier);
 
         GameObject.Find("Music Manager").transform.GetComponent<AudioSource>().Pause();
     }
@@ -317,14 +321,14 @@ public class Shop : MonoBehaviour
     public void Potion()
     {
         clearButtonColor();
-        chooseWeapon("Witch", 700, "A swirling green potion that intoxicates enemies and eats them from the inside.");
+        chooseWeapon("Witch", 800, "A swirling green potion that intoxicates enemies and eats them from the inside.");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "Potion");
     }
     public void Flame()
     {
         clearButtonColor();
-        chooseWeapon("Flamethrower", 1050, "A fiery flame that burns everything in sight. However, it only extends so far.");
+        chooseWeapon("Flamethrower", 1250, "A fiery flame that burns everything in sight. However, it only extends so far.");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "Flame");
     }
@@ -332,7 +336,7 @@ public class Shop : MonoBehaviour
     public void Grenade()
     {
         clearButtonColor();
-        chooseWeapon("Boomer", 1500, "A grenade with splash damage. Catch whole hordes of enemies in a deadly blast.");
+        chooseWeapon("Boomer", 2000, "A grenade with splash damage. Catch whole hordes of enemies in a deadly blast.");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "Grenade");
     }

@@ -54,7 +54,7 @@ public class Orc : MonoBehaviour
     private IEnumerator playSound()
     {
         yield return new WaitForSeconds(0.22f);
-        transform.GetComponent<AudioSource>().PlayOneShot(Manage_Sounds.Instance.orcAttack, 0.7f * Manage_Sounds.soundMultiplier);
+        transform.GetComponent<AudioSource>().PlayOneShot(Manage_Sounds.Instance.orcAttack, 1f * Manage_Sounds.soundMultiplier);
         yield return new WaitForSeconds(0.78f);
         StartCoroutine(playSound());
     }

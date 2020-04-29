@@ -21,19 +21,11 @@ public class FlameThrower : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-
             Touch touch = Input.GetTouch(0);
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position) - transform.position;
             float rot = Mathf.Atan2(touchPosition.y, touchPosition.x) * Mathf.Rad2Deg;
 
-            transform.rotation = Quaternion.Euler(0f, 0f, rot - 90);
-
-            if (!fwishing)
-            {
-                StartCoroutine(Fwish());
-                fwishing = true;
-            }
-
+            StartCoroutine(addSmallDelayCheck(rot));
         }
         else
         {
@@ -45,6 +37,25 @@ public class FlameThrower : MonoBehaviour
             }
         }
 
+    }
+
+    //DESCRIPTION -------------------------------------------
+    //check if the tap was done to switch weapons or not
+    //-------------------------------------------------------
+    private IEnumerator addSmallDelayCheck(float rot)
+    {
+        yield return new WaitForSeconds(0.01f);
+
+        if (GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Select_Weapon>().weaponChange == false)
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, rot - 90);
+
+            if (!fwishing)
+            {
+                StartCoroutine(Fwish());
+                fwishing = true;
+            }
+        }
     }
 
     private IEnumerator Fwish()

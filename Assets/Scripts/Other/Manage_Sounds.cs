@@ -11,13 +11,13 @@ public class Manage_Sounds : MonoBehaviour
     public AudioClip potionhit; //happy
     public AudioClip explode; //happy
     public AudioClip arrowshot; //happy
-    public AudioClip arrowhit; 
+    public AudioClip arrowhit; //happy
     public AudioClip gatling; //happy
 
     public AudioClip orcAttack; //happy
-    public AudioClip goblinAttack;
+    public AudioClip goblinAttack; //happy
     public AudioClip R1Attack; //happy
-    public AudioClip R2Attack;
+    public AudioClip R2Attack; //happy
     public AudioClip R3Attack; //happy
 
     public AudioClip orbConnect;  //happy

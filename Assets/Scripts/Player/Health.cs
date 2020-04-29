@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -105,11 +106,38 @@ public class Health : MonoBehaviour
         {
             diedOnce = true;
             if (GameObject.Find("Canvas").transform.GetChild(7).gameObject.name == "Game Over")
+            {
                 GameObject.Find("Canvas").transform.GetChild(7).gameObject.SetActive(true);
+
+                StartCoroutine(relayDeathMsg());
+            }
             else
                 Debug.LogError("You changed the child positioning of Game Over which was referenced in a script.");
+
+
             GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Animator>().enabled = true;
             StartCoroutine(reset_level());
+        }
+    }
+
+    private IEnumerator relayDeathMsg()
+    {
+        yield return new WaitForSeconds(0.01f);
+        Debug.Log(GameState.time + " " + PlayerPrefs.GetInt("Time"));
+        if (GameState.time < PlayerPrefs.GetInt("Time"))
+        {
+            //second vs seconds
+            string timeUnit = " seconds ";
+            if (PlayerPrefs.GetInt("Time") - GameState.time == 1) timeUnit = " second ";
+
+            //Set text
+            GameObject.Find("Canvas").transform.GetChild(7).transform.GetChild(1).transform.GetComponent<Text>().text =
+                "You died " + (PlayerPrefs.GetInt("Time") - GameState.time) + timeUnit + "before your best time of " + System.Math.Round(((float)PlayerPrefs.GetInt("Time") / 60f), 2) + " minutes";
+        }
+        else
+        {
+            GameObject.Find("Canvas").transform.GetChild(7).transform.GetChild(1).transform.GetComponent<Text>().text =
+                "You died after a valiant effort, setting a new survival time of " + System.Math.Round(((float)PlayerPrefs.GetInt("Time") / 60f), 2) + " minutes";
         }
     }
 
@@ -119,58 +147,4 @@ public class Health : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    /*public void Reset()
-    {
-        maxPlayerHP = 700;
-        playerHP = maxPlayerHP;
-
-        boxy.offset = new Vector2(0.02191818f, -0.5f);
-        boxy.size = new Vector2(2.344175f, 1.9f);
-        boxy2.offset = new Vector2(0.03646278f, 0.9f);
-        boxy2.size = new Vector2(2.458501f, 0.7449135f);
-        transform.GetChild(2).GetChild(5).gameObject.SetActive(false);
-        transform.GetChild(2).GetChild(6).gameObject.SetActive(false);
-        transform.GetChild(2).GetChild(7).gameObject.SetActive(false);
-        transform.GetChild(2).GetChild(3).gameObject.SetActive(false);
-        transform.GetChild(2).GetChild(4).gameObject.SetActive(false);
-        transform.GetChild(2).GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(2).GetChild(1).gameObject.SetActive(true);
-        transform.GetChild(2).GetChild(2).gameObject.SetActive(true);
-    }
-
-    void Upgrade()
-    {
-        if (stage == 2)
-        {
-            boxy.offset = new Vector2(0.02191818f, -0.3f);
-            boxy.size = new Vector2(2.344175f, 2.5f);
-            boxy2.offset = new Vector2(0.03646278f, 1.4f);
-            boxy2.size = new Vector2(2.458501f, 0.7449135f);
-            transform.GetChild(2).GetChild(3).gameObject.SetActive(true);
-            maxPlayerHP += 100;
-            playerHP = maxPlayerHP;
-        }
-        if (stage == 3)
-        {
-            boxy.offset = new Vector2(0.02191818f, 0f);
-            boxy.size = new Vector2(2.344175f, 3f);
-            boxy2.offset = new Vector2(0.03646278f, 2f);
-            boxy2.size = new Vector2(2.458501f, 0.7449135f);
-            transform.GetChild(2).GetChild(4).gameObject.SetActive(true);
-            maxPlayerHP += 100;
-            playerHP = maxPlayerHP;
-        }
-        if (stage == 4)
-        {
-            boxy.offset = new Vector2(0.02191818f, -0.5f);
-            boxy.size = new Vector2(2.344175f, 1.9f);
-            boxy2.offset = new Vector2(0.03646278f, 0.9f);
-            boxy2.size = new Vector2(2.458501f, 0.7449135f);
-            transform.GetChild(2).GetChild(5).gameObject.SetActive(true);
-            transform.GetChild(2).GetChild(6).gameObject.SetActive(true);
-            transform.GetChild(2).GetChild(7).gameObject.SetActive(true);
-            maxPlayerHP += 100;
-            playerHP = maxPlayerHP;
-        }
-    }*/
 }

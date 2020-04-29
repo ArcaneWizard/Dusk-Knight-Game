@@ -42,7 +42,6 @@ public class arrow : MonoBehaviour
                 rig.AddForce(transform.up * speed * 400 * shooting.touchPercent);
                 oneLaunch = true;
                 launched = true;
-                Debug.Log("falsified");
                 GameObject.Find("Head").transform.GetChild(4).transform.GetComponent<shooting>().loaded = false;
             }
         }

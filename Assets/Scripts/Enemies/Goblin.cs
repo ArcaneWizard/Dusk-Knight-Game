@@ -70,7 +70,7 @@ public class Goblin : MonoBehaviour
     private IEnumerator playSound()
     {
         yield return new WaitForSeconds(0.22f);
-        transform.GetComponent<AudioSource>().PlayOneShot(Manage_Sounds.Instance.goblinAttack, 0.4f * Manage_Sounds.soundMultiplier);
+        transform.GetComponent<AudioSource>().PlayOneShot(Manage_Sounds.Instance.goblinAttack, 1f * Manage_Sounds.soundMultiplier);
         yield return new WaitForSeconds(0.78f);
         StartCoroutine(playSound());
     }

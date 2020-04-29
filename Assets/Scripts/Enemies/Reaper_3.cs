@@ -74,7 +74,7 @@ public class Reaper_3 : MonoBehaviour
             transform.GetComponent<Enemy_Health>().deploy = false;
         }
 
-        if (transform.GetComponent<Enemy_Health>().hp > 0)
+        if (transform.GetComponent<Enemy_Health>().hp > 0 && rig != null)
         {
             if (bound == 13.3f && transform.position.x > 13.3f)
             {
