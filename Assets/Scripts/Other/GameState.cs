@@ -46,9 +46,6 @@ public class GameState : MonoBehaviour
             PlayerPrefs.SetFloat("Sound", 0.9f);
         }
 
-
-        Advertisement.Initialize("3577863", true);
-
         time = 0;
         StartCoroutine(scoreIncreasesInTime());
     }

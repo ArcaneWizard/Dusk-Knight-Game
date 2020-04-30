@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Advertisements;
 using UnityEngine;
-using UnityEngine.Advertisements;
 using UnityEngine.EventSystems;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
@@ -31,7 +30,7 @@ public class Shop : MonoBehaviour
         if (ShopInstance == null) { ShopInstance = this; }
        
         jewels = PlayerPrefs.GetInt("Jewels");
-
+        Advertisement.Initialize("3577863", true);
         gameObject.AddComponent<AudioSource>();
     }
 
