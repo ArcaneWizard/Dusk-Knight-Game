@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -39,6 +40,10 @@ public class Health : MonoBehaviour
     private bool diedOnce;
     public int jewels;
 
+    GameObject shopButton;
+
+    public Text descriptionDeath;
+
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +53,7 @@ public class Health : MonoBehaviour
 
         hp = GameObject.Find("Canvas").transform.GetChild(0).transform.GetChild(0).transform.GetComponent<Image>();
         head = GameObject.Find("Head");
+        shopButton = GameObject.Find("Shop Button");
     }
 
     // Update is called once per frame
@@ -104,6 +110,14 @@ public class Health : MonoBehaviour
 
         if (playerHP <= 0 && diedOnce == false)
         {
+            int x = PlayerPrefs.GetInt("Deaths");
+            PlayerPrefs.SetInt("Deaths", ++x);
+
+            if (PlayerPrefs.GetInt("Deaths") % 8 == 7)
+                StartCoroutine(ShowBannerWhenReady());
+
+            Debug.Log(PlayerPrefs.GetInt("Deaths"));
+
             diedOnce = true;
             if (GameObject.Find("Canvas").transform.GetChild(7).gameObject.name == "Game Over")
             {
@@ -119,12 +133,56 @@ public class Health : MonoBehaviour
             StartCoroutine(reset_level());
         }
     }
+    private IEnumerator ShowBannerWhenReady()
+    {
+        if (!Advertisement.IsReady())
+        {
+            yield return new WaitForSeconds(0.1f);
+            StartCoroutine(ShowBannerWhenReady());
+        }
+        else
+        {
+          Debug.Log("yeet a video popped up");
+            Time.timeScale = 0;
+            shopButton.gameObject.SetActive(false);
+            Advertisement.Show("video", new ShowOptions() { resultCallback = HandleAdResult });
+        }
+    }
+    private void HandleAdResult(ShowResult result)
+    {
+        switch (result)
+        {
+            case ShowResult.Finished:
+                Debug.Log("Player watched ad");
+                Time.timeScale = 1;
+                shopButton.gameObject.SetActive(true);
+                break;
+            case ShowResult.Skipped:
+                Debug.Log("Player skipped ad");
+                Time.timeScale = 1;
+                shopButton.gameObject.SetActive(true);
+                break;
+            case ShowResult.Failed:
+                Debug.Log("No internet");
+                Time.timeScale = 1;
+                shopButton.gameObject.SetActive(true);
+                break;
+        }
+    }
 
     private IEnumerator relayDeathMsg()
     {
         yield return new WaitForSeconds(0.01f);
-        Debug.Log(GameState.time + " " + PlayerPrefs.GetInt("Time"));
-        if (GameState.time < PlayerPrefs.GetInt("Time"))
+
+        int min = PlayerPrefs.GetInt("Time") / 60;
+        int sec = PlayerPrefs.GetInt("Time") % 60;
+        string s = sec.ToString();
+        if (sec <= 9)  s = "0" + sec;
+
+        descriptionDeath.text = "Survived:\n" + GameState.min.ToString() + ":" + GameState.s + "\n\nBest time:\n" + min.ToString() + ":" + s;
+
+
+        /*if (GameState.time < PlayerPrefs.GetInt("Time"))
         {
             //second vs seconds
             string timeUnit = " seconds ";
@@ -132,13 +190,13 @@ public class Health : MonoBehaviour
 
             //Set text
             GameObject.Find("Canvas").transform.GetChild(7).transform.GetChild(1).transform.GetComponent<Text>().text =
-                "You died " + (PlayerPrefs.GetInt("Time") - GameState.time) + timeUnit + "before your best time of " + System.Math.Round(((float)PlayerPrefs.GetInt("Time") / 60f), 2) + " minutes";
+                "You died " + (PlayerPrefs.GetInt("Time") - GameState.time) + timeUnit + "before your best time of " + min.ToString() + ":" + s;
         }
         else
         {
             GameObject.Find("Canvas").transform.GetChild(7).transform.GetChild(1).transform.GetComponent<Text>().text =
-                "You died after a valiant effort, setting a new survival time of " + System.Math.Round(((float)PlayerPrefs.GetInt("Time") / 60f), 2) + " minutes";
-        }
+                "You died after a valiant effort, setting a new survival time of " + min.ToString() + ":" + s; //System.Math.Round(((float)PlayerPrefs.GetInt("Time") / 60f), 2) + " minutes";
+        }*/
     }
 
     private IEnumerator reset_level()

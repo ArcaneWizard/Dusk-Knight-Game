@@ -13,6 +13,9 @@ public class GameState : MonoBehaviour
 
     private string key;
     public static int time;
+    public static int min;
+    public static int sec;
+    public static string s;
 
     private IEnumerator scoreIncreasesInTime()
     {
@@ -52,9 +55,9 @@ public class GameState : MonoBehaviour
 
     void Update()
     {
-        int min = time / 60;
-        int sec = time % 60;
-        string s = sec.ToString();
+        min = time / 60;
+        sec = time % 60;
+        s = sec.ToString();
 
         if (sec <= 9)
             s = "0" + sec;
