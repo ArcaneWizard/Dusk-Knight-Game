@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Advertisements;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class GameState : MonoBehaviour
