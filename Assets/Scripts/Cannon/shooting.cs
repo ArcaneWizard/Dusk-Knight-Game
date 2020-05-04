@@ -13,6 +13,7 @@ public class shooting : MonoBehaviour
     private int counter = 0;
     public static float touchPercent;
     public bool loaded = false;
+    public bool playsound = false;
 
     GameObject weaponType;
 
@@ -40,7 +41,7 @@ public class shooting : MonoBehaviour
         if (transform.gameObject.name == "Gatling")
         {
             weaponType = GameObject.Find("Bullet");
-            startcooldown = 0.3f;
+            startcooldown = 0.25f;
         }
 
         if (transform.gameObject.name == "Gunpowder Cannon")
@@ -135,8 +136,8 @@ public class shooting : MonoBehaviour
             if (weaponType == GameObject.FindGameObjectWithTag("Arrow"))
                 transform.rotation = Quaternion.Euler(0f, (touchPosition.x / Mathf.Abs(touchPosition.x) - 1) * 90, (touchPosition.x / Mathf.Abs(touchPosition.x)) * rot + 90 * (touchPosition.x / Mathf.Abs(touchPosition.x) - 1));
 
-            if (transform.gameObject.name == "Flamethrower")
-                transform.rotation = Quaternion.Euler(0f, 0f, rot);
+            //if (transform.gameObject.name == "Flamethrower")
+              //  transform.rotation = Quaternion.Euler(0f, 0f, rot);
 
             Vector3 eulerAngle = transform.localRotation.eulerAngles;
             float angle = eulerAngle.z % 360;
@@ -211,8 +212,6 @@ public class shooting : MonoBehaviour
             StartCoroutine(Load());
         }
 
-        if (transform.gameObject.name == "Flamethrower")
-            transform.GetComponent<AudioSource>().PlayOneShot(m.flamesound, 0.3f * Manage_Sounds.soundMultiplier);
 
         ammo[counter].SetActive(true);
         counter += 1;
@@ -233,4 +232,5 @@ public class shooting : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         loaded = false;
     }
+
 }

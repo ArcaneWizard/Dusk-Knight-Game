@@ -64,7 +64,7 @@ public class grenade : MonoBehaviour
         rig.velocity = new Vector2(0, 0);
         StartCoroutine(boom());
         Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
-        transform.GetComponent<AudioSource>().PlayOneShot(m.explode, 0.7f * Manage_Sounds.soundMultiplier);
+        transform.GetComponent<AudioSource>().PlayOneShot(m.explode, 1.4f * Manage_Sounds.soundMultiplier);
         boomOnAlready = true;
     }
     private IEnumerator boom()
