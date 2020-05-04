@@ -32,7 +32,7 @@ public class FlameThrower : MonoBehaviour
             StartCoroutine(addSmallDelayCheck(rot));
             //transform.GetComponent<AudioSource>().PlayOneShot(m.flamesound, 2f * Manage_Sounds.soundMultiplier);
                       
-           transform.GetComponent<AudioSource>().PlayOneShot(m.flamesound, 0.8f * Manage_Sounds.soundMultiplier);
+           transform.GetComponent<AudioSource>().PlayOneShot(m.flamesound, 0.2f * Manage_Sounds.soundMultiplier);
         }
         else
         {  

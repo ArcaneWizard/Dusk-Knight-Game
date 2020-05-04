@@ -325,7 +325,7 @@ public class Enemy_Health : MonoBehaviour
             }
             if (col.gameObject.name == "flask")
             {
-                transform.GetComponent<AudioSource>().PlayOneShot(m.potionhit, 1.5f * Manage_Sounds.soundMultiplier);
+                transform.GetComponent<AudioSource>().PlayOneShot(m.potionhit, 1.25f * Manage_Sounds.soundMultiplier);
             }
             transform.GetComponent<AudioSource>().PlayOneShot(m.enemyHit, 0.3f * Manage_Sounds.soundMultiplier);
         }
