@@ -159,7 +159,7 @@ public class shooting : MonoBehaviour
         //Modify the position/rotation code based on weapon type
         if (weaponType == GameObject.Find("Grenade"))
         {
-            transform.GetComponent<AudioSource>().PlayOneShot(m.cannonShot, 0.3f * Manage_Sounds.soundMultiplier);
+            transform.GetComponent<AudioSource>().PlayOneShot(m.cannonShot, 0.6f * Manage_Sounds.soundMultiplier);
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
             ammo[counter].transform.GetComponent<grenade>().oneLaunch = false;
@@ -170,7 +170,7 @@ public class shooting : MonoBehaviour
 
         if (weaponType == GameObject.Find("Bullet"))
         {
-            transform.GetComponent<AudioSource>().PlayOneShot(m.gatling, 0.3f * Manage_Sounds.soundMultiplier);
+            transform.GetComponent<AudioSource>().PlayOneShot(m.gatling, 0.6f * Manage_Sounds.soundMultiplier);
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
             ammo[counter].transform.GetComponent<bullet>().oneHit = false;
@@ -179,7 +179,7 @@ public class shooting : MonoBehaviour
 
         if (weaponType == GameObject.FindGameObjectWithTag("CB"))
         {
-            transform.GetComponent<AudioSource>().PlayOneShot(m.cannonShot, 0.4f * Manage_Sounds.soundMultiplier);
+            transform.GetComponent<AudioSource>().PlayOneShot(m.cannonShot, 0.6f * Manage_Sounds.soundMultiplier);
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
             ammo[counter].transform.GetComponent<cannon_ball>().oneHit = false;
@@ -191,7 +191,7 @@ public class shooting : MonoBehaviour
 
         if (weaponType == GameObject.FindGameObjectWithTag("Potion"))
         {
-            transform.GetComponent<AudioSource>().PlayOneShot(m.potionshot, 0.3f * Manage_Sounds.soundMultiplier);
+            transform.GetComponent<AudioSource>().PlayOneShot(m.potionshot, 0.8f * Manage_Sounds.soundMultiplier);
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
             ammo[counter].transform.GetComponent<potion>().oneLaunch = false;
@@ -203,7 +203,7 @@ public class shooting : MonoBehaviour
 
         if (weaponType == GameObject.FindGameObjectWithTag("Arrow"))
         {
-            transform.GetComponent<AudioSource>().PlayOneShot(m.arrowshot, 0.22f * Manage_Sounds.soundMultiplier);
+            transform.GetComponent<AudioSource>().PlayOneShot(m.arrowshot, 0.3f * Manage_Sounds.soundMultiplier);
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot-90);
             ammo[counter].transform.GetComponent<arrow>().oneLaunch = false;
             ammo[counter].transform.GetComponent<arrow>().oneHit = false;
