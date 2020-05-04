@@ -21,8 +21,8 @@ public class FlameThrower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
 
+         Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
 
         if (Input.touchCount > 0)
         {
@@ -31,16 +31,14 @@ public class FlameThrower : MonoBehaviour
             float rot = Mathf.Atan2(touchPosition.y, touchPosition.x) * Mathf.Rad2Deg;
             StartCoroutine(addSmallDelayCheck(rot));
             //transform.GetComponent<AudioSource>().PlayOneShot(m.flamesound, 2f * Manage_Sounds.soundMultiplier);
-            if (playsound)
-            {
-                playsound = false;
-                StartCoroutine(Fwoosound(m));
-            }
+                      
+           transform.GetComponent<AudioSource>().PlayOneShot(m.flamesound, 0.8f * Manage_Sounds.soundMultiplier);
         }
         else
-        {
+        {  
+            transform.GetComponent<AudioSource>().Stop();
+            
             fwishing = false;
-            //StopCoroutine(Fwish());
             StopAllCoroutines();
             foreach (GameObject i in flame)
             {
@@ -80,14 +78,14 @@ public class FlameThrower : MonoBehaviour
         flame[7].SetActive(true);
     }
 
-    private IEnumerator Fwoosound(Manage_Sounds m)
+    /*private IEnumerator Fwoosound()
     {
         Debug.Log("sound playing");
-        
+        Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
         transform.GetComponent<AudioSource>().PlayOneShot(m.flamesound, 0.8f * Manage_Sounds.soundMultiplier);
         yield return new WaitForSeconds(1f);
         playsound = true;
-
-    }
+        print(playsound);
+    }*/
 
 }
