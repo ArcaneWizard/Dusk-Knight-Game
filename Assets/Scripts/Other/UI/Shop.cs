@@ -186,7 +186,7 @@ public class Shop : MonoBehaviour
         if (PlayerPrefs.GetInt("Tower") == 1)
             chooseWeapon("Fort 3", 700, "Strengthen your fort with some heavy, metal beams. 3x stronger than Fort 1!");
         if (PlayerPrefs.GetInt("Tower") >= 2)
-            chooseWeapon("Fort 4", 1150, "Strengthen your fort with a mystical protection charm. 4x stronger than Fort 1.");
+            chooseWeapon("Fort 4", 1150, "Strengthen your fort with a mystical protection charm. 4x stronger than Fort 1!");
     }
 
     public void purchase()
@@ -313,7 +313,7 @@ public class Shop : MonoBehaviour
     public void Arrow()
     {
         clearButtonColor();
-        chooseWeapon("Ballista", 500, "A frosty arrow that slices through skin and freezes enemies to the bone. Brrrrrrr");
+        chooseWeapon("Ballista", 500, "A frosty arrow that slices through skin and freezes enemies to the bone. Brrrrrrr!");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "Arrow");
     }
