@@ -25,15 +25,8 @@ public class FlameThrower : MonoBehaviour
          Manage_Sounds m = GameObject.Find("Sound Manager").transform.GetComponent<Manage_Sounds>();
 
         if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position) - transform.position;
-            float rot = Mathf.Atan2(touchPosition.y, touchPosition.x) * Mathf.Rad2Deg;
-            StartCoroutine(addSmallDelayCheck(rot));
-            //transform.GetComponent<AudioSource>().PlayOneShot(m.flamesound, 2f * Manage_Sounds.soundMultiplier);
-                      
-           transform.GetComponent<AudioSource>().PlayOneShot(m.flamesound, 0.2f * Manage_Sounds.soundMultiplier);
-        }
+            StartCoroutine(checkForWeaponChange(m));
+
         else
         {  
             transform.GetComponent<AudioSource>().Stop();
@@ -46,6 +39,19 @@ public class FlameThrower : MonoBehaviour
             }
         }
 
+    }
+
+    private IEnumerator checkForWeaponChange(Manage_Sounds m)
+    {
+        yield return new WaitForSeconds(0.01f);
+        if (GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Select_Weapon>().weaponChange == false)
+        {
+            Touch touch = Input.GetTouch(0);
+            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position) - transform.position;
+            float rot = Mathf.Atan2(touchPosition.y, touchPosition.x) * Mathf.Rad2Deg;
+            StartCoroutine(addSmallDelayCheck(rot));
+            transform.GetComponent<AudioSource>().PlayOneShot(m.flamesound, 0.8f * Manage_Sounds.soundMultiplier);
+        }
     }
 
     //DESCRIPTION -------------------------------------------

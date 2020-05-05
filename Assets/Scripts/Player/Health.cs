@@ -40,14 +40,21 @@ public class Health : MonoBehaviour
     private bool diedOnce;
     public int jewels;
 
+    bool firstTime = true;
+
     GameObject shopButton;
 
     public Text descriptionDeath;
 
+    public Canvas title;
+    public GameObject healhBar;
+    public GameObject InGame;
+    public GameObject Survival;
 
-    // Start is called before the first frame update
     void Start()
     {
+        FirstTime(true);
+
         maxPlayerHP = 1000;
         playerHP = maxPlayerHP;
 
@@ -56,9 +63,23 @@ public class Health : MonoBehaviour
         shopButton = GameObject.Find("Shop Button");
     }
 
-    // Update is called once per frame
+    //Either enable or disable the title screen (and do the opposite for game UI) 
+    void FirstTime(bool v) {
+        title.gameObject.SetActive(v);
+
+        healhBar.gameObject.SetActive(!v);
+        InGame.gameObject.SetActive(!v);
+        Survival.gameObject.SetActive(!v);   
+    }
+
     void Update()
     {
+        //Every time the player taps on the Title Screen, undo it and set-up game UI 
+        if (Input.touchCount > 0 && firstTime == true) {
+            FirstTime(false);
+            firstTime = false;
+        }
+
         if (resetUpgrades == true)
         {
             Shop.ShopInstance.ResetUpgrades();
