@@ -252,7 +252,7 @@ public class Enemy_Health : MonoBehaviour
         //Un-ice and unpoison enemy b4 it fades away
         transform.GetChild(0).gameObject.SetActive(false);
         transform.GetComponent<Animator>().enabled = true;
-        setSpeed(1, 0);
+        //setSpeed(1, 0);
         isIced = false;
 
         isPoisoned = false;
@@ -266,10 +266,10 @@ public class Enemy_Health : MonoBehaviour
         {
             Color32 c =  transform.GetComponent<SpriteRenderer>().color;
             transform.GetComponent<SpriteRenderer>().color = new Color32(c.r, c.g, c.b, (byte)(15*i));
-            transform.localScale *= scale;
-            transform.Rotate(new Vector3(0, 0, rotSpeed));
+            //transform.localScale *= scale;
+            //transform.Rotate(new Vector3(0, 0, rotSpeed));
 
-            yield return new WaitForSeconds(0.05f); 
+            yield return new WaitForSeconds(0.1f); 
         }
 
         isIcedWhileIced = isIcedWhileIcedCheck;
