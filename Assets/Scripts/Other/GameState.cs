@@ -11,10 +11,14 @@ public class GameState : MonoBehaviour
     public Text scoreText;
 
     private string key;
+    private bool counter;
+    private bool counter2;
     public static int time;
     public static int min;
     public static int sec;
     public static string s;
+
+    public Health healthScript;
 
     private IEnumerator scoreIncreasesInTime()
     {
@@ -28,12 +32,10 @@ public class GameState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        key = "GameState6";
+        key = "GameState12";
 
-        if (PlayerPrefs.GetInt(key) < 2)
+        if (PlayerPrefs.GetInt(key) == 0)
         {
-            StartCoroutine(displayInstructions1());
-
             int state = PlayerPrefs.GetInt(key);
             state++;
             PlayerPrefs.SetInt(key, state);
@@ -41,16 +43,32 @@ public class GameState : MonoBehaviour
 
         if (PlayerPrefs.GetInt(key) == 1)
         {
+            Shop.ShopInstance.ResetUpgrades();
             PlayerPrefs.SetFloat("Music", 0.9f);
             PlayerPrefs.SetFloat("Sound", 0.9f);
         }
 
         time = 0;
-        StartCoroutine(scoreIncreasesInTime());
     }
 
     void Update()
-    {
+    {        
+        if (healthScript.firstTime == false && counter == false) {         
+            StartCoroutine(scoreIncreasesInTime());
+            counter = true;
+        }
+
+        if (Input.touchCount > 0 && PlayerPrefs.GetInt(key) == 1 && counter2 == false) {            
+            StartCoroutine(displayInstructions1());
+            PlayerPrefs.SetInt(key, 2);
+            counter2 = true;
+        }
+        if (Input.touchCount > 0 && PlayerPrefs.GetInt(key) == 2 && counter2 == false) {            
+            StartCoroutine(displayInstructions1());
+            PlayerPrefs.SetInt(key, 3);
+            counter2 = true;
+        }
+
         min = time / 60;
         sec = time % 60;
         s = sec.ToString();
@@ -70,7 +88,6 @@ public class GameState : MonoBehaviour
             if (time > PlayerPrefs.GetInt("Time"))
                 PlayerPrefs.SetInt("Time", time);
         }
-
     }
 
     private IEnumerator displayInstructions1()

@@ -40,7 +40,7 @@ public class Health : MonoBehaviour
     private bool diedOnce;
     public int jewels;
 
-    bool firstTime = true;
+    public bool firstTime = true;
 
     GameObject shopButton;
 

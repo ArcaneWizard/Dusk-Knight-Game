@@ -270,7 +270,7 @@ public class Shop : MonoBehaviour
 
     public void Rate()
     {
-        Debug.Log("Add link to google play page");
+        Application.OpenURL ("market://details?id=com.BallisticWalrus.TheLastTower"); 
     }
 
     public void closeSomething(int child)

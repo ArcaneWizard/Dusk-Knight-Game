@@ -50,7 +50,7 @@ public class FlameThrower : MonoBehaviour
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position) - transform.position;
             float rot = Mathf.Atan2(touchPosition.y, touchPosition.x) * Mathf.Rad2Deg;
             StartCoroutine(addSmallDelayCheck(rot));
-            transform.GetComponent<AudioSource>().PlayOneShot(m.flamesound, 0.8f * Manage_Sounds.soundMultiplier);
+            transform.GetComponent<AudioSource>().PlayOneShot(m.flamesound, 0.03f * Manage_Sounds.soundMultiplier);
         }
     }
 

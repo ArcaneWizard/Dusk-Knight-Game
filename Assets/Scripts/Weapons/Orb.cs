@@ -25,7 +25,7 @@ public class Orb : MonoBehaviour
             else
                 Debug.Log("orbs' name was changed. Error in the Orb script");
 
-            transform.GetComponent<AudioSource>().PlayOneShot(Manage_Sounds.Instance.R1Attack, 0.4f * Manage_Sounds.soundMultiplier);
+            transform.GetComponent<AudioSource>().PlayOneShot(Manage_Sounds.Instance.R1Attack, 0.12f * Manage_Sounds.soundMultiplier);
             switchOrbs = false;
         }
     }
@@ -43,7 +43,7 @@ public class Orb : MonoBehaviour
             if (gameObject.tag == "Reaper orb")
                 Health.playerHP -= Health.R1Dmg;
 
-            Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 1f);
+            Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 0.4f);
             gameObject.SetActive(false);
         }
     }
