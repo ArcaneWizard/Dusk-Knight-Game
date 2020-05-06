@@ -23,6 +23,7 @@ public class Enemy_Health : MonoBehaviour
 
     Animator animator;
     private bool death = false;
+    private bool lowHP = false;
 
     private float ogScaleX;
     private float ogScaleY;
@@ -98,19 +99,21 @@ public class Enemy_Health : MonoBehaviour
 
         if (hp <= 0 && death == false)
         {
+            //transform.GetComponent<ParticleSystem>().Play();
             checkDeath();
             death = true;
         }
 
-        if (hp <= 20)
+        if (hp <= 20 && lowHP == false)
         {
-            transform.GetComponent<ParticleSystem>().Play();
+            lowHP = true;
+            gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(166, 0, 0, 255);
         }
 
         if (lastHP != hp)
         {
             lastHP = hp;
-            if (isPoisoned == false)
+            if (isPoisoned == false && lowHP == false)
                StartCoroutine(alter());
         }
     }
@@ -231,12 +234,15 @@ public class Enemy_Health : MonoBehaviour
 
         isPoisoned = false;
 
+       // yield return new WaitForSeconds(1.0f);
+
         float scale = 0.93f;
         float rotSpeed = 25f;
 
         for (int i = 17; i >= 0; i--)
         {
-            transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, (byte)(15*i));
+            Color32 c =  transform.GetComponent<SpriteRenderer>().color;
+            transform.GetComponent<SpriteRenderer>().color = new Color32(c.r, c.g, c.b, (byte)(15*i));
             transform.localScale *= scale;
             transform.Rotate(new Vector3(0, 0, rotSpeed));
 
@@ -265,11 +271,11 @@ public class Enemy_Health : MonoBehaviour
         transform.GetComponent<PolygonCollider2D>().enabled = false;
         transform.GetComponent<Rigidbody2D>().gravityScale = 0;
         transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-
+        
         if (gameObject.layer == 21)
             transform.GetChild(1).gameObject.SetActive(false);
 
-        giveJewels(8, 5);
+        giveJewels(8, 5);   
         giveJewels(9, 3);
         giveJewels(11, 2);
         giveJewels(19, 3);
@@ -289,7 +295,8 @@ public class Enemy_Health : MonoBehaviour
     {
         gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(245, 0, 0, 255);
         yield return new WaitForSeconds(0.1f);
-        gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+        if (lowHP == false)
+            gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
     }
 
     public float returnSpeed()

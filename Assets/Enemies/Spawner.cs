@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
 
     private void spawn()
     {
-        //Spawn enemies once for debugging
+        
     }
 
     private IEnumerator spawnOver()

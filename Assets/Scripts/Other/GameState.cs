@@ -30,22 +30,22 @@ public class GameState : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        key = "GameState12";
+        key = "GameState15";
 
         if (PlayerPrefs.GetInt(key) == 0)
         {
             int state = PlayerPrefs.GetInt(key);
             state++;
             PlayerPrefs.SetInt(key, state);
+            PlayerPrefs.SetFloat("Music", 0.9f);
+            PlayerPrefs.SetFloat("Sound", 0.9f);
         }
 
         if (PlayerPrefs.GetInt(key) == 1)
         {
             Shop.ShopInstance.ResetUpgrades();
-            PlayerPrefs.SetFloat("Music", 0.9f);
-            PlayerPrefs.SetFloat("Sound", 0.9f);
         }
 
         time = 0;
