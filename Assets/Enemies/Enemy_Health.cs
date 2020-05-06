@@ -37,7 +37,7 @@ public class Enemy_Health : MonoBehaviour
     public int isIcedWhileIcedCheck = 0;
 
     //For testing gem animation + enemy colors taking dmg
-    private float hitRednessduration = 0.04f;
+    private float hitRednessduration = 0.01f;
     private bool spinUponDeath = true; 
     private float deathDelay = 1f; //set this if spinUponDeath is false
     private float spinDelay = 0.6f; //set this if spinUponDeath is true (ignores deathDelay)
@@ -274,6 +274,9 @@ public class Enemy_Health : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         //Un-ice and unpoison enemy b4 it fades away
+        transform.GetComponent<PolygonCollider2D>().enabled = false;
+        transform.GetComponent<Rigidbody2D>().gravityScale = 0;
+        transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         transform.GetComponent<SpriteRenderer>().color = designatedColor;
         transform.GetChild(0).gameObject.SetActive(false);
         transform.GetComponent<Animator>().enabled = true;
@@ -309,6 +312,8 @@ public class Enemy_Health : MonoBehaviour
         print("woah");
         isIcedWhileIced = isIcedWhileIcedCheck;
         transform.localScale = new Vector2(ogScaleX, ogScaleY);
+        transform.rotation = Quaternion.Euler(0, 0, 0); 
+        transform.GetComponent<SpriteRenderer>().color = designatedColor;
 
         if (gameObject.tag != "Ranged Shooter")
             gameObject.SetActive(false);
@@ -318,8 +323,7 @@ public class Enemy_Health : MonoBehaviour
 
     public void undoFade()
     {
-        transform.rotation = Quaternion.Euler(0, 0, 0); 
-        transform.GetComponent<SpriteRenderer>().color = designatedColor;
+
     }
 
     private void checkDeath()

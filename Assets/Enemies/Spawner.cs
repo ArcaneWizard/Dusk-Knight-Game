@@ -90,7 +90,7 @@ public class Spawner : MonoBehaviour
         Debug.Log(enemy);
         if (enemy.transform.GetChild(0).tag != "Ranged Shooter")
             enemy.transform.GetComponent<ParticleSystem>().Stop();
-        else 
+        else if (gameObject.name != "Fake Enemy")
             enemy.transform.GetChild(0).transform.GetComponent<ParticleSystem>().Stop();
         
 
