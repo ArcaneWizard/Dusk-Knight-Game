@@ -36,15 +36,21 @@ public class Enemy_Health : MonoBehaviour
     public int isIcedWhileIced = 0;
     public int isIcedWhileIcedCheck = 0;
 
+    //For testing gem animation + enemy colors taking dmg
+    public float hitRednessduration = 0.03f;
+    public bool spinUponDeath = false;
+    public float deathDelay = 1f; //set this if spinUponDeath is false
+    public float spinDelay = 1f; //set this if spinUponDeath is true (ignores deathDelay)
+
     private Color32 color;
     private Color32 designatedColor;
     private Color32 normal = new Color32(255, 255, 255, 255);
-    private Color32 medium = new Color32(0, 88, 255, 255);
-    private Color32 powerful = new Color32 (184, 12, 255, 255);
+    private Color32 medium = new Color32(0, 16, 255, 255);
+    private Color32 powerful = new Color32(184, 12, 255, 255);
 
     // Start is called before the first frame update
     void Awake()
-    {        
+    {
         setHP();
         ogScaleX = transform.localScale.x;
         ogScaleY = transform.localScale.y;
@@ -85,21 +91,24 @@ public class Enemy_Health : MonoBehaviour
         transform.GetComponent<PolygonCollider2D>().enabled = true;
         if (gameObject.tag == "Ranged Shooter")
             transform.localPosition = new Vector2(0, 0);
-        
+
         int c = UnityEngine.Random.Range(0, 20);
-        if (c >= 0 && c <= 15) {
+        if (c >= 0 && c <= 15)
+        {
             designatedColor = normal;
         }
-        if (c >= 15 && c <= 17) {
+        if (c >= 15 && c <= 17)
+        {
             designatedColor = medium;
             hp *= 2;
         }
-        if (c >= 18) {
+        if (c >= 18)
+        {
             designatedColor = powerful;
             hp *= 3;
-        }       
+        }
 
-        color = designatedColor;   
+        color = designatedColor;
 
     }
 
@@ -137,7 +146,7 @@ public class Enemy_Health : MonoBehaviour
         {
             lastHP = hp;
             if (isPoisoned == false && lowHP == false)
-               StartCoroutine(alter());
+                StartCoroutine(alter());
         }
     }
 
@@ -252,24 +261,31 @@ public class Enemy_Health : MonoBehaviour
         //Un-ice and unpoison enemy b4 it fades away
         transform.GetChild(0).gameObject.SetActive(false);
         transform.GetComponent<Animator>().enabled = true;
-        //setSpeed(1, 0);
+        setSpeed(1, 0);
         isIced = false;
 
         isPoisoned = false;
 
-       // yield return new WaitForSeconds(1.0f);
+        // yield return new WaitForSeconds(1.0f);
 
         float scale = 0.93f;
         float rotSpeed = 25f;
 
-        for (int i = 17; i >= 0; i--)
+        if (spinUponDeath == true)
         {
-            Color32 c =  transform.GetComponent<SpriteRenderer>().color;
-            transform.GetComponent<SpriteRenderer>().color = new Color32(c.r, c.g, c.b, (byte)(15*i));
-            //transform.localScale *= scale;
-            //transform.Rotate(new Vector3(0, 0, rotSpeed));
+            yield return new WaitForSeconds(spinDelay);
+            for (int i = 17; i >= 0; i--)
+            {
+                Color32 c = transform.GetComponent<SpriteRenderer>().color;
+                transform.GetComponent<SpriteRenderer>().color = new Color32(c.r, c.g, c.b, (byte)(15 * i));
+                transform.localScale *= scale;
+                transform.Rotate(new Vector3(0, 0, rotSpeed));
 
-            yield return new WaitForSeconds(0.1f); 
+                yield return new WaitForSeconds(0.05f);
+            }
+        }
+        else {
+            yield return new WaitForSeconds(deathDelay);
         }
 
         isIcedWhileIced = isIcedWhileIcedCheck;
@@ -294,11 +310,11 @@ public class Enemy_Health : MonoBehaviour
         transform.GetComponent<PolygonCollider2D>().enabled = false;
         transform.GetComponent<Rigidbody2D>().gravityScale = 0;
         transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        
+
         if (gameObject.layer == 21)
             transform.GetChild(1).gameObject.SetActive(false);
 
-        giveJewels(8, 5);   
+        giveJewels(8, 5);
         giveJewels(9, 3);
         giveJewels(11, 2);
         giveJewels(19, 3);
@@ -317,7 +333,7 @@ public class Enemy_Health : MonoBehaviour
     private IEnumerator alter()
     {
         gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(245, 0, 0, 255);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(hitRednessduration);
         if (lowHP == false)
             gameObject.transform.GetComponent<SpriteRenderer>().color = designatedColor;
     }
