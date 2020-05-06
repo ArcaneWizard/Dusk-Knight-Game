@@ -85,8 +85,14 @@ public class Spawner : MonoBehaviour
 
             enemy.transform.position = spawnPoint;
         }
-
+    
         enemy.SetActive(true);
+        Debug.Log(enemy);
+        if (enemy.transform.GetChild(0).tag != "Ranged Shooter")
+            enemy.transform.GetComponent<ParticleSystem>().Stop();
+        else 
+            enemy.transform.GetChild(0).transform.GetComponent<ParticleSystem>().Stop();
+        
 
         if (enemy.transform.GetComponent<Enemy_Health>() != null)
         {

@@ -33,7 +33,8 @@ public class Boulder : MonoBehaviour
 
         if (col.gameObject.layer == 10)
         {
-            Health.playerHP -= Health.OgreDmg;
+            Transform enemy = transform.parent.transform.GetChild(0);
+            Health.playerHP -= Mathf.RoundToInt(Health.OgreDmg * enemy.GetComponent<Enemy_Health>().dmgMultiplier);;
 
             Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.boulderConnect, 1f);
             gameObject.SetActive(false);

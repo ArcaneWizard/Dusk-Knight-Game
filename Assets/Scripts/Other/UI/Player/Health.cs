@@ -50,6 +50,7 @@ public class Health : MonoBehaviour
     public GameObject healhBar;
     public GameObject InGame;
     public GameObject Survival;
+    public Transform Enemies;
 
     void Start()
     {
@@ -78,6 +79,13 @@ public class Health : MonoBehaviour
         if (Input.touchCount > 0 && firstTime == true) {
             FirstTime(false);
             firstTime = false;
+
+            //Disable all enemies when player taps on title screen
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < Enemies.GetChild(i).transform.childCount; j++) {
+                    Enemies.GetChild(i).transform.GetChild(j).gameObject.SetActive(false);
+                }
+            }
         }
 
         if (resetUpgrades == true)
@@ -126,7 +134,7 @@ public class Health : MonoBehaviour
         if (KillTower)
             playerHP = 0;
 
-        if (playerHP > maxPlayerHP)
+        if (playerHP > maxPlayerHP || firstTime == true)
             playerHP = maxPlayerHP;
 
         if (playerHP <= 0 && diedOnce == false)

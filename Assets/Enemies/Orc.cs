@@ -36,7 +36,7 @@ public class Orc : MonoBehaviour
             }
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 >= 2f/12f && AttackedOnce == false)
             {
-                Health.playerHP -= Health.OrcDmg;
+                Health.playerHP -= Mathf.RoundToInt(Health.OrcDmg * transform.GetComponent<Enemy_Health>().dmgMultiplier);
                 AttackedOnce = true;
             }
         }

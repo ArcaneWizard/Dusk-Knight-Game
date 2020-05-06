@@ -37,11 +37,13 @@ public class Orb : MonoBehaviour
 
         if (col.gameObject.layer == 10)
         {
+            Transform enemy = transform.parent.transform.GetChild(0);
+
             if (gameObject.tag == "Witch orb")
-                Health.playerHP -= Health.R3Dmg;
+                Health.playerHP -= Mathf.RoundToInt(Health.R3Dmg * enemy.GetComponent<Enemy_Health>().dmgMultiplier);
 
             if (gameObject.tag == "Reaper orb")
-                Health.playerHP -= Health.R1Dmg;
+                Health.playerHP -= Mathf.RoundToInt(Health.R1Dmg * enemy.GetComponent<Enemy_Health>().dmgMultiplier);
 
             Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 0.4f);
             gameObject.SetActive(false);
