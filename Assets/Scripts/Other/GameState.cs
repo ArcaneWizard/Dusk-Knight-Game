@@ -11,14 +11,15 @@ public class GameState : MonoBehaviour
     public Text scoreText;
 
     private string key;
-    private bool counter;
-    private bool counter2;
+    private bool counter = false;
+    private bool counter2 = false;
     public static int time;
     public static int min;
     public static int sec;
     public static string s;
 
     public Health healthScript;
+    public Shop shop;
 
     private IEnumerator scoreIncreasesInTime()
     {
@@ -32,7 +33,7 @@ public class GameState : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        key = "GameState15";
+        key = "GameState21";
 
         if (PlayerPrefs.GetInt(key) == 0)
         {
@@ -45,7 +46,7 @@ public class GameState : MonoBehaviour
 
         if (PlayerPrefs.GetInt(key) == 1)
         {
-            Shop.ShopInstance.ResetUpgrades();
+            shop.ResetUpgrades();
         }
 
         time = 0;

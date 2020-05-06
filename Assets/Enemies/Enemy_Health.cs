@@ -36,6 +36,12 @@ public class Enemy_Health : MonoBehaviour
     public int isIcedWhileIced = 0;
     public int isIcedWhileIcedCheck = 0;
 
+    private Color32 color;
+    private Color32 designatedColor;
+    private Color32 normal = new Color32(255, 255, 255, 255);
+    private Color32 medium = new Color32(0, 88, 255, 255);
+    private Color32 powerful = new Color32 (184, 12, 255, 255);
+
     // Start is called before the first frame update
     void Awake()
     {        
@@ -44,6 +50,7 @@ public class Enemy_Health : MonoBehaviour
         ogScaleY = transform.localScale.y;
         animator = transform.GetComponent<Animator>();
         gameObject.AddComponent<AudioSource>();
+        color = transform.GetComponent<SpriteRenderer>().color;
     }
 
     public void setHP()
@@ -78,6 +85,22 @@ public class Enemy_Health : MonoBehaviour
         transform.GetComponent<PolygonCollider2D>().enabled = true;
         if (gameObject.tag == "Ranged Shooter")
             transform.localPosition = new Vector2(0, 0);
+        
+        int c = UnityEngine.Random.Range(0, 20);
+        if (c >= 0 && c <= 15) {
+            designatedColor = normal;
+        }
+        if (c >= 15 && c <= 17) {
+            designatedColor = medium;
+            hp *= 2;
+        }
+        if (c >= 18) {
+            designatedColor = powerful;
+            hp *= 3;
+        }       
+
+        color = designatedColor;   
+
     }
 
     void Update()
@@ -216,7 +239,7 @@ public class Enemy_Health : MonoBehaviour
                 gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(56, 219, 143, 255);
                 yield return new WaitForSeconds(0.22f);
                 hp -= 10;
-                gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+                gameObject.transform.GetComponent<SpriteRenderer>().color = designatedColor;
                 yield return new WaitForSeconds(0.8f);
             }
         }
@@ -261,7 +284,7 @@ public class Enemy_Health : MonoBehaviour
     {
         transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.localScale = new Vector2(ogScaleX, ogScaleY);
-        transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+        transform.GetComponent<SpriteRenderer>().color = designatedColor;
     }
 
     private void checkDeath()
@@ -296,7 +319,7 @@ public class Enemy_Health : MonoBehaviour
         gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(245, 0, 0, 255);
         yield return new WaitForSeconds(0.1f);
         if (lowHP == false)
-            gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
+            gameObject.transform.GetComponent<SpriteRenderer>().color = designatedColor;
     }
 
     public float returnSpeed()

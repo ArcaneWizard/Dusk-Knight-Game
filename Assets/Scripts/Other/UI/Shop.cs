@@ -313,21 +313,21 @@ public class Shop : MonoBehaviour
     public void Arrow()
     {
         clearButtonColor();
-        chooseWeapon("Ballista", 500, "A frosty arrow that slices through skin and freezes enemies to the bone. Brrrrrrr!");
+        chooseWeapon("Ballista", 300, "A frosty arrow that slices through skin and freezes enemies to the bone. Brrrrrrr!");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "Arrow");
     }
     public void Potion()
     {
         clearButtonColor();
-        chooseWeapon("Witch", 800, "A swirling green potion that intoxicates enemies and eats them from the inside.");
+        chooseWeapon("Witch", 600, "A swirling green potion that intoxicates enemies and eats them from the inside.");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "Potion");
     }
     public void Flame()
     {
         clearButtonColor();
-        chooseWeapon("Flamethrower", 1250, "A fiery flame that burns everything in sight. However, it only extends so far.");
+        chooseWeapon("Flamethrower", 1050, "A fiery flame that burns everything in sight. However, it only extends so far.");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "Flame");
     }
