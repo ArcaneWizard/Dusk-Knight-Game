@@ -122,7 +122,7 @@ public class Enemy_Health : MonoBehaviour
 
         if (hp <= 0 && death == false)
         {
-            //transform.GetComponent<ParticleSystem>().Play();
+            transform.GetComponent<ParticleSystem>().Play();
             checkDeath();
             death = true;
         }
