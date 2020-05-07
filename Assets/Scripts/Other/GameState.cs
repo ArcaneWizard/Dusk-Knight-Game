@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Advertisements;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -21,6 +23,8 @@ public class GameState : MonoBehaviour
     public Health healthScript;
     public Shop shop;
 
+    public GameObject Revived;
+
     private IEnumerator scoreIncreasesInTime()
     {
         yield return new WaitForSeconds(1);
@@ -29,11 +33,39 @@ public class GameState : MonoBehaviour
         StartCoroutine(scoreIncreasesInTime());
     }
 
+    public void Revive() {
+        Time.timeScale = 0;
+        Advertisement.Show("rewardedVideo", new ShowOptions() { resultCallback = HandleAdResult });
+    } 
+    
+    private void HandleAdResult(ShowResult result)
+    {
+        switch (result)
+        {
+            case ShowResult.Finished:
+                Debug.Log("Player watched ad");
+                PlayerPrefs.SetInt("continue", time);
+                PlayerPrefs.SetInt("revived", 1);
+                Time.timeScale = 1;
+                SceneManager.LoadScene(0);
+                break;
+            case ShowResult.Skipped:
+                Debug.Log("Player skipped ad");
+                Time.timeScale = 1;
+                SceneManager.LoadScene(0);
+                break;
+            case ShowResult.Failed:
+                Debug.Log("No internet");
+                Time.timeScale = 1;
+                SceneManager.LoadScene(0);
+                break;
+        }
+    }
 
     // Start is called before the first frame update
     void Awake()
     {
-        key = "GameState21";
+        key = "GameState24";
 
         if (PlayerPrefs.GetInt(key) == 0)
         {
@@ -49,11 +81,12 @@ public class GameState : MonoBehaviour
             shop.ResetUpgrades();
         }
 
-        time = 0;
+        time = PlayerPrefs.GetInt("continue");  
+        PlayerPrefs.SetInt("continue", 0);
     }
 
     void Update()
-    {        
+    {       
         if (healthScript.firstTime == false && counter == false) {         
             StartCoroutine(scoreIncreasesInTime());
             counter = true;
@@ -68,6 +101,7 @@ public class GameState : MonoBehaviour
             StartCoroutine(displayInstructions1());
             PlayerPrefs.SetInt(key, 3);
             counter2 = true;
+            print("wh");
         }
 
         min = time / 60;
@@ -86,6 +120,13 @@ public class GameState : MonoBehaviour
 
         if (Health.playerHP <= 0)
         {
+            scoreText.gameObject.SetActive(false);
+            
+            if (PlayerPrefs.GetInt("revived") == 1)
+                Revived.gameObject.SetActive(false);
+            else    
+                Revived.gameObject.SetActive(true);    
+
             if (time > PlayerPrefs.GetInt("Time"))
                 PlayerPrefs.SetInt("Time", time);
         }
@@ -95,14 +136,16 @@ public class GameState : MonoBehaviour
     {
         yield return new WaitForSeconds(0.4f);
         HowToPlay2.gameObject.SetActive(true);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3);
 
-        HowToPlay2.transform.GetComponent<Text>().text = "Tap farther away from the cannon to shoot longer distances.";
+        HowToPlay2.transform.GetComponent<Text>().text = "The further you tap from the cannon, the further you shoot.";
         yield return new WaitForSeconds(4f);
         HowToPlay2.gameObject.SetActive(false);
 
         HowToPlay1.gameObject.SetActive(true);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(5f);
+        HowToPlay1.transform.GetComponent<Text>().text = "Your weapons are accessible below while the shop is above.";
+        yield return new WaitForSeconds(3f);
         HowToPlay1.gameObject.SetActive(false);
     }
 }

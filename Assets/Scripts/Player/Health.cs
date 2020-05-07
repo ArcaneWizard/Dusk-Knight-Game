@@ -177,6 +177,7 @@ public class Health : MonoBehaviour
             Advertisement.Show("video", new ShowOptions() { resultCallback = HandleAdResult });
         }
     }
+
     private void HandleAdResult(ShowResult result)
     {
         switch (result)
@@ -231,6 +232,7 @@ public class Health : MonoBehaviour
     private IEnumerator reset_level()
     {
         yield return new WaitForSeconds(2.9f);
+        PlayerPrefs.SetInt("revived", 0);
         SceneManager.LoadScene(0);
     }
 
