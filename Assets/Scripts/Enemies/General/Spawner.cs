@@ -22,13 +22,14 @@ public class Spawner : MonoBehaviour
 
     private void spawn()
     {
-        deployEnemy("Orc");
-        deployEnemy("R1");
+
     }
 
     private IEnumerator spawnOver()
     {
-        //deployRandomEnemy(); 
+       
+        deployEnemy("Orc");
+        deployEnemy("R1");
 
         yield return new WaitForSeconds(reloadTime);
         StartCoroutine(spawnOver());
@@ -89,8 +90,10 @@ public class Spawner : MonoBehaviour
     
         enemy.SetActive(true);        
 
+        print("run code");
         if (enemy.transform.GetComponent<Enemy_Health>() != null)
         {
+            print("1");
             enemy.transform.GetComponent<Enemy_Health>().setHP();
             enemy.transform.GetComponent<Enemy_Health>().undoFade();
             enemy.transform.GetComponent<PolygonCollider2D>().enabled = true;
@@ -98,15 +101,18 @@ public class Spawner : MonoBehaviour
             if (enemy.transform.gameObject.layer != 21)
                 enemy.transform.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
-        else if (enemy.gameObject.name == "Fake Enemy") { }
-        else if (enemy.transform.GetChild(0).transform.GetComponent<Enemy_Health>() != null)
-        {
-            enemy.transform.GetChild(0).transform.GetComponent<Enemy_Health>().setHP();
-            enemy.transform.GetChild(0).transform.GetComponent<Enemy_Health>().undoFade();
-            enemy.transform.GetChild(0).transform.GetComponent<PolygonCollider2D>().enabled = true;
-            enemy.transform.GetChild(0).transform.GetComponent<Enemy_Health>().deploy = true;
-            if (enemy.transform.GetChild(0).transform.gameObject.layer != 21)
-                enemy.transform.GetChild(0).transform.GetComponent<Rigidbody2D>().gravityScale = 1;
+        
+        if (enemy.transform.GetComponent<Enemy_Health>() == null && enemy.gameObject.name != "Fake Enemy")
+        { 
+            print(enemy);
+            enemy = enemy.transform.GetChild(0).gameObject;
+            print("3"); 
+            enemy.transform.GetComponent<Enemy_Health>().setHP();
+            enemy.transform.GetComponent<Enemy_Health>().undoFade();
+            enemy.transform.GetComponent<PolygonCollider2D>().enabled = true;
+            enemy.transform.GetComponent<Enemy_Health>().deploy = true;
+            if (enemy.transform.gameObject.layer != 21)
+                enemy.transform.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
     }
 

@@ -47,11 +47,19 @@ public class Reaper_1 : MonoBehaviour
             animator.SetBool("Dead", false);
 
             speed = Enemy_Health.R1_speed;
+
             if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
             {
                 speed *= -1;
                 transform.rotation = Quaternion.Euler(0, 180, 0);
             }
+
+            else
+            {
+                speed *= 1;
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+
             rig = transform.GetComponent<Rigidbody2D>();
             rig.velocity = new Vector2(speed, 0);
             StartCoroutine(attack());

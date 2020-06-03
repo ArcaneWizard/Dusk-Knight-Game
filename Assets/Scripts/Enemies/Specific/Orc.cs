@@ -23,6 +23,11 @@ public class Orc : MonoBehaviour
                 speed *= -1;
                 transform.rotation = Quaternion.Euler(0, 180, 0);
             }
+            else
+            {
+                speed *= 1;
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
             rig = transform.GetComponent<Rigidbody2D>();
             rig.velocity = new Vector2(speed, 0);
             transform.GetComponent<Enemy_Health>().deploy = false;
