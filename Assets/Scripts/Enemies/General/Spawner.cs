@@ -23,6 +23,7 @@ public class Spawner : MonoBehaviour
     private void spawn()
     {
         deployEnemy("Orc");
+        deployEnemy("R1");
     }
 
     private IEnumerator spawnOver()
@@ -86,12 +87,7 @@ public class Spawner : MonoBehaviour
             enemy.transform.position = spawnPoint;
         }
     
-        enemy.SetActive(true);
-        if (enemy.transform.GetChild(0).tag != "Ranged Shooter")
-            enemy.transform.GetComponent<ParticleSystem>().Stop();
-        else if (gameObject.name != "Fake Enemy")
-            enemy.transform.GetChild(0).transform.GetComponent<ParticleSystem>().Stop();
-        
+        enemy.SetActive(true);        
 
         if (enemy.transform.GetComponent<Enemy_Health>() != null)
         {
