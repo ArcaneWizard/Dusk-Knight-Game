@@ -95,12 +95,12 @@ public class Spawner : MonoBehaviour
             Debug.Log("spawn reaper" + r.ToString());
             if (r == 0)
             {
-                enemy.transform.GetChild(0).transform.position = GRSpawn.position;
+                enemy.transform.position = GRSpawn.position;
                 Debug.Log("reaper spawn right");
             }
             else
             {
-                enemy.transform.GetChild(0).transform.position = GLSpawn.position;
+                enemy.transform.position = GLSpawn.position;
                 Debug.Log("reaperSpawn Left");
             }
 
