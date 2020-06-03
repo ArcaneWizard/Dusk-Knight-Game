@@ -50,13 +50,13 @@ public class Reaper_1 : MonoBehaviour
 
             if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
             {
-                speed *= -1;
+                speed = -Mathf.Abs(speed);
                 transform.rotation = Quaternion.Euler(0, 180, 0);
             }
 
             else
             {
-                speed *= 1;
+                speed = Mathf.Abs(speed);
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
 
