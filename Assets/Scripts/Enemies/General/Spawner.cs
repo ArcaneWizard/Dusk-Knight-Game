@@ -10,6 +10,8 @@ public class Spawner : MonoBehaviour
     public List<GameObject> Orc;
     public List<GameObject> Goblin;
     public List<GameObject> Ogre;
+    public Transform GRSpawn;
+    public Transform GLSpawn;
 
     private int cR1 = 0;
     private int cR2 = 0;
@@ -87,7 +89,23 @@ public class Spawner : MonoBehaviour
 
             enemy.transform.position = spawnPoint;
         }
-    
+
+        if (enemyName == "R1")
+        {
+            Debug.Log("spawn reaper" + r.ToString());
+            if (r == 0)
+            {
+                enemy.transform.GetChild(0).transform.position = GRSpawn.position;
+                Debug.Log("reaper spawn right");
+            }
+            else
+            {
+                enemy.transform.GetChild(0).transform.position = GLSpawn.position;
+                Debug.Log("reaperSpawn Left");
+            }
+
+        }
+
         enemy.SetActive(true);        
 
         print("run code");
@@ -238,3 +256,6 @@ public class Spawner : MonoBehaviour
     }
 
 }
+
+
+//2.94
