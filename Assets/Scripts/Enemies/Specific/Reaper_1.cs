@@ -7,7 +7,7 @@ public class Reaper_1 : MonoBehaviour
 {
     Animator animator;
     Rigidbody2D rig;
-    private float speed = 0.4f;
+    private float speed = 1.2f;
     private bool counter = false;
     private bool rising = true;
     public float upspeed;
@@ -74,7 +74,6 @@ public class Reaper_1 : MonoBehaviour
         if (rising)
         {
             transform.position = transform.position + new Vector3(0, upspeed * Time.deltaTime, 0);
-            Debug.Log("hellooooo");
         }
 
         /*if (animator.GetBool("Attack") == false && counter == true)
@@ -96,7 +95,7 @@ public class Reaper_1 : MonoBehaviour
         Destroy(transform.GetComponent<Rigidbody2D>());
         rising = true;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
 
         rising = false;
         transform.gameObject.AddComponent<Rigidbody2D>();
