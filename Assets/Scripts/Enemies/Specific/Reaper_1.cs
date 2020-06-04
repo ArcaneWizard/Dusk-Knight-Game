@@ -67,11 +67,14 @@ public class Reaper_1 : MonoBehaviour
 
             StartCoroutine(activate(speed));
 
-            if (rising)
-                transform.position = transform.position + new Vector3(0, upspeed * Time.deltaTime, 0);
-
 
             transform.GetComponent<Enemy_Health>().deploy = false;
+        }
+
+        if (rising)
+        {
+            transform.position = transform.position + new Vector3(0, upspeed * Time.deltaTime, 0);
+            Debug.Log("hellooooo");
         }
 
         /*if (animator.GetBool("Attack") == false && counter == true)
