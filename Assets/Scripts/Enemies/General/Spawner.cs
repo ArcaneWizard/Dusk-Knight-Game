@@ -29,7 +29,7 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator spawnOver()
     {
-       
+        yield return new WaitForSeconds(2);
         deployEnemy("Orc");
         deployEnemy("R1");
 

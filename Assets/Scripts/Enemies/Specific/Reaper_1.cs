@@ -60,10 +60,8 @@ public class Reaper_1 : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
 
-            rig = transform.GetComponent<Rigidbody2D>();
-            rig.velocity = new Vector2(speed, 0);
-            StartCoroutine(attack());
-            transform.GetComponent<Enemy_Health>().deploy = false;
+            StartCoroutine(activate(speed));
+
         }
 
         if (animator.GetBool("Attack") == false && counter == true)
@@ -77,6 +75,22 @@ public class Reaper_1 : MonoBehaviour
             animator.SetBool("Attack", true);
             rig.velocity = new Vector2(0, 0);
         }
+    }
+
+    private IEnumerator activate(float speed)
+    {
+        rig = transform.GetComponent<Rigidbody2D>();
+        transform.GetComponent<PolygonCollider2D>().enabled = false;
+        transform.GetComponent<Rigidbody2D>().gravityScale = 0;
+
+        rig.velocity = new Vector2(0, speed);
+
+        yield return new WaitForSeconds(2);
+        transform.GetComponent<Rigidbody2D>().gravityScale = 1;
+        transform.GetComponent<PolygonCollider2D>().enabled = true;
+        rig.velocity = new Vector2(speed, 0);
+        StartCoroutine(attack());
+        transform.GetComponent<Enemy_Health>().deploy = false;
     }
 
     void OnCollisionEnter2D(Collision2D col)
