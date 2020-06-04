@@ -325,6 +325,9 @@ public class Enemy_Health : MonoBehaviour
             gameObject.SetActive(false);
         else
             gameObject.transform.parent.gameObject.SetActive(false);
+
+        if (gameObject.name == "Reaper 1")
+            Destroy(transform.GetComponent<Rigidbody2D>());
     }
 
     public void undoFade()

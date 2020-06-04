@@ -4126,13 +4126,13 @@ GameObject:
   - component: {fileID: 249361347}
   - component: {fileID: 249361354}
   - component: {fileID: 249361353}
-  - component: {fileID: 249361352}
   - component: {fileID: 249361351}
   - component: {fileID: 249361350}
   - component: {fileID: 249361349}
   - component: {fileID: 249361348}
   - component: {fileID: 249361356}
   - component: {fileID: 249361355}
+  - component: {fileID: 249361352}
   m_Layer: 19
   m_Name: Reaper 1
   m_TagString: Ranged Shooter
@@ -4349,7 +4349,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!95 &249361353
 Animator:
   serializedVersion: 3
@@ -50668,16 +50668,16 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 2.56
       objectReference: {fileID: 0}
-    - target: {fileID: 4826838136550669955, guid: dae2dea13ad209c4285905a0481962e6,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6601297441348697651, guid: dae2dea13ad209c4285905a0481962e6,
         type: 3}
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 4826838136550669955, guid: dae2dea13ad209c4285905a0481962e6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -4513621335754798364, guid: dae2dea13ad209c4285905a0481962e6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dae2dea13ad209c4285905a0481962e6, type: 3}

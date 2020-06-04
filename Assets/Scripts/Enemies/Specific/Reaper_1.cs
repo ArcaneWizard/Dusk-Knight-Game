@@ -61,7 +61,8 @@ public class Reaper_1 : MonoBehaviour
             }
 
             StartCoroutine(activate(speed));
-
+            StartCoroutine(attack());
+            transform.GetComponent<Enemy_Health>().deploy = false;
         }
 
         if (animator.GetBool("Attack") == false && counter == true)
@@ -81,16 +82,18 @@ public class Reaper_1 : MonoBehaviour
     {
         rig = transform.GetComponent<Rigidbody2D>();
         transform.GetComponent<PolygonCollider2D>().enabled = false;
-        transform.GetComponent<Rigidbody2D>().gravityScale = 0;
+        Destroy(transform.GetComponent<Rigidbody2D>());
 
-        rig.velocity = new Vector2(0, speed);
 
-        yield return new WaitForSeconds(2);
+        //rig.velocity = new Vector2(0, Math.Abs(speed));
+
+        yield return new WaitForSeconds(2f);
+
+        transform.gameObject.AddComponent<Rigidbody2D>();
+        transform.GetComponent<Rigidbody2D>().freezeRotation = true;
         transform.GetComponent<Rigidbody2D>().gravityScale = 1;
         transform.GetComponent<PolygonCollider2D>().enabled = true;
         rig.velocity = new Vector2(speed, 0);
-        StartCoroutine(attack());
-        transform.GetComponent<Enemy_Health>().deploy = false;
     }
 
     void OnCollisionEnter2D(Collision2D col)
