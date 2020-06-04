@@ -9,10 +9,13 @@ public class Reaper_1 : MonoBehaviour
     Rigidbody2D rig;
     private float speed = 0.4f;
     private bool counter = false;
+    private bool rising = true;
+    public float upspeed;
 
     void Start()
     {
         gameObject.AddComponent<AudioSource>();
+        Destroy(transform.GetComponent<Rigidbody2D>());
     }
 
     private IEnumerator attack()
@@ -39,6 +42,8 @@ public class Reaper_1 : MonoBehaviour
 
     void Update()
     {
+        rig = transform.GetComponent<Rigidbody2D>();
+
         if (transform.GetComponent<Enemy_Health>().deploy == true)
         {
             counter = false;
@@ -61,11 +66,15 @@ public class Reaper_1 : MonoBehaviour
             }
 
             StartCoroutine(activate(speed));
-            StartCoroutine(attack());
+
+            if (rising)
+                transform.position = transform.position + new Vector3(0, upspeed * Time.deltaTime, 0);
+
+
             transform.GetComponent<Enemy_Health>().deploy = false;
         }
 
-        if (animator.GetBool("Attack") == false && counter == true)
+        /*if (animator.GetBool("Attack") == false && counter == true)
         {
             animator.SetBool("Attack", true);
             rig.velocity = new Vector2(0, 0);
@@ -75,21 +84,20 @@ public class Reaper_1 : MonoBehaviour
         {
             animator.SetBool("Attack", true);
             rig.velocity = new Vector2(0, 0);
-        }
+        }*/
     }
 
     private IEnumerator activate(float speed)
     {
-        rig = transform.GetComponent<Rigidbody2D>();
         transform.GetComponent<PolygonCollider2D>().enabled = false;
         Destroy(transform.GetComponent<Rigidbody2D>());
-
-
-        //rig.velocity = new Vector2(0, Math.Abs(speed));
+        rising = true;
 
         yield return new WaitForSeconds(2f);
 
+        rising = false;
         transform.gameObject.AddComponent<Rigidbody2D>();
+        rig = transform.GetComponent<Rigidbody2D>();
         transform.GetComponent<Rigidbody2D>().freezeRotation = true;
         transform.GetComponent<Rigidbody2D>().gravityScale = 1;
         transform.GetComponent<PolygonCollider2D>().enabled = true;
