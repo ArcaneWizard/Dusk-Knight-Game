@@ -20,6 +20,7 @@ public class shooting : MonoBehaviour
     public float chargeArrWidth = 1.2f;
     public float arrowWidthGrowRate = 0.1f;
     private float chargeArrowLength;
+    public float minSwipeToShoot = 0.1f;
 
     private float cooldown;
     private float startcooldown;
@@ -167,7 +168,8 @@ public class shooting : MonoBehaviour
 
                 //Rotate gun while aiming
                 float rot = Mathf.Atan2(initPosition.y - endPosition.y, initPosition.x - endPosition.x) * Mathf.Rad2Deg;
-                changeRotation(rot, endPosition);
+                if ((endPosition - initPosition).magnitude > minSwipeToShoot)
+                   changeRotation(rot, endPosition);
             }
 
             if (touch.phase == TouchPhase.Ended) {
@@ -181,7 +183,7 @@ public class shooting : MonoBehaviour
                 touchPercent = magnitude / Screen.width;
 
                 //if the player every dragged out the arrow, fire
-                if (magnitude > 0.1f)
+                if (magnitude > minSwipeToShoot)
                    StartCoroutine(checkForWeaponChangeOrFire(rotation, endPosition));
             }
         }                

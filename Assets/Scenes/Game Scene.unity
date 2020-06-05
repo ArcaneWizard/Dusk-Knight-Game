@@ -10667,6 +10667,7 @@ MonoBehaviour:
   aimArrWidth: 1.2
   chargeArrWidth: 0.6
   arrowWidthGrowRate: 0.1
+  minSwipeToShoot: 30
   loaded: 1
   playsound: 0
   grenade: {fileID: 1723250122}
@@ -32865,6 +32866,7 @@ MonoBehaviour:
   aimArrWidth: 1.2
   chargeArrWidth: 0.6
   arrowWidthGrowRate: 0.1
+  minSwipeToShoot: 30
   loaded: 1
   playsound: 0
   grenade: {fileID: 1723250122}
@@ -52291,6 +52293,7 @@ MonoBehaviour:
   aimArrWidth: 1.2
   chargeArrWidth: 0.6
   arrowWidthGrowRate: 0.1
+  minSwipeToShoot: 30
   loaded: 1
   playsound: 0
   grenade: {fileID: 1723250122}
@@ -66052,6 +66055,7 @@ MonoBehaviour:
   aimArrWidth: 1.2
   chargeArrWidth: 0.6
   arrowWidthGrowRate: 0.1
+  minSwipeToShoot: 30
   loaded: 1
   playsound: 0
   grenade: {fileID: 1723250122}
@@ -67320,6 +67324,7 @@ MonoBehaviour:
   aimArrWidth: 1.2
   chargeArrWidth: 0.6
   arrowWidthGrowRate: 0.1
+  minSwipeToShoot: 30
   loaded: 1
   playsound: 0
   grenade: {fileID: 1723250122}
