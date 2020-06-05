@@ -32,6 +32,7 @@ public class shooting : MonoBehaviour
     private Vector3 endPosition;
     private Vector3 initPosition2;
     private Vector3 endPosition2;
+    private Vector3 centeredOffset;
 
     GameObject weaponType;
 
@@ -44,6 +45,8 @@ public class shooting : MonoBehaviour
     public Select_Weapon select_Weapon;
     public Transform ballista;
     public Manage_Sounds manage_Sounds;
+    public GameObject weaponAnchor;
+    public GameObject arrowAnchor;
 
     void Start()
     {
@@ -96,7 +99,7 @@ public class shooting : MonoBehaviour
     //------------------------FINGER DRAG + HOLD CONTROLS----------------------------
     //-------------------------------------------------------------------------------
 
-    void Update()
+    void FixedUpdate()
     {
         float rotation, magnitude;
 
@@ -115,8 +118,9 @@ public class shooting : MonoBehaviour
 
                 //set anchor point of aim arrow
                 initPosition = new Vector3(touch.position.x ,touch.position.y, 6);
-                lr.SetPosition(0, camera.ScreenToWorldPoint(initPosition));
-                lr.SetPosition(1, camera.ScreenToWorldPoint(initPosition));
+                centeredOffset = -camera.ScreenToWorldPoint(initPosition) + arrowAnchor.transform.position + new Vector3(0, 0, -4);
+                lr.SetPosition(0, camera.ScreenToWorldPoint(initPosition) + centeredOffset);
+                lr.SetPosition(1, camera.ScreenToWorldPoint(initPosition) + centeredOffset);
            
                 //setup charge arrow
                 if (lr_2 == null) 
@@ -127,8 +131,8 @@ public class shooting : MonoBehaviour
                 lr_2.positionCount = 2;                
                 
                 //set anchor point of charge arrow
-                lr_2.SetPosition(0, camera.ScreenToWorldPoint(initPosition));
-                lr_2.SetPosition(1, camera.ScreenToWorldPoint(initPosition));
+                lr_2.SetPosition(0, camera.ScreenToWorldPoint(initPosition) + centeredOffset);
+                lr_2.SetPosition(1, camera.ScreenToWorldPoint(initPosition) + centeredOffset);
             }
 
             if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) {
@@ -136,9 +140,13 @@ public class shooting : MonoBehaviour
                 endPosition = new Vector3(touch.position.x, touch.position.y, 6);
                 if ((endPosition - initPosition).magnitude > maxArrowLength)
                     endPosition = initPosition + (endPosition-initPosition).normalized * maxArrowLength;
-        
+
+                //Update start and end point
+                centeredOffset = -camera.ScreenToWorldPoint(initPosition) + arrowAnchor.transform.position + new Vector3(0, 0, -4);
+                lr.SetPosition(0, camera.ScreenToWorldPoint(initPosition) + centeredOffset);
+
                 float aimArrowLength = (endPosition-initPosition).magnitude;
-                lr.SetPosition(1, camera.ScreenToWorldPoint(endPosition));
+                lr.SetPosition(1, camera.ScreenToWorldPoint(endPosition) + centeredOffset);
                 
                 //Set the length of the charge arrow
                 endPosition2 = new Vector3(touch.position.x, touch.position.y, 6);
@@ -147,8 +155,10 @@ public class shooting : MonoBehaviour
                 if (lr_2.widthMultiplier > aimArrWidth)
                     lr_2.widthMultiplier = aimArrWidth;
 
+                //update start and end point
                 endPosition2 = initPosition + (endPosition2-initPosition).normalized * chargeArrowLength;
-                lr_2.SetPosition(1, camera.ScreenToWorldPoint(endPosition2));
+                lr_2.SetPosition(0, camera.ScreenToWorldPoint(initPosition) + centeredOffset);
+                lr_2.SetPosition(1, camera.ScreenToWorldPoint(endPosition2) + centeredOffset);
                 
                 //increase the charge arrow's length over time when you're fully stretched out
                 if (aimArrowLength >= maxArrowLength-2 && chargeArrowLength > 0) {
@@ -187,50 +197,7 @@ public class shooting : MonoBehaviour
                    StartCoroutine(checkForWeaponChangeOrFire(rotation, endPosition));
             }
         }                
-        
-        /*//____LAYERED CHARGE ARROW____
-
-        Vector3 initPosition2 = new Vector3(0, 0, 0);
-        Vector3 endPosition2 = new Vector3(0, 0, 0);  
-
-        if (Input.touchCount == 1) {
-            Touch touch = Input.GetTouch(0);
-            
-            if (touch2.phase == TouchPhase.Began) {
-                //Enable the line renderer
-                if (lr_2 == null) 
-                    lr_2 = Charge_Arrow.GetComponent<LineRenderer>();                
-
-                lr_2.enabled = true;
-                lr_2.widthMultiplier = 1.2f;
-                lr_2.positionCount = 2;                
-
-                initPosition2 = new Vector3(touch.position.x, touch.position.y, 6);
-                lr_2.SetPosition(0, camera.ScreenToWorldPoint(initPosition2));
-                lr_2.SetPosition(1, camera.ScreenToWorldPoint(initPosition2));
-
-                //set its initial length to a fixed value
-                arrowLength = arrowInitLength;
-            }
-
-            if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) {
-                //update the line's end point as the finger moves or remains still
-                Vector3 touchPos = touch.position;
-                endPosition2 = initPosition2 + (touchPos-initPosition2).normalized * arrowLength;
-                endPosition2 = new Vector3(endPosition2.x, endPosition2.y, 6);
-                lr_2.SetPosition(1, camera.ScreenToWorldPoint(endPosition2));
                 
-                //increase the arrow's length over time
-                arrowLength += Time.deltaTime * arrowGrowRate;
-            }
-
-            if (touch.phase == TouchPhase.Ended) {
-                //make the line disappear upon release
-                lr_2.enabled = false;
-            }
-        }
-*/
-        
         //____Ballista needs to load each arrow well before shooting
         if (weaponType == arrow && loaded == false)
         {
@@ -283,6 +250,8 @@ public class shooting : MonoBehaviour
 
             if (angle > 90 && angle < 270 && transform.gameObject.name != "Gatling")
                transform.localRotation = Quaternion.Euler(eulerAngle.x, eulerAngle.y - 180f, -eulerAngle.z - 180f);
+            
+            weaponAnchor.transform.rotation = transform.rotation;
     }
 
     //Fire the weapon
