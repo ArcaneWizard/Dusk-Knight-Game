@@ -45469,7 +45469,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1435957212}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.53, y: -3.15, z: 0}
+  m_LocalPosition: {x: -9.02, y: -3.15, z: 0}
   m_LocalScale: {x: 0.6342, y: 0.6258, z: 1}
   m_Children:
   - {fileID: 3199951875893199198}
@@ -45680,12 +45680,12 @@ MonoBehaviour:
   jumpVariance: {x: 30, y: 50}
   timeTillJump: {x: 4, y: 6}
   blinkDuration: {x: 1.2, y: 4}
-  jumpMotionDelay: 0.5
-  pushOffDuration: 1
+  jumpMotionDelay: 0.4
+  pushOffDuration: 0.5
   undoDuration: 0.1
   launch: {fileID: 8300000, guid: b0764f47f56fbd0459d3983bf8f89389, type: 3}
   launchVolume: 1
-  clobber: {fileID: 8300000, guid: 17dc943ce6ca2cc48ad41e48f063d55d, type: 3}
+  clobber: {fileID: 8300000, guid: d9ddf2e2aed1b7d47a68bd20dbcf0be1, type: 3}
   clobberVolume: 1
 --- !u!95 &1435957218
 Animator:

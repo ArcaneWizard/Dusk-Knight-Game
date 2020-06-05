@@ -84,7 +84,8 @@ public class Orc : MonoBehaviour
         yield return new WaitForSeconds(pushOffDuration);        
         animator.SetFloat("spring speed", -1);    
         yield return new WaitForSeconds(undoDuration);         
-        animator.SetInteger("Jump", 2);      
+        animator.SetInteger("Jump", 2);             
+        animator.SetFloat("spring speed", 0);    
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -106,7 +107,7 @@ public class Orc : MonoBehaviour
         yield return new WaitForSeconds(0.22f);
         audioSource.PlayOneShot(clobber, clobberVolume * Manage_Sounds.soundMultiplier);
         Health.playerHP -= Health.OrcDmg;
-        yield return new WaitForSeconds(0.78f);
+        yield return new WaitForSeconds(0.65f);
         
         //Start blinking for 1.2 to 4 seconds
         animator.SetInteger("Attack", 2);
