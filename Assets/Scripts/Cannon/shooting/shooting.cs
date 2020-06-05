@@ -180,7 +180,9 @@ public class shooting : MonoBehaviour
                 magnitude = (endPosition - initPosition).magnitude;
                 touchPercent = magnitude / Screen.width;
 
-                StartCoroutine(checkForWeaponChangeOrFire(rotation, endPosition));
+                //if the player every dragged out the arrow, fire
+                if (magnitude > 0.1f)
+                   StartCoroutine(checkForWeaponChangeOrFire(rotation, endPosition));
             }
         }                
         

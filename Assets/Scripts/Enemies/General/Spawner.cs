@@ -105,10 +105,8 @@ public class Spawner : MonoBehaviour
 
         enemy.SetActive(true);        
 
-        print("run code");
         if (enemy.transform.GetComponent<Enemy_Health>() != null)
         {
-            print("1");
             enemy.transform.GetComponent<Enemy_Health>().setHP();
             enemy.transform.GetComponent<Enemy_Health>().undoFade();
             enemy.transform.GetComponent<PolygonCollider2D>().enabled = true;
@@ -119,9 +117,7 @@ public class Spawner : MonoBehaviour
         
         if (enemy.transform.GetComponent<Enemy_Health>() == null && enemy.gameObject.name != "Fake Enemy")
         { 
-            print(enemy);
             enemy = enemy.transform.GetChild(0).gameObject;
-            print("3"); 
             enemy.transform.GetComponent<Enemy_Health>().setHP();
             enemy.transform.GetComponent<Enemy_Health>().undoFade();
             enemy.transform.GetComponent<PolygonCollider2D>().enabled = true;
