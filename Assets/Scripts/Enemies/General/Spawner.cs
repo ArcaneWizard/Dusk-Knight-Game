@@ -22,22 +22,17 @@ public class Spawner : MonoBehaviour
 
     private float reloadTime = 1.5f;
 
-    private void spawn()
-    {
-
-    }
-
+    //spawn enemies every reloadTime seconds
     private IEnumerator spawnOver()
     {
-        yield return new WaitForSeconds(2);
         deployEnemy("Orc");
         deployEnemy("R1");
 
-        yield return new WaitForSeconds(reloadTime);
+        yield return new WaitForSeconds(reloadTime);        
         StartCoroutine(spawnOver());
     }   
 
-    //Lower reload time for spawning Enemies over the course of the game
+    //spawn Enemies faster over the course of the game
     private IEnumerator  quickenSpawn()
     {
         yield return new WaitForSeconds(1);
@@ -46,7 +41,6 @@ public class Spawner : MonoBehaviour
 
         StartCoroutine(quickenSpawn());
     }
-
 
     //Deploy a random enemy
     void deployRandomEnemy()
@@ -69,61 +63,34 @@ public class Spawner : MonoBehaviour
     //Deploying enemy shortened to one method/line
     void deployEnemy(string enemyName)
     {
+        //get enemy
         GameObject enemy = findEnemy(enemyName);
-        GameObject deployPos;
+        Vector3 deployPos;
+
+        //choose enemy spawn point randomly
         int r = UnityEngine.Random.Range(0, 2);
         if (r == 0)
-            deployPos = GameObject.Find("BL Spawn Point");
+            deployPos = GameObject.Find("BL Spawn Point").transform.position;
         else
-            deployPos = GameObject.Find("BR Spawn Point");
+            deployPos = GameObject.Find("BR Spawn Point").transform.position;
 
-        enemy.transform.position = deployPos.transform.position;
-        if (enemy.transform.parent.gameObject.name == "R2 Group")
-        {
-            int a = UnityEngine.Random.Range(0, 2);
-            Vector2 spawnPoint;
-            if (a == 0)
-                spawnPoint = new Vector2(UnityEngine.Random.Range(10.3f, 12.9f), 7.3f);
-            else
-                spawnPoint = new Vector2(UnityEngine.Random.Range(-2f, -0.3f), 7.3f);
-
-            enemy.transform.position = spawnPoint;
-        }
-
+        //choose reaper 1 spawn point differently 
         if (enemyName == "R1")
         {
             if (r == 0)
-            {
-                enemy.transform.position = GRSpawn.position;
-            }
+                deployPos = GRSpawn.position;
             else
-            {
-                enemy.transform.position = GLSpawn.position;
-            }
-
+                deployPos = GLSpawn.position;  
         }
 
+        //spawn enemy
+        enemy.transform.position = deployPos;
         enemy.SetActive(true);        
 
-        if (enemy.transform.GetComponent<Enemy_Health>() != null)
-        {
-            enemy.transform.GetComponent<Enemy_Health>().setHP();
-            enemy.transform.GetComponent<Enemy_Health>().undoFade();
-            enemy.transform.GetComponent<PolygonCollider2D>().enabled = true;
+        //reset enemy settings
+        if (enemy.transform.GetComponent<Enemy_Health>() != null) {
             enemy.transform.GetComponent<Enemy_Health>().deploy = true;
-            if (enemy.transform.gameObject.layer != 21)
-                enemy.transform.GetComponent<Rigidbody2D>().gravityScale = 1;
-        }
-        
-        if (enemy.transform.GetComponent<Enemy_Health>() == null && enemy.gameObject.name != "Fake Enemy")
-        { 
-            enemy = enemy.transform.GetChild(0).gameObject;
             enemy.transform.GetComponent<Enemy_Health>().setHP();
-            enemy.transform.GetComponent<Enemy_Health>().undoFade();
-            enemy.transform.GetComponent<PolygonCollider2D>().enabled = true;
-            enemy.transform.GetComponent<Enemy_Health>().deploy = true;
-            if (enemy.transform.gameObject.layer != 21)
-                enemy.transform.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
     }
 
@@ -188,23 +155,21 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
-        spawn();
         StartCoroutine(spawnOver());
         StartCoroutine(quickenSpawn());
 
         //Use to reset enemy lists (add more of each type) 
-
         /*prepList(GameObject.Find("R1 Group"), R1);
         prepList(GameObject.Find("R2 Group"), R2);
         prepList(GameObject.Find("R3 Group"), R3);
         prepList(GameObject.Find("Orc Group"), Orc);
         prepList(GameObject.Find("Goblin Group"), Goblin);
-        prepList(GameObject.Find("Ogre Group"), Ogre);*/
+        prepList(GameObject.Find("Ogre Group"), Ogre);
 
           for (int i = 1; i <= GameObject.Find("R1 Group").gameObject.transform.childCount; i++)
           {
-              GameObject.Find("R1 Group").gameObject.transform.GetChild(i - 1).transform.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
-              GameObject.Find("R1 Group").gameObject.transform.GetChild(i - 1).transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = i-1 + 10;
+              GameObject.Find("R1 Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
+              GameObject.Find("R1 Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingOrder = i-1 + 10;
           }
 
           for (int i = 1; i <= GameObject.Find("R2 Group").gameObject.transform.childCount; i++)
@@ -215,8 +180,8 @@ public class Spawner : MonoBehaviour
 
           for (int i = 1; i <= GameObject.Find("R3 Group").gameObject.transform.childCount; i++)
           {
-              GameObject.Find("R3 Group").gameObject.transform.GetChild(i - 1).transform.GetChild(0).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
-              GameObject.Find("R3 Group").gameObject.transform.GetChild(i - 1).transform.GetChild(0).transform.GetComponent<SpriteRenderer>().sortingOrder = i - 1 + 30;
+              GameObject.Find("R3 Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
+              GameObject.Find("R3 Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingOrder = i - 1 + 30;
           }
 
           for (int i = 1; i <= GameObject.Find("Orc Group").gameObject.transform.childCount; i++)
@@ -227,15 +192,15 @@ public class Spawner : MonoBehaviour
 
           for (int i = 1; i <= GameObject.Find("Ogre Group").gameObject.transform.childCount; i++)
           {
-              GameObject.Find("Ogre Group").gameObject.transform.GetChild(i - 1).transform.GetChild(0).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
-              GameObject.Find("Ogre Group").gameObject.transform.GetChild(i - 1).transform.GetChild(0).transform.GetComponent<SpriteRenderer>().sortingOrder = i - 1 + 50;
+              GameObject.Find("Ogre Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
+              GameObject.Find("Ogre Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingOrder = i - 1 + 50;
           }
 
           for (int i = 1; i <= GameObject.Find("Goblin Group").gameObject.transform.childCount; i++)
           {
               GameObject.Find("Goblin Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
               GameObject.Find("Goblin Group").gameObject.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingOrder = i - 1 + 60;
-          }
+          }*/
 
     }
 
@@ -247,8 +212,4 @@ public class Spawner : MonoBehaviour
             enemyList.Add(enemyType.transform.GetChild(i - 1).gameObject);
         }
     }
-
 }
-
-
-//2.94

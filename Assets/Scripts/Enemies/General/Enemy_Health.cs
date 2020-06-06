@@ -59,12 +59,14 @@ public class Enemy_Health : MonoBehaviour
     void Awake()
     {
         setHP();
+
         ogScaleX = transform.localScale.x;
         ogScaleY = transform.localScale.y;
+        spinUponDeath = true;
+
         animator = transform.GetComponent<Animator>();
         gameObject.AddComponent<AudioSource>();
         color = transform.GetComponent<SpriteRenderer>().color;
-        spinUponDeath = true;
     }
 
     public void setHP()
@@ -76,9 +78,8 @@ public class Enemy_Health : MonoBehaviour
         if (gameObject.layer == 9)
             hp = ogre;
 
-        if (gameObject.layer == 11) {
+        if (gameObject.layer == 11) 
             hp = goblin;            
-        }
 
         if (gameObject.layer == 19)
             hp = reaper_1;
@@ -86,54 +87,24 @@ public class Enemy_Health : MonoBehaviour
         if (gameObject.layer == 20)
             hp = reaper_2;
 
-        if (gameObject.layer == 21)
-        {
+        if (gameObject.layer == 21) {
             hp = reaper_3;
-           
-            //Re-add reaper3 script for new flight pattern
-            if (gameObject.GetComponent<Reaper_3>() != null) 
+
+            if (gameObject.GetComponent<Reaper_3>() != null) {
                 Destroy(gameObject.GetComponent<Reaper_3>());
                 gameObject.AddComponent<Reaper_3>();
+            }
         }
 
         lastHP = hp;
         death = false;
-
         transform.GetComponent<PolygonCollider2D>().enabled = true;
-        if (gameObject.tag == "Ranged Shooter")
-            transform.localPosition = new Vector2(0, 0);
-
-        //Assigns 3 different enemy modes with different stats
-        int c = UnityEngine.Random.Range(0, 20);
-        
-        if (c >= 0 && c < 18)
-        {
-            designatedColor = normal;
-            hp *= 1;
-            dmgMultiplier = 1.0f;
-        }
-
-        /*if (c >= 15 && c <= 17)
-        {
-            designatedColor = medium;
-            hp *= 2;
-            dmgMultiplier = 1.5f;
-        }*/
-
-        if (c >= 18)
-        {
-            designatedColor = powerful;
-            hp *= 2;
-            dmgMultiplier = 2f;
-        }
-            color = designatedColor;
-        
-        //Assign the color when an enemy is at low health;
-        //deathColor = designatedColor;
+        designatedColor = normal;
     }
 
     void Update()
     {
+        //poisoned
         if (poison == true && isPoisoned == false)
         {
             poison = false;
@@ -141,6 +112,7 @@ public class Enemy_Health : MonoBehaviour
             StartCoroutine(poisoned());
         }
 
+        //frozen
         if (iced == true)
         {
             iced = false;
@@ -149,38 +121,29 @@ public class Enemy_Health : MonoBehaviour
             StartCoroutine(frozen());
         }
 
+        //dead
         if (hp <= 0 && death == false)
         {
-            transform.GetComponent<ParticleSystem>().Play();
-            checkDeath();
             death = true;
+            checkDeath();
         }
 
+        //at low HP
         if (hp <= 20 && lowHP == false)
         {
             lowHP = true;
-            //gameObject.transform.GetComponent<SpriteRenderer>().color = deathColor;
-        }
-
-        if (lastHP != hp)
-        {
-            lastHP = hp;
-            print("hit");
-            if (isPoisoned == false)
-                StartCoroutine(alter());
+            color = flinchColor;
         }
     }
 
     private IEnumerator frozen()
     {
+        //enable snowball
         transform.GetChild(0).gameObject.SetActive(true);
-        float sign = 1;
-        if (transform.position.x > player.transform.position.x)
-            sign = -1;
 
-        setSpeed(sign, 0.5f);
-
+        //freeze
         transform.GetComponent<Animator>().enabled = false;
+        setSpeed(0, 1);
 
         if (gameObject.layer == 8)
             transform.GetComponent<Orc>().enabled = false;
@@ -197,38 +160,28 @@ public class Enemy_Health : MonoBehaviour
         if (gameObject.layer == 20)
             transform.GetComponent<Reaper_2>().enabled = false;
 
-        if (gameObject.layer == 21)
-            Destroy(transform.GetComponent<Reaper_3>());
-
-        if (transform.parent.parent.name == "R3 Group")
+        if (gameObject.layer == 21) {
+            transform.GetComponent<Reaper_3>().enabled = false;
             transform.GetComponent<Rigidbody2D>().gravityScale = 1;
+        }
 
         yield return new WaitForSeconds(4f);
 
-
-        if (transform.parent.parent.name == "R3 Group")
-        {
-            transform.GetComponent<Rigidbody2D>().gravityScale = 0;
-            transform.gameObject.AddComponent<Reaper_3>();
-        }
-
-
-
         isIcedWhileIcedCheck++;
 
+        //if not iced again and freeze time is over
         if (isIcedWhileIcedCheck == isIcedWhileIced)
         {
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetComponent<Animator>().enabled = true;
-
-            setSpeed(sign, 1);
+            setSpeed(1, 1);
             isIced = false;
         }
     }
 
+    //alter enemy speed 
     private void setSpeed(float sign, float multiplier)
     {
-
         if (gameObject.layer == 8)
         {
             transform.GetComponent<Orc>().enabled = true;
@@ -260,92 +213,80 @@ public class Enemy_Health : MonoBehaviour
         }
     }
 
+    //enemy is poisoned
     private IEnumerator poisoned()
     {
         for (int i = 0; i < 5; i++)
         {
             if (death == false)
             {
-                gameObject.transform.GetComponent<SpriteRenderer>().color = new Color32(56, 219, 143, 255);
+                color = new Color32(56, 219, 143, 255);
                 yield return new WaitForSeconds(0.22f);
                 hp -= 10;
-                gameObject.transform.GetComponent<SpriteRenderer>().color = designatedColor;
+                color = designatedColor;
                 yield return new WaitForSeconds(0.8f);
             }
         }
         isPoisoned = false;
     }
 
+    //enemy fade animation
     private IEnumerator fade()
     {
         yield return new WaitForSeconds(0.1f);
+        
         //Un-ice and unpoison enemy b4 it fades away
-        transform.GetComponent<PolygonCollider2D>().enabled = false;
-        transform.GetComponent<Rigidbody2D>().gravityScale = 0;
-        transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        transform.GetComponent<SpriteRenderer>().color = designatedColor;
-        transform.GetChild(0).gameObject.SetActive(false);
-        transform.GetComponent<Animator>().enabled = true;
-        setSpeed(1, 0);
-        isIced = false;
-
         isPoisoned = false;
+        isIced = false;
+        transform.GetChild(0).gameObject.SetActive(false);
 
-        // yield return new WaitForSeconds(1.0f);
+        //reset color and disable collider
+        transform.GetComponent<SpriteRenderer>().color = designatedColor;
+        transform.GetComponent<PolygonCollider2D>().enabled = false;
+
+        //enemy now remains still
+        transform.GetComponent<Rigidbody2D>().gravityScale = 0;
+        transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);        
+        transform.GetComponent<Animator>().enabled = true;
 
         float scale = 0.93f;
         float rotSpeed = 25f;
 
+        //if spin upon death is wanted 
         if (spinUponDeath == true)
         {
-                print("wa!");
             yield return new WaitForSeconds(spinDelay);
             for (int yo = 17; yo >= 0; yo--)
             {
-                print("spin!");
                 Color32 c = transform.GetComponent<SpriteRenderer>().color;
-                transform.GetComponent<SpriteRenderer>().color = new Color32(c.r, c.g, c.b, (byte)(15 * yo));
+                color = new Color32(c.r, c.g, c.b, (byte)(15 * yo));
                 transform.localScale *= scale;
                 transform.Rotate(new Vector3(0, 0, rotSpeed));
 
                 yield return new WaitForSeconds(0.02f);
             }
         }
-        else {
+        else 
             yield return new WaitForSeconds(deathDelay);
-        }   
 
-        print("woah");
+        //Reset all values for the enemy when it next spawns
         isIcedWhileIced = isIcedWhileIcedCheck;
         transform.localScale = new Vector2(ogScaleX, ogScaleY);
+        transform.GetComponent<Rigidbody2D>().gravityScale = 1;
         transform.rotation = Quaternion.Euler(0, 0, 0); 
-        transform.GetComponent<SpriteRenderer>().color = designatedColor;
+        color = designatedColor;    
 
-        if (gameObject.tag != "Ranged Shooter")
-            gameObject.SetActive(false);
-        else
-            gameObject.transform.parent.gameObject.SetActive(false);
-
+        //Individual enemy reset requests
         if (gameObject.name == "Reaper 1")
             Destroy(transform.GetComponent<Rigidbody2D>());
+
+        gameObject.SetActive(false);
     }
 
-    public void undoFade()
-    {
-
-    }
-
+    //when killed, give player money 
     private void checkDeath()
     {
-        print("dead");
         animator.SetBool("Dead", true);
-
-        transform.GetComponent<PolygonCollider2D>().enabled = false;
-        transform.GetComponent<Rigidbody2D>().gravityScale = 0;
-        transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-
-        if (gameObject.layer == 21)
-            transform.GetChild(1).gameObject.SetActive(false);
 
         giveJewels(8, 5);
         giveJewels(9, 3);
@@ -355,20 +296,6 @@ public class Enemy_Health : MonoBehaviour
         giveJewels(21, 2);
 
         StartCoroutine(fade());
-    }
-
-    public void giveJewels(int layer, int jewels)
-    {
-        if (gameObject.layer == layer)
-           shop.jewels += jewels;
-    }
-
-    private IEnumerator alter()
-    {
-        gameObject.transform.GetComponent<SpriteRenderer>().color = flinchColor;
-        yield return new WaitForSeconds(hitRednessduration);
-        //if (lowHP == false)
-        gameObject.transform.GetComponent<SpriteRenderer>().color = designatedColor;
     }
 
     public float returnSpeed()
@@ -393,34 +320,23 @@ public class Enemy_Health : MonoBehaviour
         return speed;
     }
 
+    public void giveJewels(int layer, int jewels)
+    {
+        if (gameObject.layer == layer)
+           shop.jewels += jewels;
+    }
+
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.layer == 25) //hits a player projectile
         {
-            Manage_Sounds m = manage_Sounds;
-            if (col.gameObject.name == "arrow")
-            {
-                transform.GetComponent<AudioSource>().PlayOneShot(m.arrowhit, 0.2f * Manage_Sounds.soundMultiplier);
-            }
-            if (col.gameObject.name == "flask")
-            {
-                transform.GetComponent<AudioSource>().PlayOneShot(m.potionhit, 1.25f * Manage_Sounds.soundMultiplier);
-            }
-            transform.GetComponent<AudioSource>().PlayOneShot(m.enemyHit, 0.3f * Manage_Sounds.soundMultiplier);
+                     
         }
     }
 
-    void OnTriggerStay2D(Collider2D col)
-    {
-        if (transform.parent.parent.name == "R3 Group") //If a flying reaper hits the ground (meaning it was frozen in air and dropped down)
-        {
-            if (col.gameObject.layer == 22 || col.gameObject.layer == 10)
-                col.gameObject.transform.GetComponent<Enemy_Health>().hp = 0;
-        }
-    }
     void OnCollisionStay2D(Collision2D col)
     {
-        if (transform.parent.parent.name == "R3 Group") //If a flying reaper hits the ground (meaning it was frozen in air and dropped down)
+        if (transform.gameObject.layer == 21) //If a flying reaper hits the ground (meaning it was frozen in air and dropped down)
         {
             if (col.gameObject.layer == 22 || col.gameObject.layer == 10)
                 gameObject.transform.GetComponent<Enemy_Health>().hp = 0f;

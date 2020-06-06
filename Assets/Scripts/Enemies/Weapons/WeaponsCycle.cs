@@ -14,24 +14,6 @@ public class WeaponsCycle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (gameObject.layer == 21) //Reaper 3
-        {
-            ammo.Add(transform.parent.transform.GetChild(1).gameObject);
-            ammo.Add(transform.parent.transform.GetChild(2).gameObject);
-        }
-
-        if (gameObject.layer == 19) //Reaper 1
-        {
-            ammo.Add(transform.parent.transform.GetChild(1).gameObject);
-            ammo.Add(transform.parent.transform.GetChild(2).gameObject);
-        }
-
-        if (gameObject.layer == 9) //Ogre
-        {
-            ammo.Add(transform.parent.transform.GetChild(1).gameObject);
-            ammo.Add(transform.parent.transform.GetChild(2).gameObject);
-        }
-
         anim = transform.GetComponent<Animator>();
     }
     

@@ -15,7 +15,8 @@ public class Reaper_1 : MonoBehaviour
     void Start()
     {
         gameObject.AddComponent<AudioSource>();
-        Destroy(transform.GetComponent<Rigidbody2D>());
+        if (transform.GetComponent<Rigidbody2D>() != null)
+            Destroy(transform.GetComponent<Rigidbody2D>());
     }
 
     private IEnumerator attack()

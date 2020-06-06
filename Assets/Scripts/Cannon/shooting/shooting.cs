@@ -21,6 +21,7 @@ public class shooting : MonoBehaviour
     public float arrowWidthGrowRate = 0.1f;
     private float chargeArrowLength;
     public float minSwipeToShoot = 0.1f;
+    public float zOffset = 0f;
 
     private float cooldown;
     private float startcooldown;
@@ -33,6 +34,7 @@ public class shooting : MonoBehaviour
     private Vector3 initPosition2;
     private Vector3 endPosition2;
     private Vector3 centeredOffset;
+    private Vector3 anchorPoint;
 
     GameObject weaponType;
 
@@ -118,7 +120,8 @@ public class shooting : MonoBehaviour
 
                 //set anchor point of aim arrow
                 initPosition = new Vector3(touch.position.x ,touch.position.y, 6);
-                centeredOffset = -camera.ScreenToWorldPoint(initPosition) + arrowAnchor.transform.position + new Vector3(0, 0, -4);
+                centeredOffset = -camera.ScreenToWorldPoint(initPosition) + arrowAnchor.transform.position + new Vector3(0, 0, zOffset);
+                
                 lr.SetPosition(0, camera.ScreenToWorldPoint(initPosition) + centeredOffset);
                 lr.SetPosition(1, camera.ScreenToWorldPoint(initPosition) + centeredOffset);
            
@@ -143,10 +146,12 @@ public class shooting : MonoBehaviour
 
                 //Update start and end point
                 centeredOffset = -camera.ScreenToWorldPoint(initPosition) + arrowAnchor.transform.position + new Vector3(0, 0, -4);
-                lr.SetPosition(0, camera.ScreenToWorldPoint(initPosition) + centeredOffset);
+                Vector3 firstPoint = camera.ScreenToWorldPoint(initPosition) + centeredOffset;
+                lr.SetPosition(1, firstPoint);
 
                 float aimArrowLength = (endPosition-initPosition).magnitude;
-                lr.SetPosition(1, camera.ScreenToWorldPoint(endPosition) + centeredOffset);
+                Vector3 secondPoint = camera.ScreenToWorldPoint(endPosition) + centeredOffset;
+                lr.SetPosition(0, 2 * firstPoint - secondPoint);
                 
                 //Set the length of the charge arrow
                 endPosition2 = new Vector3(touch.position.x, touch.position.y, 6);
@@ -157,8 +162,9 @@ public class shooting : MonoBehaviour
 
                 //update start and end point
                 endPosition2 = initPosition + (endPosition2-initPosition).normalized * chargeArrowLength;
-                lr_2.SetPosition(0, camera.ScreenToWorldPoint(initPosition) + centeredOffset);
-                lr_2.SetPosition(1, camera.ScreenToWorldPoint(endPosition2) + centeredOffset);
+                Vector3 secondPoint2 = camera.ScreenToWorldPoint(endPosition2) + centeredOffset;
+                lr_2.SetPosition(1, firstPoint);
+                lr_2.SetPosition(0, 2 * firstPoint - secondPoint2);
                 
                 //increase the charge arrow's length over time when you're fully stretched out
                 if (aimArrowLength >= maxArrowLength-2 && chargeArrowLength > 0) {
