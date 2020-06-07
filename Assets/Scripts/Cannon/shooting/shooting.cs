@@ -23,9 +23,8 @@ public class shooting : MonoBehaviour
     public float minSwipeToShoot = 0.1f;
     public float zOffset = 0f;
 
-    private float cooldown;
-    private float startcooldown;
     private int counter = 0;
+    private float rot;
     public static float touchPercent;
     public bool loaded = false;
     public bool playsound = false;
@@ -36,8 +35,7 @@ public class shooting : MonoBehaviour
     private Vector3 centeredOffset;
     private Vector3 anchorPoint;
 
-    GameObject weaponType;
-
+    private GameObject weaponType;
     public GameObject grenade;
     public GameObject potion;
     public GameObject cannonBall;
@@ -49,52 +47,31 @@ public class shooting : MonoBehaviour
     public Manage_Sounds manage_Sounds;
     public GameObject weaponAnchor;
     public GameObject arrowAnchor;
+    private AudioSource audioSource;
 
     void Start()
     {
+        audioSource = gameObject.AddComponent<AudioSource>();
         changeWeapon();
-        gameObject.AddComponent<AudioSource>();
     }
 
-    //swap out the weapon you have with a different one
+    //specify what weapon the player has
     public void changeWeapon()
     {
-        //Only need to change this one line for diff weapons (depending on weapon selected when that's implemented)
-        if (transform.gameObject.name == "Launcher")
-        {
+        if (transform.gameObject.name == "Boomer Cannon")
             weaponType = grenade;
-            startcooldown = 0.8f;
-        }
 
         if (transform.gameObject.name == "Potion Cannon")
-        {
             weaponType = potion;
-            startcooldown = 0.8f;
-        }
-
-        if (transform.gameObject.name == "Gatling")
-        {
-            weaponType = bullet;
-            startcooldown = 0.25f;
-        }
 
         if (transform.gameObject.name == "Gunpowder Cannon")
-        {
             weaponType = cannonBall;
-            startcooldown = 0.8f;
-        }
 
         if (transform.gameObject.name == "Ice Arrow Cannon")
-        {
             weaponType = arrow;
-            startcooldown = 0.8f;
-
-        }
 
         for (int i = 0; i < weaponType.transform.childCount; i++)
             ammo.Add(weaponType.transform.GetChild(i).gameObject);
-
-        cooldown = 0;
     }
 
     //-------------------------------------------------------------------------------
@@ -183,7 +160,7 @@ public class shooting : MonoBehaviour
                     chargeArrowLength = 0;
 
                 //Rotate gun while aiming
-                float rot = Mathf.Atan2(initPosition.y - endPosition.y, initPosition.x - endPosition.x) * Mathf.Rad2Deg;
+                rot = Mathf.Atan2(initPosition.y - endPosition.y, initPosition.x - endPosition.x) * Mathf.Rad2Deg;
                 if ((endPosition - initPosition).magnitude > minSwipeToShoot)
                    changeRotation(rot, endPosition);
             }
@@ -204,7 +181,7 @@ public class shooting : MonoBehaviour
             }
         }                
                 
-        //____Ballista needs to load each arrow well before shooting
+        /*//____Ballista needs to load each arrow well before shooting
         if (weaponType == arrow && loaded == false)
         {
             ammo[counter].gameObject.transform.GetChild(0).transform.GetComponent<SpriteRenderer>().enabled = false;
@@ -213,7 +190,7 @@ public class shooting : MonoBehaviour
             ammo[counter].transform.GetComponent<PolygonCollider2D>().enabled = false;
             loaded = true;
             StartCoroutine(delayAppearance());
-        }
+        }*/
     }
     
     //-------------------------------------------------------------------------------
@@ -233,31 +210,26 @@ public class shooting : MonoBehaviour
 
     //Set weapon rotation
     private void changeRotation(float rot, Vector3 touchPosition) {
+
+        //rotation to flip bullet images over when shooting left vs right
+        float rotY = (touchPosition.x / Mathf.Abs(touchPosition.x) - 1) * 90f;
+        float rotZ = (touchPosition.x / Mathf.Abs(touchPosition.x)) * rot + 90 * (touchPosition.x / Mathf.Abs(touchPosition.x) - 1);
         
-            if (weaponType == grenade)
-                transform.rotation = Quaternion.Euler(0f, 0f, rot);
+        //set weapon rotations
+        if (weaponType == grenade)
+            transform.rotation = Quaternion.Euler(0f, 0f, rot);
 
-            if (weaponType == cannonBall)
-                transform.rotation = Quaternion.Euler(0f, 0f, rot);
+        if (weaponType == cannonBall)
+            transform.rotation = Quaternion.Euler(0f, 0f, rot);
 
-            if (weaponType == bullet)
-                transform.rotation = Quaternion.Euler(0f, 0f, rot - 90);
+        if (weaponType == potion)
+            transform.rotation = Quaternion.Euler(0f, 0f, rot + 180);
 
-            if (weaponType == potion)
-                transform.rotation = Quaternion.Euler(0f, 0f, rot+180);
+        if (weaponType == arrow)
+            transform.rotation = Quaternion.Euler(0f, rotY, rotZ);
 
-            if (weaponType == arrow)
-                transform.rotation = Quaternion.Euler(0f, (touchPosition.x / Mathf.Abs(touchPosition.x) - 1) * 90, (touchPosition.x / Mathf.Abs(touchPosition.x)) * rot + 90 * (touchPosition.x / Mathf.Abs(touchPosition.x) - 1));
-
-            Vector3 eulerAngle = transform.localRotation.eulerAngles;
-            float angle = eulerAngle.z % 360;
-            if (angle < 0)
-                angle += 360;
-
-            if (angle > 90 && angle < 270 && transform.gameObject.name != "Gatling")
-               transform.localRotation = Quaternion.Euler(eulerAngle.x, eulerAngle.y - 180f, -eulerAngle.z - 180f);
-            
-            weaponAnchor.transform.rotation = transform.rotation;
+        //rotate the aim arrows around the cannon 
+        weaponAnchor.transform.rotation = transform.rotation;
     }
 
     //Fire the weapon
@@ -267,46 +239,12 @@ public class shooting : MonoBehaviour
 
         //Modify the position/rotation code based on weapon type
         if (weaponType == grenade)
-        {
-            transform.GetComponent<AudioSource>().PlayOneShot(m.cannonShot, 0.8f * Manage_Sounds.soundMultiplier);
-            ammo[counter].transform.position = muzzle.position;
-            ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
-            ammo[counter].transform.GetComponent<grenade>().oneLaunch = false;
-            ammo[counter].transform.GetComponent<SpriteRenderer>().enabled = false;
-            for (int i = 0; i < ammo[counter].transform.childCount; i++)
-                ammo[counter].transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
-        }
-
-        if (weaponType == bullet)
-        {
-            transform.GetComponent<AudioSource>().PlayOneShot(m.gatling, 0.6f * Manage_Sounds.soundMultiplier);
-            ammo[counter].transform.position = muzzle.position;
-            ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
-            ammo[counter].transform.GetComponent<bullet>().oneHit = false;
-            StartCoroutine(Flash());
-        }
+            prepareBullet(rot + 270, m.cannonShot);
 
         if (weaponType == cannonBall)
-        {
-            transform.GetComponent<AudioSource>().PlayOneShot(m.cannonShot, 0.8f * Manage_Sounds.soundMultiplier);
-            ammo[counter].transform.position = muzzle.position;
-            ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
-            ammo[counter].transform.GetComponent<cannon_ball>().oneLaunch = false;
-        }
+            prepareBullet(rot + 270, m.cannonShot);
 
-        if (weaponType == potion)
-        {
-            transform.GetComponent<AudioSource>().PlayOneShot(m.potionshot, 0.9f * Manage_Sounds.soundMultiplier);
-            ammo[counter].transform.position = muzzle.position;
-            ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
-            ammo[counter].transform.GetComponent<potion>().oneLaunch = false;
-            ammo[counter].transform.GetComponent<potion>().oneHit = false;
-            ammo[counter].transform.GetComponent<SpriteRenderer>().enabled = false;
-            for (int i = 0; i < ammo[counter].transform.childCount; i++)
-                ammo[counter].transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
-        }
-
-        if (weaponType == arrow)
+        /*if (weaponType == arrow)
         {
             transform.GetComponent<AudioSource>().PlayOneShot(m.arrowshot, 0.35f * Manage_Sounds.soundMultiplier);
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot-90);
@@ -315,8 +253,7 @@ public class shooting : MonoBehaviour
             ammo[counter].transform.GetComponent<PolygonCollider2D>().enabled = true;
             ammo[counter].transform.GetComponent<Rigidbody2D>().gravityScale = 2;
             StartCoroutine(Load());
-        }
-
+        }*/
 
         ammo[counter].SetActive(true);
         counter += 1;
@@ -327,6 +264,26 @@ public class shooting : MonoBehaviour
     //------------------------------SHORT SUB-METHODS--------------------------------
     //----------(Small methods that server to make code more readable)---------------
     //-------------------------------------------------------------------------------
+
+    //Set bullet properties and location
+    private void prepareBullet(float rot, AudioClip hit_Sound) {
+        //set bullet's position and rotation
+        ammo[counter].transform.position = muzzle.position;
+        ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot);
+
+        //play bullet fire sound
+        transform.GetComponent<AudioSource>().PlayOneShot(hit_Sound, 0.8f * Manage_Sounds.soundMultiplier);
+        
+        //launch the bullet through its script's specifications
+        if (weaponType == cannonBall)
+            ammo[counter].GetComponent<cannon_ball>().oneLaunch = false;
+        if (weaponType == grenade)
+            ammo[counter].GetComponent<grenade>().oneLaunch = false;
+        if (weaponType == potion)
+            ammo[counter].GetComponent<potion>().oneLaunch = false;            
+        if (weaponType == arrow)
+            ammo[counter].GetComponent<arrow>().oneLaunch = false;
+    }
 
     //Flash effect for the gatling gun sub-method
     private IEnumerator Flash()

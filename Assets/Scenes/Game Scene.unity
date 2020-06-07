@@ -66110,7 +66110,7 @@ GameObject:
   - component: {fileID: 7720658235518165187}
   - component: {fileID: 7274968194957607085}
   m_Layer: 10
-  m_Name: Launcher
+  m_Name: Boomer Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
