@@ -6,56 +6,55 @@ using UnityEngine.Rendering;
 
 public class cannon_ball : MonoBehaviour
 {
-    private float speed = 7f;
-    private bool stop = false;
-    public bool oneHit = false;
+    private float speed = 3000f;
     public bool oneLaunch = false;
+
+    Vector3 bottomLeft, topRight, p;
+    float minX, minY, maxX, maxY;
+    bool inBounds;
+
+    public Camera camera;
+    
+    void Start() {
+       //Get bounds of the screen for any screen size
+        bottomLeft = camera.ViewportToWorldPoint(new Vector2(0,0));
+        topRight = camera.ViewportToWorldPoint(new Vector2(1,1));
+
+        minX = bottomLeft.x - 1;
+        minY = bottomLeft.y - 1;
+        maxX = topRight.x + 1;
+        maxY = topRight.y + 1;
+    }
 
     void Update()
     {
-        if ((Mathf.Abs(transform.position.x) < 10f || Mathf.Abs(transform.position.y) < 9f) && stop == false)
-        {
-            if (oneLaunch == false)
-            {
-                transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-                transform.GetComponent<Rigidbody2D>().AddForce(transform.up * speed * 400 * shooting.touchPercent);
-                oneLaunch = true;
-            }
-        }
-        else if (stop == false)
-            transform.gameObject.SetActive(false);
+        p = transform.position;
+        inBounds = p.x > minX && p.y > minY && p.x < maxX && p.y < maxY;
         
-        if (transform.GetComponent<Rigidbody2D>().velocity != new Vector2(0, 0))
+        //Launch the bullet in the direction it was aimed 
+        if (oneLaunch == false)
         {
-            gameObject.transform.GetComponent<SpriteRenderer>().enabled = true;
-            for (int i = 0; i < gameObject.transform.childCount; i++)
-                gameObject.transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = true;
+            transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            transform.GetComponent<Rigidbody2D>().AddForce(transform.up * speed * shooting.touchPercent);
+            oneLaunch = true;
         }
+        
+        //check when/if the bullet exits the screen bounds
+        if (!inBounds)
+            transform.gameObject.SetActive(false);
     }
-
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        stop = true;
-
+        //collided with an enemy
         if (col.gameObject.layer == 8 || col.gameObject.layer == 9 || col.gameObject.layer == 11 || col.gameObject.layer == 19 || col.gameObject.layer == 20 || col.gameObject.layer == 21)
         {
-            if (oneHit == false)
-            {
-                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= Health.CB;
-                oneHit = true;
-            }
+             col.gameObject.transform.GetComponent<Enemy_Health>().hp -= Health.CB;
+             transform.gameObject.SetActive(false);
         }
 
-        stop = false;
-        transform.gameObject.SetActive(false);
-    }
-
-    private IEnumerator setSpeedBackToNormal(GameObject enemy)
-    {
-        yield return new WaitForSeconds(1f);
-
-        float speed = enemy.transform.GetComponent<Enemy_Health>().returnSpeed();
-        enemy.transform.GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 0);
+        //collided with the ground
+        if (col.gameObject.layer == 22)
+            transform.gameObject.SetActive(false);
     }
 }

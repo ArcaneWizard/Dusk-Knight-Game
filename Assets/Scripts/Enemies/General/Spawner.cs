@@ -83,15 +83,15 @@ public class Spawner : MonoBehaviour
                 deployPos = GLSpawn.position;  
         }
 
-        //spawn enemy
-        enemy.transform.position = deployPos;
-        enemy.SetActive(true);        
-
         //reset enemy settings
         if (enemy.transform.GetComponent<Enemy_Health>() != null) {
             enemy.transform.GetComponent<Enemy_Health>().deploy = true;
             enemy.transform.GetComponent<Enemy_Health>().setHP();
         }
+
+        //spawn enemy
+        enemy.transform.position = deployPos;
+        enemy.SetActive(true);        
     }
 
     //Find avaliable enemy + update its array cycle

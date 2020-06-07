@@ -316,7 +316,6 @@ public class alt_shooting : MonoBehaviour
             transform.GetComponent<AudioSource>().PlayOneShot(m.cannonShot, 0.8f * Manage_Sounds.soundMultiplier);
             ammo[counter].transform.position = muzzle.position;
             ammo[counter].transform.rotation = Quaternion.Euler(0f, 0f, rot + 270);
-            ammo[counter].transform.GetComponent<cannon_ball>().oneHit = false;
             ammo[counter].transform.GetComponent<cannon_ball>().oneLaunch = false;
             ammo[counter].transform.GetComponent<SpriteRenderer>().enabled = false;
             for (int i = 0; i < ammo[counter].transform.childCount; i++)

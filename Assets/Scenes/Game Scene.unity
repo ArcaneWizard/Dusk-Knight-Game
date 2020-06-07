@@ -1809,8 +1809,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d025c900502b6240827d30eee612cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oneHit: 0
   oneLaunch: 0
+  camera: {fileID: 519420031}
 --- !u!1 &90786753
 GameObject:
   m_ObjectHideFlags: 0
@@ -4063,7 +4063,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249361346}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0aff0e570080cbb44aa6afed51b41005, type: 3}
   m_Name: 
@@ -9351,8 +9351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d025c900502b6240827d30eee612cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oneHit: 0
   oneLaunch: 0
+  camera: {fileID: 519420031}
 --- !u!1 &275582648
 GameObject:
   m_ObjectHideFlags: 0
@@ -11237,8 +11237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d025c900502b6240827d30eee612cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oneHit: 0
   oneLaunch: 0
+  camera: {fileID: 519420031}
 --- !u!1 &390862162
 GameObject:
   m_ObjectHideFlags: 0
@@ -32966,8 +32966,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d025c900502b6240827d30eee612cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oneHit: 0
   oneLaunch: 0
+  camera: {fileID: 519420031}
 --- !u!58 &1066052889
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -39114,7 +39114,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156028947}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.624, y: 0.4138, z: 4.9316406}
+  m_LocalPosition: {x: -14.42, y: 0.4138, z: 4.9316406}
   m_LocalScale: {x: 1.2, y: 1.1999999, z: 1.1999999}
   m_Children: []
   m_Father: {fileID: 208226859}
@@ -39220,8 +39220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d025c900502b6240827d30eee612cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oneHit: 0
   oneLaunch: 0
+  camera: {fileID: 519420031}
 --- !u!1 &1157636095
 GameObject:
   m_ObjectHideFlags: 0
@@ -44630,7 +44630,7 @@ Transform:
   m_GameObject: {fileID: 1435408305}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.624, y: 0.4138, z: 4.9316406}
-  m_LocalScale: {x: 1.2, y: 1.1999999, z: 1.1999999}
+  m_LocalScale: {x: 1.2000002, y: 1.1999999, z: 1.1999999}
   m_Children: []
   m_Father: {fileID: 208226859}
   m_RootOrder: 4
@@ -44647,8 +44647,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d025c900502b6240827d30eee612cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oneHit: 0
   oneLaunch: 0
+  camera: {fileID: 519420031}
 --- !u!58 &1435408308
 CircleCollider2D:
   m_ObjectHideFlags: 0
