@@ -7,6 +7,7 @@ public class Orc : MonoBehaviour
 {
     private Animator animator;
     private Rigidbody2D rig;
+    private AudioSource audioSource;
 
     public Vector2 jumpForce;
     public Vector2 jumpVariance;
@@ -21,7 +22,6 @@ public class Orc : MonoBehaviour
     public float launchVolume;
     public AudioClip clobber;
     public float clobberVolume;
-    private AudioSource audioSource;
 
     void Awake() {
         animator = transform.GetComponent<Animator>();
@@ -52,8 +52,9 @@ public class Orc : MonoBehaviour
 
             //Reset animation bools and start enemy movement 
             animator.SetInteger("Attack", 0);
-            animator.SetBool("Dead", false);  
             animator.SetInteger("Jump", 0);    
+            animator.SetBool("Dead", false);  
+            animator.SetBool("Hurt", false);  
             animator.SetFloat("spring speed", 0.7f);    
 
             rig.velocity = new Vector2(speed, 0);
@@ -103,18 +104,41 @@ public class Orc : MonoBehaviour
     }
 
     private IEnumerator blink() {
-        //Play sound and do dmg during the attack animation 
-        yield return new WaitForSeconds(0.22f);
-        audioSource.PlayOneShot(clobber, clobberVolume * Manage_Sounds.soundMultiplier);
-        Health.playerHP -= Health.OrcDmg;
-        yield return new WaitForSeconds(0.65f);
-        
-        //Start blinking for 1.2 to 4 seconds
-        animator.SetInteger("Attack", 2);
-        yield return new WaitForSeconds(UnityEngine.Random.Range(blinkDuration.x, blinkDuration.y));
+        //If not taking dmg, then attack or blink
+        if (!animator.GetBool("Hurt"))
+        {
+            //Play sound and do dmg during the attack animation 
+            yield return new WaitForSeconds(0.22f);
+            audioSource.PlayOneShot(clobber, clobberVolume * Manage_Sounds.soundMultiplier);
+            Health.playerHP -= Health.OrcDmg;
+            yield return new WaitForSeconds(0.65f);
 
-        //Reattack
-        animator.SetInteger("Attack", 1);
-        StartCoroutine(blink());
+            //Start blinking for 1.2 to 4 seconds
+            animator.SetInteger("Attack", 2);
+            yield return new WaitForSeconds(UnityEngine.Random.Range(blinkDuration.x, blinkDuration.y));
+
+            //Reattack
+            animator.SetInteger("Attack", 1);
+            StartCoroutine(blink());
+        }
+
+        else {
+            yield return new WaitForSeconds(0.1f);
+            StartCoroutine(blink());
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col) 
+    {
+        //Orc got hit by a player weapon
+        if (col.gameObject.layer == 25) {
+            animator.SetBool("Hurt", true);   
+            Invoke("flinch", 0.1f);
+        }
+    }
+    
+    //orc flinches when hit sub-method
+    private void flinch() {
+        animator.SetBool("Hurt", false);
     }
 }

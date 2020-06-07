@@ -9,8 +9,12 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     public static int playerHP;
-    public int displayedHP;
     public static int maxPlayerHP;
+
+    public int HP;
+    public int maxHP;
+    public int regenAmount;
+    public int regenDuration;
 
     private BoxCollider2D boxy;
     private BoxCollider2D boxy2;
@@ -57,8 +61,9 @@ public class Health : MonoBehaviour
     void Start()
     {
         FirstTime(true);
-        maxPlayerHP = 1000;
+        maxPlayerHP = maxHP;
         playerHP = maxPlayerHP;
+        regen();
     }
 
     //Either enable or disable the title screen (and do the opposite for game UI) 
@@ -68,6 +73,12 @@ public class Health : MonoBehaviour
         healhBar.gameObject.SetActive(!v);
         InGame.gameObject.SetActive(false);
         Survival.gameObject.SetActive(!v);   
+    }
+
+    //regenerate a little hp over time
+    private void regen() {
+        playerHP += regenAmount;
+        Invoke("regen", regenDuration);
     }
 
     void Update()
@@ -91,7 +102,7 @@ public class Health : MonoBehaviour
             resetUpgrades = false;
         }
 
-        displayedHP = playerHP;
+        HP = playerHP;
 
         stage = PlayerPrefs.GetInt("Tower") + 1;
         hp.fillAmount = (float)playerHP / maxPlayerHP;
@@ -143,15 +154,8 @@ public class Health : MonoBehaviour
                 StartCoroutine(ShowBannerWhenReady());
 
             diedOnce = true;
-            if (Gameover.name == "Game Over")
-            {
-                Gameover.SetActive(true);
-
-                StartCoroutine(relayDeathMsg());
-            }
-            else
-                Debug.LogError("You changed the child positioning of Game Over which was referenced in a script.");
-
+            Gameover.SetActive(true);
+            StartCoroutine(relayDeathMsg());            
 
             transform.GetComponent<Animator>().enabled = true;
             StartCoroutine(reset_level());

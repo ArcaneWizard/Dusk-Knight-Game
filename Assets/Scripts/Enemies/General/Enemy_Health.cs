@@ -19,9 +19,10 @@ public class Enemy_Health : MonoBehaviour
     //enemy speeds
     public static float orc_speed = 0.4f;
     public static float ogre_speed = 0.4f;
-    public static float goblin_speed = 0.9f;
+    public static float goblin_speed = 2f;
     public static float R1_speed = 0.9f;
     public static float R2_speed = 0.9f;
+    public static float R3_speed = 1f;
 
     //enemy attributes and conditions
     public bool deploy = true;
@@ -38,7 +39,7 @@ public class Enemy_Health : MonoBehaviour
     private float ogScaleY;
 
     //enemy feedback when taking dmg
-    private float hitRednessduration = 0.01f;
+    private float hitRednessduration = 0.2f;
     private bool spinUponDeath = true; 
     private float deathDelay = 1f; 
     private float spinDelay = 0.6f; 
@@ -56,6 +57,7 @@ public class Enemy_Health : MonoBehaviour
     private Animator animator;
     private SpriteRenderer render;
     private Rigidbody2D rig;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Awake()
@@ -65,7 +67,7 @@ public class Enemy_Health : MonoBehaviour
         spinUponDeath = true;
 
         animator = transform.GetComponent<Animator>();
-        gameObject.AddComponent<AudioSource>();
+        audioSource = gameObject.AddComponent<AudioSource>();
         render = transform.GetComponent<SpriteRenderer>();
         enemyCollider = transform.GetComponent<PolygonCollider2D>();
         snowball = transform.GetChild(0).gameObject;
@@ -85,8 +87,10 @@ public class Enemy_Health : MonoBehaviour
         if (gameObject.layer == 9) 
             hp = ogre;            
 
-        if (gameObject.layer == 11) 
-            hp = goblin;            
+        if (gameObject.layer == 11) {
+            hp = goblin;         
+            flinchColor = new Color32(215, 39, 39, 255);   
+        }
 
         if (gameObject.layer == 19) {
             hp = reaper_1;
@@ -356,10 +360,8 @@ public class Enemy_Health : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         //hit by a player projectile
-        if (col.gameObject.layer == 25) 
-        {
-
-        }
+        if (col.gameObject.layer == 25)
+            audioSource.PlayOneShot(Manage_Sounds.Instance.enemyHit, Manage_Sounds.soundMultiplier);
     }
 
     void OnCollisionStay2D(Collision2D col)
