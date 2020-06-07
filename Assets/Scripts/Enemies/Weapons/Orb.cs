@@ -4,47 +4,36 @@ using UnityEngine;
 
 public class Orb : MonoBehaviour
 {
-    Vector2 dir;
-    [HideInInspector]
-    public bool switchOrbs = false;
+    private Vector2 dir;
+
+    private AudioSource audioSource;
+    private Rigidbody2D rig;
+    public GameObject tower;
 
     void Start()
     {
-        gameObject.AddComponent<AudioSource>();
-    }
-    // Start is called before the first frame update
-    void Update()
-    {
-        if (switchOrbs == true)
-        {
-            dir = GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;
-            if (gameObject.name == "witch orbs")
-                transform.GetComponent<Rigidbody2D>().velocity = dir.normalized * 5f + new Vector2(0, UnityEngine.Random.Range(-1.5f, 1.5f));
-            else if (gameObject.name == "blue orbs")
-                transform.GetComponent<Rigidbody2D>().velocity = dir.normalized * 5f + new Vector2(0, UnityEngine.Random.Range(0, 4));
-            else
-                Debug.Log("orbs' name was changed. Error in the Orb script");
+        //define components
+        audioSource = transform.GetComponent<AudioSource>();
+        rig = transform.GetComponent<Rigidbody2D>();
 
-            transform.GetComponent<AudioSource>().PlayOneShot(Manage_Sounds.Instance.R1Attack, 0.12f * Manage_Sounds.soundMultiplier);
-            switchOrbs = false;
-        }
+        //set direction and velocity of orb
+        dir = tower.transform.position - transform.position;
+        rig.velocity = dir.normalized * 5f + new Vector2(0, UnityEngine.Random.Range(-1.5f, 1.5f));
+
+        //play cast orb sound effect
+        audioSource.PlayOneShot(Manage_Sounds.Instance.R1Attack, 0.12f * Manage_Sounds.soundMultiplier);
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        //disable orbs that hit the ground
         if (col.gameObject.layer == 22)
             gameObject.SetActive(false);
 
+        //damage the player if they connect (+ audio)
         if (col.gameObject.layer == 10)
         {
-            Transform enemy = transform.parent.transform.GetChild(0);
-
-            if (gameObject.tag == "Witch orb")
-                Health.playerHP -= Mathf.RoundToInt(Health.R3Dmg * enemy.GetComponent<Enemy_Health>().dmgMultiplier);
-
-            if (gameObject.tag == "Reaper orb")
-                Health.playerHP -= Mathf.RoundToInt(Health.R1Dmg * enemy.GetComponent<Enemy_Health>().dmgMultiplier);
-
+            Health.playerHP -= Mathf.RoundToInt(Health.R3Dmg);
             Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 0.4f);
             gameObject.SetActive(false);
         }

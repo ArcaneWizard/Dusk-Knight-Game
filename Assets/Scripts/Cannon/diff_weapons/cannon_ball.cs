@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 public class cannon_ball : MonoBehaviour
 {
-    private float speed = 3000f;
+    public float speed = 3500f;
     public bool oneLaunch = false;
 
     Vector3 bottomLeft, topRight, p;

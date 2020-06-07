@@ -102,11 +102,7 @@ public class Enemy_Health : MonoBehaviour
 
         if (gameObject.layer == 21) {
             hp = reaper_3;
-
-            if (gameObject.GetComponent<Reaper_3>() != null) {
-                Destroy(gameObject.GetComponent<Reaper_3>());
-                gameObject.AddComponent<Reaper_3>();
-            }
+            flinchColor = new Color32(215, 39, 39, 255);   
         }
 
         //reset Enemy values
@@ -117,9 +113,12 @@ public class Enemy_Health : MonoBehaviour
 
         //reset Enemy physical attributes
         transform.localScale = new Vector2(ogScaleX, ogScaleY);
-        rig.gravityScale = 1;
         transform.rotation = Quaternion.Euler(0, 0, 0); 
         render.color = normal;
+
+        //reset gravity for non-flying enemies
+        if (gameObject.layer != 21)        
+            rig.gravityScale = 1;
     }
 
     void Update()

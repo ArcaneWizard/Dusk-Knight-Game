@@ -27,6 +27,7 @@ public class Spawner : MonoBehaviour
     {
         deployEnemy("Orc");
         deployEnemy("Goblin");
+        deployEnemy("R3");
         //deployEnemy("R1");
 
         yield return new WaitForSeconds(reloadTime);        
