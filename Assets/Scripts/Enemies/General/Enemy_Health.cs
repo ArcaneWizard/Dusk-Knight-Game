@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Enemy_Health : MonoBehaviour
 {
-    //[HideInInspector]
+    //[HideInInspector] enemy's current health
     public float hp = 1;
+
+    //Detects whenever enemy health changes
     private float lastHP;
 
     //enemy hps
@@ -38,11 +40,13 @@ public class Enemy_Health : MonoBehaviour
     private float ogScaleX;
     private float ogScaleY;
 
-    //enemy feedback when taking dmg
+    //enemy feedback when taking dmg or dying
     private float hitRednessduration = 0.2f;
     private bool spinUponDeath = true; 
     private float deathDelay = 1f; 
     private float spinDelay = 0.6f; 
+    private float scale = 0.93f;
+    private float rotSpeed = 25f;
 
     //Enemy color overlays
     private Color32 normal = new Color32(255, 255, 255, 255);
@@ -59,13 +63,21 @@ public class Enemy_Health : MonoBehaviour
     private Rigidbody2D rig;
     private AudioSource audioSource;
 
+    //Floating texts which get recycled
+    private List<GameObject> floatingTexts = new List<GameObject>();
+    private int ft_cycleLength;
+    private int ft_currentIndex;
+    private Vector3 textOffset = new Vector3(1f, 0.5f, 0);
+
     // Start is called before the first frame update
     void Awake()
-    {
+    {   
+        //Define initial values to revert back to when respawned
         ogScaleX = transform.localScale.x;
         ogScaleY = transform.localScale.y;
         spinUponDeath = true;
 
+        //Define components that need to be accessed
         animator = transform.GetComponent<Animator>();
         audioSource = gameObject.AddComponent<AudioSource>();
         render = transform.GetComponent<SpriteRenderer>();
@@ -73,6 +85,13 @@ public class Enemy_Health : MonoBehaviour
         snowball = transform.GetChild(0).gameObject;
         rig = transform.GetComponent<Rigidbody2D>();
 
+        //Add floating text child objects to an array
+        foreach (Transform child in transform) 
+        {   if (child.gameObject.tag == "floating text")
+                floatingTexts.Add(child.gameObject);   }
+        ft_cycleLength = floatingTexts.Count;
+
+        //set hp based off enemy type
         setHP();
     }
 
@@ -146,11 +165,12 @@ public class Enemy_Health : MonoBehaviour
             death = true;
             checkDeath();
         }
-        
+ 
         //just took a hit
         if (lastHP != hp)
         {
             lastHP = hp;
+
             if (isPoisoned == false)
                 StartCoroutine(flinch());
         }
@@ -162,7 +182,6 @@ public class Enemy_Health : MonoBehaviour
             render.color = flinchColor;
         }
     }
-
 
     private IEnumerator flinch()
     {
@@ -276,24 +295,25 @@ public class Enemy_Health : MonoBehaviour
         isPoisoned = false;
         isIced = false;
         snowball.SetActive(false);
+
+        //turn off enemy collisions with the outside environment
         enemyCollider.enabled = false;
 
-        //enemy now remains still
+        //render enemy still
         rig.gravityScale = 0;
-        rig.velocity = new Vector2(0, 0);        
-        animator.enabled = true;
-
-        float scale = 0.93f;
-        float rotSpeed = 25f;
-
-        //if spin upon death is wanted 
+        rig.velocity = new Vector2(0, 0);   
+    
+        //if spin upon death is wanted, enemy spins and fades upon death
         if (spinUponDeath == true)
         {
             yield return new WaitForSeconds(spinDelay);
             for (int yo = 17; yo >= 0; yo--)
             {
+                //reduce sprite's alpha value to fade the enemy
                 Color32 c = render.color;
                 render.color = new Color32(c.r, c.g, c.b, (byte)(15 * yo));
+
+                //scale down and rotate the enemy over time
                 transform.localScale *= scale;
                 transform.Rotate(new Vector3(0, 0, rotSpeed));
 
@@ -303,13 +323,18 @@ public class Enemy_Health : MonoBehaviour
         else 
             yield return new WaitForSeconds(deathDelay);
 
-        //Reset all values for the enemy when it next spawns
+        //Reset the iced value for when enemy next spawns
         isIcedWhileIced = isIcedWhileIcedCheck;
 
-        //Individual enemy reset requests
+        //Disable floating texts 
+        foreach(GameObject text in floatingTexts)   
+            text.gameObject.SetActive(false);
+
+        //Disable Reaper 1 rigidbody so it can rise through the ground when it respawns
         if (gameObject.name == "Reaper 1")
             Destroy(rig);
 
+        //Turn off the enemy
         gameObject.SetActive(false);
     }
 
@@ -360,7 +385,32 @@ public class Enemy_Health : MonoBehaviour
     {
         //hit by a player projectile
         if (col.gameObject.layer == 25)
+        {
+            //play hit sound effect
             audioSource.PlayOneShot(Manage_Sounds.Instance.enemyHit, Manage_Sounds.soundMultiplier);
+        }
+    }
+
+    //floating text that pops up above the enemy when hit
+    public void floatText(float dmg) {
+        //enable a floating text
+        GameObject t = floatingTexts[ft_currentIndex];
+        t.gameObject.SetActive(false);
+        t.gameObject.SetActive(true);
+        
+        //make it appear in front of enemies
+        t.transform.GetComponent<MeshRenderer>().sortingLayerName = "Enemies";
+        t.transform.GetComponent<MeshRenderer>().sortingOrder = 100;
+
+        //Add a slight offset to its position for variety
+        t.transform.localPosition += new Vector3(UnityEngine.Random.Range(-textOffset.x,
+         textOffset.x), UnityEngine.Random.Range(0, textOffset.y), 0);
+
+        //show the dmg just dealt by the player
+        t.transform.GetComponent<TextMesh>().text = dmg.ToString();
+
+        //use the next text in the looping list next time
+        ft_currentIndex = ++ft_currentIndex % ft_cycleLength;
     }
 
     void OnCollisionStay2D(Collision2D col)

@@ -6,13 +6,17 @@ using UnityEngine.Rendering;
 
 public class player_bullet : MonoBehaviour
 {
+    //Bullet characteristics or modifiers
     public float speed = 3500f;
     public bool oneLaunch = false;
+    private bool oneEnemyHit, syncRotation;
 
+    //Bounds detection 
     Vector3 bottomLeft, topRight, p;
     float minX, minY, maxX, maxY;
-    private bool inBounds, syncRotation;
+    private bool inBounds;
 
+    //Objects used
     public Camera camera;
     private Rigidbody2D rig;
     
@@ -44,6 +48,7 @@ public class player_bullet : MonoBehaviour
             syncRotation = false;
             Invoke("enableRotation", 0.03f);
             
+            oneEnemyHit = false;
             oneLaunch = true;
         }
         
@@ -61,8 +66,18 @@ public class player_bullet : MonoBehaviour
         //collided with an enemy
         if (col.gameObject.layer == 8 || col.gameObject.layer == 9 || col.gameObject.layer == 11 || col.gameObject.layer == 19 || col.gameObject.layer == 20 || col.gameObject.layer == 21)
         {
-             col.gameObject.transform.GetComponent<Enemy_Health>().hp -= Health.CB;
-             transform.gameObject.SetActive(false);
+            //If multiple enemies are hit, only damage one
+            if (oneEnemyHit == false)
+            {
+                oneEnemyHit = true;
+
+                //turn on floating text popup for enemy hit
+                col.gameObject.transform.GetComponent<Enemy_Health>().floatText(Health.CB);
+
+                //dmg that enemy and then turn off the bullet
+                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= Health.CB;
+                transform.gameObject.SetActive(false);
+            }
         }
 
         //collided with the ground

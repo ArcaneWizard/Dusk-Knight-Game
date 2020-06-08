@@ -4,24 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Witch orb
-  - Reaper orb
-  - Boulder
-  - Canvas
-  - grenade
-  - CB
-  - Ranged Shooter
-  - Potion
-  - Arrow
-  - Buttons
-  - Game buttons
-  - Head
-  - Game UI
-  - Game UI 2
-  - Jewels
-  - Game Over
-  - Head 2
-  - Ice Arrow Cannon
+  - floating text
   layers:
   - Default
   - TransparentFX
