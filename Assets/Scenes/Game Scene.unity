@@ -1704,7 +1704,7 @@ Transform:
   m_GameObject: {fileID: 85459397}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -3.998878, y: 0.4138, z: 4.9316406}
-  m_LocalScale: {x: 1.2000002, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.2}
   m_Children: []
   m_Father: {fileID: 208226859}
   m_RootOrder: 0
@@ -7436,36 +7436,6 @@ PolygonCollider2D:
       - {x: 0.099999994, y: -0.34}
       - {x: 0.13, y: -0.04}
       - {x: 0.24, y: -0.07}
---- !u!1 &141084577
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 141084578}
-  m_Layer: 21
-  m_Name: Spawn orb
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &141084578
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 141084577}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.9, y: 0.9, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1771389081}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &171796218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8791,6 +8761,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darkReaperOrb: {fileID: 0}
   Player: {fileID: 0}
+  darkOrbReload: {x: 0, y: 0}
+  reloadAttack: 0
 --- !u!114 &249361349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14005,7 +13977,7 @@ Transform:
   m_GameObject: {fileID: 271775488}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.624, y: 0.4138, z: 4.9316406}
-  m_LocalScale: {x: 1.2, y: 1.1999999, z: 1.1999999}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.1999999}
   m_Children: []
   m_Father: {fileID: 208226859}
   m_RootOrder: 3
@@ -15272,7 +15244,7 @@ MonoBehaviour:
   aimArrWidth: 1.2
   chargeArrWidth: 0.6
   arrowWidthGrowRate: 0.14
-  minSwipeToShoot: 30
+  minSwipeToShoot: 4
   zOffset: 0
   loaded: 1
   playsound: 0
@@ -15892,7 +15864,7 @@ Transform:
   m_GameObject: {fileID: 381555792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.624, y: 0.4138, z: 4.9316406}
-  m_LocalScale: {x: 1.2, y: 1.1999999, z: 1.1999999}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.1999999}
   m_Children: []
   m_Father: {fileID: 208226859}
   m_RootOrder: 1
@@ -20121,7 +20093,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663575590}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.46, y: -4.45, z: 0}
+  m_LocalPosition: {x: 16.059998, y: -4.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2140773858}
@@ -41940,7 +41912,7 @@ MonoBehaviour:
   aimArrWidth: 1.2
   chargeArrWidth: 0.6
   arrowWidthGrowRate: 0.14
-  minSwipeToShoot: 30
+  minSwipeToShoot: 4
   zOffset: 0
   loaded: 1
   playsound: 0
@@ -42464,7 +42436,7 @@ Transform:
   m_GameObject: {fileID: 1066052886}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.624, y: 0.4138, z: 4.9316406}
-  m_LocalScale: {x: 1.2, y: 1.1999999, z: 1.1999999}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.1999999}
   m_Children: []
   m_Father: {fileID: 208226859}
   m_RootOrder: 5
@@ -43353,6 +43325,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darkReaperOrb: {fileID: 0}
   Player: {fileID: 0}
+  darkOrbReload: {x: 0, y: 0}
+  reloadAttack: 0
 --- !u!114 &1136103065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48632,7 +48606,7 @@ Transform:
   m_GameObject: {fileID: 1156028947}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -14.42, y: 0.4138, z: 4.9316406}
-  m_LocalScale: {x: 1.2, y: 1.1999999, z: 1.1999999}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.1999999}
   m_Children: []
   m_Father: {fileID: 208226859}
   m_RootOrder: 2
@@ -54148,7 +54122,7 @@ Transform:
   m_GameObject: {fileID: 1435408305}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.624, y: 0.4138, z: 4.9316406}
-  m_LocalScale: {x: 1.2000002, y: 1.1999999, z: 1.1999999}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.1999999}
   m_Children: []
   m_Father: {fileID: 208226859}
   m_RootOrder: 4
@@ -54496,8 +54470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eef01b1f7284b54b9f145d7b742f149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: {x: 200, y: 550}
-  jumpVariance: {x: 30, y: 50}
+  jumpForce: {x: 300, y: 650}
+  jumpVariance: {x: 35, y: 100}
   timeTillJump: {x: 4, y: 6}
   blinkDuration: {x: 1.2, y: 4}
   jumpMotionDelay: 0.4
@@ -61078,7 +61052,7 @@ MonoBehaviour:
   aimArrWidth: 1.2
   chargeArrWidth: 0.6
   arrowWidthGrowRate: 0.14
-  minSwipeToShoot: 30
+  minSwipeToShoot: 4
   zOffset: 0
   loaded: 1
   playsound: 0
@@ -64845,7 +64819,6 @@ Transform:
   m_Children:
   - {fileID: 1880524054}
   - {fileID: 1785602035}
-  - {fileID: 141084578}
   m_Father: {fileID: 1607358441}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -64864,6 +64837,8 @@ MonoBehaviour:
   darkReaperOrb: {fileID: 4286296632895947471, guid: d86c0769fc6a5534fbec478a15b68557,
     type: 3}
   Player: {fileID: 1107169722}
+  darkOrbReload: {x: 2.5, y: 5}
+  reloadAttack: 0
 --- !u!114 &1771389083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64903,7 +64878,7 @@ MonoBehaviour:
   player: {fileID: 1107169722}
   camera: {fileID: 519420031}
   speedModifier: 3
-  moveDelay: 1.5
+  moveDelay: 2.2
 --- !u!60 &1771389085
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -70201,7 +70176,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778698492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.5, y: -2.629044, z: 0}
+  m_LocalPosition: {x: 16.1, y: -2.629044, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2140773858}
@@ -74489,7 +74464,7 @@ MonoBehaviour:
   aimArrWidth: 1.2
   chargeArrWidth: 0.6
   arrowWidthGrowRate: 0.14
-  minSwipeToShoot: 30
+  minSwipeToShoot: 4
   zOffset: 0
   loaded: 1
   playsound: 0
@@ -75761,7 +75736,7 @@ MonoBehaviour:
   aimArrWidth: 1.2
   chargeArrWidth: 0.6
   arrowWidthGrowRate: 0.14
-  minSwipeToShoot: 30
+  minSwipeToShoot: 4
   zOffset: 0
   loaded: 1
   playsound: 0

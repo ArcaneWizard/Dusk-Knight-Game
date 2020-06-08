@@ -9,6 +9,7 @@ public class Reaper_3 : MonoBehaviour
     private Rigidbody2D rig;
     private AudioSource audioSource;
     private Enemy_Health enemy_Health;
+    private WeaponsCycle weaponsCycle;
 
     public GameObject player;
     public Camera camera;
@@ -30,6 +31,7 @@ public class Reaper_3 : MonoBehaviour
         rig = transform.GetComponent<Rigidbody2D>();  
         audioSource = transform.GetComponent<AudioSource>();
         enemy_Health = transform.GetComponent<Enemy_Health>();
+        weaponsCycle = transform.GetComponent<WeaponsCycle>();
 
         speed = Enemy_Health.R3_speed;  
 
@@ -40,18 +42,20 @@ public class Reaper_3 : MonoBehaviour
         minX = bottomLeft.x + 1;
         minY = bottomLeft.y + 1;
         maxX = topRight.x - 1;
-        maxY = topRight.y - 1;
+        maxY = topRight.y - 1.35f;
     }
 
     void Update()
     {
         //Reset enemy settings and start enemy movement
-        if (transform.GetComponent<Enemy_Health>().deploy == true)
+        if (enemy_Health.deploy == true)
         {
-            transform.GetComponent<Enemy_Health>().deploy = false;
-            animator.SetBool("Dead", false);
-            rig.gravityScale = 0;    
+            enemy_Health.deploy = false;
+            rig.gravityScale = 0;
+            weaponsCycle.reloadAttack = false;
             waiting = false;
+
+            animator.SetBool("Dead", false);
         }
 
         //Orient the Dark Reaper in the correct direction 

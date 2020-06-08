@@ -5,10 +5,15 @@ using UnityEngine;
 public class Orb : MonoBehaviour
 {
     private Vector2 dir;
+    private float randomX;
+    private float randomY;
 
     private AudioSource audioSource;
     private Rigidbody2D rig;
+
     public GameObject tower;
+    public float speed = 5f;
+    public float variance = 2f;
 
     void Start()
     {
@@ -18,7 +23,16 @@ public class Orb : MonoBehaviour
 
         //set direction and velocity of orb
         dir = tower.transform.position - transform.position;
-        rig.velocity = dir.normalized * 5f + new Vector2(0, UnityEngine.Random.Range(-1.5f, 1.5f));
+        dir = new Vector2(dir.x / 1.4f, 0);
+
+        //add randomness to the direction, with a bias towards undershooting
+        randomX = Random.Range(-2.5f * variance, 2 * variance) / 3f;
+        if (randomX >= -1.7f && randomX <= -0.83f)
+        {
+            randomX = Random.Range(-2.5f * variance, 0) / 3f;
+        }
+        randomY = Random.Range(-variance, variance) / 3f;        
+        rig.velocity = dir * speed + new Vector2(dir.x * randomX, dir.y * randomY);
 
         //play cast orb sound effect
         audioSource.PlayOneShot(Manage_Sounds.Instance.R1Attack, 0.12f * Manage_Sounds.soundMultiplier);

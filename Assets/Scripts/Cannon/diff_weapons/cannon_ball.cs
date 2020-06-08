@@ -14,6 +14,7 @@ public class cannon_ball : MonoBehaviour
     bool inBounds;
 
     public Camera camera;
+    private Rigidbody2D rig;
     
     void Start() {
        //Get bounds of the screen for any screen size
@@ -24,18 +25,21 @@ public class cannon_ball : MonoBehaviour
         minY = bottomLeft.y - 1;
         maxX = topRight.x + 1;
         maxY = topRight.y + 1;
+
+        //Define components
+        rig = transform.GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
         p = transform.position;
-        inBounds = p.x > minX && p.y > minY && p.x < maxX && p.y < maxY;
+        inBounds = p.x > minX && p.y > minY && p.x < maxX;
         
         //Launch the bullet in the direction it was aimed 
         if (oneLaunch == false)
         {
-            transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            transform.GetComponent<Rigidbody2D>().AddForce(transform.up * speed * shooting.touchPercent);
+            rig.velocity = new Vector2(0, 0);
+            rig.AddForce(transform.up * speed * shooting.touchPercent);
             oneLaunch = true;
         }
         

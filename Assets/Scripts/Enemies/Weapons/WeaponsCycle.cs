@@ -10,9 +10,11 @@ public class WeaponsCycle : MonoBehaviour
 
     public GameObject darkReaperOrb;
     public GameObject Player;
+
+    public Vector2 darkOrbReload;
     
     private float progress;
-    private bool attacked = false;
+    public bool reloadAttack = false;
 
     void Start()
     {
@@ -22,25 +24,38 @@ public class WeaponsCycle : MonoBehaviour
     void Update()
     {   
         //Dark reaper casts orbs 
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Reaper 3 Throwing"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Reaper 3 floating"))
         {
             //Shoot once per animation cycle
             progress = anim.GetCurrentAnimatorStateInfo(0).normalizedTime % 1;
-            if (progress >= 0.45f && progress <= 0.55f && attacked == false)
+            if (progress >= 0.45f && progress <= 0.55f && reloadAttack == false)
             {
-                attacked = true;
-
-                //Create bullet and specify target
-                bullet = Instantiate(darkReaperOrb, transform.position, Quaternion.identity);       
-                bullet.transform.GetComponent<Orb>().tower = Player;
-                StartCoroutine(resetAttack());
+                reloadAttack = true;
+                StartCoroutine(darkOrbAttack());
+                StartCoroutine(resetAttack());  
             }
         }
     }
 
+    //wait till next shot
     private IEnumerator resetAttack()
     {
-        yield return new WaitForSeconds(0.4f);
-        attacked = false;
+        float reload = UnityEngine.Random.Range(darkOrbReload.x, darkOrbReload.y);
+        yield return new WaitForSeconds(reload);
+        reloadAttack = false;
+    }
+
+    //sync darkOrb animation and shot
+    private IEnumerator darkOrbAttack() {
+
+        //start cast orb animation
+        anim.SetBool("Attack", true);
+        yield return new WaitForSeconds(0.3f);
+        anim.SetBool("Attack", false);
+
+        //Create bullet and specify target
+        bullet = Instantiate(darkReaperOrb, transform.position, Quaternion.identity);
+        bullet.transform.GetComponent<Orb>().tower = Player;
+        
     }
 }
