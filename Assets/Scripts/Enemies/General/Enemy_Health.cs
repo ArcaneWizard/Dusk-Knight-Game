@@ -68,6 +68,8 @@ public class Enemy_Health : MonoBehaviour
     private int ft_cycleLength;
     private int ft_currentIndex;
     private Vector3 textOffset = new Vector3(1f, 0.5f, 0);
+    private bool respawnDelay;
+    private float resetTimer;
 
     // Start is called before the first frame update
     void Awake()
@@ -142,6 +144,8 @@ public class Enemy_Health : MonoBehaviour
 
     void Update()
     {
+        print(respawnDelay);
+
         //poisoned
         if (poison == true && isPoisoned == false)
         {
@@ -181,6 +185,10 @@ public class Enemy_Health : MonoBehaviour
             lowHP = true;
             render.color = flinchColor;
         }
+
+        //floating popup in-between delay counting down
+        if (resetTimer > 0)
+            resetTimer -= Time.deltaTime;
     }
 
     private IEnumerator flinch()
@@ -392,8 +400,9 @@ public class Enemy_Health : MonoBehaviour
     }
 
     //floating text that pops up above the enemy when hit
-    public void floatText(float dmg) {
-        //enable a floating text
+    public void floatText(string display, Color32 color) {
+
+        //enable floating text popup
         GameObject t = floatingTexts[ft_currentIndex];
         t.gameObject.SetActive(false);
         t.gameObject.SetActive(true);
@@ -406,10 +415,13 @@ public class Enemy_Health : MonoBehaviour
         t.transform.localPosition += new Vector3(UnityEngine.Random.Range(-textOffset.x,
          textOffset.x), UnityEngine.Random.Range(0, textOffset.y), 0);
 
-        //show the dmg just dealt by the player
-        t.transform.GetComponent<TextMesh>().text = dmg.ToString();
+        //show the dmg or trickshot just dealt by the player
+        t.transform.GetComponent<TextMesh>().text = display;
 
-        //use the next text in the looping list next time
+        //adjust the floating text's color
+        t.transform.GetComponent<TextMesh>().color = color;
+
+        //recycle the next text in the list next time
         ft_currentIndex = ++ft_currentIndex % ft_cycleLength;
     }
 
