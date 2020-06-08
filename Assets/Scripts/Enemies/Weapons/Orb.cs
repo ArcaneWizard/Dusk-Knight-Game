@@ -10,6 +10,7 @@ public class Orb : MonoBehaviour
 
     private AudioSource audioSource;
     private Rigidbody2D rig;
+    public float volume;
 
     public GameObject tower;
     public float speed = 5f;
@@ -35,7 +36,7 @@ public class Orb : MonoBehaviour
         rig.velocity = dir * speed + new Vector2(dir.x * randomX, dir.y * randomY);
 
         //play cast orb sound effect
-        audioSource.PlayOneShot(Manage_Sounds.Instance.R1Attack, 0.12f * Manage_Sounds.soundMultiplier);
+        audioSource.PlayOneShot(Manage_Sounds.Instance.R1Attack, volume * Manage_Sounds.soundMultiplier);
     }
 
     void OnCollisionEnter2D(Collision2D col)

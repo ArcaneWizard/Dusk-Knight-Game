@@ -46,7 +46,6 @@ public class Select_Weapon : MonoBehaviour
     {
         unselectEverything();
         ballista.gameObject.SetActive(true);
-        ballista.transform.GetComponent<shooting>().loaded = false;
     }
 
     public void selectFlame()

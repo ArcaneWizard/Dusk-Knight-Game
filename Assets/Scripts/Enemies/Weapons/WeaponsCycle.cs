@@ -32,15 +32,15 @@ public class WeaponsCycle : MonoBehaviour
             {
                 reloadAttack = true;
                 StartCoroutine(darkOrbAttack());
-                StartCoroutine(resetAttack());  
+                StartCoroutine(resetAttack(darkOrbReload));  
             }
         }
     }
 
     //wait till next shot
-    private IEnumerator resetAttack()
+    private IEnumerator resetAttack(Vector2 range)
     {
-        float reload = UnityEngine.Random.Range(darkOrbReload.x, darkOrbReload.y);
+        float reload = UnityEngine.Random.Range(range.x, range.y);
         yield return new WaitForSeconds(reload);
         reloadAttack = false;
     }
@@ -55,7 +55,6 @@ public class WeaponsCycle : MonoBehaviour
 
         //Create bullet and specify target
         bullet = Instantiate(darkReaperOrb, transform.position, Quaternion.identity);
-        bullet.transform.GetComponent<Orb>().tower = Player;
-        
+        bullet.transform.GetComponent<Orb>().tower = Player;        
     }
 }
