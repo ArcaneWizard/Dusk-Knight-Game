@@ -76,12 +76,12 @@ public class player_bullet : MonoBehaviour
                 e.floatText(Health.CB.ToString(), Color.white);
 
                 //show any headshots in a text popup 
-                if (transform.eulerAngles.z > 180f && transform.eulerAngles.z < 204f)
-                    StartCoroutine(headshot(e));
+                if (transform.eulerAngles.z > 180f && transform.eulerAngles.z < 220f)
+                    e.floatText("Headshot", new Color32(194, 175, 248, 255));
 
                 //dmg that enemy and then turn off the bullet
                 col.gameObject.transform.GetComponent<Enemy_Health>().hp -= Health.CB;
-                //transform.gameObject.SetActive(false);
+                transform.gameObject.SetActive(false);
             }
         }
 
@@ -92,11 +92,5 @@ public class player_bullet : MonoBehaviour
 
     private void enableRotation() {        
         syncRotation = true;
-    }
-
-    private IEnumerator headshot(Enemy_Health e)
-    {
-        yield return new WaitForSeconds(0.1f);
-        e.floatText("Headshot", new Color32(255, 235, 85, 255));
     }
 }

@@ -228,4 +228,9 @@ public class Spawner : MonoBehaviour
             group.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingOrder = i - 1 + layerOffset;
         }
     }
+
+    void Update() {
+        //print the frame rate in the console
+        Debug.Log(1/Time.deltaTime);
+    }
 }

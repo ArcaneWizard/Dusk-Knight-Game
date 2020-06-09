@@ -56,6 +56,7 @@ public class Enemy_Health : MonoBehaviour
     public Shop shop;
     public GameObject player;
     public Manage_Sounds manage_Sounds;
+    private GameObject floating_Texts;
     private PolygonCollider2D enemyCollider;
     private GameObject snowball;
     private Animator animator;
@@ -67,7 +68,7 @@ public class Enemy_Health : MonoBehaviour
     private List<GameObject> floatingTexts = new List<GameObject>();
     private int ft_cycleLength;
     private int ft_currentIndex;
-    private Vector3 textOffset = new Vector3(1f, 0.5f, 0);
+    private Vector3 textOffset = new Vector3(1f, 0.3f, 0);
     private bool respawnDelay;
     private float resetTimer;
 
@@ -85,12 +86,12 @@ public class Enemy_Health : MonoBehaviour
         render = transform.GetComponent<SpriteRenderer>();
         enemyCollider = transform.GetComponent<PolygonCollider2D>();
         snowball = transform.GetChild(0).gameObject;
+        floating_Texts = transform.GetChild(1).gameObject;
         rig = transform.GetComponent<Rigidbody2D>();
 
         //Add floating text child objects to an array
-        foreach (Transform child in transform) 
-        {   if (child.gameObject.tag == "floating text")
-                floatingTexts.Add(child.gameObject);   }
+        foreach (Transform child in floating_Texts.transform) 
+        {  floatingTexts.Add(child.gameObject);   }
         ft_cycleLength = floatingTexts.Count;
 
         //set hp based off enemy type
@@ -144,8 +145,6 @@ public class Enemy_Health : MonoBehaviour
 
     void Update()
     {
-        print(respawnDelay);
-
         //poisoned
         if (poison == true && isPoisoned == false)
         {
@@ -407,6 +406,9 @@ public class Enemy_Health : MonoBehaviour
         t.gameObject.SetActive(false);
         t.gameObject.SetActive(true);
         
+        //always spawn it at the same starting position 
+        t.transform.localPosition = new Vector3(-0.25f, 2.44f, 0f);
+
         //make it appear in front of enemies
         t.transform.GetComponent<MeshRenderer>().sortingLayerName = "Enemies";
         t.transform.GetComponent<MeshRenderer>().sortingOrder = 100;
@@ -414,6 +416,10 @@ public class Enemy_Health : MonoBehaviour
         //Add a slight offset to its position for variety
         t.transform.localPosition += new Vector3(UnityEngine.Random.Range(-textOffset.x,
          textOffset.x), UnityEngine.Random.Range(0, textOffset.y), 0);
+
+        //Special popups appear above dmg text
+        if (display == "Headshot")
+        t.transform.localPosition += new Vector3(0, UnityEngine.Random.Range(1f, 2.2f), 0);
 
         //show the dmg or trickshot just dealt by the player
         t.transform.GetComponent<TextMesh>().text = display;
