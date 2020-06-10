@@ -7,15 +7,19 @@ public class Reaper_1 : MonoBehaviour
 {
     Animator animator;
     Rigidbody2D rig;
-    private float speed = 1.8f;
+    private float speed;
     private bool counter = false;
     private bool once = false;
+    private CircleCollider2D blastradius;
+    public GameObject Spawn;
+    public GameObject Explode;
 
     void Start()
     {
+        animator = transform.GetComponent<Animator>();
         gameObject.AddComponent<AudioSource>();
-        if (transform.GetComponent<Rigidbody2D>() != null)
-            Destroy(transform.GetComponent<Rigidbody2D>());
+        blastradius = transform.GetComponent<CircleCollider2D>();
+        
     }
 
     private IEnumerator attack()
@@ -47,9 +51,10 @@ public class Reaper_1 : MonoBehaviour
         if (transform.GetComponent<Enemy_Health>().deploy == true)
         {
             counter = false;
-            animator = transform.GetComponent<Animator>();
-            animator.SetBool("BlowUp", false);
-            animator.SetBool("Spawn", true);
+            animator.SetBool("Dead", false);
+            transform.GetComponent<SpriteRenderer>().enabled = false;
+            Explode.SetActive(false);
+            blastradius.enabled = false;
 
             speed = Enemy_Health.R1_speed;
             once = false;
@@ -65,7 +70,7 @@ public class Reaper_1 : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
 
-            StartCoroutine(activate(speed));
+            StartCoroutine(activate(speed, rig));
 
 
             transform.GetComponent<Enemy_Health>().deploy = false;
@@ -75,48 +80,52 @@ public class Reaper_1 : MonoBehaviour
 
         }
 
-
-        /*if (animator.GetBool("Attack") == false && counter == true)
-        {
-            animator.SetBool("Attack", true);
-            rig.velocity = new Vector2(0, 0);
-        }
-
-        if (rig.velocity.x == speed && counter == true)
-        {
-            animator.SetBool("Attack", true);
-            rig.velocity = new Vector2(0, 0);
-        }*/
     }
 
-    private IEnumerator activate(float speed)
+    private IEnumerator activate(float speed, Rigidbody2D rig)
     {
         transform.GetComponent<PolygonCollider2D>().enabled = false;
-        transform.localScale = new Vector3(3, 3, 1);
+        Spawn.GetComponent<Animator>().enabled = true;
+        Spawn.SetActive(true);
 
-        yield return new WaitForSeconds(0.27f);
+        yield return new WaitForSeconds(0.4f);
 
-        transform.localScale = new Vector3(0.36f, 0.36f, 1);
-        animator.SetBool("Spawn", false);
-        rig = transform.GetComponent<Rigidbody2D>();
+        Spawn.GetComponent<Animator>().enabled = false;
+        Spawn.SetActive(false);
+        transform.GetComponent<SpriteRenderer>().enabled = true;
         transform.GetComponent<PolygonCollider2D>().enabled = true;
         rig.velocity = new Vector2(speed, 0);
     }
 
     private IEnumerator death()
     {
-        yield return new WaitForSeconds(0.27f);
-
+        yield return new WaitForSeconds(0.06f);
+        transform.GetComponent<SpriteRenderer>().enabled = false;
+        Explode.GetComponent<Animator>().enabled = true;
+        Explode.SetActive(true);
+        yield return new WaitForSeconds(0.22f);
+        Explode.SetActive(false);
+        Explode.GetComponent<Animator>().enabled = false;
         transform.GetComponent<Enemy_Health>().hp = 0;
+        yield return new WaitForSeconds(0.2f);
+        transform.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Range activation"))
+        if (col.gameObject.layer == 17 && !blastradius.enabled)
         {
             animator.SetBool("Dead", true);
-            transform.localScale = new Vector3(3, 3, 1);
+            transform.GetComponent<PolygonCollider2D>().enabled = false;
+
+            blastradius.enabled = true;
             rig.velocity = new Vector2(0, 0);
+            StartCoroutine(death());
+        }
+
+        else if(col.gameObject.layer == 17 && blastradius.enabled)
+        {
+
         }
 
     }

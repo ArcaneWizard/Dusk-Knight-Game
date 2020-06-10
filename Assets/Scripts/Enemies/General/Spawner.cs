@@ -98,7 +98,7 @@ public class Spawner : MonoBehaviour
     {
         int r = UnityEngine.Random.Range(0, 6);
         if (r == 0)
-            deployEnemy("R3");
+            deployEnemy("R1");
         if (r == 1)
             deployEnemy("R3");
         if (r == 2)

@@ -296,6 +296,9 @@ public class Enemy_Health : MonoBehaviour
     //enemy fade animation
     private IEnumerator fade()
     {
+        if (gameObject.layer == 19)
+            gameObject.SetActive(false);
+
         yield return new WaitForSeconds(0.1f);
         
         //Un-ice and unpoison enemy b4 it fades away
@@ -337,9 +340,6 @@ public class Enemy_Health : MonoBehaviour
         foreach(GameObject text in floatingTexts)   
             text.gameObject.SetActive(false);
 
-        //Disable Reaper 1 rigidbody so it can rise through the ground when it respawns
-        if (gameObject.name == "Reaper 1")
-            Destroy(rig);
 
         //Turn off the enemy
         gameObject.SetActive(false);
