@@ -24,7 +24,7 @@ public class Health : MonoBehaviour
     public static int GobDmg = 20;
     public static int R2Dmg = 25;
     public static int R3Dmg = 8;
-    public static int R1Dmg = 10;
+    public static int R1Dmg = 35;
     public static int OgreDmg = 12;
 
     public static int arrow = 40;

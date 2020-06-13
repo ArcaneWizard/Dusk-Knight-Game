@@ -119,13 +119,16 @@ public class Reaper_1 : MonoBehaviour
             transform.GetComponent<PolygonCollider2D>().enabled = false;
 
             blastradius.enabled = true;
-            rig.velocity = new Vector2(0, 0);
             StartCoroutine(death());
         }
 
         else if(col.gameObject.layer == 17 && blastradius.enabled)
         {
-
+            if (!once)
+            {
+                Health.playerHP -= Health.R1Dmg;
+                once = true;
+            }
         }
 
     }

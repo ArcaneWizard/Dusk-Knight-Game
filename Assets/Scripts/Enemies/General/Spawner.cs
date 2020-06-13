@@ -128,10 +128,8 @@ public class Spawner : MonoBehaviour
         //choose reaper 1 spawn point differently 
         if (enemyName == "R1")
         {
-            if (r == 0)
-                deployPos = GRSpawn.position;
-            else
-                deployPos = GLSpawn.position;  
+            float b = UnityEngine.Random.Range(GRSpawn.position.x, GLSpawn.position.x);
+            deployPos = new Vector3(b, GLSpawn.position.y, GLSpawn.position.z);
         }
 
         //spawn enemy
