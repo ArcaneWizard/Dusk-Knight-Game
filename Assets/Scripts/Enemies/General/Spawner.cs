@@ -229,6 +229,6 @@ public class Spawner : MonoBehaviour
 
     void Update() {
         //print the frame rate in the console
-        Debug.Log(1/Time.deltaTime);
+        //Debug.Log(1/Time.deltaTime);
     }
 }

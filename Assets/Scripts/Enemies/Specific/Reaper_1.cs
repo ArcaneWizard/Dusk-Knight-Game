@@ -46,6 +46,8 @@ public class Reaper_1 : MonoBehaviour
 
     void Update()
     {
+        //Debug.Log(transform.gameObject.GetComponent<Enemy_Health>().hp);
+
         rig = transform.GetComponent<Rigidbody2D>();
 
         if (transform.GetComponent<Enemy_Health>().deploy == true)
