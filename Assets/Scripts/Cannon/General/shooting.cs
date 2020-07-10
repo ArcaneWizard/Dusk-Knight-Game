@@ -40,7 +40,6 @@ public class shooting : MonoBehaviour
     [Header("Objects")]
     public Transform muzzle;
     public Camera camera;
-    public Select_Weapon select_Weapon;
     public GameObject weaponAnchor;
     public GameObject arrowAnchor;
     private AudioSource audioSource;
@@ -182,11 +181,8 @@ public class shooting : MonoBehaviour
     private IEnumerator checkForWeaponChangeOrFire(float rot, Vector3 touchPosition)
     {
         yield return new WaitForSeconds(0.01f);
-        if (select_Weapon.weaponChange == false)
-        {
-            changeRotation(rot, touchPosition);
-            Fire(rot);
-        }
+        changeRotation(rot, touchPosition);
+        Fire(rot);
     }
 
     //Set cannon rotation

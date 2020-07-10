@@ -7,19 +7,17 @@ public class Reaper_1 : MonoBehaviour
 {
     Animator animator;
     Rigidbody2D rig;
-    private float speed;
+    
+    private float speed = 1.2f;
     private bool counter = false;
-    private bool once = false;
-    private CircleCollider2D blastradius;
-    public GameObject Spawn;
-    public GameObject Explode;
+    private bool rising = true;
+    public float upspeed;
 
     void Start()
     {
-        animator = transform.GetComponent<Animator>();
         gameObject.AddComponent<AudioSource>();
-        blastradius = transform.GetComponent<CircleCollider2D>();
-        
+        if (transform.GetComponent<Rigidbody2D>() != null)
+            Destroy(transform.GetComponent<Rigidbody2D>());
     }
 
     private IEnumerator attack()
@@ -46,20 +44,17 @@ public class Reaper_1 : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log(transform.gameObject.GetComponent<Enemy_Health>().hp);
-
         rig = transform.GetComponent<Rigidbody2D>();
 
         if (transform.GetComponent<Enemy_Health>().deploy == true)
         {
             counter = false;
+            animator = transform.GetComponent<Animator>();
+            animator.SetBool("Attack", false);
             animator.SetBool("Dead", false);
-            transform.GetComponent<SpriteRenderer>().enabled = false;
-            Explode.SetActive(false);
-            blastradius.enabled = false;
 
             speed = Enemy_Health.R1_speed;
-            once = false;
+
             if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
             {
                 speed = -Mathf.Abs(speed);
@@ -72,66 +67,54 @@ public class Reaper_1 : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
 
-            StartCoroutine(activate(speed, rig));
+            StartCoroutine(activate(speed));
 
 
             transform.GetComponent<Enemy_Health>().deploy = false;
         }
 
-        if(transform.GetComponent<Enemy_Health>().hp < 0){
-
+        if (rising)
+        {
+            transform.position = transform.position + new Vector3(0, upspeed * Time.deltaTime, 0);
         }
 
+        /*if (animator.GetBool("Attack") == false && counter == true)
+        {
+            animator.SetBool("Attack", true);
+            rig.velocity = new Vector2(0, 0);
+        }
+
+        if (rig.velocity.x == speed && counter == true)
+        {
+            animator.SetBool("Attack", true);
+            rig.velocity = new Vector2(0, 0);
+        }*/
     }
 
-    private IEnumerator activate(float speed, Rigidbody2D rig)
+    private IEnumerator activate(float speed)
     {
         transform.GetComponent<PolygonCollider2D>().enabled = false;
-        Spawn.GetComponent<Animator>().enabled = true;
-        Spawn.SetActive(true);
+        Destroy(transform.GetComponent<Rigidbody2D>());
+        rising = true;
 
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.5f);
 
-        Spawn.GetComponent<Animator>().enabled = false;
-        Spawn.SetActive(false);
-        transform.GetComponent<SpriteRenderer>().enabled = true;
+        rising = false;
+        transform.gameObject.AddComponent<Rigidbody2D>();
+        rig = transform.GetComponent<Rigidbody2D>();
+        transform.GetComponent<Rigidbody2D>().freezeRotation = true;
+        transform.GetComponent<Rigidbody2D>().gravityScale = 1;
         transform.GetComponent<PolygonCollider2D>().enabled = true;
         rig.velocity = new Vector2(speed, 0);
     }
 
-    private IEnumerator death()
-    {
-        yield return new WaitForSeconds(0.06f);
-        transform.GetComponent<SpriteRenderer>().enabled = false;
-        Explode.GetComponent<Animator>().enabled = true;
-        Explode.SetActive(true);
-        yield return new WaitForSeconds(0.22f);
-        Explode.SetActive(false);
-        Explode.GetComponent<Animator>().enabled = false;
-        transform.GetComponent<Enemy_Health>().hp = 0;
-        yield return new WaitForSeconds(0.2f);
-        transform.GetComponent<SpriteRenderer>().enabled = true;
-    }
-
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.layer == 17 && !blastradius.enabled)
+        if (col.gameObject.layer == LayerMask.NameToLayer("Range activation"))
         {
-            animator.SetBool("Dead", true);
-            transform.GetComponent<PolygonCollider2D>().enabled = false;
-
-            blastradius.enabled = true;
-            StartCoroutine(death());
+            animator.SetBool("Attack", true);
+            rig.velocity = new Vector2(0, 0);
+            counter = true;
         }
-
-        else if(col.gameObject.layer == 17 && blastradius.enabled)
-        {
-            if (!once)
-            {
-                Health.playerHP -= Health.R1Dmg;
-                once = true;
-            }
-        }
-
     }
 }

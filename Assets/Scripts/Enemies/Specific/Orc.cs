@@ -110,7 +110,6 @@ public class Orc : MonoBehaviour
             //Play sound and do dmg during the attack animation 
             yield return new WaitForSeconds(0.22f);
             audioSource.PlayOneShot(clobber, clobberVolume * Manage_Sounds.soundMultiplier);
-            Health.playerHP -= Health.OrcDmg;
             yield return new WaitForSeconds(0.65f);
 
             //Start blinking for 1.2 to 4 seconds

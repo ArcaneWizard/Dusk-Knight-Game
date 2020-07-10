@@ -27,7 +27,6 @@ public class Shop : MonoBehaviour
     public Text jewelText;
     public Image tower;
     public Image CB_Image;
-    public Health health;
     public GameObject Buttons;
 
     // Start is called before the first frame update
@@ -359,7 +358,6 @@ public class Shop : MonoBehaviour
         chooseWeapon("Health Boost", 400, "Regain 50% of your tower's health through a mystical, life-giving heart.");
         EventSystem.current.currentSelectedGameObject.transform.GetComponent<Image>().color = new Color32(101, 186, 233, 255);
         PlayerPrefs.SetString("Weapon", "HpBoost");
-        health.hpBoost = true;
     }
     public void Tower()
     {        

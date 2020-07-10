@@ -22,6 +22,9 @@ public class Spawner : MonoBehaviour
 
     [Space(10)]
     [Header("Spawn points")]
+    public Transform ESpawn;
+    public Transform R3UpSpawn;
+    public Transform R3DownSpawn;
     public Transform GRSpawn;
     public Transform GLSpawn;
 
@@ -98,7 +101,7 @@ public class Spawner : MonoBehaviour
     {
         int r = UnityEngine.Random.Range(0, 6);
         if (r == 0)
-            deployEnemy("R1");
+            deployEnemy("R3");
         if (r == 1)
             deployEnemy("R3");
         if (r == 2)
@@ -118,18 +121,19 @@ public class Spawner : MonoBehaviour
         GameObject enemy = findEnemy(enemyName);
         Vector3 deployPos;
 
-        //choose enemy spawn point randomly
-        int r = UnityEngine.Random.Range(0, 2);
-        if (r == 0)
-            deployPos = GameObject.Find("BL Spawn Point").transform.position;
-        else
-            deployPos = GameObject.Find("BR Spawn Point").transform.position;
+        //set enemy spawn point 
+        deployPos = ESpawn.transform.position;
 
-        //choose reaper 1 spawn point differently 
-        if (enemyName == "R1")
-        {
-            float b = UnityEngine.Random.Range(GRSpawn.position.x, GLSpawn.position.x);
-            deployPos = new Vector3(b, GLSpawn.position.y, GLSpawn.position.z);
+        //choose burying reaper spawn point differently 
+        if (enemyName == "R1") {
+            int r = Random.Range(0, 2);
+            deployPos = r == 0 ? GRSpawn.transform.position : GLSpawn.transform.position;  
+        }
+
+        //choose flying reaper spawn point differently
+        if (enemyName == "R3") {
+            deployPos = new Vector3(R3UpSpawn.transform.position.x, 
+            Random.Range(R3DownSpawn.transform.position.y, R3UpSpawn.transform.position.y), 0);
         }
 
         //spawn enemy
@@ -138,8 +142,8 @@ public class Spawner : MonoBehaviour
 
         //reset enemy settings
         if (enemy.transform.GetComponent<Enemy_Health>() != null) {
-            enemy.transform.GetComponent<Enemy_Health>().deploy = true;
             enemy.transform.GetComponent<Enemy_Health>().setHP();
+            enemy.transform.GetComponent<Enemy_Health>().deploy = true;
         }     
     }
 

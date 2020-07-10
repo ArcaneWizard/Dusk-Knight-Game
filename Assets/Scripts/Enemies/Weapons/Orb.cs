@@ -48,7 +48,6 @@ public class Orb : MonoBehaviour
         //damage the player if they connect (+ audio)
         if (col.gameObject.layer == 10)
         {
-            Health.playerHP -= Mathf.RoundToInt(Health.R3Dmg);
             Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 0.4f);
             gameObject.SetActive(false);
         }

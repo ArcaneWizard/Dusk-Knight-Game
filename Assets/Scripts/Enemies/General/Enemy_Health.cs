@@ -137,10 +137,6 @@ public class Enemy_Health : MonoBehaviour
         transform.localScale = new Vector2(ogScaleX, ogScaleY);
         transform.rotation = Quaternion.Euler(0, 0, 0); 
         render.color = normal;
-
-        //reset gravity for non-flying enemies
-        if (gameObject.layer != 21)        
-            rig.gravityScale = 1;
     }
 
     void Update()

@@ -73,14 +73,14 @@ public class player_bullet : MonoBehaviour
 
                 //show the dmg recieved in a text popup
                 Enemy_Health e = col.gameObject.transform.GetComponent<Enemy_Health>();
-                e.floatText(Health.CB.ToString(), Color.white);
+                e.floatText("40".ToString(), Color.white);
 
                 //show any headshots in a text popup 
                 if (transform.eulerAngles.z > 180f && transform.eulerAngles.z < 220f)
-                    e.floatText("Headshot", new Color32(194, 175, 248, 255));
+                    e.floatText("Headshot", new Color32(28, 75, 123, 255));
 
                 //dmg that enemy and then turn off the bullet
-                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= Health.CB;
+                col.gameObject.transform.GetComponent<Enemy_Health>().hp -= 40;
                 transform.gameObject.SetActive(false);
             }
         }

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - floating text
+  - Game UI 2
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Cannon
   - Goblin
   - cannon
-  - 
+  - arrow
   - 
   - particle
   - 
