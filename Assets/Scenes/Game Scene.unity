@@ -1028,7 +1028,7 @@ GameObject:
   m_Component:
   - component: {fileID: 208226859}
   m_Layer: 0
-  m_Name: Cannon Ball
+  m_Name: Cannon Balls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13052,7 +13052,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1723250123}
   m_Layer: 0
-  m_Name: Grenade
+  m_Name: Arrows
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15803,7 +15803,7 @@ GameObject:
   - component: {fileID: 580662099}
   - component: {fileID: 1975752141}
   m_Layer: 25
-  m_Name: grenades (2)
+  m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15823,7 +15823,7 @@ GameObject:
   - component: {fileID: 431413851}
   - component: {fileID: 1510369544}
   m_Layer: 25
-  m_Name: grenades (1)
+  m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15843,7 +15843,7 @@ GameObject:
   - component: {fileID: 507789603}
   - component: {fileID: 1697479416}
   m_Layer: 25
-  m_Name: grenades (5)
+  m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15863,7 +15863,7 @@ GameObject:
   - component: {fileID: 284830551}
   - component: {fileID: 993435234}
   m_Layer: 25
-  m_Name: grenades (4)
+  m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15883,7 +15883,7 @@ GameObject:
   - component: {fileID: 280888093}
   - component: {fileID: 125086804}
   m_Layer: 25
-  m_Name: grenades
+  m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15903,7 +15903,7 @@ GameObject:
   - component: {fileID: 2146852049}
   - component: {fileID: 1374837631}
   m_Layer: 25
-  m_Name: grenades (3)
+  m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16538,7 +16538,7 @@ GameObject:
   - component: {fileID: 8910484611126771771}
   - component: {fileID: 8910484611126771772}
   m_Layer: 14
-  m_Name: Ground Collider
+  m_Name: Ground v1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

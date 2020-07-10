@@ -18,7 +18,10 @@ public class player_bullet : MonoBehaviour
 
     //Objects used
     public Camera camera;
+
     private Rigidbody2D rig;
+    private SpriteRenderer renderer;
+    private PolygonCollider2D collider;
     
     void Start() {
        //Get bounds of the screen for any screen size
@@ -32,6 +35,8 @@ public class player_bullet : MonoBehaviour
 
         //Define components
         rig = transform.GetComponent<Rigidbody2D>();
+        renderer = transform.GetComponent<SpriteRenderer>();
+        collider = transform.GetComponent<PolygonCollider2D>();
     }
 
     void Update()
@@ -43,6 +48,7 @@ public class player_bullet : MonoBehaviour
         if (oneLaunch == false)
         {
             rig.velocity = new Vector2(0, 0);
+            rig.gravityScale = 2;
             rig.AddForce(-transform.up * speed * shooting.touchPercent);
 
             syncRotation = false;
@@ -50,6 +56,9 @@ public class player_bullet : MonoBehaviour
             
             oneEnemyHit = false;
             oneLaunch = true;
+
+            renderer.color = new Color32(255, 255, 255, 255);
+            collider.enabled = true;
         }
         
         //check when/if the bullet exits the screen bounds
@@ -86,8 +95,25 @@ public class player_bullet : MonoBehaviour
         }
 
         //collided with the ground
-        if (col.gameObject.layer == 22)
-            transform.gameObject.SetActive(false);
+        if (col.gameObject.layer == 14) {
+            syncRotation = false;
+            collider.enabled = false;
+
+            rig.gravityScale = 0;
+            rig.velocity = new Vector2(0, 0);
+
+            StartCoroutine(fade());
+        }
+    }
+
+    private IEnumerator fade() {
+        byte alpha = 255;
+        while (alpha > 5) {
+            alpha -= 5;
+            renderer.color = new Color32(255, 255, 255, alpha);
+            yield return new WaitForSeconds(0.1f);
+        }
+        gameObject.SetActive(false);        
     }
 
     private void enableRotation() {        
