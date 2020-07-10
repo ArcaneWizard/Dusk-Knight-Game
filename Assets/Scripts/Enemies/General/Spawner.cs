@@ -27,6 +27,7 @@ public class Spawner : MonoBehaviour
     public Transform R3DownSpawn;
     public Transform GRSpawn;
     public Transform GLSpawn;
+    public Transform OrcSpawn;
 
     private int cR1 = 0;
     private int cR2 = 0;
@@ -103,13 +104,13 @@ public class Spawner : MonoBehaviour
         if (r == 0)
             deployEnemy("R3");
         if (r == 1)
-            deployEnemy("R3");
-        if (r == 2)
             deployEnemy("Goblin");
+        if (r == 2)
+            deployEnemy("Orc");
         if (r == 3)
             deployEnemy("Orc");
         if (r == 4)
-            deployEnemy("Goblin");
+            deployEnemy("Orc");
         if (r == 5)
             deployEnemy("Orc");
     }
@@ -135,6 +136,10 @@ public class Spawner : MonoBehaviour
             deployPos = new Vector3(R3UpSpawn.transform.position.x, 
             Random.Range(R3DownSpawn.transform.position.y, R3UpSpawn.transform.position.y), 0);
         }
+
+        //choose Orc spawn point differently
+        if (enemyName == "Orc") 
+            deployPos = OrcSpawn.transform.position;
 
         //spawn enemy
         enemy.transform.position = deployPos;

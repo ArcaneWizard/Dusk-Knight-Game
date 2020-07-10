@@ -18,10 +18,15 @@ public class Orc : MonoBehaviour
     public float undoDuration;  
     private float speed = 1.0f;
 
+    private float turnTime = 20f;
+    private bool landedJump;
+
     public AudioClip launch;
     public float launchVolume;
     public AudioClip clobber;
     public float clobberVolume;
+    
+    public GameObject hill;
 
     void Awake() {
         animator = transform.GetComponent<Animator>();
@@ -55,10 +60,16 @@ public class Orc : MonoBehaviour
             animator.SetInteger("Jump", 0);    
             animator.SetBool("Dead", false);  
             animator.SetBool("Hurt", false);  
-            animator.SetFloat("spring speed", 0.7f);    
+            animator.SetFloat("spring speed", 0.7f); 
+            StartCoroutine(Jump());    
 
-            rig.velocity = new Vector2(speed, 0);
-            StartCoroutine(Jump()); 
+            //Set enemy movement based off hill arrows that outline the hill
+            Quaternion initDir = hill.transform.GetChild(0).transform.rotation;
+            Quaternion finalDir = hill.transform.GetChild(1).transform.rotation;
+            float distance = hill.transform.GetChild(0).transform.position.x - hill.transform.GetChild(1).transform.position.x;
+            
+            rig.gravityScale = 0;
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / turnTime);
         }   
     }
 
@@ -75,6 +86,7 @@ public class Orc : MonoBehaviour
         float varianceX = UnityEngine.Random.Range(-jumpVariance.x, jumpVariance.x);
         float varianceY = UnityEngine.Random.Range(-jumpVariance.y, jumpVariance.y);
         Vector2 variance = new Vector2(varianceX, varianceY);
+        rig.gravityScale = 1;
         rig.AddForce(jumpForce + variance);  
 
         //play launch sound
@@ -91,11 +103,6 @@ public class Orc : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        //Orc just landed after a big leap
-        if (col.gameObject.layer == 22) {            
-            rig.velocity = new Vector2(speed, 0);
-        }
-
         //Orc is next to the tower, wants to start bashing
         if (col.gameObject.layer == 17) {
             animator.SetInteger("Attack", 1);
@@ -127,16 +134,78 @@ public class Orc : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col) 
-    {
+    void OnTriggerEnter2D(Collider2D col) {
+
         //Orc got hit by a player weapon
         if (col.gameObject.layer == 25) {
+            
             animator.SetBool("Hurt", true);   
             Invoke("flinch", 0.1f);
         }
+
+        //Orc is being directed by a movement arrow
+        if (col.gameObject.layer == 13 && rig.gravityScale == 0) {
+
+            //get movement arrow index
+            int index = col.gameObject.transform.GetSiblingIndex();
+
+            //Don't change directions if this is the last movement arrow
+            if (index == col.gameObject.transform.parent.childCount - 1) {
+                rig.velocity = col.transform.rotation * -Vector3.right * speed;
+                return;
+            }
+
+            //find the current and next direction the enemy should move in
+            Quaternion initDir = col.transform.rotation;
+            Quaternion finalDir = col.transform.parent.GetChild(index + 1).transform.rotation;
+
+            //find the distance between the two arrow points
+            float distance = col.transform.position.x - col.transform.parent.GetChild(index + 1).transform.position.x;
+
+            //Turn the enemy from its current direction to the next direction
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / turnTime);
+        }
+
+        //Orc is on the ground
+        if (col.gameObject.layer == 14) {
+            rig.gravityScale = 0;
+            print(rig.velocity.magnitude - speed);
+            if (Mathf.Abs(rig.velocity.magnitude - speed) > 4f) {
+                rig.velocity = new Vector2(0, 0);
+                landedJump = true;
+            }
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D col) {
+        
+        if (col.gameObject.layer == 13 && landedJump == true) {
+            print("wow");
+            //call this only once            
+            landedJump = false;
+
+            //get movement arrow index
+            int index = col.gameObject.transform.GetSiblingIndex();
+
+            //Don't change directions if this is the last movement arrow
+            if (index == col.gameObject.transform.parent.childCount - 1) {
+                rig.velocity = col.transform.rotation * -Vector3.right * speed;
+                return;
+            }
+
+            //find the current and next direction the enemy should move in
+            Quaternion initDir = col.transform.rotation;
+            Quaternion finalDir = col.transform.parent.GetChild(index + 1).transform.rotation;
+
+            //find the distance between the two arrow points
+            float distance = col.transform.position.x - col.transform.parent.GetChild(index + 1).transform.position.x;
+
+            //Turn the enemy from its current direction to the next direction
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / turnTime);
+        }
     }
     
-    //orc flinches when hit sub-method
+    //Orc flinches when hit sub-method
     private void flinch() {
         animator.SetBool("Hurt", false);
     }

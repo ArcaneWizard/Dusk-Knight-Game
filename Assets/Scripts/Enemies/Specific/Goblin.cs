@@ -108,7 +108,6 @@ public class Goblin : MonoBehaviour
             //find the distance between the two rotation points
             float distance = col.transform.position.x - col.transform.parent.GetChild(index + 1).transform.position.x;
 
-            print(distance/turnTime);
             //Turn the enemy from its current direction to the next direction
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / turnTime);
         }

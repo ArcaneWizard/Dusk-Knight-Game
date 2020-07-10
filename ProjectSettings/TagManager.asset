@@ -6,6 +6,10 @@ TagManager:
   tags:
   - floating text
   - Game UI 2
+  - Game Over
+  - Ranged Shooter
+  - Buttons
+  - Jewels
   layers:
   - Default
   - TransparentFX
@@ -17,19 +21,19 @@ TagManager:
   - 
   - Orc
   - Ogre
-  - Cannon
+  - 
   - Goblin
   - cannon
-  - arrow
+  - direction Arrow
+  - Ground
   - 
-  - particle
   - 
-  - Range activation
-  - Range activation 2
+  - Meelee Activation
+  - Range Activation
   - Reaper 1
   - Reaper 2
   - Reaper 3
-  - Ground
+  - 
   - Weapon
   - 
   - projectile

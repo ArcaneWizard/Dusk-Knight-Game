@@ -433,7 +433,7 @@ public class Enemy_Health : MonoBehaviour
         if (transform.gameObject.layer == 21) 
         {  
             //hit ground or player cannon
-            if (col.gameObject.layer == 22 || col.gameObject.layer == 10)
+            if (col.gameObject.layer == 14 || col.gameObject.layer == 10)
                 hp = 0f;
         }
     }
