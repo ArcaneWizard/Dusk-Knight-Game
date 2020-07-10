@@ -21,7 +21,7 @@ public class player_bullet : MonoBehaviour
 
     private Rigidbody2D rig;
     private SpriteRenderer renderer;
-    private PolygonCollider2D collider;
+    private Collider2D collider;
     
     void Start() {
        //Get bounds of the screen for any screen size
@@ -36,7 +36,11 @@ public class player_bullet : MonoBehaviour
         //Define components
         rig = transform.GetComponent<Rigidbody2D>();
         renderer = transform.GetComponent<SpriteRenderer>();
-        collider = transform.GetComponent<PolygonCollider2D>();
+
+        if (transform.GetComponent<PolygonCollider2D>())
+            collider = transform.GetComponent<PolygonCollider2D>();
+        else 
+            collider = transform.GetComponent<CircleCollider2D>();
     }
 
     void Update()
