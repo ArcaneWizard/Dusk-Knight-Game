@@ -193,7 +193,7 @@ public class shooting : MonoBehaviour
         float rotZ = (touchPosition.x / Mathf.Abs(touchPosition.x)) * rot + 90 * (touchPosition.x / Mathf.Abs(touchPosition.x) - 1);
         
         //set cannon rotation
-        transform.rotation = Quaternion.Euler(0f, rotY, rotZ);
+        transform.rotation = Quaternion.Euler(0f, 0f, rot);
 
         //rotate the guide aim arrows around the cannon 
         weaponAnchor.transform.rotation = transform.rotation;
@@ -204,6 +204,7 @@ public class shooting : MonoBehaviour
     {
         prepareBullet(rot + 270, Manage_Sounds.Instance.cannonShot);
 
+        ammo[counter].SetActive(false);
         ammo[counter].SetActive(true);
         counter += 1;
         counter %= (weaponType.transform.childCount);

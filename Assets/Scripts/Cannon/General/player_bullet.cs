@@ -123,4 +123,4 @@ public class player_bullet : MonoBehaviour
     private void enableRotation() {        
         syncRotation = true;
     }
-}
+} 
