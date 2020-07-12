@@ -8,6 +8,9 @@ public class Orb : MonoBehaviour
     private float randomX;
     private float randomY;
 
+    [HideInInspector]
+    public bool setupOnce;
+
     private AudioSource audioSource;
     private Rigidbody2D rig;
     private SpriteRenderer renderer;
@@ -18,29 +21,42 @@ public class Orb : MonoBehaviour
     public float speed = 5f;
     public float variance = 2f;
 
-    void Start()
+    void Update()
     {
-        //define components
-        audioSource = transform.GetComponent<AudioSource>();
-        rig = transform.GetComponent<Rigidbody2D>();
-        renderer = transform.GetComponent<SpriteRenderer>();
-        collider = transform.GetComponent<CircleCollider2D>();
+        //When the orb is shot out
+        if (setupOnce)
+        {   
+            //perform this setup only once
+            setupOnce = false;
 
-        //set direction and velocity of orb
-        dir = tower.transform.position - transform.position;
-        dir = new Vector2(dir.x / 1.4f, 0);
+            //define components
+            audioSource = transform.GetComponent<AudioSource>();
+            rig = transform.GetComponent<Rigidbody2D>();
+            renderer = transform.GetComponent<SpriteRenderer>();
+            collider = transform.GetComponent<CircleCollider2D>();
 
-        //add randomness to the direction, with a bias towards undershooting
-        randomX = Random.Range(-2.5f * variance, 2 * variance) / 3f;
-        if (randomX >= -1.7f && randomX <= -0.83f)
-        {
-            randomX = Random.Range(-2.5f * variance, 0) / 3f;
+            //reset color, collider and gravity
+            renderer.color = new Color32(255, 26, 26, 255);            
+            collider.enabled = true;
+            rig.gravityScale = 3;
+
+            //set direction and velocity of orb
+            dir = tower.transform.position - transform.position;
+            dir = new Vector2(dir.x / 1.4f, 0);
+
+            //add randomness to the direction, with a bias towards undershooting
+            randomX = UnityEngine.Random.Range(-2.5f * variance, 2 * variance) / 3f;
+            if (randomX >= -1.7f && randomX <= -0.83f)
+            {
+                randomX = UnityEngine.Random.Range(-2.5f * variance, 0) / 3f;
+            }
+            randomY = UnityEngine.Random.Range(-variance, variance) / 3f;
+
+            rig.velocity = dir * speed + new Vector2(dir.x * randomX, dir.y * randomY);
+
+            //play cast orb sound effect
+            audioSource.PlayOneShot(Manage_Sounds.Instance.R1Attack, volume * Manage_Sounds.soundMultiplier);
         }
-        randomY = Random.Range(-variance, variance) / 3f;        
-        rig.velocity = dir * speed + new Vector2(dir.x * randomX, dir.y * randomY);
-
-        //play cast orb sound effect
-        audioSource.PlayOneShot(Manage_Sounds.Instance.R1Attack, volume * Manage_Sounds.soundMultiplier);
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -61,15 +77,14 @@ public class Orb : MonoBehaviour
             rig.gravityScale = 0;
             rig.velocity = new Vector2(0, 0);
 
-            StartCoroutine(fade());
-
+            gameObject.SetActive(false);
         }
     }
 
     private IEnumerator fade() {
         byte alpha = 255;
-        while (alpha > 5) {
-            alpha -= 5;
+        while (alpha > 12) {
+            alpha -= 12;
             renderer.color = new Color32(255, 26, 26, alpha);
             yield return new WaitForSeconds(0.1f);
         }

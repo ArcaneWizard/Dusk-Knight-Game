@@ -37,10 +37,7 @@ public class player_bullet : MonoBehaviour
         rig = transform.GetComponent<Rigidbody2D>();
         renderer = transform.GetComponent<SpriteRenderer>();
 
-        if (transform.GetComponent<PolygonCollider2D>())
-            collider = transform.GetComponent<PolygonCollider2D>();
-        else 
-            collider = transform.GetComponent<CircleCollider2D>();
+        collider = transform.GetComponent<PolygonCollider2D>() ? transform.GetComponent<PolygonCollider2D>() : collider = transform.GetComponent<CircleCollider2D>();
     }
 
     void Update()
@@ -48,19 +45,23 @@ public class player_bullet : MonoBehaviour
         p = transform.position;
         inBounds = p.x > minX && p.y > minY && p.x < maxX;
         
-        //Launch the bullet in the direction it was aimed 
+        //called once when the bullet is shot out
         if (oneLaunch == false)
-        {
+        {   
+            //configure rigidbody settings
             rig.velocity = new Vector2(0, 0);
             rig.gravityScale = 2;
             rig.AddForce(-transform.up * speed * shooting.touchPercent);
 
+            //turn as the bullet falls
             syncRotation = false;
             Invoke("enableRotation", 0.03f);
             
+            //configure no accidental splash dmg + call this if statement once
             oneEnemyHit = false;
             oneLaunch = true;
 
+            //reset sprite to fully visible and re-enable the collider 
             renderer.color = new Color32(255, 255, 255, 255);
             collider.enabled = true;
         }
@@ -106,10 +107,12 @@ public class player_bullet : MonoBehaviour
             rig.gravityScale = 0;
             rig.velocity = new Vector2(0, 0);
 
-            StartCoroutine(fade());
+            if (gameObject.activeSelf == true)
+                StartCoroutine(fade());
         }
     }
 
+    //slowly fade this bullet tills its invisible (called for some bullets that hit the ground)
     private IEnumerator fade() {
         byte alpha = 255;
         while (alpha > 5) {
@@ -120,6 +123,7 @@ public class player_bullet : MonoBehaviour
         gameObject.SetActive(false);        
     }
 
+    //sync rotation with movement (called with a slight delay)
     private void enableRotation() {        
         syncRotation = true;
     }
