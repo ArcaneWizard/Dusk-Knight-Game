@@ -82,7 +82,7 @@ public class Enemy_Health : MonoBehaviour
 
         //Define components that need to be accessed
         animator = transform.GetComponent<Animator>();
-        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         render = transform.GetComponent<SpriteRenderer>();
         enemyCollider = transform.GetComponent<PolygonCollider2D>();
         snowball = transform.GetChild(0).gameObject;

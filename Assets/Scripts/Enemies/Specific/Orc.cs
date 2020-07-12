@@ -20,6 +20,7 @@ public class Orc : MonoBehaviour
 
     private float turnTime = 20f;
     private bool landedJump;
+    private float arrowIndex = 0;
 
     public AudioClip launch;
     public float launchVolume;
@@ -143,33 +144,10 @@ public class Orc : MonoBehaviour
             Invoke("flinch", 0.1f);
         }
 
-        //Orc is being directed by a movement arrow
-        if (col.gameObject.layer == 13 && rig.gravityScale == 0) {
-
-            //get movement arrow index
-            int index = col.gameObject.transform.GetSiblingIndex();
-
-            //Don't change directions if this is the last movement arrow
-            if (index == col.gameObject.transform.parent.childCount - 1) {
-                rig.velocity = col.transform.rotation * -Vector3.right * speed;
-                return;
-            }
-
-            //find the current and next direction the enemy should move in
-            Quaternion initDir = col.transform.rotation;
-            Quaternion finalDir = col.transform.parent.GetChild(index + 1).transform.rotation;
-
-            //find the distance between the two arrow points
-            float distance = col.transform.position.x - col.transform.parent.GetChild(index + 1).transform.position.x;
-
-            //Turn the enemy from its current direction to the next direction
-            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / turnTime);
-        }
-
         //Orc is on the ground
         if (col.gameObject.layer == 14) {
             rig.gravityScale = 0;
-            print(rig.velocity.magnitude - speed);
+            
             if (Mathf.Abs(rig.velocity.magnitude - speed) > 4f) {
                 rig.velocity = new Vector2(0, 0);
                 landedJump = true;
@@ -178,9 +156,10 @@ public class Orc : MonoBehaviour
     }
 
     void OnTriggerStay2D(Collider2D col) {
-        
+
+        //Orc is landing on a movement arrow after its jump
         if (col.gameObject.layer == 13 && landedJump == true) {
-            print("wow");
+
             //call this only once            
             landedJump = false;
 
@@ -203,6 +182,36 @@ public class Orc : MonoBehaviour
             //Turn the enemy from its current direction to the next direction
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / turnTime);
         }
+        
+        //Orc is being directed by a movement arrow
+        if (col.gameObject.layer == 13 && rig.gravityScale == 0) {
+
+            //get movement arrow index
+            int index = col.gameObject.transform.GetSiblingIndex();
+
+            //Don't change directions if this is the last movement arrow
+            if (index == col.gameObject.transform.parent.childCount - 1) {
+                rig.velocity = col.transform.rotation * -Vector3.right * speed;
+                return;
+            }
+
+            //If touching two arrows, choose the one that's forward
+            if (index >= arrowIndex)
+                arrowIndex = index;
+            else    
+                return;
+
+            //find the current and next direction the enemy should move in
+            Quaternion initDir = col.transform.rotation;
+            Quaternion finalDir = col.transform.parent.GetChild(index + 1).transform.rotation;
+
+            //find the distance between the two arrow points
+            float distance = col.transform.position.x - col.transform.parent.GetChild(index + 1).transform.position.x;
+
+            //Turn the enemy from its current direction to the next direction
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / turnTime);
+        }
+
     }
     
     //Orc flinches when hit sub-method

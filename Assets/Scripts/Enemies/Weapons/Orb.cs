@@ -10,6 +10,8 @@ public class Orb : MonoBehaviour
 
     private AudioSource audioSource;
     private Rigidbody2D rig;
+    private SpriteRenderer renderer;
+    private Collider2D collider;
     public float volume;
 
     public GameObject tower;
@@ -21,6 +23,8 @@ public class Orb : MonoBehaviour
         //define components
         audioSource = transform.GetComponent<AudioSource>();
         rig = transform.GetComponent<Rigidbody2D>();
+        renderer = transform.GetComponent<SpriteRenderer>();
+        collider = transform.GetComponent<CircleCollider2D>();
 
         //set direction and velocity of orb
         dir = tower.transform.position - transform.position;
@@ -41,15 +45,34 @@ public class Orb : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        //disable orbs that hit the ground
-        if (col.gameObject.layer == 22)
-            gameObject.SetActive(false);
-
         //damage the player if they connect (+ audio)
         if (col.gameObject.layer == 10)
         {
             Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 0.4f);
             gameObject.SetActive(false);
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D col) {
+
+        //collides with ground
+        if (col.gameObject.layer == 14) {
+            collider.enabled = false;
+            rig.gravityScale = 0;
+            rig.velocity = new Vector2(0, 0);
+
+            StartCoroutine(fade());
+
+        }
+    }
+
+    private IEnumerator fade() {
+        byte alpha = 255;
+        while (alpha > 5) {
+            alpha -= 5;
+            renderer.color = new Color32(255, 26, 26, alpha);
+            yield return new WaitForSeconds(0.1f);
+        }
+        gameObject.SetActive(false);        
     }
 }
