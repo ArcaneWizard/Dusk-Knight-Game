@@ -33,7 +33,9 @@ public class shooting : MonoBehaviour
     private Vector3 endPosition2;
     private Vector3 centeredOffset;
     private Vector3 anchorPoint;
-    private GameObject weaponType;
+
+    [HideInInspector]
+    public GameObject weaponType;
     private List<GameObject> ammo = new List<GameObject>();
 
     [Space(10)]
@@ -42,6 +44,7 @@ public class shooting : MonoBehaviour
     public Camera camera;
     public GameObject weaponAnchor;
     public GameObject arrowAnchor;
+    private weapon_loadout wL;
     private AudioSource audioSource;
 
     [Space(10)]
@@ -52,17 +55,21 @@ public class shooting : MonoBehaviour
     void Start()
     {
         audioSource = transform.GetComponent<AudioSource>();
-
-        //select cannon ball as default bullet
-        weaponType = bullets[startingBullet];
-        equipWeapon();
+        wL = transform.GetComponent<weapon_loadout>();
     }
 
     //specify what weapon the player has
     public void equipWeapon()
     {
+        //empty the ammo array (whatever weapon's ammo is in it)
+        ammo.Clear();
+
+        //add bullets of the newly updated weapon type into the ammo Array
         for (int i = 0; i < weaponType.transform.childCount; i++)
             ammo.Add(weaponType.transform.GetChild(i).gameObject);
+
+        //reset the ammo array index to start from the first bullet in the array
+        counter = 0;
     }
 
     //-------------------------------------------------------------------------------
@@ -203,6 +210,7 @@ public class shooting : MonoBehaviour
     void Fire(float rot)
     {
         prepareBullet(rot + 270, Manage_Sounds.Instance.cannonShot);
+        wL.shotTaken();
 
         ammo[counter].SetActive(false);
         ammo[counter].SetActive(true);
