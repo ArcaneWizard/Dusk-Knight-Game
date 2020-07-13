@@ -72,7 +72,7 @@ public class Orb : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col) {
 
         //collides with ground
-        if (col.gameObject.layer == 14) {
+        if (col.gameObject.layer == 15) {
             collider.enabled = false;
             rig.gravityScale = 0;
             rig.velocity = new Vector2(0, 0);

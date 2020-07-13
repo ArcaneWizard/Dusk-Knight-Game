@@ -114,17 +114,29 @@ public class shooting : MonoBehaviour
             }
 
             if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) {
-                //Change endpoint of the aim arrow vector to where you move your finger
+
+                //Get the point where you touched the screen 
                 endPosition = new Vector3(touch.position.x, touch.position.y, 6);
+
+                //Get the rotation and magnitude of the vector between the touch point and cannon pivot
+                rot = Mathf.Atan2(initPosition.y - endPosition.y, initPosition.x - endPosition.x) * Mathf.Rad2Deg;
+                float aimArrowLength = (endPosition-initPosition).magnitude;
+
+                //Update the endpoint to never face backwards
+                if (rot < -90f) 
+                    endPosition = initPosition + new Vector3(0, 1, 0) * aimArrowLength;
+                else if (rot > 90f)
+                    endPosition = initPosition + new Vector3(0, -1, 0) * aimArrowLength; 
+
+                //Update the endpoint of the aim arrow vector to stay a constant distance from the cannon's pivot as it moves with ur finger
                 if ((endPosition - initPosition).magnitude > maxArrowLength)
                     endPosition = initPosition + (endPosition-initPosition).normalized * maxArrowLength;
-
-                //Update start and end point
+              
+                //Update the start and end point
                 centeredOffset = -camera.ScreenToWorldPoint(initPosition) + arrowAnchor.transform.position + new Vector3(0, 0, -4);
                 Vector3 firstPoint = camera.ScreenToWorldPoint(initPosition) + centeredOffset;
                 lr.SetPosition(1, firstPoint);
 
-                float aimArrowLength = (endPosition-initPosition).magnitude;
                 Vector3 secondPoint = camera.ScreenToWorldPoint(endPosition) + centeredOffset;
                 lr.SetPosition(0, 2 * firstPoint - secondPoint);
                 
@@ -135,8 +147,19 @@ public class shooting : MonoBehaviour
                 if (lr_2.widthMultiplier > aimArrWidth)
                     lr_2.widthMultiplier = aimArrWidth;
 
-                //update start and end point
+                //Update the endpoint to never face backwards
                 endPosition2 = initPosition + (endPosition2-initPosition).normalized * chargeArrowLength;
+                
+                if (rot < -90f) {
+                    endPosition2 = initPosition + new Vector3(0, 1, 0) * chargeArrowLength;
+                    rot = -90f;
+                }
+                else if (rot > 90f) {
+                    endPosition2 = initPosition + new Vector3(0, -1, 0) * chargeArrowLength;
+                    rot = 90f;
+                }
+                
+                //update start and end point
                 Vector3 secondPoint2 = camera.ScreenToWorldPoint(endPosition2) + centeredOffset;
                 lr_2.SetPosition(1, firstPoint);
                 lr_2.SetPosition(0, 2 * firstPoint - secondPoint2);
@@ -157,8 +180,7 @@ public class shooting : MonoBehaviour
                 else 
                     chargeArrowLength = 0;
 
-                //Rotate gun while aiming
-                rot = Mathf.Atan2(initPosition.y - endPosition.y, initPosition.x - endPosition.x) * Mathf.Rad2Deg;
+                //Rotate gun while aiming (but not when aiming backwards)
                 if ((endPosition - initPosition).magnitude > minSwipeToShoot)
                    changeRotation(rot, endPosition);
             }
@@ -188,6 +210,7 @@ public class shooting : MonoBehaviour
     private IEnumerator checkForWeaponChangeOrFire(float rot, Vector3 touchPosition)
     {
         yield return new WaitForSeconds(0.01f);
+
         changeRotation(rot, touchPosition);
         Fire(rot);
     }
@@ -195,12 +218,8 @@ public class shooting : MonoBehaviour
     //Set cannon rotation
     private void changeRotation(float rot, Vector3 touchPosition) {
 
-        //rotation to flip bullet images over when shooting left vs right
-        float rotY = (touchPosition.x / Mathf.Abs(touchPosition.x) - 1) * 90f;
-        float rotZ = (touchPosition.x / Mathf.Abs(touchPosition.x)) * rot + 90 * (touchPosition.x / Mathf.Abs(touchPosition.x) - 1);
-        
-        //set cannon rotation
-        transform.rotation = Quaternion.Euler(0f, 0f, rot);
+        //set cannon rotation if not facing backwards
+        transform.rotation = Quaternion.Euler(0f, 0f, rot - 15);
 
         //rotate the guide aim arrows around the cannon 
         weaponAnchor.transform.rotation = transform.rotation;
@@ -209,7 +228,7 @@ public class shooting : MonoBehaviour
     //Fire the cannon
     void Fire(float rot)
     {
-        prepareBullet(rot + 270, Manage_Sounds.Instance.cannonShot);
+        prepareBullet(Manage_Sounds.Instance.cannonShot);
         wL.shotTaken();
 
         ammo[counter].SetActive(false);
@@ -224,10 +243,10 @@ public class shooting : MonoBehaviour
     //-------------------------------------------------------------------------------
 
     //Set bullet properties and location
-    private void prepareBullet(float rot, AudioClip hit_Sound) {
+    private void prepareBullet(AudioClip hit_Sound) {
         //set bullet's position and rotation
         ammo[counter].transform.position = muzzle.position;
-        ammo[counter].transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + 90);
+        ammo[counter].transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z - 90 + 15);
         ammo[counter].GetComponent<player_bullet>().oneLaunch = false;
 
         //play bullet fire sound

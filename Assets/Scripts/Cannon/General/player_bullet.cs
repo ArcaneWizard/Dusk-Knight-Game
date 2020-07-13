@@ -51,7 +51,7 @@ public class player_bullet : MonoBehaviour
             //configure rigidbody settings
             rig.velocity = new Vector2(0, 0);
             rig.gravityScale = 2;
-            rig.AddForce(-transform.up * speed * shooting.touchPercent);
+            rig.AddForce(transform.up * speed * shooting.touchPercent);
 
             //turn as the bullet falls
             syncRotation = false;
@@ -99,8 +99,8 @@ public class player_bullet : MonoBehaviour
             }
         }
 
-        //collided with the ground
-        if (col.gameObject.layer == 14) {
+        //collided with the hill
+        if (col.gameObject.layer == 15) {
             syncRotation = false;
             collider.enabled = false;
 

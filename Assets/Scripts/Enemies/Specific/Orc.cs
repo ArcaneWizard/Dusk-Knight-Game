@@ -71,6 +71,7 @@ public class Orc : MonoBehaviour
             
             rig.gravityScale = 0;
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / turnTime);
+            arrowIndex = 0;
         }   
     }
 
