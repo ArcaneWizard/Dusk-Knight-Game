@@ -6,10 +6,7 @@ TagManager:
   tags:
   - floating text
   - Game UI 2
-  - Game Over
-  - Ranged Shooter
-  - Buttons
-  - Jewels
+  - Fading bullet
   layers:
   - Default
   - TransparentFX

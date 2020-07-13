@@ -108,11 +108,11 @@ public class Spawner : MonoBehaviour
         if (r == 2)
             deployEnemy("Orc");
         if (r == 3)
-            deployEnemy("Orc");
+            deployEnemy("Ogre");
         if (r == 4)
-            deployEnemy("Orc");
+            deployEnemy("Ogre");
         if (r == 5)
-            deployEnemy("Orc");
+            deployEnemy("Ogre");
     }
 
     //Deploying enemy shortened to one method/line

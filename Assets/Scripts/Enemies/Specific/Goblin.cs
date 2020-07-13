@@ -12,12 +12,10 @@ public class Goblin : MonoBehaviour
     private AudioSource audioSource;
     private Enemy_Health enemy_Health;
 
-    private float delay = 1.2f;
-    private float turnTime = 20f;
-
     private bool AttackedOnce = false;
 
     private float speed = 2f;
+    private int arrowIndex = 0;
 
     void Awake()
     {
@@ -36,14 +34,8 @@ public class Goblin : MonoBehaviour
             transform.GetComponent<Enemy_Health>().deploy = false;
             
             //Orient the Goblin in the correct direction 
-            if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x) {
-                speed = -Mathf.Abs(speed);
-                transform.rotation = Quaternion.Euler(0, 180, 0);
-            }
-            else {
-                speed = Mathf.Abs(speed);
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
+            speed = -Mathf.Abs(speed);
+            transform.rotation = Quaternion.Euler(0, 180, 0);
 
             //Reset animation bools  
             animator.SetBool("Attack", false);
@@ -55,7 +47,10 @@ public class Goblin : MonoBehaviour
             float distance = hill.transform.GetChild(0).transform.position.x - hill.transform.GetChild(1).transform.position.x;
             
             rig.gravityScale = 0;
-            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / turnTime);
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
+           
+            //Can start following any arrow at the start, but as arrowIndex goes up, the enemy can't refollow the arrow at a lower index 
+            arrowIndex = 0;
         }
 
         //Do dmg once every attack animation cycle
@@ -90,8 +85,11 @@ public class Goblin : MonoBehaviour
         StartCoroutine(playSound());
     }
 
-    void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.layer == 13) {
+    void OnTriggerStay2D(Collider2D col) {
+       
+        //Goblin is being directed by a movement arrow
+        if (col.gameObject.layer == 13 && rig.gravityScale == 0) {
+
             //get movement arrow index
             int index = col.gameObject.transform.GetSiblingIndex();
 
@@ -101,15 +99,21 @@ public class Goblin : MonoBehaviour
                 return;
             }
 
+            //If touching two arrows, choose the one that's forward
+            if (index > arrowIndex)
+                arrowIndex = index;
+            else    
+                return;
+
             //find the current and next direction the enemy should move in
             Quaternion initDir = col.transform.rotation;
             Quaternion finalDir = col.transform.parent.GetChild(index + 1).transform.rotation;
 
-            //find the distance between the two rotation points
+            //find the distance between the two arrow points
             float distance = col.transform.position.x - col.transform.parent.GetChild(index + 1).transform.position.x;
 
             //Turn the enemy from its current direction to the next direction
-            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / turnTime);
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
         }
     }
 }

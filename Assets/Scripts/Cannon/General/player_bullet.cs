@@ -107,8 +107,10 @@ public class player_bullet : MonoBehaviour
             rig.gravityScale = 0;
             rig.velocity = new Vector2(0, 0);
 
-            if (gameObject.activeSelf == true)
-                StartCoroutine(fade());
+            if (gameObject.activeSelf == true && gameObject.tag == "Fading bullet") 
+                 StartCoroutine(fade());
+            else
+                gameObject.SetActive(false);
         }
     }
 

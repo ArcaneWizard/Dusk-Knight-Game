@@ -16,11 +16,10 @@ public class Orc : MonoBehaviour
     public float jumpMotionDelay;
     public float pushOffDuration;
     public float undoDuration;  
-    private float speed = 1.0f;
 
-    private float turnTime = 20f;
     private bool landedJump;
-    private float arrowIndex = 0;
+    private int arrowIndex = 0;
+    private float speed = 1.0f;
 
     public AudioClip launch;
     public float launchVolume;
@@ -45,16 +44,9 @@ public class Orc : MonoBehaviour
             transform.GetComponent<Enemy_Health>().deploy = false;
 
             //Orient the Orc in the correct direction 
-            if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x) {
-                speed = -Mathf.Abs(speed);
-                jumpForce.x = -Mathf.Abs(jumpForce.x);
-                transform.rotation = Quaternion.Euler(0, 180, 0);
-            }
-            else {
-                speed = Mathf.Abs(speed);
-                jumpForce.x = Mathf.Abs(jumpForce.x);
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
+            speed = -Mathf.Abs(speed);
+            jumpForce.x = -Mathf.Abs(jumpForce.x);
+            transform.rotation = Quaternion.Euler(0, 180, 0);
 
             //Reset animation bools and start enemy movement 
             animator.SetInteger("Attack", 0);
@@ -62,6 +54,7 @@ public class Orc : MonoBehaviour
             animator.SetBool("Dead", false);  
             animator.SetBool("Hurt", false);  
             animator.SetFloat("spring speed", 0.7f); 
+            
             StartCoroutine(Jump());    
 
             //Set enemy movement based off hill arrows that outline the hill
@@ -70,13 +63,16 @@ public class Orc : MonoBehaviour
             float distance = hill.transform.GetChild(0).transform.position.x - hill.transform.GetChild(1).transform.position.x;
             
             rig.gravityScale = 0;
-            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / turnTime);
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
+            
+            //Can start following any arrow at the start, but as arrowIndex goes up, the enemy can't refollow the arrow at a lower index 
             arrowIndex = 0;
         }   
     }
 
     //Orc jumps a random height after a few seconds
     private IEnumerator Jump() {
+
         //jump after a random number of seconds
         yield return new WaitForSeconds(UnityEngine.Random.Range(timeTillJump.x, timeTillJump.y));
         
@@ -155,6 +151,11 @@ public class Orc : MonoBehaviour
             }
         }
     }
+    
+    //Orc flinches when hit sub-method
+    private void flinch() {
+        animator.SetBool("Hurt", false);
+    }
 
     void OnTriggerStay2D(Collider2D col) {
 
@@ -165,26 +166,26 @@ public class Orc : MonoBehaviour
             landedJump = false;
 
             //get movement arrow index
-            int index = col.gameObject.transform.GetSiblingIndex();
+            arrowIndex = col.gameObject.transform.GetSiblingIndex();
 
             //Don't change directions if this is the last movement arrow
-            if (index == col.gameObject.transform.parent.childCount - 1) {
+            if (arrowIndex == col.gameObject.transform.parent.childCount - 1) {
                 rig.velocity = col.transform.rotation * -Vector3.right * speed;
                 return;
             }
 
             //find the current and next direction the enemy should move in
             Quaternion initDir = col.transform.rotation;
-            Quaternion finalDir = col.transform.parent.GetChild(index + 1).transform.rotation;
+            Quaternion finalDir = col.transform.parent.GetChild(arrowIndex + 1).transform.rotation;
 
             //find the distance between the two arrow points
-            float distance = col.transform.position.x - col.transform.parent.GetChild(index + 1).transform.position.x;
+            float distance = col.transform.position.x - col.transform.parent.GetChild(arrowIndex + 1).transform.position.x;
 
             //Turn the enemy from its current direction to the next direction
-            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / turnTime);
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
         }
         
-        //Orc is being directed by a movement arrow
+        //Goblin is being directed by a movement arrow
         if (col.gameObject.layer == 13 && rig.gravityScale == 0) {
 
             //get movement arrow index
@@ -197,7 +198,7 @@ public class Orc : MonoBehaviour
             }
 
             //If touching two arrows, choose the one that's forward
-            if (index >= arrowIndex)
+            if (index > arrowIndex)
                 arrowIndex = index;
             else    
                 return;
@@ -210,13 +211,8 @@ public class Orc : MonoBehaviour
             float distance = col.transform.position.x - col.transform.parent.GetChild(index + 1).transform.position.x;
 
             //Turn the enemy from its current direction to the next direction
-            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / turnTime);
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
         }
 
-    }
-    
-    //Orc flinches when hit sub-method
-    private void flinch() {
-        animator.SetBool("Hurt", false);
     }
 }
