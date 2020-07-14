@@ -20,12 +20,12 @@ public class Enemy_Health : MonoBehaviour
 
     //enemy speeds
     public static float orc_speed = 0.7f;
-    public static float ogre_speed = 0.4f;
+    public static float ogre_speed = 0.52f;
     public static float goblin_speed = 2.1f;
     public static float R1_speed = 1.8f;
     public static float R2_speed = 0.9f;
     public static float R3_speed = 1f;
-
+    
     //enemy attributes and conditions
     public bool deploy = true;
     public bool poison = false;
@@ -63,6 +63,7 @@ public class Enemy_Health : MonoBehaviour
     private SpriteRenderer render;
     private Rigidbody2D rig;
     private AudioSource audioSource;
+    private string tag;
 
     //Floating texts which get recycled
     private List<GameObject> floatingTexts = new List<GameObject>();
@@ -82,12 +83,13 @@ public class Enemy_Health : MonoBehaviour
 
         //Define components that need to be accessed
         animator = transform.GetComponent<Animator>();
-        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource = transform.GetComponent<AudioSource>();
         render = transform.GetComponent<SpriteRenderer>();
         enemyCollider = transform.GetComponent<PolygonCollider2D>();
         snowball = transform.GetChild(0).gameObject;
         floating_Texts = transform.GetChild(1).gameObject;
         rig = transform.GetComponent<Rigidbody2D>();
+        tag = gameObject.tag;
 
         //Add floating text child objects to an array
         foreach (Transform child in floating_Texts.transform) 
@@ -100,32 +102,25 @@ public class Enemy_Health : MonoBehaviour
 
     public void setHP()
     {
-        //Set hp based on enemy type
-        if (gameObject.layer == 8) {
+        //Set hp and red took-dmg color based on the specific enemy
+        flinchColor = new Color32(215, 39, 39, 255);  
+
+        if (tag == "Enemy 1") 
+            hp = goblin;         
+
+        if (tag == "Enemy 2") {
             hp = orc;
             flinchColor = new Color32(255, 46, 46, 255);
         }
 
-        if (gameObject.layer == 9) 
-            hp = ogre;            
-
-        if (gameObject.layer == 11) {
-            hp = goblin;         
-            flinchColor = new Color32(215, 39, 39, 255);   
-        }
-
-        if (gameObject.layer == 19) {
-            hp = reaper_1;
-            flinchColor = new Color32(215, 39, 39, 255);
-        }
-
-        if (gameObject.layer == 20)
-            hp = reaper_2;
-
-        if (gameObject.layer == 21) {
+        if (tag == "Enemy 3") 
             hp = reaper_3;
-            flinchColor = new Color32(215, 39, 39, 255);   
-        }
+
+        if (tag == "Enemy 4")
+            hp = reaper_1;
+
+        if (tag == "Enemy 5") 
+            hp = ogre;            
 
         //reset Enemy values
         lastHP = hp;
@@ -204,25 +199,22 @@ public class Enemy_Health : MonoBehaviour
         animator.enabled = false;
         setSpeed(0, 1);
 
-        if (gameObject.layer == 8)
-            transform.GetComponent<Orc>().enabled = false;
-
-        if (gameObject.layer == 9)
-            transform.GetComponent<Ogre>().enabled = false;
-
-        if (gameObject.layer == 11)
+        if (tag == "Enemy 1")
             transform.GetComponent<Goblin>().enabled = false;
 
-        if (gameObject.layer == 19)
-            transform.GetComponent<Reaper_1>().enabled = false;
+        if (tag == "Enemy 2")
+            transform.GetComponent<Orc>().enabled = false;
 
-        if (gameObject.layer == 20)
-            transform.GetComponent<Reaper_2>().enabled = false;
-
-        if (gameObject.layer == 21) {
+        if (tag == "Enemy 3") {
             transform.GetComponent<Reaper_3>().enabled = false;
             rig.gravityScale = 1;
         }
+
+        if (tag == "Enemy 4")
+            transform.GetComponent<Reaper_1>().enabled = false;
+        
+        if (tag == "Enemy 5")
+            transform.GetComponent<Ogre>().enabled = false;
 
         yield return new WaitForSeconds(4f);
 
@@ -241,34 +233,34 @@ public class Enemy_Health : MonoBehaviour
     //alter enemy speed 
     private void setSpeed(float sign, float multiplier)
     {
-        if (gameObject.layer == 8)
-        {
-            transform.GetComponent<Orc>().enabled = true;
-            rig.velocity = new Vector2(orc_speed * sign * multiplier, 0);
-        }
-
-        if (gameObject.layer == 9)
-        {
-            transform.GetComponent<Ogre>().enabled = true;
-            rig.velocity = new Vector2(ogre_speed * sign * multiplier, 0);
-        }
-
-        if (gameObject.layer == 11)
+        if (tag == "Enemy 1")
         {
             transform.GetComponent<Goblin>().enabled = true;
             rig.velocity = new Vector2(goblin_speed * sign * multiplier, 0);
         }
 
-        if (gameObject.layer == 19)
+        if (tag == "Enemy 2")
+        {
+            transform.GetComponent<Orc>().enabled = true;
+            rig.velocity = new Vector2(orc_speed * sign * multiplier, 0);
+        }
+
+        if (tag == "Enemy 3")
+        {
+            transform.GetComponent<Reaper_3>().enabled = true;
+            rig.velocity = new Vector2(R2_speed * sign * multiplier, 0);
+        }
+
+        if (tag == "Enemy 4")
         {
             transform.GetComponent<Reaper_1>().enabled = true;
             rig.velocity = new Vector2(R1_speed * sign * multiplier, 0);
         }
 
-        if (gameObject.layer == 20)
+        if (tag == "Enemy 5")
         {
-            transform.GetComponent<Reaper_2>().enabled = true;
-            rig.velocity = new Vector2(R2_speed * sign * multiplier, 0);
+            transform.GetComponent<Ogre>().enabled = true;
+            rig.velocity = new Vector2(ogre_speed * sign * multiplier, 0);
         }
     }
 
@@ -346,12 +338,11 @@ public class Enemy_Health : MonoBehaviour
     {
         animator.SetBool("Dead", true);
 
-        giveJewels(8, 5);
-        giveJewels(9, 3);
-        giveJewels(11, 2);
-        giveJewels(19, 3);
-        giveJewels(20, 3);
-        giveJewels(21, 2);
+        giveJewels("Enemy 1", 5);
+        giveJewels("Enemy 2", 3);
+        giveJewels("Enemy 3", 2);
+        giveJewels("Enemy 4", 3);
+        giveJewels("Enemy 5", 3);
 
         StartCoroutine(fade());
     }
@@ -361,16 +352,16 @@ public class Enemy_Health : MonoBehaviour
         GameObject enemy = transform.gameObject;
         float speed = 0;
 
-        if (enemy.layer == 8)
-            speed = orc_speed;
-        if (enemy.layer == 9)
-            speed = ogre_speed;
-        if (enemy.layer == 11)
+        if (tag == "Enemy 1")
             speed = goblin_speed;
-        if (enemy.layer == 19)
+        if (tag == "Enemy 2")
+            speed = orc_speed;
+        if (tag == "Enemy 3")
+            speed = R3_speed;
+        if (tag == "Enemy 4")
             speed = R1_speed;
-        if (enemy.layer == 20)
-            speed = R2_speed;
+        if (tag == "Enemy 5")
+            speed = ogre_speed;
 
         if (enemy.transform.position.x > player.transform.position.x)
             speed *= -1;
@@ -378,10 +369,10 @@ public class Enemy_Health : MonoBehaviour
         return speed;
     }
 
-    public void giveJewels(int layer, int jewels)
+    public void giveJewels(string enemyNumber, int jewels)
     {
-        if (gameObject.layer == layer)
-           shop.jewels += jewels;
+        if (tag == enemyNumber)
+            shop.jewels += jewels;
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -426,16 +417,4 @@ public class Enemy_Health : MonoBehaviour
         //recycle the next text in the list next time
         ft_currentIndex = ++ft_currentIndex % ft_cycleLength;
     }
-
-    void OnCollisionStay2D(Collision2D col)
-    {
-        //If a flying reaper hits the ground when iced
-        if (transform.gameObject.layer == 21) 
-        {  
-            //hit ground or player cannon
-            if (col.gameObject.layer == 14 || col.gameObject.layer == 10)
-                hp = 0f;
-        }
-    }
-
 }

@@ -78,7 +78,7 @@ public class player_bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         //collided with an enemy
-        if (col.gameObject.layer == 8 || col.gameObject.layer == 9 || col.gameObject.layer == 11 || col.gameObject.layer == 19 || col.gameObject.layer == 20 || col.gameObject.layer == 21)
+        if (col.gameObject.layer == 8)
         {
             //If multiple enemies are hit, only damage one
             if (oneEnemyHit == false)

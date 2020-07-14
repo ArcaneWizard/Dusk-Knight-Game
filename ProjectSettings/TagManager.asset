@@ -7,6 +7,13 @@ TagManager:
   - floating text
   - Game UI 2
   - Fading bullet
+  - Reaper projectile
+  - Ogre projectile
+  - Enemy 1
+  - Enemy 2
+  - Enemy 3
+  - Enemy 4
+  - Enemy 5
   layers:
   - Default
   - TransparentFX
@@ -16,10 +23,10 @@ TagManager:
   - UI
   - 
   - 
-  - Orc
-  - Ogre
-  - 'Enemy '
-  - Goblin
+  - Enemy
+  - 
+  - Enemy Feet
+  - 
   - cannon
   - direction Arrow
   - Ground
@@ -27,9 +34,9 @@ TagManager:
   - 
   - Meelee Activation
   - Range Activation
-  - Reaper 1
-  - Reaper 2
-  - Reaper 3
+  - 
+  - 
+  - 
   - 
   - Weapon
   - 

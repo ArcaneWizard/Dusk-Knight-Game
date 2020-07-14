@@ -16,10 +16,10 @@ public class WeaponsCycle : MonoBehaviour
 
     [Space(10)]
     [Header("Characteristics")]
-    public Vector2 darkOrbReload;
+    public Vector2 reload;
     
     [HideInInspector]
-    public bool reloadAttack = false;
+    public bool reloadAttack;
     private float progress;
 
     void Start()
@@ -31,11 +31,31 @@ public class WeaponsCycle : MonoBehaviour
         foreach (Transform projectile in Projectile_Group.transform) {
             projectiles.Add(projectile);
         }
+        
+        //temporary ogre shooting method before its animated shooting
+        if (gameObject.tag == "Enemy 5") {
+           reloadAttack = true;
+           StartCoroutine(resetAttack());
+           StartCoroutine(ogreShoot());
+        }
+    }
+
+    //temporary ogre shooting method before its animated shooting
+    IEnumerator ogreShoot() {
+        yield return new WaitForSeconds(0.5f);
+
+        if (reloadAttack == false) {
+            reloadAttack = true;
+            StartCoroutine(resetAttack());
+            ogreShot();
+        }
+
+        StartCoroutine(ogreShoot());
     }
     
     void Update()
     {   
-        //Dark reaper casts orbs 
+        //Reaper casts orbs 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Reaper 3 floating"))
         {
             //Shoot once per animation cycle
@@ -43,22 +63,23 @@ public class WeaponsCycle : MonoBehaviour
             if (progress >= 0.45f && progress <= 0.55f && reloadAttack == false)
             {
                 reloadAttack = true;
-                StartCoroutine(darkOrbAttack());
-                StartCoroutine(resetAttack(darkOrbReload));  
+                StartCoroutine(reaperShot());
+                StartCoroutine(resetAttack());  
             }
         }
+
     }
 
     //wait for a while till the next shot
-    private IEnumerator resetAttack(Vector2 range)
+    private IEnumerator resetAttack()
     {
-        float reload = UnityEngine.Random.Range(range.x, range.y);
-        yield return new WaitForSeconds(reload);
+        float r = UnityEngine.Random.Range(reload.x, reload.y);
+        yield return new WaitForSeconds(r);
         reloadAttack = false;
     }
 
-    //sync darkOrb animation and shot
-    private IEnumerator darkOrbAttack() {
+    //sync Reaper animation and shot
+    private IEnumerator reaperShot() {
 
         //start cast orb animation
         anim.SetBool("Attack", true);
@@ -70,7 +91,19 @@ public class WeaponsCycle : MonoBehaviour
 
         //Get bullet and specify target
         projectiles[index].transform.position = transform.position; 
-        projectiles[index].GetComponent<Orb>().setupOnce = true;   
+        projectiles[index].GetComponent<enemy_projectile>().setupOnce = true;   
+        projectiles[index].gameObject.SetActive(true);
+    }
+
+    //sync Ogre animation and shot
+    private void ogreShot() {
+
+        //use the next available bullet
+        index = ++index % projectiles.Count;
+
+        //Get bullet and specify target
+        projectiles[index].transform.position = transform.position; 
+        projectiles[index].GetComponent<enemy_projectile>().setupOnce = true;   
         projectiles[index].gameObject.SetActive(true);
     }
 }

@@ -49,7 +49,6 @@ public class shooting : MonoBehaviour
 
     [Space(10)]
     [Header("Bullet Type")]
-    public int startingBullet;
     public GameObject[] bullets;
 
     void Start()

@@ -10,7 +10,6 @@ public class weapon_loadout : MonoBehaviour
     public List<float> ammo;
     public List<Text> ammoText;
     public List<Image> weaponImage;
-    private List<float> ammoStore;
     
     [Space(10)]
     [Header("Sprites")]    
@@ -21,12 +20,12 @@ public class weapon_loadout : MonoBehaviour
     [Space(10)]
     [Header("The 3 Weapons")]   
     public List<int> weapons;
-    public int currentWeapon = 0;
+    private int currentWeapon = 0;
 
     void Start() {
         shooting = transform.GetComponent<shooting>();
 
-        selectWeapon(currentWeapon);
+        selectWeapon();
         updateAmmo();
     }
 
@@ -41,12 +40,12 @@ public class weapon_loadout : MonoBehaviour
         if (ammo[currentWeapon] <= 0) {
             StartCoroutine(reload(currentWeapon));
             currentWeapon = ++currentWeapon % 3;
-            selectWeapon(currentWeapon);
+            selectWeapon();
         }        
     }
 
     //select a new weapon 
-    void selectWeapon(int weapon) {
+    void selectWeapon() {
         
         //change the bullets that you are shooting
         shooting.weaponType = shooting.bullets[weapons[currentWeapon]];
@@ -56,7 +55,7 @@ public class weapon_loadout : MonoBehaviour
         weaponImage[0].sprite = weaponNotSelected;
         weaponImage[1].sprite = weaponNotSelected;
         weaponImage[2].sprite = weaponNotSelected;
-        weaponImage[weapon].sprite = weaponSelected;
+        weaponImage[currentWeapon].sprite = weaponSelected;
     }
 
     //update the ammo text to show the weapons' real ammo
@@ -71,6 +70,8 @@ public class weapon_loadout : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             ammoText[weapon].enabled = ammoText[weapon].IsActive() ?  false : true;
         }
+
         ammo[weapon] = 25;
+        updateAmmo();
     }
 }
