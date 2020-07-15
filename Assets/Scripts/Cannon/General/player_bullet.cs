@@ -23,7 +23,7 @@ public class player_bullet : MonoBehaviour
     private SpriteRenderer renderer;
     private Collider2D collider;
     
-    void Start() {
+    void Awake() {
        //Get bounds of the screen for any screen size
         bottomLeft = camera.ViewportToWorldPoint(new Vector2(0,0));
         topRight = camera.ViewportToWorldPoint(new Vector2(1,1));
@@ -36,8 +36,9 @@ public class player_bullet : MonoBehaviour
         //Define components
         rig = transform.GetComponent<Rigidbody2D>();
         renderer = transform.GetComponent<SpriteRenderer>();
+        collider = transform.GetComponent<Collider2D>();
 
-        collider = transform.GetComponent<PolygonCollider2D>() ? transform.GetComponent<PolygonCollider2D>() : collider = transform.GetComponent<CircleCollider2D>();
+        print(collider);
     }
 
     void Update()

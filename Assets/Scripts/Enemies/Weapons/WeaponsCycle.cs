@@ -31,26 +31,6 @@ public class WeaponsCycle : MonoBehaviour
         foreach (Transform projectile in Projectile_Group.transform) {
             projectiles.Add(projectile);
         }
-        
-        //temporary ogre shooting method before its animated shooting
-        if (gameObject.tag == "Enemy 5") {
-           reloadAttack = true;
-           StartCoroutine(resetAttack());
-           StartCoroutine(ogreShoot());
-        }
-    }
-
-    //temporary ogre shooting method before its animated shooting
-    IEnumerator ogreShoot() {
-        yield return new WaitForSeconds(0.5f);
-
-        if (reloadAttack == false) {
-            reloadAttack = true;
-            StartCoroutine(resetAttack());
-            ogreShot();
-        }
-
-        StartCoroutine(ogreShoot());
     }
     
     void Update()
@@ -66,6 +46,20 @@ public class WeaponsCycle : MonoBehaviour
                 StartCoroutine(reaperShot());
                 StartCoroutine(resetAttack());  
             }
+        }
+
+        //Ogre chucks a boulder
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Ogre Throwing")) 
+        {
+            //Shoot once per animation cycle
+            progress = anim.GetCurrentAnimatorStateInfo(0).normalizedTime % 1;
+            if (progress >= 0.1f && progress <= 0.2f && reloadAttack == false)
+            {
+                reloadAttack = true;
+                shoot();
+                StartCoroutine(resetAttack());  
+            }
+
         }
 
     }
@@ -96,7 +90,7 @@ public class WeaponsCycle : MonoBehaviour
     }
 
     //sync Ogre animation and shot
-    private void ogreShot() {
+    private void shoot() {
 
         //use the next available bullet
         index = ++index % projectiles.Count;

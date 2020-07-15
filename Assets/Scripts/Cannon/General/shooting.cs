@@ -51,9 +51,11 @@ public class shooting : MonoBehaviour
     [Header("Bullet Type")]
     public GameObject[] bullets;
 
-    void Start()
+    void Awake()
     {
         audioSource = transform.GetComponent<AudioSource>();
+        lr = Aim_Arrow.GetComponent<LineRenderer>();  
+        lr_2 = Charge_Arrow.GetComponent<LineRenderer>();   
         wL = transform.GetComponent<weapon_loadout>();
     }
 
@@ -84,10 +86,8 @@ public class shooting : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             
             if (touch.phase == TouchPhase.Began) {
-                //setup aim arrow 
-                if (lr == null) 
-                    lr = Aim_Arrow.GetComponent<LineRenderer>();                
 
+                //setup aim arrow
                 lr.enabled = true;
                 lr.widthMultiplier = aimArrWidth;
                 lr.positionCount = 2;                
@@ -100,9 +100,6 @@ public class shooting : MonoBehaviour
                 lr.SetPosition(1, camera.ScreenToWorldPoint(initPosition) + centeredOffset);
            
                 //setup charge arrow
-                if (lr_2 == null) 
-                    lr_2 = Charge_Arrow.GetComponent<LineRenderer>();     
-
                 lr_2.enabled = true;
                 lr_2.widthMultiplier = chargeArrWidth;
                 lr_2.positionCount = 2;                
@@ -130,7 +127,11 @@ public class shooting : MonoBehaviour
                 //Update the endpoint of the aim arrow vector to stay a constant distance from the cannon's pivot as it moves with ur finger
                 if ((endPosition - initPosition).magnitude > maxArrowLength)
                     endPosition = initPosition + (endPosition-initPosition).normalized * maxArrowLength;
-              
+
+                //There will be no arrow if the player hasn't swiped the minimum distance
+                if ((endPosition - initPosition).magnitude < minSwipeToShoot)
+                    endPosition = initPosition;
+
                 //Update the start and end point
                 centeredOffset = -camera.ScreenToWorldPoint(initPosition) + arrowAnchor.transform.position + new Vector3(0, 0, -4);
                 Vector3 firstPoint = camera.ScreenToWorldPoint(initPosition) + centeredOffset;
@@ -190,13 +191,12 @@ public class shooting : MonoBehaviour
                 lr_2.enabled = false;
 
                 //set important values that your cannon requires
-                rotation = Mathf.Atan2(initPosition.y - endPosition.y, initPosition.x - endPosition.x) * Mathf.Rad2Deg;
                 magnitude = (endPosition - initPosition).magnitude;
                 touchPercent = magnitude / Screen.width;
 
                 //if the player every dragged out the arrow, fire
                 if (magnitude > minSwipeToShoot) 
-                   StartCoroutine(checkForWeaponChangeOrFire(rotation, endPosition));
+                   StartCoroutine(checkForWeaponChangeOrFire(rot, endPosition));
             }
         }                
     }
@@ -226,31 +226,29 @@ public class shooting : MonoBehaviour
 
     //Fire the cannon
     void Fire(float rot)
-    {
-        prepareBullet(Manage_Sounds.Instance.cannonShot);
-        wL.shotTaken();
-
+    { 
+        //set bullet's position and rotation
+        ammo[counter].transform.position = muzzle.position;
+        ammo[counter].transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z - 90 + 15);
+        ammo[counter].GetComponent<player_bullet>().oneLaunch = false;
+        
+        //play bullet fire sound
+        audioSource.PlayOneShot(Manage_Sounds.Instance.cannonShot, 0.8f * Manage_Sounds.soundMultiplier);
+        
+        //active bullet and cycle to the next one in the future
         ammo[counter].SetActive(false);
         ammo[counter].SetActive(true);
         counter += 1;
         counter %= (weaponType.transform.childCount);
+
+        //lose one ammo
+        wL.shotTaken();
     }
 
     //-------------------------------------------------------------------------------
     //------------------------------SHORT SUB-METHODS--------------------------------
     //----------(Small methods that server to make code more readable)---------------
     //-------------------------------------------------------------------------------
-
-    //Set bullet properties and location
-    private void prepareBullet(AudioClip hit_Sound) {
-        //set bullet's position and rotation
-        ammo[counter].transform.position = muzzle.position;
-        ammo[counter].transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z - 90 + 15);
-        ammo[counter].GetComponent<player_bullet>().oneLaunch = false;
-
-        //play bullet fire sound
-        audioSource.PlayOneShot(hit_Sound, 0.8f * Manage_Sounds.soundMultiplier);
-    }
 
     //Flash effect for the gatling gun sub-method
     private IEnumerator Flash()

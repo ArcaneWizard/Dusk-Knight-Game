@@ -18,8 +18,9 @@ public class Orc : MonoBehaviour
     public float undoDuration;  
 
     private bool landedJump;
+    private bool dontGetCloser;
     private int arrowIndex = 0;
-    private float speed = 1.0f;
+    private float speed;
 
     public AudioClip launch;
     public float launchVolume;
@@ -99,15 +100,6 @@ public class Orc : MonoBehaviour
         animator.SetFloat("spring speed", 0);    
     }
 
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        //Orc is next to the tower, wants to start bashing
-        if (col.gameObject.layer == 17) {
-            animator.SetInteger("Attack", 1);
-            StartCoroutine(blink());
-        }
-    }
-
     private IEnumerator blink() {
         //If not taking dmg, then attack or blink
         if (!animator.GetBool("Hurt"))
@@ -150,6 +142,18 @@ public class Orc : MonoBehaviour
                 landedJump = true;
             }
         }
+
+        //Orc is next to the tower, wants to start bashing
+        if (col.gameObject.layer == 17) 
+        {
+            //start bashing
+            animator.SetInteger("Attack", 1);
+            StartCoroutine(blink());
+
+            //stop following the arrows
+            rig.velocity = new Vector2(0, 0);
+            dontGetCloser = true;
+        }
     }
     
     //Orc flinches when hit sub-method
@@ -160,7 +164,7 @@ public class Orc : MonoBehaviour
     void OnTriggerStay2D(Collider2D col) {
 
         //Orc is landing on a movement arrow after its jump
-        if (col.gameObject.layer == 13 && landedJump == true) {
+        if (col.gameObject.layer == 13 && landedJump == true && dontGetCloser == false) {
 
             //call this only once            
             landedJump = false;
@@ -186,7 +190,7 @@ public class Orc : MonoBehaviour
         }
         
         //Goblin is being directed by a movement arrow
-        if (col.gameObject.layer == 13 && rig.gravityScale == 0) {
+        if (col.gameObject.layer == 13 && rig.gravityScale == 0 && dontGetCloser == false) {
 
             //get movement arrow index
             int index = col.gameObject.transform.GetSiblingIndex();

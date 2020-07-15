@@ -14,8 +14,9 @@ public class Goblin : MonoBehaviour
 
     private bool AttackedOnce = false;
 
-    private float speed = 2f;
+    private bool dontGetCloser = false;
     private int arrowIndex = 0;
+    private float speed;
 
     void Awake()
     {
@@ -66,13 +67,17 @@ public class Goblin : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         //Goblin is next to the tower, wants to start bashing
         if (col.gameObject.layer == 17)
         {
+            //start bashing the tower
             animator.SetBool("Attack", true);
             StartCoroutine(playSound());
+
+            //stop following the arrows
+            dontGetCloser = true;
             rig.velocity = new Vector2(0, 0);
         }
     }
@@ -88,7 +93,7 @@ public class Goblin : MonoBehaviour
     void OnTriggerStay2D(Collider2D col) {
        
         //Goblin is being directed by a movement arrow
-        if (col.gameObject.layer == 13 && rig.gravityScale == 0) {
+        if (col.gameObject.layer == 13 && rig.gravityScale == 0 && dontGetCloser == false) {
 
             //get movement arrow index
             int index = col.gameObject.transform.GetSiblingIndex();
