@@ -7,105 +7,75 @@ public class Reaper_1 : MonoBehaviour
 {
     Animator animator;
     Rigidbody2D rig;
-    
-    private float speed = 1.2f;
+
+    public GameObject hill;
+    private float speed;
     private bool counter = false;
-    private bool rising = true;
     public float upspeed;
+    private int arrowIndex = 0;
+    private AudioSource audioSource;
+    private Enemy_Health enemy_Health;
+    private bool dontGetCloser = false;
+    private bool begin_motion = false;
 
-    void Start()
+    void Awake()
     {
-        gameObject.AddComponent<AudioSource>();
-        if (transform.GetComponent<Rigidbody2D>() != null)
-            Destroy(transform.GetComponent<Rigidbody2D>());
-    }
+        audioSource = transform.GetComponent<AudioSource>();
+        animator = transform.GetComponent<Animator>();
+        rig = transform.GetComponent<Rigidbody2D>();
+        enemy_Health = transform.GetComponent<Enemy_Health>();
 
-    private IEnumerator attack()
-    {
-        float r = UnityEngine.Random.Range(3.0f, 4.0f);
-        yield return new WaitForSeconds(r);
-        if (transform.GetComponent<Enemy_Health>().hp > 0)
-            animator.SetBool("Attack", true);
-        else
-            yield break;
+        speed = Enemy_Health.R1_speed;
 
-        if (transform.GetComponent<Enemy_Health>().hp > 0)
-            rig.velocity = new Vector2(0, 0);
-        yield return new WaitForSeconds(0.85f);
-        if (counter == false && transform.GetComponent<Enemy_Health>().hp > 0)
-        {
-            animator.SetBool("Attack", false);
-            if (transform.GetComponent<Enemy_Health>().isIced == false)
-            rig.velocity = new Vector2(speed, 0);
-            if (transform.GetComponent<Enemy_Health>().hp > 0)
-               StartCoroutine(attack());
-        }
     }
 
     void Update()
     {
-        rig = transform.GetComponent<Rigidbody2D>();
-
         if (transform.GetComponent<Enemy_Health>().deploy == true)
         {
-            counter = false;
-            animator = transform.GetComponent<Animator>();
-            animator.SetBool("Attack", false);
-            animator.SetBool("Dead", false);
-
-            speed = Enemy_Health.R1_speed;
-
-            if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
-            {
-                speed = -Mathf.Abs(speed);
-                transform.rotation = Quaternion.Euler(0, 180, 0);
-            }
-
-            else
-            {
-                speed = Mathf.Abs(speed);
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
-
-            StartCoroutine(activate(speed));
-
-
             transform.GetComponent<Enemy_Health>().deploy = false;
+
+            //Orient Reaper to the left 
+            speed = -Mathf.Abs(speed);
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+
+
+            //Reset animation bools  
+            animator.SetBool("Attack", false);
+
+            activate();
         }
 
-        if (rising)
+        if(begin_motion)
         {
-            transform.position = transform.position + new Vector3(0, upspeed * Time.deltaTime, 0);
-        }
+            //Set enemy movement based off hill arrows that outline the hill
+            Quaternion initDir = hill.transform.GetChild(0).transform.rotation;
+            Quaternion finalDir = hill.transform.GetChild(1).transform.rotation;
+            float distance = hill.transform.GetChild(0).transform.position.x - hill.transform.GetChild(1).transform.position.x;
 
-        /*if (animator.GetBool("Attack") == false && counter == true)
-        {
-            animator.SetBool("Attack", true);
-            rig.velocity = new Vector2(0, 0);
-        }
+            rig.gravityScale = 0;
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
 
-        if (rig.velocity.x == speed && counter == true)
-        {
-            animator.SetBool("Attack", true);
-            rig.velocity = new Vector2(0, 0);
-        }*/
+            //Can start following any arrow at the start, but as arrowIndex goes up, the enemy can't refollow the arrow at a lower index 
+            arrowIndex = 0;
+
+            begin_motion = false;
+        }
     }
 
-    private IEnumerator activate(float speed)
+    private IEnumerator activate()
     {
-        transform.GetComponent<PolygonCollider2D>().enabled = false;
-        Destroy(transform.GetComponent<Rigidbody2D>());
-        rising = true;
+        //Destroy(transform.GetComponent<Rigidbody2D>());
+        animator.SetBool("Spawn", true);
 
         yield return new WaitForSeconds(0.5f);
 
-        rising = false;
-        transform.gameObject.AddComponent<Rigidbody2D>();
-        rig = transform.GetComponent<Rigidbody2D>();
-        transform.GetComponent<Rigidbody2D>().freezeRotation = true;
-        transform.GetComponent<Rigidbody2D>().gravityScale = 1;
-        transform.GetComponent<PolygonCollider2D>().enabled = true;
-        rig.velocity = new Vector2(speed, 0);
+        begin_motion = true;
+        //transform.gameObject.AddComponent<Rigidbody2D>();
+        //rig = transform.GetComponent<Rigidbody2D>();
+        //transform.GetComponent<Rigidbody2D>().freezeRotation = true;
+        //transform.GetComponent<Rigidbody2D>().gravityScale = 1;
+        //transform.GetComponent<PolygonCollider2D>().enabled = true;
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -115,6 +85,64 @@ public class Reaper_1 : MonoBehaviour
             animator.SetBool("Attack", true);
             rig.velocity = new Vector2(0, 0);
             counter = true;
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D col)
+    {
+
+        //Ogre is being directed by a movement arrow
+        if (col.gameObject.layer == 13 && rig.gravityScale == 0)
+        {
+
+            //get movement arrow index
+            int index = col.gameObject.transform.GetSiblingIndex();
+
+            //Don't change directions if this is the last movement arrow
+            if (index == col.gameObject.transform.parent.childCount - 1)
+            {
+                rig.velocity = col.transform.rotation * -Vector3.right * speed;
+                return;
+            }
+
+            //If touching two arrows, choose the one that's forward
+            if (index > arrowIndex)
+                arrowIndex = index;
+            else
+                return;
+
+            //find the current and next direction the enemy should move in
+            Quaternion initDir = col.transform.rotation;
+            Quaternion finalDir = col.transform.parent.GetChild(index + 1).transform.rotation;
+
+            //find the distance between the two arrow points
+            float distance = col.transform.position.x - col.transform.parent.GetChild(index + 1).transform.position.x;
+
+            //Turn the enemy from its current direction to the next direction
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
+        }
+    }
+
+    private IEnumerator playSound()
+    {
+        yield return new WaitForSeconds(0.22f);
+        audioSource.PlayOneShot(Manage_Sounds.Instance.goblinAttack, Manage_Sounds.soundMultiplier);
+        yield return new WaitForSeconds(0.78f);
+        StartCoroutine(playSound());
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        //Goblin is next to the tower, wants to start bashing
+        if (col.gameObject.layer == 17)
+        {
+            //start bashing the tower
+            animator.SetBool("Attack", true);
+            StartCoroutine(playSound());
+
+            //stop following the arrows
+            dontGetCloser = true;
+            rig.velocity = new Vector2(0, 0);
         }
     }
 }

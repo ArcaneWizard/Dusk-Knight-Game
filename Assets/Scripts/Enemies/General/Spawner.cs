@@ -20,6 +20,7 @@ public class Spawner : MonoBehaviour
     public Transform GRSpawn;
     public Transform GLSpawn;
     public Transform OrcSpawn;
+    public Transform Hill;
 
     private int cE1 = 0;
     private int cE2 = 0;
@@ -106,10 +107,10 @@ public class Spawner : MonoBehaviour
         //set enemy spawn point 
         deployPos = ESpawn.transform.position;
 
-        //choose burying reaper spawn point differently 
+        //choose exploding reaper spawn point differently 
         if (enemyName == "Enemy 4") {
-            int r = Random.Range(0, 2);
-            deployPos = r == 0 ? GRSpawn.transform.position : GLSpawn.transform.position;  
+            Vector3 r = Hill.GetChild(Random.Range(1, 11)).transform.position;
+            deployPos = new Vector3(r.x, r.y+0.65f, 0);  
         }
 
         //choose flying reaper spawn point differently
