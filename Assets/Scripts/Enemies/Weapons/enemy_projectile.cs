@@ -23,6 +23,15 @@ public class enemy_projectile : MonoBehaviour
     public Vector2 xRandomness;
     public Vector2 yRandomness;
 
+    void Awake() 
+    {
+        //define components
+        audioSource = transform.GetComponent<AudioSource>();
+        rig = transform.GetComponent<Rigidbody2D>();
+        renderer = transform.GetComponent<SpriteRenderer>();
+        collider = transform.GetComponent<Collider2D>();
+    }
+
     void Update()
     {
         //When the orb is shot out
@@ -30,12 +39,6 @@ public class enemy_projectile : MonoBehaviour
         {   
             //perform this setup only once
             setupOnce = false;
-
-            //define components
-            audioSource = transform.GetComponent<AudioSource>();
-            rig = transform.GetComponent<Rigidbody2D>();
-            renderer = transform.GetComponent<SpriteRenderer>();
-            collider = transform.GetComponent<CircleCollider2D>();
 
             //reset color, collider and gravity
             renderer.color = new Color32(255, 255, 255, 255);            
@@ -55,7 +58,16 @@ public class enemy_projectile : MonoBehaviour
         //damage the player if they connect (+ audio)
         if (col.gameObject.layer == 10)
         {
-            Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 0.4f);
+            if (gameObject.tag == "Reaper projectile") {
+                health.hp -= Enemy_Health.R3Dmg;
+                Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 0.4f);
+            }
+
+            if (gameObject.tag == "Ogre projectile") {
+                health.hp -= Enemy_Health.ogreDmg;
+                Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 0.4f);
+            }
+            
             gameObject.SetActive(false);
         }
     }
@@ -64,9 +76,6 @@ public class enemy_projectile : MonoBehaviour
 
         //collides with ground
         if (col.gameObject.layer == 15) {
-            if (!collider)
-                print(gameObject.name);
-                
             collider.enabled = false;
             rig.gravityScale = 0;
             rig.velocity = new Vector2(0, 0);

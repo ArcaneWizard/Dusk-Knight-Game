@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class weapon_loadout : MonoBehaviour
 {
     [Space(10)]
+    [Header("The 3 Weapons")]   
+    public List<int> weapons;
+    private int currentWeapon = 0;
+    
+    [Space(10)]
     [Header("Visuals + Ammo")]    
     public List<float> ammo;
     public List<Text> ammoText;
@@ -16,11 +21,6 @@ public class weapon_loadout : MonoBehaviour
     public Sprite weaponSelected;
     public Sprite weaponNotSelected;
     private shooting shooting;
-    
-    [Space(10)]
-    [Header("The 3 Weapons")]   
-    public List<int> weapons;
-    private int currentWeapon = 0;
 
     void Start() {
         shooting = transform.GetComponent<shooting>();

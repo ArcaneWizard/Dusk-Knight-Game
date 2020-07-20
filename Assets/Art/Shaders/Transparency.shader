@@ -39,7 +39,7 @@ Shader "Custom/Transparency" {
 
 				half4 frag(v2f i) : COLOR{
 					half4 color = tex2D(_MainTex, i.uv);
-					if (color.a == 0.0)
+					if (color.a == 0)
 					discard;
 					return color;
 				}

@@ -92,9 +92,9 @@ public class Spawner : MonoBehaviour
         if (r == 3)
             deployEnemy("Enemy 3");
         if (r == 4)
-            deployEnemy("Enemy 4");
-        if (r == 5)
             deployEnemy("Enemy 5");
+        if (r == 5)
+            deployEnemy("Enemy 2");
     }
 
     //Deploying enemy shortened to one method/line
@@ -129,7 +129,7 @@ public class Spawner : MonoBehaviour
 
         //reset enemy settings
         if (enemy.transform.GetComponent<Enemy_Health>() != null) {
-            enemy.transform.GetComponent<Enemy_Health>().setHP();
+            enemy.transform.GetComponent<Enemy_Health>().setStats();
             enemy.transform.GetComponent<Enemy_Health>().deploy = true;
         }     
     }
@@ -191,15 +191,21 @@ public class Spawner : MonoBehaviour
         enemyOrderFormat(E1_group, 10);
         enemyOrderFormat(E2_group, 20);
         enemyOrderFormat(E3_group, 30);
-        enemyOrderFormat(E4_group, 40);
+        //enemyOrderFormat(E4_group, 40);
         enemyOrderFormat(E5_group, 50);
     }
 
+    //Correctly order the enemies (which one comes on top)
     void enemyOrderFormat(GameObject enemyGroup, int layerOffset) {
         for (int i = 1; i <= enemyGroup.transform.childCount; i++)
         {
+            //set diff enemies' order in terms of which sprites come on top
             enemyGroup.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
             enemyGroup.transform.GetChild(i - 1).transform.GetComponent<SpriteRenderer>().sortingOrder = i - 1 + layerOffset;
+            
+            //set order of enemies' fire sprites when they are lit on fire
+            enemyGroup.transform.GetChild(i - 1).transform.GetChild(2).transform.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
+            enemyGroup.transform.GetChild(i - 1).transform.GetChild(2).transform.GetComponent<SpriteRenderer>().sortingOrder = i + 99 + layerOffset;
         }
     }
 

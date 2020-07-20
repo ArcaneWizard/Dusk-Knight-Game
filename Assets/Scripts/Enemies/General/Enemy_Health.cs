@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy_Health : MonoBehaviour
 {
-    //[HideInInspector] enemy's current health
+    //enemy's current health
     public float hp = 1;
 
     //Detects whenever enemy health changes
@@ -13,9 +13,8 @@ public class Enemy_Health : MonoBehaviour
     //enemy hps
     private int orc = 100;
     private int ogre = 70;
-    private int goblin = 50;
+    private int goblin = 100;
     private int reaper_1 = 60;
-    private int reaper_2 = 80;
     private int reaper_3 = 80;
 
     //enemy speeds
@@ -23,28 +22,33 @@ public class Enemy_Health : MonoBehaviour
     public static float ogre_speed = 0.52f;
     public static float goblin_speed = 2.1f;
     public static float R1_speed = 1.8f;
-    public static float R2_speed = 0.9f;
     public static float R3_speed = 1f;
+
+    //enemy dmg 
+    public static float orcDmg = 3; //Every 1.2-4 seconds, it hits the tower (meelee)
+    public static float ogreDmg = 2; //Every 5-13 seconds, it shoots (short-med range)
+    public static float goblinDmg = 1.2f; //Every second (meelee)
+    public static float R1Dmg = 14f; //Once upon reaching the tower
+    public static float R3Dmg = 2f; //Every 2.5-5 seconds, it shoots (any range)
     
     //enemy attributes and conditions
-    public bool deploy = true;
-    public bool poison = false;
-    public bool isPoisoned = false;
-    public bool iced = false;
-    public bool isIced = false;
-    public int isIcedWhileIced = 0;
-    public int isIcedWhileIcedCheck = 0;
+    [HideInInspector] public bool deploy = false;
+    [HideInInspector] public float freezeTimer;
+    [HideInInspector] public float fireTimer = 0;
+    private float freezeDuration = 3;
+    private float fireDuration = 3;
+    private float fireConstantDmgTimer = 0.99f;
     private bool death = false;
     private bool lowHP = false;
-    public float dmgMultiplier = 1;
     private float ogScaleX;
     private float ogScaleY;
+    [HideInInspector] public bool resetPath;
 
     //enemy feedback when taking dmg or dying
-    private float hitRednessduration = 0.2f;
+    private float hitRednessduration = 0.17f;
     private bool spinUponDeath = true; 
     private float deathDelay = 1f; 
-    private float spinDelay = 0.6f; 
+    private float spinDelay = 0.3f; 
     private float scale = 0.93f;
     private float rotSpeed = 25f;
 
@@ -59,6 +63,7 @@ public class Enemy_Health : MonoBehaviour
     private GameObject floating_Texts;
     private PolygonCollider2D enemyCollider;
     private GameObject snowball;
+    private GameObject fire;
     private Animator animator;
     private SpriteRenderer render;
     private Rigidbody2D rig;
@@ -80,15 +85,18 @@ public class Enemy_Health : MonoBehaviour
         ogScaleX = transform.localScale.x;
         ogScaleY = transform.localScale.y;
         spinUponDeath = true;
-
+    
         //Define components that need to be accessed
         animator = transform.GetComponent<Animator>();
         audioSource = transform.GetComponent<AudioSource>();
         render = transform.GetComponent<SpriteRenderer>();
         enemyCollider = transform.GetComponent<PolygonCollider2D>();
+        rig = transform.GetComponent<Rigidbody2D>();
+
         snowball = transform.GetChild(0).gameObject;
         floating_Texts = transform.GetChild(1).gameObject;
-        rig = transform.GetComponent<Rigidbody2D>();
+        fire = transform.GetChild(2).gameObject;
+
         tag = gameObject.tag;
 
         //Add floating text child objects to an array
@@ -96,22 +104,18 @@ public class Enemy_Health : MonoBehaviour
         {  floatingTexts.Add(child.gameObject);   }
         ft_cycleLength = floatingTexts.Count;
 
-        //set hp based off enemy type
-        setHP();
+        //set stats like hp based off enemy type
+        setStats();
     }
 
-    public void setHP()
+    public void setStats()
     {
-        //Set hp and red took-dmg color based on the specific enemy
-        flinchColor = new Color32(215, 39, 39, 255);  
-
+        //Set hp based off specific enemy
         if (tag == "Enemy 1") 
             hp = goblin;         
 
-        if (tag == "Enemy 2") {
+        if (tag == "Enemy 2") 
             hp = orc;
-            flinchColor = new Color32(255, 46, 46, 255);
-        }
 
         if (tag == "Enemy 3") 
             hp = reaper_3;
@@ -127,46 +131,33 @@ public class Enemy_Health : MonoBehaviour
         lowHP = false; 
         death = false;
         enemyCollider.enabled = true;
+        resetPath = false;
 
         //reset Enemy physical attributes
         transform.localScale = new Vector2(ogScaleX, ogScaleY);
         transform.rotation = Quaternion.Euler(0, 0, 0); 
         render.color = normal;
+
+        //Set flinch color to a red hue
+        flinchColor = new Color32(215, 39, 39, 255); 
     }
 
     void Update()
     {
-        //poisoned
-        if (poison == true && isPoisoned == false)
-        {
-            poison = false;
-            isPoisoned = true;
-            StartCoroutine(poisoned());
-        }
-
-        //frozen
-        if (iced == true)
-        {
-            iced = false;
-            isIced = true;
-            isIcedWhileIced++;
-            StartCoroutine(frozen());
-        }
-
-        //dead
+        //dies
         if (hp <= 0 && death == false)
         {
             death = true;
             checkDeath();
+            animator.enabled = false;
+            StartCoroutine(fade());
         }
  
-        //just took a hit
+        //took dmg
         if (lastHP != hp)
         {
             lastHP = hp;
-
-            if (isPoisoned == false)
-                StartCoroutine(flinch());
+            StartCoroutine(flinch());
         }
 
         //at low HP
@@ -176,11 +167,37 @@ public class Enemy_Health : MonoBehaviour
             render.color = flinchColor;
         }
 
-        //floating popup in-between delay counting down
+        //floating popup delay (in-between popups) will count down here
         if (resetTimer > 0)
             resetTimer -= Time.deltaTime;
+
+        //freeze duration timer will count down here
+        if (freezeTimer >= 0) 
+            freezeTimer -= Time.deltaTime;  
+
+        //When the freezeTimer has expired for a frozen enemy, unfreeze the enemy
+        if (freezeTimer < 0 && snowball.activeSelf == true)
+            freezeState(false);
+
+        //fire duration timer will count down here
+        if (fireTimer >= 0) {
+            fireTimer -= Time.deltaTime;  
+
+            //fire harms the enemy every second
+            if (fireConstantDmgTimer <= 0)  {
+                fireConstantDmgTimer = 0.95f;
+                hp -= player_bullet.fireDmgPerSecond;
+            }
+            else
+                fireConstantDmgTimer -= Time.deltaTime;
+        }
+
+        //When the firetimer has expired for an enemy lit on fire, stop burning it
+        if (fireTimer < 0 && fire.activeSelf == true)
+            fire.SetActive(false);
     }
 
+    //flicker red when hit
     private IEnumerator flinch()
     {
         render.color = flinchColor;
@@ -190,109 +207,53 @@ public class Enemy_Health : MonoBehaviour
             render.color = normal;
     }
 
-    private IEnumerator frozen()
+    //player projectile calls this to freeze the enemy with the ice effect
+    public void activateFreeze() {
+        freezeTimer = freezeDuration;
+        freezeState(true);
+    }
+
+    //choose to freeze or unfreeze the enemy code-wise
+    private void freezeState(bool freeze)
     {
-        //enable snowball
-        snowball.SetActive(true);
+        //enable snowball / disable snowball
+        snowball.SetActive(freeze);
 
-        //freeze
-        animator.enabled = false;
-        setSpeed(0, 1);
-
-        if (tag == "Enemy 1")
-            transform.GetComponent<Goblin>().enabled = false;
-
-        if (tag == "Enemy 2")
-            transform.GetComponent<Orc>().enabled = false;
-
-        if (tag == "Enemy 3") {
-            transform.GetComponent<Reaper_3>().enabled = false;
+        //freeze the enemy animation / unfreeze the enemy animation
+        animator.enabled = !freeze;
+            
+        //For the flying reaper, disable its movement script / enable its script
+        if (transform.GetComponent<Reaper_3>() && freeze)
             rig.gravityScale = 1;
-        }
+        if (transform.GetComponent<Reaper_3>() && !freeze) 
+            rig.gravityScale = 0;
 
-        if (tag == "Enemy 4")
-            transform.GetComponent<Reaper_1>().enabled = false;
-        
-        if (tag == "Enemy 5")
-            transform.GetComponent<Ogre>().enabled = false;
-
-        yield return new WaitForSeconds(4f);
-
-        isIcedWhileIcedCheck++;
-
-        //if not iced again and freeze time is over
-        if (isIcedWhileIcedCheck == isIcedWhileIced)
-        {
-            snowball.SetActive(false);
-            transform.GetComponent<Animator>().enabled = true;
-            setSpeed(1, 1);
-            isIced = false;
+        //stop the enemy / let the enemy continue moving
+        if (freeze) 
+            rig.velocity = new Vector2(0, 0);
+        else {
+            resetPath = true;
+            rig.WakeUp();
         }
     }
 
-    //alter enemy speed 
-    private void setSpeed(float sign, float multiplier)
-    {
-        if (tag == "Enemy 1")
-        {
-            transform.GetComponent<Goblin>().enabled = true;
-            rig.velocity = new Vector2(goblin_speed * sign * multiplier, 0);
-        }
-
-        if (tag == "Enemy 2")
-        {
-            transform.GetComponent<Orc>().enabled = true;
-            rig.velocity = new Vector2(orc_speed * sign * multiplier, 0);
-        }
-
-        if (tag == "Enemy 3")
-        {
-            transform.GetComponent<Reaper_3>().enabled = true;
-            rig.velocity = new Vector2(R2_speed * sign * multiplier, 0);
-        }
-
-        if (tag == "Enemy 4")
-        {
-            transform.GetComponent<Reaper_1>().enabled = true;
-            rig.velocity = new Vector2(R1_speed * sign * multiplier, 0);
-        }
-
-        if (tag == "Enemy 5")
-        {
-            transform.GetComponent<Ogre>().enabled = true;
-            rig.velocity = new Vector2(ogre_speed * sign * multiplier, 0);
-        }
-    }
-
-    //enemy is poisoned
-    private IEnumerator poisoned()
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            if (death == false)
-            {
-                render.color = new Color32(56, 219, 143, 255);
-                yield return new WaitForSeconds(0.22f);
-                hp -= 10;
-                render.color = normal;
-                yield return new WaitForSeconds(0.8f);
-            }
-        }
-        isPoisoned = false;
+    //player projectile calls this to light the enemy on fire
+    public void activateFire() {
+        fireConstantDmgTimer = 0.95f;
+        fireTimer = fireDuration;
+        fire.SetActive(true);
     }
 
     //enemy fade animation
     private IEnumerator fade()
-    {
-        if (gameObject.layer == 19)
-            gameObject.SetActive(false);
+    {   
+        //Un-ice enemy b4 it fades away
+        freezeState(false);
+        freezeTimer = 0;
 
-        yield return new WaitForSeconds(0.1f);
-        
-        //Un-ice and unpoison enemy b4 it fades away
-        isPoisoned = false;
-        isIced = false;
-        snowball.SetActive(false);
+        //Unlight enemy on fire b4 it fades away
+        fire.SetActive(false);
+        fireTimer = 0;
 
         //turn off enemy collisions with the outside environment
         enemyCollider.enabled = false;
@@ -304,7 +265,12 @@ public class Enemy_Health : MonoBehaviour
         //if spin upon death is wanted, enemy spins and fades upon death
         if (spinUponDeath == true)
         {
+            //kill velocity with slight delay (buffer for specific enemy AI scripts to stop setting enemy velocity)
+            yield return new WaitForSeconds(0.02f);
+            rig.velocity = new Vector2(0, 0);   
+
             yield return new WaitForSeconds(spinDelay);
+
             for (int yo = 17; yo >= 0; yo--)
             {
                 //reduce sprite's alpha value to fade the enemy
@@ -321,58 +287,12 @@ public class Enemy_Health : MonoBehaviour
         else 
             yield return new WaitForSeconds(deathDelay);
 
-        //Reset the iced value for when enemy next spawns
-        isIcedWhileIced = isIcedWhileIcedCheck;
-
         //Disable floating texts 
         foreach(GameObject text in floatingTexts)   
             text.gameObject.SetActive(false);
 
-
         //Turn off the enemy
         gameObject.SetActive(false);
-    }
-
-    //when killed, give player money 
-    private void checkDeath()
-    {
-        animator.SetBool("Dead", true);
-
-        giveJewels("Enemy 1", 5);
-        giveJewels("Enemy 2", 3);
-        giveJewels("Enemy 3", 2);
-        giveJewels("Enemy 4", 3);
-        giveJewels("Enemy 5", 3);
-
-        StartCoroutine(fade());
-    }
-
-    public float returnSpeed()
-    {
-        GameObject enemy = transform.gameObject;
-        float speed = 0;
-
-        if (tag == "Enemy 1")
-            speed = goblin_speed;
-        if (tag == "Enemy 2")
-            speed = orc_speed;
-        if (tag == "Enemy 3")
-            speed = R3_speed;
-        if (tag == "Enemy 4")
-            speed = R1_speed;
-        if (tag == "Enemy 5")
-            speed = ogre_speed;
-
-        if (enemy.transform.position.x > player.transform.position.x)
-            speed *= -1;
-
-        return speed;
-    }
-
-    public void giveJewels(string enemyNumber, int jewels)
-    {
-        if (tag == enemyNumber)
-            shop.jewels += jewels;
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -417,4 +337,23 @@ public class Enemy_Health : MonoBehaviour
         //recycle the next text in the list next time
         ft_currentIndex = ++ft_currentIndex % ft_cycleLength;
     }
+
+    //when killed, give player money 
+    private void checkDeath()
+    {
+        animator.SetBool("Dead", true);
+
+        giveJewels("Enemy 1", 5);
+        giveJewels("Enemy 2", 3);
+        giveJewels("Enemy 3", 2);
+        giveJewels("Enemy 4", 3);
+        giveJewels("Enemy 5", 3);
+    }
+
+    private void giveJewels(string enemyNumber, int jewels)
+    {
+        if (tag == enemyNumber)
+            shop.jewels += jewels;
+    }
+
 }

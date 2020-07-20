@@ -14,6 +14,9 @@ TagManager:
   - Enemy 3
   - Enemy 4
   - Enemy 5
+  - Buttons
+  - Jewels
+  - Animated bullet
   layers:
   - Default
   - TransparentFX

@@ -19,7 +19,6 @@ public class Reaper_2 : MonoBehaviour
             animator.SetBool("Dead", false);
             animator.SetBool("Grounded", false);
 
-            speed = Enemy_Health.R2_speed;
             if (transform.position.x > GameObject.FindGameObjectWithTag("Player").transform.position.x)
             {
                 speed *= -1;
@@ -48,7 +47,6 @@ public class Reaper_2 : MonoBehaviour
         if (col.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             animator.SetBool("Grounded", true);
-            if (transform.GetComponent<Enemy_Health>().isIced == false)
             rig.velocity = new Vector2(speed, 0);
         }
         if (col.gameObject.layer == LayerMask.NameToLayer("Range activation"))

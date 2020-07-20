@@ -10,7 +10,8 @@ public class WeaponsCycle : MonoBehaviour
     [Header("Objects")]
     public Transform Projectile_Group;
 
-    public static int index = 0;
+    public static int index_Reaper = 0;
+    public static int index_Ogre = 0;
     private List<Transform> projectiles = new List<Transform>();
     private Animator anim;
 
@@ -53,13 +54,12 @@ public class WeaponsCycle : MonoBehaviour
         {
             //Shoot once per animation cycle
             progress = anim.GetCurrentAnimatorStateInfo(0).normalizedTime % 1;
-            if (progress >= 0.1f && progress <= 0.2f && reloadAttack == false)
+            if (progress >= 0.1f && progress <= 1f && reloadAttack == false)
             {
                 reloadAttack = true;
                 shoot();
                 StartCoroutine(resetAttack());  
             }
-
         }
 
     }
@@ -81,23 +81,23 @@ public class WeaponsCycle : MonoBehaviour
         anim.SetBool("Attack", false);
 
         //use the next available bullet
-        index = ++index % projectiles.Count;
+        index_Reaper = ++index_Reaper % projectiles.Count;
 
         //Get bullet and specify target
-        projectiles[index].transform.position = transform.position; 
-        projectiles[index].GetComponent<enemy_projectile>().setupOnce = true;   
-        projectiles[index].gameObject.SetActive(true);
+        projectiles[index_Reaper].transform.position = transform.position; 
+        projectiles[index_Reaper].GetComponent<enemy_projectile>().setupOnce = true;   
+        projectiles[index_Reaper].gameObject.SetActive(true);
     }
 
     //sync Ogre animation and shot
     private void shoot() {
 
         //use the next available bullet
-        index = ++index % projectiles.Count;
+        index_Ogre = ++index_Ogre % projectiles.Count;
 
         //Get bullet and specify target
-        projectiles[index].transform.position = transform.position; 
-        projectiles[index].GetComponent<enemy_projectile>().setupOnce = true;   
-        projectiles[index].gameObject.SetActive(true);
+        projectiles[index_Ogre].transform.position = transform.position; 
+        projectiles[index_Ogre].GetComponent<enemy_projectile>().setupOnce = true;   
+        projectiles[index_Ogre].gameObject.SetActive(true);
     }
 }

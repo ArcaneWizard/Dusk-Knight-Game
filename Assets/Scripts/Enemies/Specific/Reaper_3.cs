@@ -8,7 +8,7 @@ public class Reaper_3 : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rig;
     private AudioSource audioSource;
-    private Enemy_Health enemy_Health;
+    private Enemy_Health eH;
     private WeaponsCycle weaponsCycle;
 
     public GameObject player;
@@ -30,7 +30,7 @@ public class Reaper_3 : MonoBehaviour
         animator = transform.GetComponent<Animator>();
         rig = transform.GetComponent<Rigidbody2D>();  
         audioSource = transform.GetComponent<AudioSource>();
-        enemy_Health = transform.GetComponent<Enemy_Health>();
+        eH = transform.GetComponent<Enemy_Health>();
         weaponsCycle = transform.GetComponent<WeaponsCycle>();
 
         speed = Enemy_Health.R3_speed;  
@@ -48,9 +48,9 @@ public class Reaper_3 : MonoBehaviour
     void Update()
     {
         //Reset enemy settings and start enemy movement
-        if (enemy_Health.deploy == true)
+        if (eH.deploy == true)
         {
-            enemy_Health.deploy = false;
+            eH.deploy = false;
             rig.gravityScale = 0;
             weaponsCycle.reloadAttack = false;
             waiting = false;
@@ -67,10 +67,10 @@ public class Reaper_3 : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (waiting == false)
+        if (waiting == false && eH.freezeTimer <= 0)
             SendMessage("movement");
 
-        if (enemy_Health.hp > 0)
+        if (eH.hp > 0 && eH.freezeTimer <= 0)
             transform.position = Vector3.Lerp(transform.position, randomPosition, Time.deltaTime * speed * speedModifier);
     }
 
@@ -83,5 +83,15 @@ public class Reaper_3 : MonoBehaviour
         waiting = true;
         yield return new WaitForSeconds(moveDelay);
         waiting = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        //Enemy landed on the ground after its motion was somehow disrupted (ex. frozen mid-air)
+        if (col.gameObject.layer == 14 && rig.gravityScale != 0)
+        {
+            rig.gravityScale = 0;
+            rig.velocity = new Vector2(0, 0);
+        }
     }
 }
