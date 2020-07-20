@@ -78,6 +78,10 @@ public class Enemy_Health : MonoBehaviour
     private bool respawnDelay;
     private float resetTimer;
 
+    //Animation controllers
+    public AnimatorOverrideController red;
+    public RuntimeAnimatorController usual;
+
     // Start is called before the first frame update
     void Awake()
     {   
@@ -199,12 +203,25 @@ public class Enemy_Health : MonoBehaviour
 
     //flicker red when hit
     private IEnumerator flinch()
-    {
-        render.color = flinchColor;
+    {        
+        //If an override controller isn't there for the enemy, change the enemy hue to red to flinch
+        //Otherwise, use the override controller where the enemy is red in its animation
+
+        //Turn the enemy red
+        if (!red)
+            render.color = flinchColor;
+        else
+            animator.runtimeAnimatorController = red;
+
         yield return new WaitForSeconds(hitRednessduration);
 
-        if (lowHP == false)
-            render.color = normal;
+        //Turn the enemy back to its normal skin tone (if it isn't low on health)
+        if (lowHP == false) {
+            if (!red)
+                render.color = normal;
+            else
+                animator.runtimeAnimatorController = usual;
+        }
     }
 
     //player projectile calls this to freeze the enemy with the ice effect
