@@ -88,7 +88,7 @@ public class Spawner : MonoBehaviour
         if (r == 1)
             deployEnemy("Enemy 1");
         if (r == 2)
-            deployEnemy("Enemy 2");
+            deployEnemy("Enemy 4");
         if (r == 3)
             deployEnemy("Enemy 3");
         if (r == 4)

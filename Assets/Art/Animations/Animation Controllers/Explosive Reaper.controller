@@ -63,14 +63,11 @@ AnimatorStateMachine:
     m_State: {fileID: 1267379362747757133}
     m_Position: {x: 340, y: 130, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 4316067600799637095}
-    m_Position: {x: 420, y: -490, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: 7390908462045553390}
     m_Position: {x: 20, y: -110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5359265402244978100}
-    m_Position: {x: 320, y: -340, z: 0}
+    m_Position: {x: 320, y: -350, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -218,32 +215,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1102 &4316067600799637095
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: ReaperBomb
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 41b753158a761584fbd916886275c7c2, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!1109 &5269412920745048110
 AnimatorTransition:
   m_ObjectHideFlags: 1
@@ -265,7 +236,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ReaperBomb 0
+  m_Name: ReaperBomb
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
