@@ -6,6 +6,7 @@ public class Enemy_Health : MonoBehaviour
 {
     //enemy's current health
     public float hp = 1;
+    private float maxHP;
 
     //Detects whenever enemy health changes
     private float lastHP;
@@ -45,16 +46,12 @@ public class Enemy_Health : MonoBehaviour
     [HideInInspector] public bool resetPath;
 
     //enemy feedback when taking dmg or dying
-    private float hitRednessduration = 0.17f;
+    private float hitRednessduration = 0.04f;
     private bool spinUponDeath = true; 
     private float deathDelay = 1f; 
     private float spinDelay = 0.3f; 
     private float scale = 0.93f;
     private float rotSpeed = 25f;
-
-    //Enemy color overlays
-    private Color32 normal = new Color32(255, 255, 255, 255);
-    private Color32 flinchColor = new Color32(192, 0, 0, 255);
 
     //Gameobject References
     public Shop shop;
@@ -65,7 +62,7 @@ public class Enemy_Health : MonoBehaviour
     private GameObject snowball;
     private GameObject fire;
     private Animator animator;
-    private SpriteRenderer render;
+    private SpriteRenderer renderer;
     private Rigidbody2D rig;
     private AudioSource audioSource;
     private string tag;
@@ -78,7 +75,16 @@ public class Enemy_Health : MonoBehaviour
     private bool respawnDelay;
     private float resetTimer;
 
+    [Space(10)]
+    [Header("Sprites")]
+
     //Animation controllers
+    public Sprite redSprite;
+    public Sprite usualSprite;
+
+    [Space(10)]
+    [Header("Animation controllers")]
+
     public AnimatorOverrideController red;
     public RuntimeAnimatorController usual;
 
@@ -93,7 +99,7 @@ public class Enemy_Health : MonoBehaviour
         //Define components that need to be accessed
         animator = transform.GetComponent<Animator>();
         audioSource = transform.GetComponent<AudioSource>();
-        render = transform.GetComponent<SpriteRenderer>();
+        renderer = transform.GetComponent<SpriteRenderer>();
         enemyCollider = transform.GetComponent<PolygonCollider2D>();
         rig = transform.GetComponent<Rigidbody2D>();
 
@@ -132,18 +138,19 @@ public class Enemy_Health : MonoBehaviour
 
         //reset Enemy values
         lastHP = hp;
+        maxHP = hp;
         lowHP = false; 
         death = false;
         enemyCollider.enabled = true;
         resetPath = false;
+        renderer.color = new Color32(255, 255, 255, 255);
 
         //reset Enemy physical attributes
         transform.localScale = new Vector2(ogScaleX, ogScaleY);
         transform.rotation = Quaternion.Euler(0, 0, 0); 
-        render.color = normal;
 
-        //Set flinch color to a red hue
-        flinchColor = new Color32(215, 39, 39, 255); 
+        //reset Enemy sprite/animation
+        setAnimationOrSprite("usual");
     }
 
     void Update()
@@ -165,10 +172,10 @@ public class Enemy_Health : MonoBehaviour
         }
 
         //at low HP
-        if (hp <= 20 && lowHP == false)
+        if ((hp <= maxHP/3f || hp <= 20) && lowHP == false)
         {
             lowHP = true;
-            render.color = flinchColor;
+            setAnimationOrSprite("red");
         }
 
         //floating popup delay (in-between popups) will count down here
@@ -204,23 +211,46 @@ public class Enemy_Health : MonoBehaviour
     //flicker red when hit
     private IEnumerator flinch()
     {        
-        //If an override controller isn't there for the enemy, change the enemy hue to red to flinch
-        //Otherwise, use the override controller where the enemy is red in its animation
-
         //Turn the enemy red
-        if (!red)
-            render.color = flinchColor;
-        else
-            animator.runtimeAnimatorController = red;
+        setAnimationOrSprite("red");
 
         yield return new WaitForSeconds(hitRednessduration);
 
         //Turn the enemy back to its normal skin tone (if it isn't low on health)
         if (lowHP == false) {
-            if (!red)
-                render.color = normal;
-            else
+            setAnimationOrSprite("usual");
+        }
+    }
+
+    //Turn the enemy red or back to its normal skin tone
+    private void setAnimationOrSprite(string type)
+    {
+        //If an override controller isn't there for the enemy, use the single enemy red sprite 
+        //Otherwise, use the override controller where the enemy is red in its animation
+        if (type == "red")
+        {
+            if (red) {
+                animator.runtimeAnimatorController = red;
+            }
+            else {
+                animator.runtimeAnimatorController = null;
+                renderer.sprite = redSprite;
+            }
+
+            //specific enemy filters when hurt
+            if (tag == "Enemy 3") 
+                renderer.color = new Color32(243, 227, 227, 255);
+        }   
+        
+        if (type == "usual")
+        {
+            if (usual)
                 animator.runtimeAnimatorController = usual;
+            else
+                renderer.sprite = usualSprite;
+
+            //turn off any color filters
+            renderer.color = new Color32(255, 255, 255, 255);
         }
     }
 
@@ -286,13 +316,15 @@ public class Enemy_Health : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
             rig.velocity = new Vector2(0, 0);   
 
+            //kill dying animation after another delay
             yield return new WaitForSeconds(spinDelay);
+            animator.runtimeAnimatorController = null;
 
             for (int yo = 17; yo >= 0; yo--)
             {
                 //reduce sprite's alpha value to fade the enemy
-                Color32 c = render.color;
-                render.color = new Color32(c.r, c.g, c.b, (byte)(15 * yo));
+                Color32 c = renderer.color;
+                renderer.color = new Color32(c.r, c.g, c.b, (byte)(15 * yo));
 
                 //scale down and rotate the enemy over time
                 transform.localScale *= scale;

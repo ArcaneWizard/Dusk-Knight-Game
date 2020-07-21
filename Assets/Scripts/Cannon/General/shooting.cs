@@ -218,7 +218,7 @@ public class shooting : MonoBehaviour
     private void changeRotation(float rot, Vector3 touchPosition) {
 
         //set cannon rotation if not facing backwards
-        transform.rotation = Quaternion.Euler(0f, 0f, rot - 15);
+        transform.rotation = Quaternion.Euler(0f, 0f, rot);
 
         //rotate the guide aim arrows around the cannon 
         weaponAnchor.transform.rotation = transform.rotation;
@@ -229,7 +229,7 @@ public class shooting : MonoBehaviour
     { 
         //set bullet's position and rotation
         ammo[counter].transform.position = muzzle.position;
-        ammo[counter].transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z - 90 + 15);
+        ammo[counter].transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z - 90);
         ammo[counter].GetComponent<player_bullet>().oneLaunch = false;
         
         //play bullet fire sound

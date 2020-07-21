@@ -494,6 +494,17 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 119392298047295551, guid: 1df51ebf42f0d7947814028c28b992ca,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 23afe75c1c8aa4b4f9702e439edded58, type: 2}
+    - target: {fileID: 119392298047295551, guid: 1df51ebf42f0d7947814028c28b992ca,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e4ed9abcf763fce4d9885a5544991873,
+        type: 3}
     - target: {fileID: 119392298047295550, guid: 1df51ebf42f0d7947814028c28b992ca,
         type: 3}
       propertyPath: Player
@@ -2088,6 +2099,23 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 3596b6b120fddf9478ba6611ff466901, type: 2}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2facf093ac2b91f41a14250ef9ec5bd6,
+        type: 3}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: red
+      value: 
+      objectReference: {fileID: 22100000, guid: f5c7a708a297a214cb9a01f8880bfd8c,
+        type: 2}
     - target: {fileID: 7232141005340089761, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
         type: 3}
       propertyPath: hill
@@ -2472,6 +2500,17 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 119392298047295551, guid: 1df51ebf42f0d7947814028c28b992ca,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 23afe75c1c8aa4b4f9702e439edded58, type: 2}
+    - target: {fileID: 119392298047295551, guid: 1df51ebf42f0d7947814028c28b992ca,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e4ed9abcf763fce4d9885a5544991873,
+        type: 3}
     - target: {fileID: 119392298047295550, guid: 1df51ebf42f0d7947814028c28b992ca,
         type: 3}
       propertyPath: Player
@@ -3749,6 +3788,8 @@ MonoBehaviour:
   shop: {fileID: 919385077}
   player: {fileID: 1107169722}
   manage_Sounds: {fileID: 2132682074}
+  redSprite: {fileID: 0}
+  usualSprite: {fileID: 0}
   red: {fileID: 0}
   usual: {fileID: 0}
 --- !u!114 &249361350
@@ -5760,8 +5801,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 341728017}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.36, y: 2.79, z: 0}
-  m_LocalScale: {x: 2.333, y: 2.62, z: 1}
+  m_LocalPosition: {x: -0.4, y: 2.98, z: 0}
+  m_LocalScale: {x: 2.093585, y: 2.4643917, z: 1}
   m_Children:
   - {fileID: 1531326770}
   - {fileID: 1328673436}
@@ -5841,7 +5882,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 103
-  m_Sprite: {fileID: 21300000, guid: 4e31cf18335f102479805ff1b9018062, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f1b685e646208c646b4f45599d247238, type: 3}
   m_Color: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7691,6 +7732,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: 196cfc84f8450e842a0ec5a0002172b3,
         type: 2}
+    - target: {fileID: 6542919648166408075, guid: 3946c8d40d30c19428ec6311e161c0f8,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a0be6e34c90b2da428b701be4b15aa1e,
+        type: 3}
     - target: {fileID: 6542919648166408072, guid: 3946c8d40d30c19428ec6311e161c0f8,
         type: 3}
       propertyPath: hill
@@ -8276,6 +8323,23 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 3596b6b120fddf9478ba6611ff466901, type: 2}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2facf093ac2b91f41a14250ef9ec5bd6,
+        type: 3}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: red
+      value: 
+      objectReference: {fileID: 22100000, guid: f5c7a708a297a214cb9a01f8880bfd8c,
+        type: 2}
     - target: {fileID: 7232141005340089761, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
         type: 3}
       propertyPath: hill
@@ -9387,8 +9451,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540609929}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.393, y: 3, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: -0.61, y: 3.36, z: 0}
+  m_LocalScale: {x: 2.96, y: 2.888, z: 1}
   m_Children: []
   m_Father: {fileID: 1107169723}
   m_RootOrder: 3
@@ -9431,7 +9495,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 101
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 32cb8abf40d001e4a89044c9e4e43a86, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -10863,6 +10927,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: 196cfc84f8450e842a0ec5a0002172b3,
         type: 2}
+    - target: {fileID: 6542919648166408075, guid: 3946c8d40d30c19428ec6311e161c0f8,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a0be6e34c90b2da428b701be4b15aa1e,
+        type: 3}
     - target: {fileID: 6542919648166408072, guid: 3946c8d40d30c19428ec6311e161c0f8,
         type: 3}
       propertyPath: hill
@@ -16954,8 +17024,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028209476}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1299996, y: 0.09999991, z: 0}
-  m_LocalScale: {x: 1.3920001, y: 1.38, z: 1}
+  m_LocalPosition: {x: -0.4, y: 0.295, z: 0}
+  m_LocalScale: {x: 2.0757394, y: 1.9107094, z: 1}
   m_Children: []
   m_Father: {fileID: 1107169723}
   m_RootOrder: 2
@@ -16998,9 +17068,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: 933003ae57b10f64c94f833b7d885e23, type: 3}
-  m_Color: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
+  m_SortingOrder: 101
+  m_Sprite: {fileID: 21300000, guid: d906bc6d70f1a2244a61e7df33abfda5, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -17831,6 +17901,22 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 4e8e2a037c1b5f949bdad770c709d62a, type: 2}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 78f5932b490dd0d4c9bc7f509aa7c6ec,
+        type: 3}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: red
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6340390720537163137, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
         type: 3}
       propertyPath: hill
@@ -17941,6 +18027,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6340390720537163139, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4f4ce456f3290564bb621b37d481fcf9,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 2205423926811141831, guid: 3bc28f254c40f574ca29ac0d0e81b0f2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3bc28f254c40f574ca29ac0d0e81b0f2, type: 3}
@@ -19411,6 +19503,17 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 119392298047295551, guid: 1df51ebf42f0d7947814028c28b992ca,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 23afe75c1c8aa4b4f9702e439edded58, type: 2}
+    - target: {fileID: 119392298047295551, guid: 1df51ebf42f0d7947814028c28b992ca,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e4ed9abcf763fce4d9885a5544991873,
+        type: 3}
     - target: {fileID: 119392298047295550, guid: 1df51ebf42f0d7947814028c28b992ca,
         type: 3}
       propertyPath: Player
@@ -20752,7 +20855,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210326065}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.36, y: 2.73, z: 0}
+  m_LocalPosition: {x: -0.11, y: 3.16, z: 0}
   m_LocalScale: {x: 1.1111112, y: 1.1111112, z: 1}
   m_Children:
   - {fileID: 1293685733}
@@ -22285,6 +22388,22 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 4e8e2a037c1b5f949bdad770c709d62a, type: 2}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 78f5932b490dd0d4c9bc7f509aa7c6ec,
+        type: 3}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: red
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6340390720537163137, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
         type: 3}
       propertyPath: hill
@@ -22395,6 +22514,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6340390720537163139, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4f4ce456f3290564bb621b37d481fcf9,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 2205423926811141831, guid: 3bc28f254c40f574ca29ac0d0e81b0f2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3bc28f254c40f574ca29ac0d0e81b0f2, type: 3}
@@ -22568,7 +22693,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1293685732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.83, y: 0.647, z: 0}
+  m_LocalPosition: {x: 1.839, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1210326066}
@@ -25398,6 +25523,17 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 119392298047295551, guid: 1df51ebf42f0d7947814028c28b992ca,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 23afe75c1c8aa4b4f9702e439edded58, type: 2}
+    - target: {fileID: 119392298047295551, guid: 1df51ebf42f0d7947814028c28b992ca,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e4ed9abcf763fce4d9885a5544991873,
+        type: 3}
     - target: {fileID: 119392298047295550, guid: 1df51ebf42f0d7947814028c28b992ca,
         type: 3}
       propertyPath: Player
@@ -25919,6 +26055,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: 196cfc84f8450e842a0ec5a0002172b3,
         type: 2}
+    - target: {fileID: 6542919648166408075, guid: 3946c8d40d30c19428ec6311e161c0f8,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a0be6e34c90b2da428b701be4b15aa1e,
+        type: 3}
     - target: {fileID: 6542919648166408072, guid: 3946c8d40d30c19428ec6311e161c0f8,
         type: 3}
       propertyPath: hill
@@ -26193,7 +26335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1531326769}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.477, y: 0.142, z: 0}
+  m_LocalPosition: {x: 0.501, y: -0.076, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 341728018}
@@ -28171,6 +28313,22 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 4e8e2a037c1b5f949bdad770c709d62a, type: 2}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 78f5932b490dd0d4c9bc7f509aa7c6ec,
+        type: 3}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: red
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6340390720537163137, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
         type: 3}
       propertyPath: hill
@@ -28281,6 +28439,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6340390720537163139, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4f4ce456f3290564bb621b37d481fcf9,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 2205423926811141831, guid: 3bc28f254c40f574ca29ac0d0e81b0f2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3bc28f254c40f574ca29ac0d0e81b0f2, type: 3}
@@ -28492,6 +28656,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: 196cfc84f8450e842a0ec5a0002172b3,
         type: 2}
+    - target: {fileID: 6542919648166408075, guid: 3946c8d40d30c19428ec6311e161c0f8,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a0be6e34c90b2da428b701be4b15aa1e,
+        type: 3}
     - target: {fileID: 6542919648166408072, guid: 3946c8d40d30c19428ec6311e161c0f8,
         type: 3}
       propertyPath: hill
@@ -28934,6 +29104,87 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1638404831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1638404833}
+  - component: {fileID: 1638404832}
+  m_Layer: 0
+  m_Name: Grass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!212 &1638404832
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638404831}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 3734b29fbcdf05e42bfe1956fc7a1dde, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 20, y: 8.5}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1638404833
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638404831}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.84, y: -0.14, z: 0}
+  m_LocalScale: {x: 1.543076, y: 1.6492841, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1646018140
 GameObject:
   m_ObjectHideFlags: 0
@@ -30563,6 +30814,22 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 4e8e2a037c1b5f949bdad770c709d62a, type: 2}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 78f5932b490dd0d4c9bc7f509aa7c6ec,
+        type: 3}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: red
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6340390720537163137, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
         type: 3}
       propertyPath: hill
@@ -30673,6 +30940,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6340390720537163139, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4f4ce456f3290564bb621b37d481fcf9,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 2205423926811141831, guid: 3bc28f254c40f574ca29ac0d0e81b0f2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3bc28f254c40f574ca29ac0d0e81b0f2, type: 3}
@@ -31284,6 +31557,23 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 3596b6b120fddf9478ba6611ff466901, type: 2}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2facf093ac2b91f41a14250ef9ec5bd6,
+        type: 3}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: red
+      value: 
+      objectReference: {fileID: 22100000, guid: f5c7a708a297a214cb9a01f8880bfd8c,
+        type: 2}
     - target: {fileID: 7232141005340089761, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
         type: 3}
       propertyPath: hill
@@ -32052,6 +32342,23 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 3596b6b120fddf9478ba6611ff466901, type: 2}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2facf093ac2b91f41a14250ef9ec5bd6,
+        type: 3}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: red
+      value: 
+      objectReference: {fileID: 22100000, guid: f5c7a708a297a214cb9a01f8880bfd8c,
+        type: 2}
     - target: {fileID: 7232141005340089761, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
         type: 3}
       propertyPath: hill
@@ -37093,6 +37400,17 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 119392298047295551, guid: 1df51ebf42f0d7947814028c28b992ca,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 23afe75c1c8aa4b4f9702e439edded58, type: 2}
+    - target: {fileID: 119392298047295551, guid: 1df51ebf42f0d7947814028c28b992ca,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e4ed9abcf763fce4d9885a5544991873,
+        type: 3}
     - target: {fileID: 119392298047295550, guid: 1df51ebf42f0d7947814028c28b992ca,
         type: 3}
       propertyPath: Player
@@ -37610,7 +37928,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.14999998, y: 0.79986167}
+  m_Offset: {x: -0.8820777, y: 1.1396078}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -37621,7 +37939,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.359383, y: 4.473078}
+  m_Size: {x: 3.3006258, y: 6.7206287}
   m_EdgeRadius: 0
 --- !u!1 &4167508698350434710
 GameObject:
@@ -37732,6 +38050,22 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 4e8e2a037c1b5f949bdad770c709d62a, type: 2}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 78f5932b490dd0d4c9bc7f509aa7c6ec,
+        type: 3}
+    - target: {fileID: 6340390720537163198, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: red
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6340390720537163137, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
         type: 3}
       propertyPath: hill
@@ -37842,6 +38176,27 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6340390720537163139, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340390720537163139, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340390720537163139, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340390720537163139, guid: 3bc28f254c40f574ca29ac0d0e81b0f2,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4f4ce456f3290564bb621b37d481fcf9,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 2205423926811141831, guid: 3bc28f254c40f574ca29ac0d0e81b0f2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3bc28f254c40f574ca29ac0d0e81b0f2, type: 3}
@@ -37958,6 +38313,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: 196cfc84f8450e842a0ec5a0002172b3,
         type: 2}
+    - target: {fileID: 6542919648166408075, guid: 3946c8d40d30c19428ec6311e161c0f8,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a0be6e34c90b2da428b701be4b15aa1e,
+        type: 3}
     - target: {fileID: 6542919648166408072, guid: 3946c8d40d30c19428ec6311e161c0f8,
         type: 3}
       propertyPath: hill
@@ -38079,6 +38440,21 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6542919648166408076, guid: 3946c8d40d30c19428ec6311e161c0f8,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6542919648166408076, guid: 3946c8d40d30c19428ec6311e161c0f8,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6542919648166408076, guid: 3946c8d40d30c19428ec6311e161c0f8,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6542919648166408079, guid: 3946c8d40d30c19428ec6311e161c0f8,
         type: 3}
       propertyPath: m_Enabled
@@ -38194,6 +38570,23 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: usual
+      value: 
+      objectReference: {fileID: 9100000, guid: 3596b6b120fddf9478ba6611ff466901, type: 2}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: redSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2facf093ac2b91f41a14250ef9ec5bd6,
+        type: 3}
+    - target: {fileID: 7232141005340089762, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
+        type: 3}
+      propertyPath: red
+      value: 
+      objectReference: {fileID: 22100000, guid: f5c7a708a297a214cb9a01f8880bfd8c,
+        type: 2}
     - target: {fileID: 7232141005340089761, guid: eb8ea3a88cf2f55489c083bc9139ffbd,
         type: 3}
       propertyPath: hill
@@ -38514,7 +38907,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.65155, y: 0.8696263}
+  m_Offset: {x: 1.6515503, y: 1.2093725}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -38525,7 +38918,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 11.6607685, y: 4.7965393}
+  m_Size: {x: 11.6607685, y: 7.044092}
   m_EdgeRadius: 0
 --- !u!4 &8592115977289615634
 Transform:
