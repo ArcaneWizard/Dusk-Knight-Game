@@ -191,7 +191,7 @@ public class Spawner : MonoBehaviour
         enemyOrderFormat(E1_group, 10);
         enemyOrderFormat(E2_group, 20);
         enemyOrderFormat(E3_group, 30);
-        //enemyOrderFormat(E4_group, 40);
+        enemyOrderFormat(E4_group, 40);
         enemyOrderFormat(E5_group, 50);
     }
 

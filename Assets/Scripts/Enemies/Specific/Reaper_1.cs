@@ -11,12 +11,12 @@ public class Reaper_1 : MonoBehaviour
     public GameObject hill;
     private float speed;
     private bool counter = false;
-    public float upspeed;
     private int arrowIndex = 0;
     private AudioSource audioSource;
     private Enemy_Health enemy_Health;
     private bool dontGetCloser = false;
     private bool begin_motion = false;
+    public GameObject spawn_anim;
 
     void Awake()
     {
@@ -39,11 +39,7 @@ public class Reaper_1 : MonoBehaviour
             speed = -Mathf.Abs(speed);
             transform.rotation = Quaternion.Euler(0, 180, 0);
 
-
-            //Reset animation bools  
-            animator.SetBool("Attack", false);
-
-            activate();
+            StartCoroutine(activate());
         }
 
         if(begin_motion)
@@ -65,27 +61,21 @@ public class Reaper_1 : MonoBehaviour
 
     private IEnumerator activate()
     {
-        //Destroy(transform.GetComponent<Rigidbody2D>());
-        animator.SetBool("Spawn", true);
+        spawn_anim.transform.GetComponent<SpriteRenderer>().enabled = true;
+        transform.GetComponent<SpriteRenderer>().enabled = false;
+        spawn_anim.transform.GetComponent<Animator>().SetBool("Spawn", true);
 
-        yield return new WaitForSeconds(0.5f);
+
+        yield return new WaitForSeconds(0.41f);
+
+
+        spawn_anim.transform.GetComponent<SpriteRenderer>().enabled = false;
+        transform.GetComponent<SpriteRenderer>().enabled = true;
+        transform.GetComponent<Animator>().enabled = true;
+        spawn_anim.transform.GetComponent<Animator>().SetBool("Spawn", false);
+
 
         begin_motion = true;
-        //transform.gameObject.AddComponent<Rigidbody2D>();
-        //rig = transform.GetComponent<Rigidbody2D>();
-        //transform.GetComponent<Rigidbody2D>().freezeRotation = true;
-        //transform.GetComponent<Rigidbody2D>().gravityScale = 1;
-        //transform.GetComponent<PolygonCollider2D>().enabled = true;
-    }
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Range activation"))
-        {
-            animator.SetBool("Attack", true);
-            rig.velocity = new Vector2(0, 0);
-            counter = true;
-        }
     }
 
     void OnTriggerStay2D(Collider2D col)
@@ -123,6 +113,17 @@ public class Reaper_1 : MonoBehaviour
         }
     }
 
+    private IEnumerator explode()
+    {
+        spawn_anim.GetComponent<SpriteRenderer>().enabled = true;
+        transform.GetComponent<SpriteRenderer>().enabled = false;
+        spawn_anim.GetComponent<Animator>().SetBool("Boom", true);
+        StartCoroutine(playSound());
+        yield return new WaitForSeconds(0.21f);
+        spawn_anim.GetComponent<Animator>().SetBool("Boom", false);
+        transform.GetComponent<Enemy_Health>().hp = 0;
+    }
+
     private IEnumerator playSound()
     {
         yield return new WaitForSeconds(0.22f);
@@ -136,13 +137,12 @@ public class Reaper_1 : MonoBehaviour
         //Goblin is next to the tower, wants to start bashing
         if (col.gameObject.layer == 17)
         {
-            //start bashing the tower
-            animator.SetBool("Attack", true);
-            StartCoroutine(playSound());
-
             //stop following the arrows
             dontGetCloser = true;
             rig.velocity = new Vector2(0, 0);
+
+            StartCoroutine(explode());
+
         }
     }
 }

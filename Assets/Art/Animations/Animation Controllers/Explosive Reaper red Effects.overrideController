@@ -6,7 +6,7 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Explosive Reaper red
+  m_Name: Explosive Reaper red Effects
   m_Controller: {fileID: 9100000, guid: addd4448fecd39d4196ac278f04969ee, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 4cf8d2e060a32ad46adb1219484e0436, type: 2}
