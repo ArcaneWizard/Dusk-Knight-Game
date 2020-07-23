@@ -86,15 +86,15 @@ public class Spawner : MonoBehaviour
     {
         int r = UnityEngine.Random.Range(1, 6);
         if (r == 1)
-            deployEnemy("Enemy 1");
+            deployEnemy("Enemy 4");
         if (r == 2)
             deployEnemy("Enemy 4");
         if (r == 3)
-            deployEnemy("Enemy 3");
+            deployEnemy("Enemy 4");
         if (r == 4)
-            deployEnemy("Enemy 5");
+            deployEnemy("Enemy 4");
         if (r == 5)
-            deployEnemy("Enemy 2");
+            deployEnemy("Enemy 4");
     }
 
     //Deploying enemy shortened to one method/line
