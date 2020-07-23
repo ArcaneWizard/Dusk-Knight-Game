@@ -48,7 +48,7 @@ public class Enemy_Health : MonoBehaviour
     //enemy feedback when taking dmg or dying
     private float hitRednessduration = 0.04f;
     private bool spinUponDeath = true; 
-    private float deathDelay = 1f; 
+    private float deathDelay = 0.8f; 
     private float spinDelay = 0.3f; 
     private float scale = 0.93f;
     private float rotSpeed = 25f;

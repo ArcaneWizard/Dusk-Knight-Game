@@ -86,8 +86,7 @@ public class Reaper_1 : MonoBehaviour
         //turn off spawn animation, turn on reaper sprite
         sr.enabled = true;
         spawn_anim.GetComponent<Animator>().SetBool("Spawn", false);
-
-        spawn_anim.GetComponent<SpriteRenderer>().sprite = null;
+        spawn_anim.GetComponent<SpriteRenderer>().enabled = false;
 
         begin_motion = true;
     }
@@ -134,8 +133,9 @@ public class Reaper_1 : MonoBehaviour
         sr.enabled = false;
 
         //show explosion
+        spawn_anim.GetComponent<SpriteRenderer>().enabled = true;
         spawn_anim.GetComponent<Animator>().SetBool("Boom", true);
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.2f);
         spawn_anim.GetComponent<Animator>().SetBool("Boom", false);
 
     }
