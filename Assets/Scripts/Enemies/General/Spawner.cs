@@ -110,7 +110,7 @@ public class Spawner : MonoBehaviour
         //choose exploding reaper spawn point differently 
         if (enemyName == "Enemy 4") {
             Vector3 r = Hill.GetChild(Random.Range(1, 11)).transform.position;
-            deployPos = new Vector3(r.x, r.y+0.65f, 0);  
+            deployPos = new Vector3(r.x, r.y+0.6f, 0);  
         }
 
         //choose flying reaper spawn point differently

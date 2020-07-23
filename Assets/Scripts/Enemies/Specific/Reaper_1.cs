@@ -61,18 +61,14 @@ public class Reaper_1 : MonoBehaviour
 
     private IEnumerator activate()
     {
-        spawn_anim.transform.GetComponent<SpriteRenderer>().enabled = true;
         transform.GetComponent<SpriteRenderer>().enabled = false;
-        spawn_anim.transform.GetComponent<Animator>().SetBool("Spawn", true);
+        spawn_anim.GetComponent<Animator>().SetBool("Spawn", true);
 
 
         yield return new WaitForSeconds(0.41f);
 
-
-        spawn_anim.transform.GetComponent<SpriteRenderer>().enabled = false;
         transform.GetComponent<SpriteRenderer>().enabled = true;
-        transform.GetComponent<Animator>().enabled = true;
-        spawn_anim.transform.GetComponent<Animator>().SetBool("Spawn", false);
+        spawn_anim.GetComponent<Animator>().SetBool("Spawn", false);
 
 
         begin_motion = true;
@@ -118,7 +114,7 @@ public class Reaper_1 : MonoBehaviour
         spawn_anim.GetComponent<SpriteRenderer>().enabled = true;
         transform.GetComponent<SpriteRenderer>().enabled = false;
         spawn_anim.GetComponent<Animator>().SetBool("Boom", true);
-        StartCoroutine(playSound());
+        //StartCoroutine(playSound());
         yield return new WaitForSeconds(0.21f);
         spawn_anim.GetComponent<Animator>().SetBool("Boom", false);
         transform.GetComponent<Enemy_Health>().hp = 0;
