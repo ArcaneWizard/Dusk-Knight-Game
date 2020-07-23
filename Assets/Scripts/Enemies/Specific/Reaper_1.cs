@@ -13,17 +13,20 @@ public class Reaper_1 : MonoBehaviour
     private bool counter = false;
     private int arrowIndex = 0;
     private AudioSource audioSource;
-    private Enemy_Health enemy_Health;
+    private Enemy_Health eH;
     private bool dontGetCloser = false;
     private bool begin_motion = false;
     public GameObject spawn_anim;
+    private SpriteRenderer sr;
 
     void Awake()
     {
+        //defining components
         audioSource = transform.GetComponent<AudioSource>();
         animator = transform.GetComponent<Animator>();
         rig = transform.GetComponent<Rigidbody2D>();
-        enemy_Health = transform.GetComponent<Enemy_Health>();
+        eH = transform.GetComponent<Enemy_Health>();
+        sr = transform.GetComponent<SpriteRenderer>();
 
         speed = Enemy_Health.R1_speed;
 
@@ -31,14 +34,15 @@ public class Reaper_1 : MonoBehaviour
 
     void Update()
     {
-        if (transform.GetComponent<Enemy_Health>().deploy == true)
+        if (eH.deploy == true)
         {
-            transform.GetComponent<Enemy_Health>().deploy = false;
+            eH.deploy = false;
 
             //Orient Reaper to the left 
             speed = -Mathf.Abs(speed);
             transform.rotation = Quaternion.Euler(0, 180, 0);
 
+            
             StartCoroutine(activate());
         }
 
@@ -59,16 +63,19 @@ public class Reaper_1 : MonoBehaviour
         }
     }
 
+    //plays the spawn animation
     private IEnumerator activate()
     {
-        transform.GetComponent<SpriteRenderer>().enabled = false;
+        //turn off reaper sprite, turn on spawn animation
+        sr.enabled = false;
         spawn_anim.GetComponent<Animator>().SetBool("Spawn", true);
-
 
         yield return new WaitForSeconds(0.41f);
 
-        transform.GetComponent<SpriteRenderer>().enabled = true;
+        //turn off spawn animation, turn on reaper sprite
+        sr.enabled = true;
         spawn_anim.GetComponent<Animator>().SetBool("Spawn", false);
+
 
 
         begin_motion = true;
@@ -77,7 +84,7 @@ public class Reaper_1 : MonoBehaviour
     void OnTriggerStay2D(Collider2D col)
     {
 
-        //Ogre is being directed by a movement arrow
+        //Repaer is being directed by a movement arrow
         if (col.gameObject.layer == 13 && rig.gravityScale == 0)
         {
 
@@ -111,15 +118,20 @@ public class Reaper_1 : MonoBehaviour
 
     private IEnumerator explode()
     {
+        //makes reaper disappear
         spawn_anim.GetComponent<SpriteRenderer>().enabled = true;
-        transform.GetComponent<SpriteRenderer>().enabled = false;
+        sr.enabled = false;
+
+        //show explosion
         spawn_anim.GetComponent<Animator>().SetBool("Boom", true);
-        //StartCoroutine(playSound());
         yield return new WaitForSeconds(0.21f);
         spawn_anim.GetComponent<Animator>().SetBool("Boom", false);
-        transform.GetComponent<Enemy_Health>().hp = 0;
+
+        //kill reaper
+        eH.hp = 0;
     }
 
+    //plays explosion sound
     private IEnumerator playSound()
     {
         yield return new WaitForSeconds(0.22f);
@@ -130,7 +142,7 @@ public class Reaper_1 : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        //Goblin is next to the tower, wants to start bashing
+        //Reaper is next to the tower
         if (col.gameObject.layer == 17)
         {
             //stop following the arrows
