@@ -3757,7 +3757,7 @@ MonoBehaviour:
   redSprite: {fileID: 0}
   usualSprite: {fileID: 0}
   red: {fileID: 0}
-  usual: {fileID: 0}
+  usual: {fileID: 9100000, guid: c2374b79e3287f64e8f1513f6bbd4464, type: 2}
 --- !u!114 &249361350
 MonoBehaviour:
   m_ObjectHideFlags: 0

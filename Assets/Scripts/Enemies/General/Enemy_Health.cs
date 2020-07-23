@@ -130,8 +130,12 @@ public class Enemy_Health : MonoBehaviour
         if (tag == "Enemy 3") 
             hp = reaper_3;
 
+        //want reaper to explode on death not spin
         if (tag == "Enemy 4")
+        {
             hp = reaper_1;
+            spinUponDeath = false;
+        }
 
         if (tag == "Enemy 5") 
             hp = ogre;            
@@ -307,14 +311,14 @@ public class Enemy_Health : MonoBehaviour
 
         //render enemy still
         rig.gravityScale = 0;
-        rig.velocity = new Vector2(0, 0);   
-    
+        rig.velocity = new Vector2(0, 0);
+
         //if spin upon death is wanted, enemy spins and fades upon death
         if (spinUponDeath == true)
         {
             //kill velocity with slight delay (buffer for specific enemy AI scripts to stop setting enemy velocity)
             yield return new WaitForSeconds(0.02f);
-            rig.velocity = new Vector2(0, 0);   
+            rig.velocity = new Vector2(0, 0);
 
             //kill dying animation after another delay
             yield return new WaitForSeconds(spinDelay);
@@ -333,7 +337,7 @@ public class Enemy_Health : MonoBehaviour
                 yield return new WaitForSeconds(0.02f);
             }
         }
-        else 
+        else
             yield return new WaitForSeconds(deathDelay);
 
         //Disable floating texts 

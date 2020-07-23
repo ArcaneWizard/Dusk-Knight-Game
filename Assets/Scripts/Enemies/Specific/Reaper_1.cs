@@ -18,6 +18,7 @@ public class Reaper_1 : MonoBehaviour
     private bool begin_motion = false;
     public GameObject spawn_anim;
     private SpriteRenderer sr;
+    private bool explode_once;
 
     void Awake()
     {
@@ -37,6 +38,9 @@ public class Reaper_1 : MonoBehaviour
         if (eH.deploy == true)
         {
             eH.deploy = false;
+
+            //reset explosion conditions
+            explode_once = false;
 
             //Orient Reaper to the left 
             speed = -Mathf.Abs(speed);
@@ -61,6 +65,13 @@ public class Reaper_1 : MonoBehaviour
 
             begin_motion = false;
         }
+
+        //explode whenever the reaper dies
+        if (eH.hp <= 0 && !explode_once)
+        {
+            explode_once = true;
+            StartCoroutine(explode());
+        }
     }
 
     //plays the spawn animation
@@ -70,13 +81,13 @@ public class Reaper_1 : MonoBehaviour
         sr.enabled = false;
         spawn_anim.GetComponent<Animator>().SetBool("Spawn", true);
 
-        yield return new WaitForSeconds(0.41f);
+        yield return new WaitForSeconds(0.5f);
 
         //turn off spawn animation, turn on reaper sprite
         sr.enabled = true;
         spawn_anim.GetComponent<Animator>().SetBool("Spawn", false);
 
-
+        spawn_anim.GetComponent<SpriteRenderer>().sprite = null;
 
         begin_motion = true;
     }
@@ -118,17 +129,15 @@ public class Reaper_1 : MonoBehaviour
 
     private IEnumerator explode()
     {
+        yield return new WaitForSeconds(0.2f);
         //makes reaper disappear
-        spawn_anim.GetComponent<SpriteRenderer>().enabled = true;
         sr.enabled = false;
 
         //show explosion
         spawn_anim.GetComponent<Animator>().SetBool("Boom", true);
-        yield return new WaitForSeconds(0.21f);
+        yield return new WaitForSeconds(0.15f);
         spawn_anim.GetComponent<Animator>().SetBool("Boom", false);
 
-        //kill reaper
-        eH.hp = 0;
     }
 
     //plays explosion sound
@@ -149,7 +158,11 @@ public class Reaper_1 : MonoBehaviour
             dontGetCloser = true;
             rig.velocity = new Vector2(0, 0);
 
-            StartCoroutine(explode());
+            //kill reaper which will make it explode from the update function
+            eH.hp = 0;
+
+            //do damage
+            health.hp -= Enemy_Health.R1Dmg;
 
         }
     }
