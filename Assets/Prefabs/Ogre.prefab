@@ -142,13 +142,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6542919648166408069}
-  - component: {fileID: 6542919648166408074}
   - component: {fileID: 6542919648166408075}
+  - component: {fileID: 6542919648166408072}
+  - component: {fileID: 6542919648166408074}
   - component: {fileID: 6542919648166408076}
   - component: {fileID: 6542919648166408079}
   - component: {fileID: 6542919648166408078}
   - component: {fileID: 6542919648166408073}
-  - component: {fileID: 6542919648166408072}
   - component: {fileID: 6542919648166408077}
   m_Layer: 8
   m_Name: Ogre
@@ -175,21 +175,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6542919648166408074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6542919648166408068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f672c11501974874da43d30cd55d7469, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Projectile_Group: {fileID: 0}
-  reload: {x: 5, y: 13}
-  reloadAttack: 0
 --- !u!114 &6542919648166408075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +195,40 @@ MonoBehaviour:
   shop: {fileID: 0}
   player: {fileID: 0}
   manage_Sounds: {fileID: 0}
+  normal: {fileID: 0}
+  weak: {fileID: 0}
+  weakPowerful: {fileID: 0}
+  powerful: {fileID: 0}
+  dmgMultiplier: 0
+--- !u!114 &6542919648166408072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6542919648166408068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98180e414222a340bdf32cdc693a008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hill: {fileID: 0}
+  timeTillThrow: {x: 0, y: 0}
+--- !u!114 &6542919648166408074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6542919648166408068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f672c11501974874da43d30cd55d7469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Projectile_Group: {fileID: 0}
+  reload: {x: 5, y: 13}
+  reloadAttack: 0
 --- !u!212 &6542919648166408076
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -427,20 +446,6 @@ PolygonCollider2D:
       - {x: -0.06, y: -2.99}
       - {x: -0.03, y: -2.96}
       - {x: -0.04, y: -2.86}
---- !u!114 &6542919648166408072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6542919648166408068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a98180e414222a340bdf32cdc693a008, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hill: {fileID: 0}
-  timeTillThrow: {x: 0, y: 0}
 --- !u!82 &6542919648166408077
 AudioSource:
   m_ObjectHideFlags: 0
@@ -681,14 +686,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6542919648166408069}
     m_Modifications:
-    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
+    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
-      propertyPath: m_Name
-      value: Snowball 1
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
+    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
-      propertyPath: m_IsActive
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
+        type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
+        type: 3}
+      propertyPath: m_DrawMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3407287959589672602, guid: 4496dc49dab18374dad0a4de1c912faf,
@@ -756,34 +781,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.0802187
       objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
+    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
-      propertyPath: m_Color.r
-      value: 1
+      propertyPath: m_Name
+      value: Snowball 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
+    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
-        type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
-        type: 3}
-      propertyPath: m_FlipY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
-        type: 3}
-      propertyPath: m_DrawMode
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

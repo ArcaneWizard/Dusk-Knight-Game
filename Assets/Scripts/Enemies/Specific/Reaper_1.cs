@@ -12,6 +12,8 @@ public class Reaper_1 : MonoBehaviour
     private float speed;
     private bool counter = false;
     private int arrowIndex = 0;
+    private int index;
+
     private AudioSource audioSource;
     private Enemy_Health eH;
     private bool dontGetCloser = false;
@@ -29,8 +31,7 @@ public class Reaper_1 : MonoBehaviour
         eH = transform.GetComponent<Enemy_Health>();
         sr = transform.GetComponent<SpriteRenderer>();
 
-        speed = Enemy_Health.R1_speed;
-
+        speed = -Enemy_Health.R1_speed;
     }
 
     void Update()
@@ -43,9 +44,7 @@ public class Reaper_1 : MonoBehaviour
             explode_once = false;
 
             //Orient Reaper to the left 
-            speed = -Mathf.Abs(speed);
             transform.rotation = Quaternion.Euler(0, 180, 0);
-
             
             StartCoroutine(activate());
         }
@@ -62,6 +61,9 @@ public class Reaper_1 : MonoBehaviour
 
             //Can start following any arrow at the start, but as arrowIndex goes up, the enemy can't refollow the arrow at a lower index 
             arrowIndex = 0;
+            
+            //Keep on following the arrows until you get within range of the tower
+            dontGetCloser = false;
 
             begin_motion = false;
         }
@@ -93,26 +95,45 @@ public class Reaper_1 : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D col)
     {
-
-        //Repaer is being directed by a movement arrow
-        if (col.gameObject.layer == 13 && rig.gravityScale == 0)
+        //Reaper is being directed by a movement arrow
+        if (col.gameObject.layer == 13 && rig.gravityScale == 0 && dontGetCloser == false && eH.freezeTimer <= 0 && eH.hp > 0)
         {
-
-            //get movement arrow index
-            int index = col.gameObject.transform.GetSiblingIndex();
-
-            //Don't change directions if this is the last movement arrow
-            if (index == col.gameObject.transform.parent.childCount - 1)
+            //If the enemy movement is disrupted by knockback or something and needs to be reset
+            if (eH.resetPath == true)
             {
-                rig.velocity = col.transform.rotation * -Vector3.right * speed;
-                return;
+                //call this if statement only once
+                eH.resetPath = false;
+
+                //reset arrowIndex to the index of the arrow you land on
+                arrowIndex = col.gameObject.transform.GetSiblingIndex();
+                index = arrowIndex;
+
+                //Don't change directions if this is the last movement arrow
+                if (arrowIndex == col.gameObject.transform.parent.childCount - 1)
+                {
+                    rig.velocity = col.transform.rotation * -Vector3.right * speed;
+                    return;
+                }
             }
 
-            //If touching two arrows, choose the one that's forward
-            if (index > arrowIndex)
-                arrowIndex = index;
             else
-                return;
+            {
+                //get movement arrow index
+                index = col.gameObject.transform.GetSiblingIndex();
+
+                //Don't change directions if this is the last movement arrow
+                if (index == col.gameObject.transform.parent.childCount - 1)
+                {
+                    rig.velocity = col.transform.rotation * -Vector3.right * speed;
+                    return;
+                }
+
+                //If touching two arrows, choose the one that's forward
+                if (index > arrowIndex)
+                    arrowIndex = index;
+                else
+                    return;
+            }
 
             //find the current and next direction the enemy should move in
             Quaternion initDir = col.transform.rotation;
@@ -126,18 +147,17 @@ public class Reaper_1 : MonoBehaviour
         }
     }
 
+    //Reaper explosion after it reaches the tower
     private IEnumerator explode()
     {
-        yield return new WaitForSeconds(0.2f);
         //makes reaper disappear
         sr.enabled = false;
 
         //show explosion
         spawn_anim.GetComponent<SpriteRenderer>().enabled = true;
         spawn_anim.GetComponent<Animator>().SetBool("Boom", true);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.06f);
         spawn_anim.GetComponent<Animator>().SetBool("Boom", false);
-
     }
 
     //plays explosion sound
@@ -162,7 +182,7 @@ public class Reaper_1 : MonoBehaviour
             eH.hp = 0;
 
             //do damage
-            health.hp -= Enemy_Health.R1Dmg;
+            health.hp -= Enemy_Health.R1Dmg * eH.dmgMultiplier;
 
         }
     }

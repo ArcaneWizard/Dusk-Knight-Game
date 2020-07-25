@@ -14,12 +14,12 @@ public class Spawner : MonoBehaviour
 
     [Space(10)]
     [Header("Spawn points")]
-    public Transform ESpawn;
-    public Transform R3UpSpawn;
-    public Transform R3DownSpawn;
-    public Transform GRSpawn;
-    public Transform GLSpawn;
-    public Transform OrcSpawn;
+    public Transform E1_Spawn;
+    public Transform ReaperUpSpawn;
+    public Transform ReaperDownSpawn;
+    public Transform E2_Spawn;
+    public Transform E3_Spawn;
+    public Transform E5_Spawn;
     public Transform Hill;
 
     private int cE1 = 0;
@@ -84,17 +84,17 @@ public class Spawner : MonoBehaviour
     //Deploy a random enemy
     void deployRandomEnemy()
     {
-        int r = UnityEngine.Random.Range(1, 6);
-        if (r == 1)
+        int r = UnityEngine.Random.Range(21, 26);
+        if (r >= 1 && r <= 5)
+            deployEnemy("Enemy 1");
+        if (r >= 6 && r <= 10)
+            deployEnemy("Enemy 2");
+        if (r >= 11 && r <= 15)
+            deployEnemy("Enemy 3");
+        if (r >= 16 && r <= 20)
             deployEnemy("Enemy 4");
-        if (r == 2)
-            deployEnemy("Enemy 4");
-        if (r == 3)
-            deployEnemy("Enemy 4");
-        if (r == 4)
-            deployEnemy("Enemy 4");
-        if (r == 5)
-            deployEnemy("Enemy 4");
+        if (r >= 21 && r <= 25)
+            deployEnemy("Enemy 5");
     }
 
     //Deploying enemy shortened to one method/line
@@ -102,26 +102,29 @@ public class Spawner : MonoBehaviour
     {
         //get enemy
         GameObject enemy = findAndCycleEnemy(enemyName);
-        Vector3 deployPos;
+        Vector3 deployPos = new Vector3(1, 1, 1);
 
-        //set enemy spawn point 
-        deployPos = ESpawn.transform.position;
+        //set enemy spawn points
+        if (enemyName == "Enemy 1")
+            deployPos = E1_Spawn.transform.position;
 
-        //choose exploding reaper spawn point differently 
+        if (enemyName == "Enemy 2") 
+            deployPos = E2_Spawn.transform.position;
+
+        if (enemyName == "Enemy 5") 
+            deployPos = E5_Spawn.transform.position;
+
+        //choose exploding reaper spawn point  
         if (enemyName == "Enemy 4") {
             Vector3 r = Hill.GetChild(Random.Range(1, 11)).transform.position;
             deployPos = new Vector3(r.x, r.y+0.6f, 0);  
         }
 
-        //choose flying reaper spawn point differently
+        //choose flying reaper spawn point 
         if (enemyName == "Enemy 3") {
-            deployPos = new Vector3(R3UpSpawn.transform.position.x, 
-            Random.Range(R3DownSpawn.transform.position.y, R3UpSpawn.transform.position.y), 0);
+            deployPos = new Vector3(ReaperUpSpawn.transform.position.x, 
+            Random.Range(ReaperDownSpawn.transform.position.y, ReaperUpSpawn.transform.position.y), 0);
         }
-
-        //choose Orc spawn point differently
-        if (enemyName == "Enemy 2") 
-            deployPos = OrcSpawn.transform.position;
 
         //spawn enemy
         enemy.transform.position = deployPos;

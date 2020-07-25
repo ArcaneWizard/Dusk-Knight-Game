@@ -4,38 +4,39 @@ using UnityEngine;
 
 public class Enemy_Health : MonoBehaviour
 {
-    //enemy's current health
+    [Space(10)]
+    [Header("Current HP")]
     public float hp = 1;
     private float maxHP;
-
-    //Detects whenever enemy health changes
     private float lastHP;
 
-    //enemy hps
+    //enemies' hps
     private int orc = 100;
     private int ogre = 70;
     private int goblin = 100;
     private int reaper_1 = 60;
     private int reaper_3 = 80;
 
-    //enemy speeds
-    public static float orc_speed = 0.7f;
-    public static float ogre_speed = 0.52f;
+    //enemies' speeds
+    public static float orc_speed = 1f;
+    public static float ogre_speed = 0.78f;
     public static float goblin_speed = 2.1f;
     public static float R1_speed = 1.8f;
     public static float R3_speed = 1f;
 
-    //enemy dmg 
+    //enemies' dmg 
     public static float orcDmg = 3; //Every 1.2-4 seconds, it hits the tower (meelee)
-    public static float ogreDmg = 2; //Every 5-13 seconds, it shoots (short-med range)
+    public static float ogreDmg = 5; //Every 5-13 seconds, it shoots (short-med range)
     public static float goblinDmg = 1.2f; //Every second (meelee)
     public static float R1Dmg = 14f; //Once upon reaching the tower
     public static float R3Dmg = 2f; //Every 2.5-5 seconds, it shoots (any range)
     
-    //enemy attributes and conditions
+    //enemies' attributes and conditions
     [HideInInspector] public bool deploy = false;
     [HideInInspector] public float freezeTimer;
     [HideInInspector] public float fireTimer = 0;
+    [HideInInspector] public bool resetPath;
+
     private float freezeDuration = 3;
     private float fireDuration = 3;
     private float fireConstantDmgTimer = 0.99f;
@@ -43,7 +44,6 @@ public class Enemy_Health : MonoBehaviour
     private bool lowHP = false;
     private float ogScaleX;
     private float ogScaleY;
-    [HideInInspector] public bool resetPath;
 
     //enemy feedback when taking dmg or dying
     private float hitRednessduration = 0.04f;
@@ -53,10 +53,13 @@ public class Enemy_Health : MonoBehaviour
     private float scale = 0.93f;
     private float rotSpeed = 25f;
 
-    //Gameobject References
+    [Space(10)]
+    [Header("GameObjects Referenced")]
     public Shop shop;
     public GameObject player;
     public Manage_Sounds manage_Sounds;
+
+    //private GameObjects referenced
     private GameObject floating_Texts;
     private PolygonCollider2D enemyCollider;
     private GameObject snowball;
@@ -67,7 +70,7 @@ public class Enemy_Health : MonoBehaviour
     private AudioSource audioSource;
     private string tag;
 
-    //Floating texts which get recycled
+    //popups recycling system
     private List<GameObject> floatingTexts = new List<GameObject>();
     private int ft_cycleLength;
     private int ft_currentIndex;
@@ -76,17 +79,15 @@ public class Enemy_Health : MonoBehaviour
     private float resetTimer;
 
     [Space(10)]
-    [Header("Sprites")]
-
-    //Animation controllers
-    public Sprite redSprite;
-    public Sprite usualSprite;
-
-    [Space(10)]
     [Header("Animation controllers")]
+    public RuntimeAnimatorController normal;
+    public AnimatorOverrideController weak;
+    public AnimatorOverrideController powerful;
+    public AnimatorOverrideController weakPowerful;
 
-    public AnimatorOverrideController red;
-    public RuntimeAnimatorController usual;
+    //powerful enemy attributes
+    private bool isPowerful;
+    [HideInInspector] public float dmgMultiplier;
 
     // Start is called before the first frame update
     void Awake()
@@ -113,32 +114,29 @@ public class Enemy_Health : MonoBehaviour
         foreach (Transform child in floating_Texts.transform) 
         {  floatingTexts.Add(child.gameObject);   }
         ft_cycleLength = floatingTexts.Count;
-
-        //set stats like hp based off enemy type
-        setStats();
     }
 
     public void setStats()
     {
-        //Set hp based off specific enemy
-        if (tag == "Enemy 1") 
-            hp = goblin;         
+        //Decide whether or not this enemy will be powerful
+        int chance = Random.Range(1, 10);
 
-        if (tag == "Enemy 2") 
-            hp = orc;
+        //If there is a powerful animation available, it might be more powerful 
+        isPowerful = (chance >= 8 && powerful) ? true : false;
 
-        if (tag == "Enemy 3") 
-            hp = reaper_3;
+        //Set enemy's designated hp
+        if (tag == "Enemy 1")  hp = goblin;  
+        if (tag == "Enemy 2")  hp = orc;
+        if (tag == "Enemy 3")  hp = reaper_3;
+        if (tag == "Enemy 4") {hp = reaper_1; spinUponDeath = false;}
+        if (tag == "Enemy 5") hp = ogre;            
+        
+        //health multiplier for powerful enemies
+        if (isPowerful) hp *= 2;
 
-        //want reaper to explode on death not spin
-        if (tag == "Enemy 4")
-        {
-            hp = reaper_1;
-            spinUponDeath = false;
-        }
-
-        if (tag == "Enemy 5") 
-            hp = ogre;            
+        //dmg multiplier for powerful enemies
+        if (isPowerful) isPowerfulDmgMultiplier();
+        else dmgMultiplier = 1f;
 
         //reset Enemy values
         lastHP = hp;
@@ -147,25 +145,22 @@ public class Enemy_Health : MonoBehaviour
         death = false;
         enemyCollider.enabled = true;
         resetPath = false;
-        renderer.color = new Color32(255, 255, 255, 255);
 
         //reset Enemy physical attributes
         transform.localScale = new Vector2(ogScaleX, ogScaleY);
-        transform.rotation = Quaternion.Euler(0, 0, 0); 
-
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        renderer.color = new Color32(255, 255, 255, 255);
+        
         //reset Enemy sprite/animation
-        setAnimationOrSprite("usual");
+        setAnimation("usual");
     }
 
     void Update()
     {
         //dies
-        if (hp <= 0 && death == false)
-        {
+        if (hp <= 0 && death == false)  {
             death = true;
             checkDeath();
-            animator.enabled = false;
-            StartCoroutine(fade());
         }
  
         //took dmg
@@ -179,7 +174,7 @@ public class Enemy_Health : MonoBehaviour
         if ((hp <= maxHP/3f || hp <= 20) && lowHP == false)
         {
             lowHP = true;
-            setAnimationOrSprite("red");
+            setAnimation("red");
         }
 
         //floating popup delay (in-between popups) will count down here
@@ -192,7 +187,7 @@ public class Enemy_Health : MonoBehaviour
 
         //When the freezeTimer has expired for a frozen enemy, unfreeze the enemy
         if (freezeTimer < 0 && snowball.activeSelf == true)
-            freezeState(false);
+            StartCoroutine(freezeState(false));
 
         //fire duration timer will count down here
         if (fireTimer >= 0) {
@@ -202,6 +197,7 @@ public class Enemy_Health : MonoBehaviour
             if (fireConstantDmgTimer <= 0)  {
                 fireConstantDmgTimer = 0.95f;
                 hp -= player_bullet.fireDmgPerSecond;
+                floatText(player_bullet.fireDmgPerSecond.ToString(), Color.red);
             }
             else
                 fireConstantDmgTimer -= Time.deltaTime;
@@ -212,66 +208,55 @@ public class Enemy_Health : MonoBehaviour
             fire.SetActive(false);
     }
 
+    //set dmg multipliers for powerful enemies
+    private void isPowerfulDmgMultiplier() 
+    {
+        //Most enemies do 50% more dmg
+        dmgMultiplier = 1.5f;
+        
+        //Explosive reaper does 30% more dmg
+        if (tag == "Enemy 3") {
+            dmgMultiplier = 1.3f;
+        }
+    }
+
     //flicker red when hit
     private IEnumerator flinch()
     {        
         //Turn the enemy red
-        setAnimationOrSprite("red");
+        setAnimation("red");
 
         yield return new WaitForSeconds(hitRednessduration);
 
         //Turn the enemy back to its normal skin tone (if it isn't low on health)
         if (lowHP == false) {
-            setAnimationOrSprite("usual");
+            setAnimation("usual");
         }
     }
 
-    //Turn the enemy red or back to its normal skin tone
-    private void setAnimationOrSprite(string type)
+    //Set the enemy's animations (purple = powerful, red = hurt)
+    private void setAnimation(string type)
     {
-        //If an override controller isn't there for the enemy, use the single enemy red sprite 
-        //Otherwise, use the override controller where the enemy is red in its animation
+        //if the enemy should be hurt, trigger its hurt animation
         if (type == "red")
-        {
-            if (red) {
-                animator.runtimeAnimatorController = red;
-            }
-            else {
-                animator.runtimeAnimatorController = null;
-                renderer.sprite = redSprite;
-            }
+            animator.runtimeAnimatorController = !isPowerful ? weak : weakPowerful;    
 
-            //specific enemy filters when hurt
-            if (tag == "Enemy 3") 
-                renderer.color = new Color32(243, 227, 227, 255);
-        }   
-        
+        //IF the enemy isn't hurt, trigger its normal animation
         if (type == "usual")
-        {
-            if (usual)
-                animator.runtimeAnimatorController = usual;
-            else
-                renderer.sprite = usualSprite;
-
-            //turn off any color filters
-            renderer.color = new Color32(255, 255, 255, 255);
-        }
+            animator.runtimeAnimatorController = !isPowerful ? normal : powerful;    
     }
 
     //player projectile calls this to freeze the enemy with the ice effect
     public void activateFreeze() {
         freezeTimer = freezeDuration;
-        freezeState(true);
+        StartCoroutine(freezeState(true));
     }
 
     //choose to freeze or unfreeze the enemy code-wise
-    private void freezeState(bool freeze)
+    private IEnumerator freezeState(bool freeze)
     {
         //enable snowball / disable snowball
         snowball.SetActive(freeze);
-
-        //freeze the enemy animation / unfreeze the enemy animation
-        animator.enabled = !freeze;
             
         //For the flying reaper, disable its movement script / enable its script
         if (transform.GetComponent<Reaper_3>() && freeze)
@@ -286,11 +271,20 @@ public class Enemy_Health : MonoBehaviour
             resetPath = true;
             rig.WakeUp();
         }
+
+        //freeze the enemy animation / unfreeze the enemy animation after a small delay
+        yield return new WaitForSeconds(0.05f);
+        animator.enabled = !freeze;
     }
 
     //player projectile calls this to light the enemy on fire
     public void activateFire() {
-        fireConstantDmgTimer = 0.95f;
+
+        //reset the constant burn dmg timer if the enemy just caught fire and wasn't already burning
+        if (fireTimer <= 0)
+            fireConstantDmgTimer = 0.95f;
+
+        //reset the fire to last a given duration regardless of whether or not the enemy was already on fire
         fireTimer = fireDuration;
         fire.SetActive(true);
     }
@@ -299,7 +293,7 @@ public class Enemy_Health : MonoBehaviour
     private IEnumerator fade()
     {   
         //Un-ice enemy b4 it fades away
-        freezeState(false);
+        StartCoroutine(freezeState(false));
         freezeTimer = 0;
 
         //Unlight enemy on fire b4 it fades away
@@ -394,6 +388,9 @@ public class Enemy_Health : MonoBehaviour
     //when killed, give player money 
     private void checkDeath()
     {
+        animator.enabled = false;
+        StartCoroutine(fade());
+
         animator.SetBool("Dead", true);
 
         giveJewels("Enemy 1", 5);
@@ -408,5 +405,4 @@ public class Enemy_Health : MonoBehaviour
         if (tag == enemyNumber)
             shop.jewels += jewels;
     }
-
 }

@@ -199,12 +199,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6340390720537163197}
+  - component: {fileID: 6340390720537163198}
+  - component: {fileID: 6340390720537163137}
   - component: {fileID: 6340390720537163139}
   - component: {fileID: 6340390720537163138}
-  - component: {fileID: 6340390720537163137}
   - component: {fileID: 6340390720537163136}
   - component: {fileID: 6340390720537163199}
-  - component: {fileID: 6340390720537163198}
   - component: {fileID: 6340390720537163142}
   m_Layer: 8
   m_Name: Orc
@@ -231,6 +231,55 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6340390720537163198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6340390720537163196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd31f2f9e78bf74d87069e1de4bafec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 70
+  deploy: 1
+  freezeTimer: 0
+  fireTimer: 0
+  resetPath: 0
+  shop: {fileID: 0}
+  player: {fileID: 0}
+  manage_Sounds: {fileID: 0}
+  normal: {fileID: 0}
+  weak: {fileID: 0}
+  weakPowerful: {fileID: 0}
+  powerful: {fileID: 0}
+  dmgMultiplier: 0
+--- !u!114 &6340390720537163137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6340390720537163196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eef01b1f7284b54b9f145d7b742f149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: {x: 300, y: 650}
+  jumpVariance: {x: 35, y: 100}
+  timeTillJump: {x: 2.5, y: 10}
+  blinkDuration: {x: 1.2, y: 4}
+  jumpMotionDelay: 0.4
+  pushOffDuration: 0.5
+  undoDuration: 0.1
+  launch: {fileID: 8300000, guid: b0764f47f56fbd0459d3983bf8f89389, type: 3}
+  launchVolume: 1
+  clobber: {fileID: 8300000, guid: d9ddf2e2aed1b7d47a68bd20dbcf0be1, type: 3}
+  clobberVolume: 1
+  hill: {fileID: 0}
 --- !u!212 &6340390720537163139
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -300,30 +349,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6340390720537163137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6340390720537163196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3eef01b1f7284b54b9f145d7b742f149, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpForce: {x: 300, y: 650}
-  jumpVariance: {x: 35, y: 100}
-  timeTillJump: {x: 2.5, y: 10}
-  blinkDuration: {x: 1.2, y: 4}
-  jumpMotionDelay: 0.4
-  pushOffDuration: 0.5
-  undoDuration: 0.1
-  launch: {fileID: 8300000, guid: b0764f47f56fbd0459d3983bf8f89389, type: 3}
-  launchVolume: 1
-  clobber: {fileID: 8300000, guid: d9ddf2e2aed1b7d47a68bd20dbcf0be1, type: 3}
-  clobberVolume: 1
-  hill: {fileID: 0}
 --- !u!50 &6340390720537163136
 Rigidbody2D:
   serializedVersion: 4
@@ -488,26 +513,6 @@ PolygonCollider2D:
       - {x: -1.37, y: -0.62}
       - {x: -1.29, y: -0.68}
       - {x: -1.27, y: -0.76}
---- !u!114 &6340390720537163198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6340390720537163196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bd31f2f9e78bf74d87069e1de4bafec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 70
-  deploy: 1
-  freezeTimer: 0
-  fireTimer: 0
-  resetPath: 0
-  shop: {fileID: 0}
-  player: {fileID: 0}
-  manage_Sounds: {fileID: 0}
 --- !u!82 &6340390720537163142
 AudioSource:
   m_ObjectHideFlags: 0
@@ -761,15 +766,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6340390720537163197}
     m_Modifications:
-    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
+    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
-      propertyPath: m_Name
-      value: Snowball 1
+      propertyPath: m_Color.r
+      value: 0.7264151
       objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
+    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: m_Color.g
+      value: 0.7264151
+      objectReference: {fileID: 0}
+    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.7264151
+      objectReference: {fileID: 0}
+    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 657631addb93da1418f60bc286567312,
+        type: 3}
+    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
+        type: 3}
+      propertyPath: m_FlipY
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3407287959589672602, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
@@ -836,31 +857,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
+    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
-      propertyPath: m_Color.r
-      value: 0.7264151
+      propertyPath: m_Name
+      value: Snowball 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
+    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
-      propertyPath: m_Color.g
-      value: 0.7264151
-      objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.7264151
-      objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 657631addb93da1418f60bc286567312,
-        type: 3}
-    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
-        type: 3}
-      propertyPath: m_FlipY
-      value: 1
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4496dc49dab18374dad0a4de1c912faf, type: 3}

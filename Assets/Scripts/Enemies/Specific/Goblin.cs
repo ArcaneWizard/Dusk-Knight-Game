@@ -26,7 +26,7 @@ public class Goblin : MonoBehaviour
         rig = transform.GetComponent<Rigidbody2D>();
         eH = transform.GetComponent<Enemy_Health>();
 
-        speed = Enemy_Health.goblin_speed;
+        speed = -Enemy_Health.goblin_speed;
     }
 
     void Update()
@@ -36,7 +36,6 @@ public class Goblin : MonoBehaviour
             eH.deploy = false;
             
             //Orient the Goblin in the correct direction 
-            speed = -Mathf.Abs(speed);
             transform.rotation = Quaternion.Euler(0, 180, 0);
 
             //Reset animation bools  
@@ -98,7 +97,7 @@ public class Goblin : MonoBehaviour
     private IEnumerator playSound()
     {
         yield return new WaitForSeconds(0.22f);
-        health.hp -= Enemy_Health.goblinDmg;
+        health.hp -= Enemy_Health.goblinDmg * eH.dmgMultiplier;
         audioSource.PlayOneShot(Manage_Sounds.Instance.goblinAttack, Manage_Sounds.soundMultiplier);
         yield return new WaitForSeconds(0.78f);
         StartCoroutine(playSound());

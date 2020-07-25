@@ -90,8 +90,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 119392298047295549}
-  - component: {fileID: 119392298047295544}
   - component: {fileID: 119392298047295551}
+  - component: {fileID: 119392298047295544}
   - component: {fileID: 119392298047295492}
   - component: {fileID: 119392298047295547}
   - component: {fileID: 119392298047295546}
@@ -122,22 +122,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &119392298047295544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 119392298047295548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f6f80ee1d1cdf244aace8a392732647, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  camera: {fileID: 0}
-  speedModifier: 3
-  moveDelay: 2.2
 --- !u!114 &119392298047295551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +142,27 @@ MonoBehaviour:
   shop: {fileID: 0}
   player: {fileID: 0}
   manage_Sounds: {fileID: 0}
+  normal: {fileID: 0}
+  weak: {fileID: 0}
+  weakPowerful: {fileID: 0}
+  powerful: {fileID: 0}
+  dmgMultiplier: 0
+--- !u!114 &119392298047295544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119392298047295548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6f80ee1d1cdf244aace8a392732647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  camera: {fileID: 0}
+  speedModifier: 3
+  moveDelay: 2.2
 --- !u!212 &119392298047295492
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -538,16 +543,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 119392298047295549}
     m_Modifications:
-    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
-        type: 3}
-      propertyPath: m_Name
-      value: Snowball 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3407287959589672602, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -612,6 +607,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1.2021961
+      objectReference: {fileID: 0}
+    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
+        type: 3}
+      propertyPath: m_Name
+      value: Snowball 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4496dc49dab18374dad0a4de1c912faf, type: 3}

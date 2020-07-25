@@ -98,12 +98,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7232141005340089763}
+  - component: {fileID: 7232141005340089762}
+  - component: {fileID: 7232141005340089761}
   - component: {fileID: 7232141005340089789}
   - component: {fileID: 7232141005340089790}
   - component: {fileID: 7232141005340089791}
   - component: {fileID: 7232141005340089760}
-  - component: {fileID: 7232141005340089761}
-  - component: {fileID: 7232141005340089762}
   - component: {fileID: 7232141006030840861}
   m_Layer: 8
   m_Name: Goblin
@@ -130,6 +130,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7232141005340089762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232141005340089764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd31f2f9e78bf74d87069e1de4bafec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 1
+  deploy: 1
+  freezeTimer: 0
+  fireTimer: 0
+  resetPath: 0
+  shop: {fileID: 0}
+  player: {fileID: 0}
+  manage_Sounds: {fileID: 0}
+  normal: {fileID: 0}
+  weak: {fileID: 0}
+  weakPowerful: {fileID: 0}
+  powerful: {fileID: 0}
+  dmgMultiplier: 0
+--- !u!114 &7232141005340089761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232141005340089764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e32b0edfd92a0428564e065ab8ee81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hill: {fileID: 0}
 --- !u!212 &7232141005340089789
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -334,39 +372,6 @@ PolygonCollider2D:
       - {x: -0.12, y: -2.73}
       - {x: 0.11, y: -2.58}
       - {x: 0.22, y: -2.6499999}
---- !u!114 &7232141005340089761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7232141005340089764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4e32b0edfd92a0428564e065ab8ee81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hill: {fileID: 0}
---- !u!114 &7232141005340089762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7232141005340089764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bd31f2f9e78bf74d87069e1de4bafec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 1
-  deploy: 1
-  freezeTimer: 0
-  fireTimer: 0
-  resetPath: 0
-  shop: {fileID: 0}
-  player: {fileID: 0}
-  manage_Sounds: {fileID: 0}
 --- !u!82 &7232141006030840861
 AudioSource:
   m_ObjectHideFlags: 0
@@ -731,15 +736,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7232141005340089763}
     m_Modifications:
-    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
+    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
-      propertyPath: m_Name
-      value: Snowball 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: m_FlipY
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3407287959589672602, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
@@ -806,10 +806,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.87
       objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672601, guid: 4496dc49dab18374dad0a4de1c912faf,
+    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
-      propertyPath: m_FlipY
-      value: 1
+      propertyPath: m_Name
+      value: Snowball 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4496dc49dab18374dad0a4de1c912faf, type: 3}

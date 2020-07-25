@@ -27,7 +27,7 @@ TagManager:
   - 
   - 
   - Enemy
-  - 
+  - Player HitBox
   - Enemy Feet
   - 
   - cannon
@@ -35,7 +35,7 @@ TagManager:
   - Ground
   - Hill
   - 
-  - Meelee Activation
+  - Melee Activation
   - Range Activation
   - 
   - 

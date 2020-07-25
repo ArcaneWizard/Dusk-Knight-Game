@@ -30,13 +30,17 @@ public class Orc : MonoBehaviour
     
     public GameObject hill;
 
-    void Awake() {
+    void Awake() 
+    {
+        //defining components
         animator = transform.GetComponent<Animator>();
         rig = transform.GetComponent<Rigidbody2D>();  
         audioSource = transform.GetComponent<AudioSource>();
         eH = transform.GetComponent<Enemy_Health>();
 
-        speed = Enemy_Health.orc_speed;  
+        //move and jump to the left
+        speed = -Enemy_Health.orc_speed;
+        jumpForce.x = -jumpForce.x;
     }
 
     void Update()
@@ -47,8 +51,6 @@ public class Orc : MonoBehaviour
             eH.deploy = false;
 
             //Orient the Orc in the correct direction 
-            speed = -Mathf.Abs(speed);
-            jumpForce.x = -Mathf.Abs(jumpForce.x);
             transform.rotation = Quaternion.Euler(0, 180, 0);
 
             //Reset animation bools and start enemy movement 
@@ -67,7 +69,7 @@ public class Orc : MonoBehaviour
             
             rig.gravityScale = 0;
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
-            
+
             //Is able to follow all arrows at the beginning 
             arrowIndex = 0;
 
@@ -116,7 +118,7 @@ public class Orc : MonoBehaviour
         {   
             //Play sound and do dmg during the attack animation 
             yield return new WaitForSeconds(0.22f);
-            health.hp -= Enemy_Health.orcDmg;
+            health.hp -= Enemy_Health.orcDmg * eH.dmgMultiplier;
             audioSource.PlayOneShot(clobber, clobberVolume * Manage_Sounds.soundMultiplier);
             yield return new WaitForSeconds(0.65f);
 
@@ -198,7 +200,7 @@ public class Orc : MonoBehaviour
             {
                 //get movement arrow index
                 index = col.gameObject.transform.GetSiblingIndex();
-
+                
                 //Don't change directions if this is the last movement arrow
                 if (index == col.gameObject.transform.parent.childCount - 1)
                 {

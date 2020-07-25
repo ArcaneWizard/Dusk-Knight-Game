@@ -83,8 +83,14 @@ public class WeaponsCycle : MonoBehaviour
         //use the next available bullet
         index_Reaper = ++index_Reaper % projectiles.Count;
 
-        //Get bullet and specify target
-        projectiles[index_Reaper].transform.position = transform.position; 
+        //Spawn the bullet on the enemy casting it
+        projectiles[index_Reaper].transform.position = transform.position;
+        
+        //Specify a damage multiplier if the enemy is more powerful than usual
+        float dmgMultiplier = gameObject.GetComponent<Enemy_Health>().dmgMultiplier;
+        projectiles[index_Reaper].GetComponent<enemy_projectile>().dmgMultiplier = dmgMultiplier;
+
+        //Reset the bullet's settings and then activate it
         projectiles[index_Reaper].GetComponent<enemy_projectile>().setupOnce = true;   
         projectiles[index_Reaper].gameObject.SetActive(true);
     }
@@ -95,7 +101,11 @@ public class WeaponsCycle : MonoBehaviour
         //use the next available bullet
         index_Ogre = ++index_Ogre % projectiles.Count;
 
-        //Get bullet and specify target
+        //Specify a damage multiplier if the enemy is more powerful than usual
+        float dmgMultiplier = gameObject.GetComponent<Enemy_Health>().dmgMultiplier;
+        projectiles[index_Ogre].GetComponent<enemy_projectile>().dmgMultiplier = dmgMultiplier;
+
+        //Spawn the bullet to the enemy casting it, then activate it
         projectiles[index_Ogre].transform.position = transform.position; 
         projectiles[index_Ogre].GetComponent<enemy_projectile>().setupOnce = true;   
         projectiles[index_Ogre].gameObject.SetActive(true);

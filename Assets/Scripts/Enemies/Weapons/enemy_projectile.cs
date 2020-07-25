@@ -22,6 +22,7 @@ public class enemy_projectile : MonoBehaviour
     public float variance = 2f;
     public Vector2 xRandomness;
     public Vector2 yRandomness;
+    public float dmgMultiplier;
 
     void Awake() 
     {
@@ -52,34 +53,30 @@ public class enemy_projectile : MonoBehaviour
         }
     }
 
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        //damage the player if they connect (+ audio)
-        if (col.gameObject.layer == 10)
-        {
-            if (gameObject.tag == "Reaper projectile") {
-                health.hp -= Enemy_Health.R3Dmg;
-                Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 0.4f);
-            }
-
-            if (gameObject.tag == "Ogre projectile") {
-                health.hp -= Enemy_Health.ogreDmg;
-                Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 0.4f);
-            }
-            
-            gameObject.SetActive(false);
-        }
-    }
-
     void OnTriggerEnter2D(Collider2D col) {
 
-        //collides with ground
+        //collides with the hill
         if (col.gameObject.layer == 15) {
             collider.enabled = false;
             rig.gravityScale = 0;
             rig.velocity = new Vector2(0, 0);
 
+            gameObject.SetActive(false);
+        }
+
+        //connected with the tower, cannon or player
+        if (col.gameObject.layer == 9)
+        {
+            if (gameObject.tag == "Reaper projectile") {
+                health.hp -= Enemy_Health.R3Dmg * dmgMultiplier;
+                Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 0.4f);
+            }
+
+            if (gameObject.tag == "Ogre projectile") {
+                health.hp -= Enemy_Health.ogreDmg * dmgMultiplier;
+                Manage_Sounds.Instance.playHitSound(Manage_Sounds.Instance.orbConnect, 0.4f);
+            }
+            
             gameObject.SetActive(false);
         }
     }

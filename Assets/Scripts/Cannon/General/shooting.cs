@@ -23,6 +23,7 @@ public class shooting : MonoBehaviour
     private float chargeArrowLength;
     public float minSwipeToShoot = 0.1f;
     public float zOffset = 0f;
+    public float aimRotationExtreme = 75f;
 
     private int counter = 0;
     private float rot;
@@ -50,6 +51,11 @@ public class shooting : MonoBehaviour
     [Space(10)]
     [Header("Bullet Type")]
     public GameObject[] bullets;
+
+    [Space(10)]
+    [Header("Player Character")]
+
+    public GameObject player_Head;
 
     void Awake()
     {
@@ -119,10 +125,10 @@ public class shooting : MonoBehaviour
                 float aimArrowLength = (endPosition-initPosition).magnitude;
 
                 //Update the endpoint to never face backwards
-                if (rot < -90f) 
-                    endPosition = initPosition + new Vector3(0, 1, 0) * aimArrowLength;
-                else if (rot > 90f)
-                    endPosition = initPosition + new Vector3(0, -1, 0) * aimArrowLength; 
+                if (rot < -aimRotationExtreme) 
+                    endPosition = initPosition + Quaternion.Euler(0, 0, -aimRotationExtreme) * Vector3.left * aimArrowLength;
+                else if (rot > aimRotationExtreme)
+                    endPosition = initPosition + Quaternion.Euler(0, 0, aimRotationExtreme) * Vector3.left *  aimArrowLength; 
 
                 //Update the endpoint of the aim arrow vector to stay a constant distance from the cannon's pivot as it moves with ur finger
                 if ((endPosition - initPosition).magnitude > maxArrowLength)
@@ -150,13 +156,13 @@ public class shooting : MonoBehaviour
                 //Update the endpoint to never face backwards
                 endPosition2 = initPosition + (endPosition2-initPosition).normalized * chargeArrowLength;
                 
-                if (rot < -90f) {
-                    endPosition2 = initPosition + new Vector3(0, 1, 0) * chargeArrowLength;
-                    rot = -90f;
+                if (rot < -aimRotationExtreme) {
+                    endPosition2 = initPosition + Quaternion.Euler(0, 0, -aimRotationExtreme) * Vector3.left * chargeArrowLength;
+                    rot = -aimRotationExtreme;
                 }
-                else if (rot > 90f) {
-                    endPosition2 = initPosition + new Vector3(0, -1, 0) * chargeArrowLength;
-                    rot = 90f;
+                else if (rot > aimRotationExtreme) {
+                    endPosition2 = initPosition + Quaternion.Euler(0, 0, aimRotationExtreme) * Vector3.left * chargeArrowLength;
+                    rot = aimRotationExtreme;
                 }
                 
                 //update start and end point
@@ -219,6 +225,9 @@ public class shooting : MonoBehaviour
 
         //set cannon rotation if not facing backwards
         transform.rotation = Quaternion.Euler(0f, 0f, rot);
+
+        //set the player head's rotation to look in the direction the player is aiming
+        player_Head.transform.rotation = Quaternion.Euler(0f, 0f, rot / 5f);
 
         //rotate the guide aim arrows around the cannon 
         weaponAnchor.transform.rotation = transform.rotation;

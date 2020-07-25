@@ -22,16 +22,19 @@ public class weapon_loadout : MonoBehaviour
     public Sprite weaponNotSelected;
     private shooting shooting;
 
-    void Start() {
+    void Start() 
+    {
+        //defining components
         shooting = transform.GetComponent<shooting>();
 
+        //equip the right weapon
         selectWeapon();
         updateAmmo();
     }
 
     //every shot, update ammo + swap weapons when out of ammo
     public void shotTaken() {
-
+ 
         //use 1 ammo and update the ammo text
         ammo[currentWeapon] -= 1;
         updateAmmo();
@@ -65,12 +68,16 @@ public class weapon_loadout : MonoBehaviour
         ammoText[2].text = ammo[2].ToString();
     }
 
-    private IEnumerator reload(int weapon) {
+    //reload a weapon
+    private IEnumerator reload(int weapon)
+     {
+        //Show a visual flashing zero to indicate that a weapon is reloading
         for (int i = 1; i <= 12; i++) {
             yield return new WaitForSeconds(0.5f);
             ammoText[weapon].enabled = ammoText[weapon].IsActive() ?  false : true;
         }
 
+        //refill the weapon's ammo stock
         ammo[weapon] = 25;
         updateAmmo();
     }

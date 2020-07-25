@@ -29,7 +29,7 @@ public class Ogre : MonoBehaviour
         rig = transform.GetComponent<Rigidbody2D>();
         eH = transform.GetComponent<Enemy_Health>();
 
-        speed = Enemy_Health.ogre_speed;
+        speed = -Enemy_Health.ogre_speed;
         
         //when walking = false, the stand still and blink animation will be played over the walking animation
         walking = true;
@@ -42,7 +42,6 @@ public class Ogre : MonoBehaviour
             eH.deploy = false;
 
             //Orient the Ogre in the correct direction 
-            speed = -Mathf.Abs(speed);
             transform.rotation = Quaternion.Euler(0, 180, 0);
             
             //Reset animation bools  
@@ -82,16 +81,9 @@ public class Ogre : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        //Enemy has gotten close enough to the tower to stop moving
-        if (col.gameObject.layer == 18) {
-
-            //stop following arrows
-            dontGetCloser = true;
-            rig.velocity = new Vector2(0, 0);
-
-            //From now on, the ogre animation stands still and blinks instead of walking
-            walking = false;
-        }
+        //Enemy has gotten close enough to the tower and should soon stop moving
+        if (col.gameObject.layer == 18) 
+            Invoke("stopApproachingTower", UnityEngine.Random.Range(0f, 14f));
 
         //Enemy landed on the ground after its motion was somehow disrupted
         if (col.gameObject.layer == 14 && rig.gravityScale != 0)
@@ -100,6 +92,13 @@ public class Ogre : MonoBehaviour
             rig.velocity = new Vector2(0, 0);
             eH.resetPath = true;
         }
+    } 
+    
+    void OnTriggerExit2D(Collider2D col)
+    {
+        //Enemy has gotten as close enough to the tower as possible. Stop now.
+        if (col.gameObject.layer == 18) 
+            stopApproachingTower();
     }
 
     void OnTriggerStay2D(Collider2D col)
@@ -154,5 +153,17 @@ public class Ogre : MonoBehaviour
             //Turn the enemy from its current direction to the next direction
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
         }
+    }
+
+    //stop getting closer to the tower
+    private void stopApproachingTower()
+    {
+        //stop following arrows
+        dontGetCloser = true;
+        rig.velocity = new Vector2(0, 0);
+
+        //From now on, the ogre animation stands still and blinks instead of walking
+        animator.SetInteger("Stage", 2);
+        walking = false;
     }
 }
