@@ -16048,6 +16048,29 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: normal
+      value: 
+      objectReference: {fileID: 9100000, guid: c2374b79e3287f64e8f1513f6bbd4464, type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: powerful
+      value: 
+      objectReference: {fileID: 22100000, guid: 602fb305adbc1f5419dac4c06e48885c,
+        type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: weak
+      value: 
+      objectReference: {fileID: 22100000, guid: 3718f1a006bbd5e43b24c679a44363d2,
+        type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: weakPowerful
+      value: 
+      objectReference: {fileID: 22100000, guid: 3133bed28a7c573459e3be9b00b96ce7,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 174e5c706f907724189abd157904d443, type: 3}
 --- !u!4 &909450666 stripped
@@ -20898,6 +20921,29 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: normal
+      value: 
+      objectReference: {fileID: 9100000, guid: c2374b79e3287f64e8f1513f6bbd4464, type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: powerful
+      value: 
+      objectReference: {fileID: 22100000, guid: 602fb305adbc1f5419dac4c06e48885c,
+        type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: weak
+      value: 
+      objectReference: {fileID: 22100000, guid: 3718f1a006bbd5e43b24c679a44363d2,
+        type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: weakPowerful
+      value: 
+      objectReference: {fileID: 22100000, guid: 3133bed28a7c573459e3be9b00b96ce7,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 174e5c706f907724189abd157904d443, type: 3}
 --- !u!4 &1181197695 stripped
@@ -27780,6 +27826,29 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: normal
+      value: 
+      objectReference: {fileID: 9100000, guid: c2374b79e3287f64e8f1513f6bbd4464, type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: powerful
+      value: 
+      objectReference: {fileID: 22100000, guid: 602fb305adbc1f5419dac4c06e48885c,
+        type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: weak
+      value: 
+      objectReference: {fileID: 22100000, guid: 3718f1a006bbd5e43b24c679a44363d2,
+        type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: weakPowerful
+      value: 
+      objectReference: {fileID: 22100000, guid: 3133bed28a7c573459e3be9b00b96ce7,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 174e5c706f907724189abd157904d443, type: 3}
 --- !u!4 &1526622043 stripped
@@ -36497,6 +36566,29 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: normal
+      value: 
+      objectReference: {fileID: 9100000, guid: c2374b79e3287f64e8f1513f6bbd4464, type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: powerful
+      value: 
+      objectReference: {fileID: 22100000, guid: 602fb305adbc1f5419dac4c06e48885c,
+        type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: weak
+      value: 
+      objectReference: {fileID: 22100000, guid: 3718f1a006bbd5e43b24c679a44363d2,
+        type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: weakPowerful
+      value: 
+      objectReference: {fileID: 22100000, guid: 3133bed28a7c573459e3be9b00b96ce7,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 174e5c706f907724189abd157904d443, type: 3}
 --- !u!4 &2000406510 stripped
@@ -38861,12 +38953,13 @@ MonoBehaviour:
   E3_group: {fileID: 1607358440}
   E4_group: {fileID: 1354236365}
   E5_group: {fileID: 2019202356}
-  E1_Spawn: {fileID: 1778698493}
-  ReaperUpSpawn: {fileID: 572477984}
-  ReaperDownSpawn: {fileID: 1942090620}
-  E2_Spawn: {fileID: 1292281077}
-  E3_Spawn: {fileID: 0}
-  E5_Spawn: {fileID: 2046001472}
+  E1_sp: {fileID: 1778698493}
+  E2_sp: {fileID: 1292281077}
+  E3_sp: {fileID: 0}
+  E4_sp: {fileID: 0}
+  E5_sp: {fileID: 2046001472}
+  FlyingUp_sp: {fileID: 572477984}
+  FlyingDown_sp: {fileID: 1942090620}
   Hill: {fileID: 424424824}
   initialReloadTime: 2
 --- !u!114 &2146852049
@@ -39600,6 +39693,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Explosive Reaper
       objectReference: {fileID: 0}
+    - target: {fileID: 3009865137336898294, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3009865137336898290, guid: 174e5c706f907724189abd157904d443,
         type: 3}
       propertyPath: hill
@@ -39620,6 +39718,29 @@ PrefabInstance:
       propertyPath: manage_Sounds
       value: 
       objectReference: {fileID: 2132682074}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: normal
+      value: 
+      objectReference: {fileID: 9100000, guid: c2374b79e3287f64e8f1513f6bbd4464, type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: powerful
+      value: 
+      objectReference: {fileID: 22100000, guid: 602fb305adbc1f5419dac4c06e48885c,
+        type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: weak
+      value: 
+      objectReference: {fileID: 22100000, guid: 3718f1a006bbd5e43b24c679a44363d2,
+        type: 2}
+    - target: {fileID: 3009865137336898289, guid: 174e5c706f907724189abd157904d443,
+        type: 3}
+      propertyPath: weakPowerful
+      value: 
+      objectReference: {fileID: 22100000, guid: 3133bed28a7c573459e3be9b00b96ce7,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 174e5c706f907724189abd157904d443, type: 3}
 --- !u!1 &4167508698350434710

@@ -14,12 +14,13 @@ public class Spawner : MonoBehaviour
 
     [Space(10)]
     [Header("Spawn points")]
-    public Transform E1_Spawn;
-    public Transform ReaperUpSpawn;
-    public Transform ReaperDownSpawn;
-    public Transform E2_Spawn;
-    public Transform E3_Spawn;
-    public Transform E5_Spawn;
+    public Transform E1_sp;
+    public Transform E2_sp;
+    public Transform E3_sp;
+    public Transform E4_sp;
+    public Transform E5_sp;
+    public Transform FlyingUp_sp;
+    public Transform FlyingDown_sp;
     public Transform Hill;
 
     private int cE1 = 0;
@@ -84,7 +85,7 @@ public class Spawner : MonoBehaviour
     //Deploy a random enemy
     void deployRandomEnemy()
     {
-        int r = UnityEngine.Random.Range(21, 26);
+        int r = UnityEngine.Random.Range(1, 26);
         if (r >= 1 && r <= 5)
             deployEnemy("Enemy 1");
         if (r >= 6 && r <= 10)
@@ -106,13 +107,13 @@ public class Spawner : MonoBehaviour
 
         //set enemy spawn points
         if (enemyName == "Enemy 1")
-            deployPos = E1_Spawn.transform.position;
+            deployPos = E1_sp.transform.position;
 
         if (enemyName == "Enemy 2") 
-            deployPos = E2_Spawn.transform.position;
+            deployPos = E2_sp.transform.position;
 
         if (enemyName == "Enemy 5") 
-            deployPos = E5_Spawn.transform.position;
+            deployPos = E5_sp.transform.position;
 
         //choose exploding reaper spawn point  
         if (enemyName == "Enemy 4") {
@@ -122,8 +123,8 @@ public class Spawner : MonoBehaviour
 
         //choose flying reaper spawn point 
         if (enemyName == "Enemy 3") {
-            deployPos = new Vector3(ReaperUpSpawn.transform.position.x, 
-            Random.Range(ReaperDownSpawn.transform.position.y, ReaperUpSpawn.transform.position.y), 0);
+            deployPos = new Vector3(FlyingUp_sp.transform.position.x, 
+            Random.Range(FlyingDown_sp.transform.position.y, FlyingUp_sp.transform.position.y), 0);
         }
 
         //spawn enemy
