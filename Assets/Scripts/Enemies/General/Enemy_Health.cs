@@ -18,11 +18,11 @@ public class Enemy_Health : MonoBehaviour
     private int reaper_3 = 80;
 
     //enemies' speeds
-    public static float orc_speed = 1f;
-    public static float ogre_speed = 0.78f;
-    public static float goblin_speed = 2.1f;
+    public static float orc_speed = 1.7f;
+    public static float ogre_speed = 1.2f;
+    public static float goblin_speed = 2.2f;
     public static float R1_speed = 1.8f;
-    public static float R3_speed = 1f;
+    public static float R3_speed = 1.2f;
 
     //enemies' dmg 
     public static float orcDmg = 3; //Every 1.2-4 seconds, it hits the tower (meelee)
@@ -80,7 +80,7 @@ public class Enemy_Health : MonoBehaviour
 
     [Space(10)]
     [Header("Animation controllers")]
-    public RuntimeAnimatorController normal;
+    public AnimatorOverrideController normal;
     public AnimatorOverrideController weak;
     public AnimatorOverrideController powerful;
     public AnimatorOverrideController weakPowerful;
@@ -88,6 +88,11 @@ public class Enemy_Health : MonoBehaviour
     //powerful enemy attributes
     private bool isPowerful;
     [HideInInspector] public float dmgMultiplier;
+
+    //saving animation Parameters
+    List <AnimatorControllerParameterType> pTypes = new List <AnimatorControllerParameterType>();
+    List <string> pNames = new List <string>();      
+    List <string> pValues = new List <string>();    
 
     // Start is called before the first frame update
     void Awake()
@@ -150,6 +155,10 @@ public class Enemy_Health : MonoBehaviour
         transform.localScale = new Vector2(ogScaleX, ogScaleY);
         transform.rotation = Quaternion.Euler(0, 0, 0);
         renderer.color = new Color32(255, 255, 255, 255);
+
+        //reset Enemy animation
+        animator.speed = 1;
+        animator.enabled = true;
         
         //reset Enemy sprite/animation
         setAnimation("usual");
@@ -248,8 +257,11 @@ public class Enemy_Health : MonoBehaviour
 
     //player projectile calls this to freeze the enemy with the ice effect
     public void activateFreeze() {
-        freezeTimer = freezeDuration;
-        StartCoroutine(freezeState(true));
+        if (hp > 0)
+        {
+            freezeTimer = freezeDuration;
+            StartCoroutine(freezeState(true));
+        }
     }
 
     //choose to freeze or unfreeze the enemy code-wise
@@ -274,7 +286,7 @@ public class Enemy_Health : MonoBehaviour
 
         //freeze the enemy animation / unfreeze the enemy animation after a small delay
         yield return new WaitForSeconds(0.05f);
-        animator.enabled = !freeze;
+        animator.speed = freeze ? 0 : 1;
     }
 
     //player projectile calls this to light the enemy on fire
@@ -316,7 +328,6 @@ public class Enemy_Health : MonoBehaviour
 
             //kill dying animation after another delay
             yield return new WaitForSeconds(spinDelay);
-            animator.runtimeAnimatorController = null;
 
             for (int yo = 17; yo >= 0; yo--)
             {
@@ -404,5 +415,68 @@ public class Enemy_Health : MonoBehaviour
     {
         if (tag == enemyNumber)
             shop.jewels += jewels;
+    }
+
+    public void saveParametersState() 
+    {
+        pTypes.Clear();
+        pNames.Clear();
+        pValues.Clear();
+
+        //get a list of all parameter types                
+        for (int i = 0; i < animator.parameterCount; i++) 
+            pTypes.Add(animator.GetParameter(i).type);
+        
+        //get a list of all parameter names
+        AnimatorControllerParameter[] parameters = animator.parameters;        
+        foreach (AnimatorControllerParameter p in parameters)
+            pNames.Add(p.name);
+
+        //get a list of all parameter values   
+        int length = pTypes.Count;
+
+        for (int i = 0; i < length; i++) {
+            string value = GetParameterValue(pTypes[i].ToString(), pNames[i]);
+            pValues.Add(value);
+        }
+
+        for (int i = 0; i < length; i++) 
+            print (pNames[i] + "= " + pValues[i] + ", " + pValues[i].Split(',').Length);
+    }
+
+    private string GetParameterValue(string type, string pName)
+    {
+        //note for floats, when you call .Split(','), they will return 2 instead of 1. 
+        if (type == "Bool")
+            return animator.GetBool(pName).ToString();
+        if (type == "Float")
+            return animator.GetFloat(pName).ToString() + ",F";
+        if (type == "Int")
+            return animator.GetInteger(pName).ToString();  
+
+        print("Error, a parameter type that can't be saved was used");
+        return "null";      
+    }
+
+    private void SetParameterValue(string parameter, string value) {
+        string[] values = value.Split(','); 
+
+        //either a bool or an integer
+        if (values.Length == 1) {
+            int number;
+            bool trueOrFalse;
+            bool success = int.TryParse(values[0], out number);
+            bool success2 = bool.TryParse(values[0], out trueOrFalse);
+
+            if (success)
+                animator.SetInteger(parameter, number);
+            if (success2)
+                animator.SetBool(parameter, trueOrFalse); 
+        }
+
+        else {
+            float v = float.Parse(values[0]);
+            animator.SetFloat(parameter, v);
+        }
     }
 }

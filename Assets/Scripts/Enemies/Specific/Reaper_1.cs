@@ -7,6 +7,7 @@ public class Reaper_1 : MonoBehaviour
 {
     Animator animator;
     Rigidbody2D rig;
+    Collider2D col;
 
     public GameObject hill;
     private float speed;
@@ -30,6 +31,7 @@ public class Reaper_1 : MonoBehaviour
         rig = transform.GetComponent<Rigidbody2D>();
         eH = transform.GetComponent<Enemy_Health>();
         sr = transform.GetComponent<SpriteRenderer>();
+        col = transform.GetComponent<PolygonCollider2D>();
 
         speed = -Enemy_Health.R1_speed;
     }
@@ -80,12 +82,15 @@ public class Reaper_1 : MonoBehaviour
     private IEnumerator activate()
     {
         //turn off reaper sprite, turn on spawn animation
+        col.enabled = false;
         sr.enabled = false;
         spawn_anim.GetComponent<Animator>().SetBool("Spawn", true);
 
         yield return new WaitForSeconds(0.5f);
 
         //turn off spawn animation, turn on reaper sprite
+        animator.enabled = true;
+        col.enabled = true;
         sr.enabled = true;
         spawn_anim.GetComponent<Animator>().SetBool("Spawn", false);
         spawn_anim.GetComponent<SpriteRenderer>().enabled = false;
@@ -152,21 +157,14 @@ public class Reaper_1 : MonoBehaviour
     {
         //makes reaper disappear
         sr.enabled = false;
+        col.enabled = false;
+        animator.enabled = false;
 
         //show explosion
         spawn_anim.GetComponent<SpriteRenderer>().enabled = true;
         spawn_anim.GetComponent<Animator>().SetBool("Boom", true);
         yield return new WaitForSeconds(0.06f);
         spawn_anim.GetComponent<Animator>().SetBool("Boom", false);
-    }
-
-    //plays explosion sound
-    private IEnumerator playSound()
-    {
-        yield return new WaitForSeconds(0.22f);
-        audioSource.PlayOneShot(Manage_Sounds.Instance.goblinAttack, Manage_Sounds.soundMultiplier);
-        yield return new WaitForSeconds(0.78f);
-        StartCoroutine(playSound());
     }
 
     void OnTriggerEnter2D(Collider2D col)

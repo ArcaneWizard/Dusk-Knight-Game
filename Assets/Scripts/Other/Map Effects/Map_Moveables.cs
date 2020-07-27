@@ -30,7 +30,7 @@ public class Map_Moveables : MonoBehaviour
     {
         float r = Random.Range(1, 3);
         yield return new WaitForSeconds(r);
-        transform.localPosition = new Vector2(-11.5f, transform.localPosition.y);
+        transform.localPosition = new Vector2(-22f, transform.localPosition.y);
         rig.velocity = new Vector2(largeCloudSpeed, 0);
         largeCounter = false;
     }
@@ -38,7 +38,7 @@ public class Map_Moveables : MonoBehaviour
     {
         float r = Random.Range(5, 7);
         yield return new WaitForSeconds(r);
-        transform.localPosition = new Vector2(-11.5f, transform.localPosition.y);
+        transform.localPosition = new Vector2(-22f, transform.localPosition.y);
         rig.velocity = new Vector2(largeCloudSpeed2, 0);
         largeCounter2 = false;
     }
@@ -56,17 +56,17 @@ public class Map_Moveables : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.name == "large cloud" && transform.localPosition.x > 11 && largeCounter == false)
+        if (gameObject.name == "large cloud" && transform.localPosition.x > 15 && largeCounter == false)
         {
             StartCoroutine(largeCloud());
             largeCounter = true;
         }
-        if (gameObject.name == "large cloud 2" && transform.localPosition.x > 11 && largeCounter2 == false)
+        if (gameObject.name == "large cloud 2" && transform.localPosition.x > 15 && largeCounter2 == false)
         {
             StartCoroutine(largeCloud2());
             largeCounter2 = true;
         }
-        if (gameObject.name == "small cloud" && smallCounter == false && (transform.localPosition.x >= 0.4f || transform.localPosition.x <= -0.2f))
+        if (gameObject.name == "small cloud" && smallCounter == false && (transform.localPosition.x >= 15))
         {
             StartCoroutine(smallCloud());
             smallCounter = true;

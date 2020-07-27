@@ -68,13 +68,20 @@ public class Ogre : MonoBehaviour
     //Ogre throws a projectile after a few seconds
     private IEnumerator ThrowProjectile() {
         
-        //trigger throw animation after a random number of seconds
+        //enemy stops  after a random number of seconds
         yield return new WaitForSeconds(UnityEngine.Random.Range(timeTillThrow.x, timeTillThrow.y));
+        rig.velocity = new Vector2(0, 0);
+        animator.SetInteger("Stage", 2);
+
+        //enemy starts throwing a second after stopping
+        yield return new WaitForSeconds(0.12f);
         animator.SetInteger("Stage", 1);
 
-        //wait out the throwing animation and then switch back to walking or standing still
+        //wait out the throwing animation and then switch back to walking or standing still afterwards
         yield return new WaitForSeconds(1f);
         animator.SetInteger("Stage", (walking == true) ? 0 : 2);
+        eH.resetPath = true;
+        rig.WakeUp();
 
         StartCoroutine(ThrowProjectile());
     }
@@ -108,7 +115,7 @@ public class Ogre : MonoBehaviour
         {
             //If the enemy movement is disrupted by knockback or something and needs to be reset
             if (eH.resetPath == true)
-            {
+            {   
                 //call this if statement only once
                 eH.resetPath = false;
                 

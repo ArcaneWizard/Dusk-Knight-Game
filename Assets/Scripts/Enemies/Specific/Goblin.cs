@@ -12,8 +12,7 @@ public class Goblin : MonoBehaviour
     private AudioSource audioSource;
     private Enemy_Health eH;
 
-    private bool AttackedOnce = false;
-
+    private bool canAttack = false;
     private bool dontGetCloser = false;
     private float speed;
     private int arrowIndex = 0;
@@ -38,16 +37,16 @@ public class Goblin : MonoBehaviour
             //Orient the Goblin in the correct direction 
             transform.rotation = Quaternion.Euler(0, 180, 0);
 
-            //Reset animation bools  
+            //Reset animation bools and the ability to attack
             animator.SetBool("Attack", false);
             animator.SetBool("Dead", false);
+            canAttack = true;
 
             //Set enemy movement based off hill arrows that outline the hill
             Quaternion initDir = hill.transform.GetChild(0).transform.rotation;
             Quaternion finalDir = hill.transform.GetChild(1).transform.rotation;
             float distance = hill.transform.GetChild(0).transform.position.x - hill.transform.GetChild(1).transform.position.x;
             
-            print("ya");
             rig.gravityScale = 0;
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
            
@@ -59,14 +58,18 @@ public class Goblin : MonoBehaviour
         }
 
         //Do dmg once every attack animation cycle
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Goblin Slashing") && eH.hp > 0)
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Goblin Slashing") && eH.hp > 0 && animator.enabled)
         {
-            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 < 2f / 12f && AttackedOnce == true)
-                AttackedOnce = false;
-                
-            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 >= 2f / 12f && AttackedOnce == false)
-            {
-                AttackedOnce = true;
+            //get what % of the animation has played as a float from 0-1
+            float progress = animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1;
+
+            if (progress > 2f/12f && progress < 0.5f && canAttack) {
+                canAttack = false;
+                Invoke("reloadAttack", 0.5f);
+
+                //do dmg to the player and play a sound
+                health.hp -= Enemy_Health.goblinDmg * eH.dmgMultiplier;
+                audioSource.PlayOneShot(Manage_Sounds.Instance.goblinAttack, Manage_Sounds.soundMultiplier);
             }
         }
     }
@@ -78,7 +81,6 @@ public class Goblin : MonoBehaviour
         {
             //start bashing the tower
             animator.SetBool("Attack", true);
-            StartCoroutine(playSound());
 
             //stop following the arrows
             dontGetCloser = true;
@@ -94,13 +96,8 @@ public class Goblin : MonoBehaviour
         }
     }
 
-    private IEnumerator playSound()
-    {
-        yield return new WaitForSeconds(0.22f);
-        health.hp -= Enemy_Health.goblinDmg * eH.dmgMultiplier;
-        audioSource.PlayOneShot(Manage_Sounds.Instance.goblinAttack, Manage_Sounds.soundMultiplier);
-        yield return new WaitForSeconds(0.78f);
-        StartCoroutine(playSound());
+    private void reloadAttack() {
+        canAttack = true;
     }
 
     void OnTriggerStay2D(Collider2D col)

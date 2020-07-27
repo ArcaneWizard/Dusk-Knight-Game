@@ -18,6 +18,7 @@ public class Orc : MonoBehaviour
     public float pushOffDuration;
     public float undoDuration;  
 
+    private bool canAttack;
     private bool dontGetCloser;
     private float speed;
     private int arrowIndex = 0;
@@ -76,6 +77,26 @@ public class Orc : MonoBehaviour
             //Keep on following the arrows until you get within range of the tower
             dontGetCloser = false;
         }   
+
+        //Do dmg once every attack animation cycle
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Orc Slashing") && eH.hp > 0 && animator.enabled)
+        {
+            //get what % of the animation has played as a float from 0-1
+            float progress = animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1;
+
+            if (progress > 2f/12f && progress < 0.5f && canAttack) {
+                canAttack = false;
+                Invoke("reloadAttack", 0.5f);
+
+                //do dmg to the player and play a sound
+                health.hp -= Enemy_Health.orcDmg * eH.dmgMultiplier;
+                audioSource.PlayOneShot(Manage_Sounds.Instance.orcAttack, Manage_Sounds.soundMultiplier);
+            }
+        }
+    }
+
+    private void reloadAttack() {
+        canAttack = true;
     }
 
     //Orc jumps a random height after a few seconds

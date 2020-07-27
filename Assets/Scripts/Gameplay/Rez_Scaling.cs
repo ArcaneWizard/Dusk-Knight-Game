@@ -81,7 +81,7 @@ public class Rez_Scaling : MonoBehaviour
         float c = 1f;
         
         if (rez > 1.68f) {
-            c -= (rez - 1.68f) * 0.2f / (2.222f - 1.68f);
+            c -= (rez - 1.68f) * 0.1f / (2.222f - 1.68f);
         }
 
         return c;

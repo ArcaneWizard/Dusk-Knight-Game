@@ -94,4 +94,14 @@ public class Reaper_3 : MonoBehaviour
             rig.velocity = new Vector2(0, 0);
         }
     }
+
+    void OnTriggerStay2D(Collider2D col)
+    {
+        //Enemy landed on the ground after its motion was somehow disrupted (ex. frozen mid-air)
+        if (col.gameObject.layer == 14 && rig.gravityScale != 0)
+        {
+            rig.gravityScale = 0;
+            rig.velocity = new Vector2(0, 0);
+        }
+    }
 }

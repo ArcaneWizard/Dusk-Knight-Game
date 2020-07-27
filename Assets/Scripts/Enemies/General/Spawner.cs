@@ -44,7 +44,7 @@ public class Spawner : MonoBehaviour
         enemyLimit = UnityEngine.Random.Range(7, 15);
 
         //Start enemy spawning and enemy spawn rate methods
-        StartCoroutine(spawnOver());
+        StartCoroutine(spawnEnemies());
         StartCoroutine(quickenSpawn());
 
         //Ensures enemies won't face overlap problems
@@ -52,7 +52,7 @@ public class Spawner : MonoBehaviour
     }
 
     //spawn enemies every reloadTime seconds
-    private IEnumerator spawnOver()
+    private IEnumerator spawnEnemies()
     {
         //spawn a random enemy
         deployRandomEnemy();
@@ -69,7 +69,7 @@ public class Spawner : MonoBehaviour
         else 
             yield return new WaitForSeconds(reloadTime);  
         
-        StartCoroutine(spawnOver());
+        StartCoroutine(spawnEnemies());
     }   
 
     //spawn Enemies faster over the course of the game
