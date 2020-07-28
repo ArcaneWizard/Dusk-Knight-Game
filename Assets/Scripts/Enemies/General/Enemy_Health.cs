@@ -13,9 +13,9 @@ public class Enemy_Health : MonoBehaviour
     //enemies' hps
     private int orc = 100;
     private int ogre = 70;
-    private int goblin = 100;
+    private int goblin = 50;
     private int reaper_1 = 60;
-    private int reaper_3 = 80;
+    private int reaper_3 = 70;
 
     //enemies' speeds
     public static float orc_speed = 1.7f;
@@ -156,11 +156,9 @@ public class Enemy_Health : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, 0);
         renderer.color = new Color32(255, 255, 255, 255);
 
-        //reset Enemy animation
+        //reset Enemy animation settings
         animator.speed = 1;
         animator.enabled = true;
-        
-        //reset Enemy sprite/animation
         setAnimation("usual");
     }
 
@@ -271,9 +269,9 @@ public class Enemy_Health : MonoBehaviour
         snowball.SetActive(freeze);
             
         //For the flying reaper, disable its movement script / enable its script
-        if (transform.GetComponent<Reaper_3>() && freeze)
+        if (transform.GetComponent<Flying_Reaper>() && freeze)
             rig.gravityScale = 1;
-        if (transform.GetComponent<Reaper_3>() && !freeze) 
+        if (transform.GetComponent<Flying_Reaper>() && !freeze) 
             rig.gravityScale = 0;
 
         //stop the enemy / let the enemy continue moving
@@ -314,6 +312,9 @@ public class Enemy_Health : MonoBehaviour
 
         //turn off enemy collisions with the outside environment
         enemyCollider.enabled = false;
+
+        //turn off enemy animations
+        animator.speed = 0;
 
         //render enemy still
         rig.gravityScale = 0;

@@ -47,7 +47,7 @@ public class health : MonoBehaviour
         }
 
         if (dead && !shakingIsOver) 
-            transform.localPosition = new Vector2(-10.49f, -3.57f + Mathf.Sin(Time.time * shakeRate)  * shakeVariance);
+            transform.localPosition = new Vector2(-10.49f, -3f + Mathf.Sin(Time.time * shakeRate)  * shakeVariance);
             
         if (shakingIsOver) 
             transform.Translate(new Vector2(0, -fallDownSpeed * Time.deltaTime));

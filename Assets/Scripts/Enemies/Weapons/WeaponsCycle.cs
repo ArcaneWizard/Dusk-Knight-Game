@@ -9,6 +9,7 @@ public class WeaponsCycle : MonoBehaviour
     [Space(10)]
     [Header("Objects")]
     public Transform Projectile_Group;
+    public Transform bulletSpawnLocation;
 
     public static int index_Reaper = 0;
     public static int index_Ogre = 0;
@@ -37,11 +38,11 @@ public class WeaponsCycle : MonoBehaviour
     void Update()
     {   
         //Reaper casts orbs 
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Reaper 3 floating"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Flying Reaper Casting"))
         {
             //Shoot once per animation cycle
             progress = anim.GetCurrentAnimatorStateInfo(0).normalizedTime % 1;
-            if (progress >= 0.45f && progress <= 0.55f && reloadAttack == false)
+            if (progress >= 0.00f && progress <= 0.4f && reloadAttack == false)
             {
                 reloadAttack = true;
                 StartCoroutine(reaperShot());
@@ -84,7 +85,7 @@ public class WeaponsCycle : MonoBehaviour
         index_Reaper = ++index_Reaper % projectiles.Count;
 
         //Spawn the bullet on the enemy casting it
-        projectiles[index_Reaper].transform.position = transform.position;
+        projectiles[index_Reaper].transform.position = bulletSpawnLocation.transform.position;
         
         //Specify a damage multiplier if the enemy is more powerful than usual
         float dmgMultiplier = gameObject.GetComponent<Enemy_Health>().dmgMultiplier;
