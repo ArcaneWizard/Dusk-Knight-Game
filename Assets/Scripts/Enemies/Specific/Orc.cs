@@ -18,10 +18,8 @@ public class Orc : MonoBehaviour
     public float pushOffDuration;
     public float undoDuration;  
 
-    public GameObject groundedCollider;
-
     private bool canAttack;
-    private bool dontGetCloser;
+    public bool dontGetCloser;
     private float speed;
     private int arrowIndex = 0;
     private int index;
@@ -32,6 +30,7 @@ public class Orc : MonoBehaviour
     public float clobberVolume;
     
     public GameObject hill;
+    public GameObject groundedCollider;
 
     void Awake() 
     {
@@ -121,8 +120,12 @@ public class Orc : MonoBehaviour
         float varianceX = UnityEngine.Random.Range(-jumpVariance.x, jumpVariance.x);
         float varianceY = UnityEngine.Random.Range(-jumpVariance.y, jumpVariance.y);
         Vector2 variance = new Vector2(varianceX, varianceY);
-        rig.gravityScale = 1;
         rig.AddForce(jumpForce + variance);  
+
+        rig.gravityScale = 1;
+
+        yield return new WaitForSeconds(0.07f);
+        groundedCollider.SetActive(true);      
 
         //play launch sound
         audioSource.PlayOneShot(launch, launchVolume * Manage_Sounds.soundMultiplier);
@@ -130,47 +133,33 @@ public class Orc : MonoBehaviour
         //stop and reverse enemy animation back to walking
         animator.SetFloat("spring speed", 0);
         yield return new WaitForSeconds(pushOffDuration);  
-        groundedCollider.SetActive(true);      
         animator.SetFloat("spring speed", -1);    
         yield return new WaitForSeconds(undoDuration);         
         animator.SetInteger("Jump", 2);             
         animator.SetFloat("spring speed", 0);    
     }
 
-    private IEnumerator blink() {
-        //If not taking dmg, then attack or blink
-        if (!animator.GetBool("Hurt"))
-        {   
-            //Play sound and do dmg during the attack animation 
-            yield return new WaitForSeconds(0.22f);
-            health.hp -= Enemy_Health.orcDmg * eH.dmgMultiplier;
-            audioSource.PlayOneShot(clobber, clobberVolume * Manage_Sounds.soundMultiplier);
-            yield return new WaitForSeconds(0.65f);
+    private IEnumerator blink() 
+    {
+        //Wait out the attack animation 
+        yield return new WaitForSeconds(1f);
 
-            //Start blinking for 1.2 to 4 seconds
+        //Start blinking for 1.2 to 4 seconds
+        if (dontGetCloser)
             animator.SetInteger("Attack", 2);
-            yield return new WaitForSeconds(UnityEngine.Random.Range(blinkDuration.x, blinkDuration.y));
 
-            //Reattack
+        yield return new WaitForSeconds(UnityEngine.Random.Range(blinkDuration.x, blinkDuration.y));
+
+        //Reattack
+        if (dontGetCloser)
+        {
             animator.SetInteger("Attack", 1);
-            StartCoroutine(blink());
-        }
-
-        else {
-            yield return new WaitForSeconds(0.1f);
             StartCoroutine(blink());
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col) {
-
-        //Orc got hit by a player weapon
-        if (col.gameObject.layer == 25) {
-            
-            animator.SetBool("Hurt", true);   
-            Invoke("flinch", 0.1f);
-        }
-
+    void OnTriggerEnter2D(Collider2D col) 
+    {
         //Orc is next to the tower, wants to start bashing
         if (col.gameObject.layer == 17) 
         {
@@ -179,8 +168,8 @@ public class Orc : MonoBehaviour
             StartCoroutine(blink());
 
             //stop following the arrows
-            rig.velocity = new Vector2(0, 0);
             dontGetCloser = true;
+            rig.velocity = new Vector2(0, 0);
         }
     }
 
@@ -190,16 +179,14 @@ public class Orc : MonoBehaviour
         if (col.gameObject.layer == 14 && rig.gravityScale != 0)
         {
             //reset motion
-            rig.gravityScale = 0;
             groundedCollider.SetActive(false);
+            rig.gravityScale = 0;
             rig.velocity = new Vector2(0, 0);
+            dontGetCloser = false;
             eH.resetPath = true;
+            animator.SetInteger("Attack", 0);
+            StopCoroutine(blink());
         }
-    }
-    
-    //Orc flinches when hit sub-method
-    private void flinch() {
-        animator.SetBool("Hurt", false);
     }
 
     void OnTriggerStay2D(Collider2D col) 
@@ -253,6 +240,18 @@ public class Orc : MonoBehaviour
 
             //Turn the enemy from its current direction to the next direction
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
+        }
+        
+        //Orc jumped at the tower
+        if (col.gameObject.layer == 17 && animator.GetInteger("Attack") == 0) 
+        {
+            //start bashing
+            animator.SetInteger("Attack", 1);
+            StartCoroutine(blink());
+
+            //stop following the arrows
+            dontGetCloser = true;
+            rig.velocity = new Vector2(0, 0);
         }
     }
 }

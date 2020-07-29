@@ -55,7 +55,7 @@ public class Spawner : MonoBehaviour
     private IEnumerator spawnEnemies()
     {
         //spawn a random enemy
-        deployEnemy("Enemy 2");
+        deployEnemy("Enemy 1");
         enemiesSpawned++;
 
         //once many enemies have been spawned, temporarily stop spawning

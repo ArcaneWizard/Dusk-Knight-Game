@@ -21,6 +21,7 @@ public class player_bullet : MonoBehaviour
     private Rigidbody2D rig;
     private SpriteRenderer renderer;
     private Collider2D collider;
+    private Animator animator;
     private string weapon;
 
     //Weapon Dmg
@@ -28,7 +29,8 @@ public class player_bullet : MonoBehaviour
     private int boulderDmg = 80;
     private int iceShardDmg = 30;
     private int cannonBallDmg = 30;
-    private int soulAxeDmg = 25;
+    private Vector2 soulAxeDmgBound = new Vector2(20, 80);
+    private int soulAxeDmg;
     private int rocketDmg = 30;
     private int fireContactDmg = 20;
     public static float fireDmgPerSecond = 10f;
@@ -41,6 +43,8 @@ public class player_bullet : MonoBehaviour
     private int rocketSpeed = 100;
     private int rocketCentripetalForce = 200;
     private float rocketLaunchDelay = 0.01f;
+
+    private Vector2 knockbackForce;
     public static int enemiesHitSpree;
 
     [Space(10)]
@@ -63,6 +67,7 @@ public class player_bullet : MonoBehaviour
         rig = transform.GetComponent<Rigidbody2D>();
         renderer = transform.GetComponent<SpriteRenderer>();
         collider = transform.GetComponent<Collider2D>();
+        animator = transform.GetComponent<Animator>();
         weapon = transform.parent.name;
     }
 
@@ -146,8 +151,6 @@ public class player_bullet : MonoBehaviour
             {
                 dmgPopup(boulderDmg, col);
                 enoughEnemiesHit = true;
-
-                //De-activate this bullet
                 gameObject.SetActive(false);                
             }
             
@@ -165,14 +168,13 @@ public class player_bullet : MonoBehaviour
             {
                 enoughEnemiesHit = true;
 
-                //Launch an enemy up into the air and enable its gravity
-                float xForce = UnityEngine.Random.Range(20, 30);
-                float yForce = UnityEngine.Random.Range(200, 300);
-
-                Vector2 bulletDir = transform.up.normalized;
-                Vector2 force = new Vector2(xForce, yForce);
-
-                StartCoroutine(knockback(col, force));            
+                //Deliver a knockback force only to light enemies
+                if (col.transform.GetComponent<Rigidbody2D>().mass < 2f)
+                    StartCoroutine(knockback(col, knockbackForce));
+                else {
+                    dmgPopup(cannonBallDmg, col);
+                    gameObject.SetActive(false);             
+                }   
             }
             
             if (weapon == "Soul Axes" && enoughEnemiesHit == false)
@@ -201,9 +203,7 @@ public class player_bullet : MonoBehaviour
             }
         }
 
-        //HILL COLLISIONS
-
-        //collides with the hill
+        //if the bullet collides with the hill
         if (col.gameObject.layer == 15)
         {
             //turn off rotation and the collider
@@ -219,19 +219,18 @@ public class player_bullet : MonoBehaviour
 
             //fade out over time or play an animation where the bullet breaks
             if (gameObject.activeSelf == true && gameObject.tag == "Fading bullet")
-                StartCoroutine(fade());
+                StartCoroutine(fadingBullet());
 
             else if (gameObject.activeSelf == true && gameObject.tag == "Animated bullet")
-                StartCoroutine(fadeAnimation());
+                StartCoroutine(animatedToBreakBullet());
 
             else
                 gameObject.SetActive(false);
-
         }
     }
 
     //slowly fade this bullet tills its invisible (called for some bullets that hit the ground)
-    private IEnumerator fade() {
+    private IEnumerator fadingBullet() {
         byte alpha = 255;
         while (alpha > 5) {
             alpha -= 5;
@@ -243,15 +242,15 @@ public class player_bullet : MonoBehaviour
 
    
     //play bullet breaking animation and then make the bullet disappear
-    private IEnumerator fadeAnimation() {
+    private IEnumerator animatedToBreakBullet() {
 
         //play animation right side up always
         transform.rotation = Quaternion.Euler(0, 0, 180f);
-        transform.GetComponent<Animator>().enabled = true;
+        animator.enabled = true;
         yield return new WaitForSeconds(0.583f);
         
         //stop animation and reset rotation after the animation is complete
-        transform.GetComponent<Animator>().enabled = false;
+        animator.enabled = false;
         transform.rotation = Quaternion.Euler(0, 0, 90);
 
         gameObject.SetActive(false);        
@@ -316,21 +315,41 @@ public class player_bullet : MonoBehaviour
             enemiesPierced = 0;
             enemiesToBePierced = UnityEngine.Random.Range(1, 3);
         }
+
+        if (weapon == "Cannon Balls") {
+            float xForce = UnityEngine.Random.Range(20, 30);
+            float yForce = UnityEngine.Random.Range(200, 300);
+            knockbackForce = new Vector2(xForce, yForce);
+        }
+
+        if (weapon == "Soul Axes") {
+            float slopeOfDmg = (soulAxeDmgBound.x - soulAxeDmgBound.y) / (float) health.maxHp;
+            soulAxeDmg = Mathf.RoundToInt(slopeOfDmg * health.hp + soulAxeDmgBound.y);
+        }
     }
 
     //Add knockback effect to an enemy
     private IEnumerator knockback(Collider2D col, Vector2 force)
     {
-        //Disable velocity and add knockback force to the enemy
-        col.transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        col.transform.GetComponent<Rigidbody2D>().AddForce(force);
+        Rigidbody2D enemyRig = col.transform.GetComponent<Rigidbody2D>();
+
+        //Disable velocity only if the enemy is grounded and not already in the air
+        if (enemyRig.gravityScale == 0)
+            enemyRig.velocity = new Vector2(0, 0);
+
+        //Add a knockback force
+        enemyRig.AddForce(force);
 
         //Re-enable gravity for the enemy, albeit with a buffer effect so it can get off the ground 
-        yield return new WaitForSeconds(0.03f);
-        col.transform.GetComponent<Rigidbody2D>().gravityScale = 1;
-        col.gameObject.transform.GetChild(4).gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.06f);
+        enemyRig.gravityScale = 1;
 
-        //De-activate this bullet
+        //Turn on the enemy's ground collider if it has one (to physically land/collide with the ground)
+        foreach(Transform child in col.transform) {
+            if (child.CompareTag("Ground Collider"))
+                child.gameObject.SetActive(true);
+        }
+
         dmgPopup(cannonBallDmg, col);
         gameObject.SetActive(false);
     }

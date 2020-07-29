@@ -79,7 +79,7 @@ public class weapon_loadout : MonoBehaviour
     }
 
     //select a certain weapon manually
-    void selectWeaponManually() 
+    public void selectWeaponManually() 
     {
         currentWeapon = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.transform.GetSiblingIndex();
         selectWeapon();

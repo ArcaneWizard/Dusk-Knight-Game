@@ -17,6 +17,7 @@ TagManager:
   - Buttons
   - Jewels
   - Animated bullet
+  - Ground Collider
   layers:
   - Default
   - TransparentFX

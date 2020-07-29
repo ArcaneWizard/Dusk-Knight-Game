@@ -6,6 +6,7 @@ using UnityEngine;
 public class Goblin : MonoBehaviour
 {
     public GameObject hill;
+    public GameObject groundedCollider;
 
     private Animator animator;
     private Rigidbody2D rig;
@@ -49,7 +50,8 @@ public class Goblin : MonoBehaviour
             
             rig.gravityScale = 0;
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
-           
+            groundedCollider.SetActive(false);
+
             //Is able to follow all arrows at the beginning 
             arrowIndex = 0;
 
@@ -86,13 +88,19 @@ public class Goblin : MonoBehaviour
             dontGetCloser = true;
             rig.velocity = new Vector2(0, 0);
         }
+    }
 
+    void OnCollisionEnter2D(Collision2D col) 
+    {
         //Goblin landed on the ground after its motion was somehow disrupted
         if (col.gameObject.layer == 14 && rig.gravityScale != 0)
         {
             rig.gravityScale = 0;
             rig.velocity = new Vector2(0, 0);
+            groundedCollider.SetActive(false);
             eH.resetPath = true;
+            dontGetCloser = false;
+            animator.SetBool("Attack", false);
         }
     }
 
@@ -151,6 +159,17 @@ public class Goblin : MonoBehaviour
 
             //Turn the enemy from its current direction to the next direction
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
+        }
+
+        //If the goblin gets knocked towards the tower somehow
+        if (col.gameObject.layer == 17 && !animator.GetBool("Attack")) 
+        {
+            //start bashing
+            animator.SetBool("Attack", true);
+
+            //stop following the arrows
+            dontGetCloser = true;
+            rig.velocity = new Vector2(0, 0);
         }
     }
 }
