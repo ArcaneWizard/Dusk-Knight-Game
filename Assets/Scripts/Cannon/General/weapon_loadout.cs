@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class weapon_loadout : MonoBehaviour
 {
+    public Transform Weapons;
+
     [Space(10)]
     [Header("The 3 Weapons")]   
     public List<int> weapons;
@@ -13,14 +15,29 @@ public class weapon_loadout : MonoBehaviour
     [Space(10)]
     [Header("Visuals + Ammo")]    
     public List<float> ammo;
-    public List<Text> ammoText;
-    public List<Image> weaponImage;
+    private float[] ammoCopy;
+    private List<Text> ammoText = new List<Text>();
+    private List<Image> weaponImage = new List<Image>();
     
     [Space(10)]
     [Header("Sprites")]    
     public Sprite weaponSelected;
     public Sprite weaponNotSelected;
     private shooting shooting;
+
+    void Awake() 
+    {
+        //get all the weapon icons and store them in a list
+        foreach (RectTransform icon in Weapons) 
+            weaponImage.Add(icon.GetComponent<Image>());
+
+        //get the text that displays the ammo of each weapon icon and store all of them in a list
+        foreach (Image i in weaponImage) 
+            ammoText.Add(i.gameObject.transform.GetChild(0).transform.GetComponent<Text>());
+
+        //keep a copy of the max ammo counts of each weapon
+        ammoCopy = ammo.ToArray();
+    }
 
     void Start() 
     {
@@ -42,7 +59,7 @@ public class weapon_loadout : MonoBehaviour
         //swap to the next weapon when out of ammo + start reloading this weapon for the future
         if (ammo[currentWeapon] <= 0) {
             StartCoroutine(reload(currentWeapon));
-            currentWeapon = ++currentWeapon % 3;
+            currentWeapon = ++currentWeapon % weapons.Count;
             selectWeapon();
         }        
     }
@@ -54,18 +71,24 @@ public class weapon_loadout : MonoBehaviour
         shooting.weaponType = shooting.bullets[weapons[currentWeapon]];
         shooting.equipWeapon();
 
-        //change the new weapon icon background to gold and the previous one back to blue
-        weaponImage[0].sprite = weaponNotSelected;
-        weaponImage[1].sprite = weaponNotSelected;
-        weaponImage[2].sprite = weaponNotSelected;
+        //update the weapon icons
+        foreach (Image i in weaponImage)
+            i.sprite = weaponNotSelected;
+
         weaponImage[currentWeapon].sprite = weaponSelected;
+    }
+
+    //select a certain weapon manually
+    void selectWeaponManually() 
+    {
+        currentWeapon = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.transform.GetSiblingIndex();
+        selectWeapon();
     }
 
     //update the ammo text to show the weapons' real ammo
     void updateAmmo() {
-        ammoText[0].text = ammo[0].ToString();
-        ammoText[1].text = ammo[1].ToString();
-        ammoText[2].text = ammo[2].ToString();
+        for (int i = 0; i < ammoText.Count; i++) 
+            ammoText[i].text = ammo[i].ToString();        
     }
 
     //reload a weapon
@@ -78,7 +101,7 @@ public class weapon_loadout : MonoBehaviour
         }
 
         //refill the weapon's ammo stock
-        ammo[weapon] = 25;
+        ammo[weapon] = ammoCopy[weapon];
         updateAmmo();
     }
 }

@@ -49,7 +49,7 @@ public class Enemy_Health : MonoBehaviour
     private float hitRednessduration = 0.04f;
     private bool spinUponDeath = true; 
     private float deathDelay = 0.8f; 
-    private float spinDelay = 0.3f; 
+    private float spinDelay = 0.01f; 
     private float scale = 0.93f;
     private float rotSpeed = 25f;
 
@@ -384,7 +384,7 @@ public class Enemy_Health : MonoBehaviour
          textOffset.x), UnityEngine.Random.Range(0, textOffset.y), 0);
 
         //Special popups appear above dmg text
-        if (display == "Headshot")
+        if (!int.TryParse(display, out int a))
         t.transform.localPosition += new Vector3(0, UnityEngine.Random.Range(1f, 2.2f), 0);
 
         //show the dmg or trickshot just dealt by the player
@@ -440,9 +440,6 @@ public class Enemy_Health : MonoBehaviour
             string value = GetParameterValue(pTypes[i].ToString(), pNames[i]);
             pValues.Add(value);
         }
-
-        for (int i = 0; i < length; i++) 
-            print (pNames[i] + "= " + pValues[i] + ", " + pValues[i].Split(',').Length);
     }
 
     private string GetParameterValue(string type, string pName)

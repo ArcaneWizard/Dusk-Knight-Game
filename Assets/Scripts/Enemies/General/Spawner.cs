@@ -55,7 +55,7 @@ public class Spawner : MonoBehaviour
     private IEnumerator spawnEnemies()
     {
         //spawn a random enemy
-        deployRandomEnemy();
+        deployEnemy("Enemy 2");
         enemiesSpawned++;
 
         //once many enemies have been spawned, temporarily stop spawning
@@ -109,23 +109,26 @@ public class Spawner : MonoBehaviour
         if (enemyName == "Enemy 1")
             deployPos = E1_sp.transform.position;
 
-        if (enemyName == "Enemy 2") 
+        else if (enemyName == "Enemy 2") 
             deployPos = E2_sp.transform.position;
 
-        if (enemyName == "Enemy 5") 
+        else if (enemyName == "Enemy 5") 
             deployPos = E5_sp.transform.position;
 
         //choose exploding reaper spawn point  
-        if (enemyName == "Enemy 4") {
+        else if (enemyName == "Enemy 4") {
             Vector3 r = Hill.GetChild(Random.Range(1, 11)).transform.position;
             deployPos = new Vector3(r.x, r.y+0.6f, 0);  
         }
 
         //choose flying reaper spawn point 
-        if (enemyName == "Enemy 3") {
+        else if (enemyName == "Enemy 3") {
             deployPos = new Vector3(FlyingUp_sp.transform.position.x, 
             Random.Range(FlyingDown_sp.transform.position.y, FlyingUp_sp.transform.position.y), 0);
         }
+
+        else 
+            print ("Wtf do you want me to spawn. " + enemyName + " isn't a valid enemy.");
 
         //spawn enemy
         enemy.transform.position = deployPos;

@@ -30,7 +30,7 @@ public class Rez_Scaling : MonoBehaviour
         //get the screen's width to height ratio
         rez = (float) Screen.width / (float) Screen.height;
         
-        updateCanvasScale();
+        //updateCanvasScale();
         updateCameraZoom();
         anchorRightEdgeOfScreen();
     }

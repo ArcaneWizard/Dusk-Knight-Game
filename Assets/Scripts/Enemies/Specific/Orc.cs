@@ -18,6 +18,8 @@ public class Orc : MonoBehaviour
     public float pushOffDuration;
     public float undoDuration;  
 
+    public GameObject groundedCollider;
+
     private bool canAttack;
     private bool dontGetCloser;
     private float speed;
@@ -67,10 +69,11 @@ public class Orc : MonoBehaviour
             Quaternion initDir = hill.transform.GetChild(0).transform.rotation;
             Quaternion finalDir = hill.transform.GetChild(1).transform.rotation;
             float distance = hill.transform.GetChild(0).transform.position.x - hill.transform.GetChild(1).transform.position.x;
-            
+
+            groundedCollider.SetActive(false); 
             rig.gravityScale = 0;
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
-
+            
             //Is able to follow all arrows at the beginning 
             arrowIndex = 0;
 
@@ -126,7 +129,8 @@ public class Orc : MonoBehaviour
 
         //stop and reverse enemy animation back to walking
         animator.SetFloat("spring speed", 0);
-        yield return new WaitForSeconds(pushOffDuration);        
+        yield return new WaitForSeconds(pushOffDuration);  
+        groundedCollider.SetActive(true);      
         animator.SetFloat("spring speed", -1);    
         yield return new WaitForSeconds(undoDuration);         
         animator.SetInteger("Jump", 2);             
@@ -167,15 +171,6 @@ public class Orc : MonoBehaviour
             Invoke("flinch", 0.1f);
         }
 
-        //Orc landed on the ground after its motion was somehow disrupted     
-        if (col.gameObject.layer == 14 && rig.gravityScale != 0)
-        {
-            //reset motion
-            rig.gravityScale = 0;
-            rig.velocity = new Vector2(0, 0);
-            eH.resetPath = true;
-        }
-
         //Orc is next to the tower, wants to start bashing
         if (col.gameObject.layer == 17) 
         {
@@ -186,6 +181,19 @@ public class Orc : MonoBehaviour
             //stop following the arrows
             rig.velocity = new Vector2(0, 0);
             dontGetCloser = true;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col) 
+    {        
+        //Orc landed on the ground after its motion was somehow disrupted     
+        if (col.gameObject.layer == 14 && rig.gravityScale != 0)
+        {
+            //reset motion
+            rig.gravityScale = 0;
+            groundedCollider.SetActive(false);
+            rig.velocity = new Vector2(0, 0);
+            eH.resetPath = true;
         }
     }
     

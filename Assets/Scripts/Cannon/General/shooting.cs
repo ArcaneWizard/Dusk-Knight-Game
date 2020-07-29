@@ -223,14 +223,54 @@ public class shooting : MonoBehaviour
     //Set cannon rotation
     private void changeRotation(float rot, Vector3 touchPosition) {
 
-        //set cannon rotation if not facing backwards
+        //set cannon rotation and position
         transform.rotation = Quaternion.Euler(0f, 0f, rot);
+        transform.localPosition = cannonPosition(rot);
 
-        //set the player head's rotation to look in the direction the player is aiming
+        //set the player head's rotation and position 
         player_Head.transform.rotation = Quaternion.Euler(0f, 0f, rot / 5f);
+        player_Head.transform.localPosition = headPosition(rot / 5f);
 
         //rotate the guide aim arrows around the cannon 
         weaponAnchor.transform.rotation = transform.rotation;
+    }
+
+    //Calculate and return the cannon's position for a given rotation
+    private Vector2 cannonPosition(float rot)
+     {
+        float posX = 0.16f;
+        float posY = 4.18f; 
+
+        if (rot > 0) {
+            posX += rot * (0.1f) / (75f);
+            posY -= rot * (-0.11f) / (75f);
+        }
+
+        else if (rot < 0) {
+            posX += rot * (0.17f) / (-75f);
+            posY += rot * (0.1f) / (-75f);
+        }
+
+        return new Vector2(posX, posY);
+    }
+
+    //Calculate and return the player head's position when looking up and down
+    private Vector2 headPosition(float rot)
+    {
+        float posX = -0.108f;
+        float posY = 2f;
+
+        if (rot > 0) {
+            posX += rot * (0.042f) / 15f;
+            posY += rot * (-0.011f) / 15f;
+        }
+
+        if (rot < 0) {
+            posX += rot * (-0.009f) / -15f;
+            posY += rot * (-0.048f) / -15f;
+        }
+
+        return new Vector2(posX, posY);
     }
 
     //Fire the cannon

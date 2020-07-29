@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class health : MonoBehaviour
 {
-    private float maxHp;
+    public static float maxHp;
     public static float hp;
     private bool dead;
 
@@ -40,19 +40,27 @@ public class health : MonoBehaviour
             dead = true;
             StartCoroutine(towerCollapse());
         }
+
+        //cannot go over 100% of your health
+        if (hp > maxHp)
+            hp = maxHp;
         
+        //this bool can be checkmarked in the editor to test killing the tower
         if (killTower) {
             killTower = false;
             hp = 0;
         }
 
+        //shaking effect when the player loses all their hp
         if (dead && !shakingIsOver) 
             transform.localPosition = new Vector2(-10.49f, -3f + Mathf.Sin(Time.time * shakeRate)  * shakeVariance);
-            
+        
+        //falling effect after the tower has been shook
         if (shakingIsOver) 
             transform.Translate(new Vector2(0, -fallDownSpeed * Time.deltaTime));
     }
 
+    //times the shaking, falling down and reloading of the level
     private IEnumerator towerCollapse() {
         yield return new WaitForSeconds(shakeDuration);
         shakingIsOver = true;

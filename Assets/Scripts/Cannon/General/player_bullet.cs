@@ -9,8 +9,7 @@ public class player_bullet : MonoBehaviour
     //Bullet characteristics or modifiers
     public float speed = 3500f;
     private bool enoughEnemiesHit, syncRotation;
-    [HideInInspector]
-    public bool oneLaunch = false;
+    [HideInInspector] public bool oneLaunch = false;
 
     //Bounds detection 
     Vector3 bottomLeft, topRight, p;
@@ -34,12 +33,15 @@ public class player_bullet : MonoBehaviour
     private int fireContactDmg = 20;
     public static float fireDmgPerSecond = 10f;
 
+    public static float dmgMultiplier = 1;
+
     //Weapon Effects 
     private int enemiesPierced = 0;
     private int enemiesToBePierced = 1;
     private int rocketSpeed = 100;
     private int rocketCentripetalForce = 200;
     private float rocketLaunchDelay = 0.01f;
+    public static int enemiesHitSpree;
 
     [Space(10)]
     [Header("For Animated bullets only")]
@@ -204,22 +206,24 @@ public class player_bullet : MonoBehaviour
         //collides with the hill
         if (col.gameObject.layer == 15)
         {
-            rig.gravityScale = 0;
-            rig.velocity = new Vector2(0, 0);
-
             //turn off rotation and the collider
             syncRotation = false;
             collider.enabled = false;
 
-            //stop the bullet's movement completely
+            //freeze in place
             rig.gravityScale = 0;
             rig.velocity = new Vector2(0, 0);
+
+            //reset enemies hit in a row
+            enemiesHitSpree = 0;
 
             //fade out over time or play an animation where the bullet breaks
             if (gameObject.activeSelf == true && gameObject.tag == "Fading bullet")
                 StartCoroutine(fade());
+
             else if (gameObject.activeSelf == true && gameObject.tag == "Animated bullet")
                 StartCoroutine(fadeAnimation());
+
             else
                 gameObject.SetActive(false);
 
@@ -282,19 +286,27 @@ public class player_bullet : MonoBehaviour
         syncRotation = true;
     }
 
-    //Call for a dmg popup above the enemy hit
+    //Call for a popup above the enemy hit
     private void dmgPopup(int dmg, Collider2D col) 
     {
         //show the dmg recieved in a text popup
         Enemy_Health e = col.gameObject.transform.GetComponent<Enemy_Health>();
-        e.floatText(dmg.ToString(), Color.white);
+        e.floatText((dmg * dmgMultiplier).ToString(), Color.white);
 
-        //show any headshots in a text popup 
-        if (transform.eulerAngles.z > 180f && transform.eulerAngles.z < 220f)
-            e.floatText("Headshot", new Color32(28, 75, 123, 255));
+        //describe special shots in a text popup
+        float slope = Mathf.Abs(rig.velocity.y / rig.velocity.x);
+        enemiesHitSpree++;
+
+        if (slope > 2f)
+            e.floatText("Steep shot", new Color32(28, 75, 123, 255));
+
+        else if (enemiesHitSpree % 4 == 0)
+            e.floatText("Bullseye", new Color32(28, 75, 123, 255));
+
+        else {}
 
         //dmg that enemy and then turn off the bullet
-        col.gameObject.transform.GetComponent<Enemy_Health>().hp -= dmg;
+        col.gameObject.transform.GetComponent<Enemy_Health>().hp -= dmg * dmgMultiplier;
     }
 
     //configure general and specific bullet settings based on the weaponType
@@ -311,13 +323,12 @@ public class player_bullet : MonoBehaviour
     {
         //Disable velocity and add knockback force to the enemy
         col.transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        print(col.transform.GetComponent<Rigidbody2D>().gravityScale + ",, " + col.gameObject.name);
         col.transform.GetComponent<Rigidbody2D>().AddForce(force);
 
         //Re-enable gravity for the enemy, albeit with a buffer effect so it can get off the ground 
         yield return new WaitForSeconds(0.03f);
         col.transform.GetComponent<Rigidbody2D>().gravityScale = 1;
-        print(col.transform.GetComponent<Rigidbody2D>().gravityScale + ", " + col.gameObject.name);
+        col.gameObject.transform.GetChild(4).gameObject.SetActive(true);
 
         //De-activate this bullet
         dmgPopup(cannonBallDmg, col);
