@@ -276,6 +276,7 @@ public class shooting : MonoBehaviour
     //Fire the cannon
     void Fire(float rot)
     { 
+
         //set bullet's position and rotation
         ammo[counter].transform.position = muzzle.position;
         ammo[counter].transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z - 90);
@@ -283,7 +284,7 @@ public class shooting : MonoBehaviour
         
         //play bullet fire sound
         audioSource.PlayOneShot(Manage_Sounds.Instance.cannonShot, 0.8f * Manage_Sounds.soundMultiplier);
-        
+
         //active bullet and cycle to the next one in the future
         ammo[counter].SetActive(false);
         ammo[counter].SetActive(true);

@@ -29,20 +29,26 @@ public class player_bullet : MonoBehaviour
     private int boulderDmg = 80;
     private int iceShardDmg = 30;
     private int cannonBallDmg = 30;
-    private Vector2 soulAxeDmgBound = new Vector2(20, 80);
-    private int soulAxeDmg;
     private int rocketDmg = 30;
     private int fireContactDmg = 20;
+    private int soulAxeDmg; 
+
+    private Vector2 soulAxeDmgBound = new Vector2(20, 80);
+    public static int rocketExplosionDmg = 10;
     public static float fireDmgPerSecond = 10f;
 
+    //Dmg multiplier based off knight's state
     public static float dmgMultiplier = 1;
 
     //Weapon Effects 
     private int enemiesPierced = 0;
     private int enemiesToBePierced = 1;
+
+    //Rocket effects
     private int rocketSpeed = 100;
-    private int rocketCentripetalForce = 200;
+    private int rocketCentripetalForce = 400;
     private float rocketLaunchDelay = 0.01f;
+    private rocketExplosion explosion;
 
     private Vector2 knockbackForce;
     public static int enemiesHitSpree;
@@ -79,6 +85,9 @@ public class player_bullet : MonoBehaviour
         //called once when the bullet is shot out
         if (oneLaunch == false)
         {   
+            //configure specific weapon effects
+            configureBullet();
+
             //configure rigidbody settings
             rig.velocity = new Vector2(0, 0);
             rig.gravityScale = 2;
@@ -87,9 +96,6 @@ public class player_bullet : MonoBehaviour
             //rotate as the bullet falls
             syncRotation = false;
             Invoke("enableRotation", 0.03f);
-            
-            //configure specific weapon effects
-            configureBullet();
 
             //no accidental splash dmg + call this method once
             enoughEnemiesHit = false;
@@ -105,7 +111,7 @@ public class player_bullet : MonoBehaviour
         }
         
         //check when/if the bullet exits the screen bounds
-        if (!inBounds && weapon != "Mini Rockets")
+        if (!inBounds) // && weapon != "Mini Rockets")
             transform.gameObject.SetActive(false);
 
         //sync bullet rotation with how it travels through the air
@@ -113,10 +119,10 @@ public class player_bullet : MonoBehaviour
            transform.up = rig.velocity.normalized;
 
         //whirl method for mini Rocket
-        if (syncRotation == true && weapon == "Mini Rockets") {
+        /*if (syncRotation == true && weapon == "Mini Rockets") {
             rig.gravityScale = 0;            
             rig.AddForce(transform.right * rocketCentripetalForce);
-        }
+        }*/
     }
     
     //ENEMY COLLISIONS
@@ -186,13 +192,6 @@ public class player_bullet : MonoBehaviour
                 gameObject.SetActive(false);
             }            
 
-            if (weapon == "Mini Rockets" && enoughEnemiesHit == false) {
-                enoughEnemiesHit = true;
-                
-                dmgPopup(rocketDmg, col); 
-                gameObject.SetActive(false);
-            }
-
             if (weapon == "Fireballs" && enoughEnemiesHit == false) {
                 enoughEnemiesHit = true;
                 
@@ -200,6 +199,20 @@ public class player_bullet : MonoBehaviour
                 col.transform.GetComponent<Enemy_Health>().activateFire();
                 dmgPopup(fireContactDmg, col);
                 gameObject.SetActive(false);
+            }
+
+            if (weapon == "Mini Rockets" && enoughEnemiesHit == false) {
+                enoughEnemiesHit = true;
+                
+                //stop whirling 
+                syncRotation = false;
+                collider.enabled = false;
+                rig.gravityScale = 0;
+                rig.velocity = new Vector2(0, 0);
+
+                //turn on explosion
+                explosion.setOffExplosion();
+                dmgPopup(rocketDmg, col);
             }
         }
 
@@ -217,12 +230,19 @@ public class player_bullet : MonoBehaviour
             //reset enemies hit in a row
             enemiesHitSpree = 0;
 
+            //Return that you missed the shot
+            state.missedShot = true;
+
             //fade out over time or play an animation where the bullet breaks
             if (gameObject.activeSelf == true && gameObject.tag == "Fading bullet")
                 StartCoroutine(fadingBullet());
 
             else if (gameObject.activeSelf == true && gameObject.tag == "Animated bullet")
                 StartCoroutine(animatedToBreakBullet());
+
+            else if (weapon == "Mini Rockets") {
+                explosion.setOffExplosion();
+            }
 
             else
                 gameObject.SetActive(false);
@@ -259,10 +279,7 @@ public class player_bullet : MonoBehaviour
     //sync rotation with movement (called with a slight delay)
     private void enableRotation() 
     {     
-        if (weapon != "Mini Rockets")
-            syncRotation = true;
-        else
-            StartCoroutine(startRocketWhirl());
+        syncRotation = true;
 
         if (weapon == "Soul Axes")
             StartCoroutine(rotateSoulAxe());
@@ -285,13 +302,29 @@ public class player_bullet : MonoBehaviour
         syncRotation = true;
     }
 
-    //Call for a popup above the enemy hit
-    private void dmgPopup(int dmg, Collider2D col) 
+    //Call for a popup above the enemy hit (default white color)
+    public void dmgPopup(int dmg, Collider2D col) 
     {
         //show the dmg recieved in a text popup
         Enemy_Health e = col.gameObject.transform.GetComponent<Enemy_Health>();
         e.floatText((dmg * dmgMultiplier).ToString(), Color.white);
 
+        specialShotsAndDmg(dmg, col, e);
+    }
+    
+    //Call for a popup above the enemy hit in a specified color
+    public void dmgPopup(int dmg, Collider2D col, Color color) 
+    {
+        //show the dmg recieved in a text popup
+        Enemy_Health e = col.gameObject.transform.GetComponent<Enemy_Health>();
+        e.floatText((dmg * dmgMultiplier).ToString(), color);
+
+        specialShotsAndDmg(dmg, col, e);
+    }
+
+    //Popups for special shots and do dmg to the enemy
+    private void specialShotsAndDmg(int dmg, Collider2D col, Enemy_Health e) 
+    {
         //describe special shots in a text popup
         float slope = Mathf.Abs(rig.velocity.y / rig.velocity.x);
         enemiesHitSpree++;
@@ -326,6 +359,21 @@ public class player_bullet : MonoBehaviour
             float slopeOfDmg = (soulAxeDmgBound.x - soulAxeDmgBound.y) / (float) health.maxHp;
             soulAxeDmg = Mathf.RoundToInt(slopeOfDmg * health.hp + soulAxeDmgBound.y);
         }
+
+        if (weapon == "Mini Rockets")  {
+            //get access to the rocketExplosion script associated with the rocket
+            explosion = transform.GetChild(0).GetComponent<rocketExplosion>();
+            explosion.configureExplosion();
+
+            //make the rocket visible (since it's invisible after its last explosion)
+            transform.GetComponent<PolygonCollider2D>().enabled = true;
+            transform.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        if (weapon == "Cannon Balls") {
+            transform.GetComponent<CircleCollider2D>().enabled = true;
+            transform.GetComponent<SpriteRenderer>().enabled = true;
+        }
     }
 
     //Add knockback effect to an enemy
@@ -333,7 +381,11 @@ public class player_bullet : MonoBehaviour
     {
         Rigidbody2D enemyRig = col.transform.GetComponent<Rigidbody2D>();
 
-        //Disable velocity only if the enemy is grounded and not already in the air
+        //Make the boulder invisible
+        transform.GetComponent<CircleCollider2D>().enabled = true;
+        transform.GetComponent<SpriteRenderer>().enabled = true;
+
+        //Disable velocity only if the enemy is grounded and not already in the air from knockback
         if (enemyRig.gravityScale == 0)
             enemyRig.velocity = new Vector2(0, 0);
 

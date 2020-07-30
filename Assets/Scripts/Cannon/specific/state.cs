@@ -33,22 +33,26 @@ public class state : MonoBehaviour
 
     public float effectDuration;
 
+    //Dark knight state effects
+    public static bool missedShot;
+    private float missedShotDmg = 10;
+
     void Awake() 
     {
-        //start on Light mode always
+        //start on Light Knight state
         knightState = "Light";
         updateStateToken();
         updatePhysicalAppearance();
 
-        //disable particle effects at the beginning
+        //disable particle effects 
         lightEffect.Stop();
         darkEffect.Stop();
     }
 
-    //dictate what happens if you're in a certain knight mode
+    //Dark knight state effects
     void Update() 
     {
-        //lose 2 hp/sec while in Dark knight mode
+        //Dark knight state: loses 2 hp/sec 
         if (knightState == "Dark") {
             if (health.hp > 0)
                 health.hp -= Time.deltaTime * 3f;
@@ -62,6 +66,15 @@ public class state : MonoBehaviour
                 
             player_bullet.dmgMultiplier = 1f;
         } 
+
+        //Dark knight state: loss hp when you miss a shot
+        if (missedShot) {
+            missedShot = false;
+            
+            if (knightState == "Dark")
+                health.hp -= missedShotDmg;
+        }
+
     }
 
     //change the "state" of the knight when the knight's token is pressed

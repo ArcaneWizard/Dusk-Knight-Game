@@ -69,7 +69,11 @@ public class Flying_Reaper : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 180, 0);
             
         else
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.rotation = Quaternion.Euler(0, 0, 0);    
+
+        //Never fall unless frozen
+        if (eH.freezeTimer <= 0 && rig.gravityScale != 0)  
+            rig.gravityScale = 0;
     }
 
     //Move the reaper to its new position

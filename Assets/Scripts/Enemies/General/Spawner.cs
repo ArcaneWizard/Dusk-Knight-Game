@@ -5,6 +5,19 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [Space(10)]
+    [Header("Spawn settings")]
+    public float roughSpawnRate;
+    public int diffEnemies;
+
+    public List<Vector2> enemiesSpawnedPerWave;
+    public List<Vector2> timeBetweenWaves;
+
+    private int cycle = 0;
+    private float reloadTime = 1.5f;
+    private float enemiesSpawned;
+    private float enemyLimit;
+
+    [Space(10)]
     [Header("Enemy types")]
     public GameObject E1_group;
     public GameObject E2_group;
@@ -29,19 +42,13 @@ public class Spawner : MonoBehaviour
     private int cE4 = 0;
     private int cE5 = 0;
 
-    [Space(10)]
-    [Header("Spawn settings")]
-    public float initialReloadTime;
-    private float reloadTime = 1.5f;
-    private float enemiesSpawned;
-    private float enemyLimit;
-
-    void Start()
+    void Awake()
     {
         //Set enemy wave settings
+        cycle = 0;
         enemiesSpawned = 0;
-        reloadTime = initialReloadTime;
-        enemyLimit = UnityEngine.Random.Range(7, 15);
+        reloadTime = roughSpawnRate;
+        enemyLimit = UnityEngine.Random.Range(enemiesSpawnedPerWave[0].x, enemiesSpawnedPerWave[0].y);
 
         //Start enemy spawning and enemy spawn rate methods
         StartCoroutine(spawnEnemies());
@@ -49,26 +56,42 @@ public class Spawner : MonoBehaviour
 
         //Ensures enemies won't face overlap problems
         assignEnemyOrder();
+        
+        //In case the spawn settings are set up wrong
+        if (enemiesSpawnedPerWave.Count != timeBetweenWaves.Count) 
+            Debug.LogError("The two lists in the Spawn settings need to have the same number of elements");
+        else if (enemiesSpawnedPerWave.Count == 0)
+            Debug.LogError("Please fill out the Spawn settings");
     }
 
     //spawn enemies every reloadTime seconds
     private IEnumerator spawnEnemies()
     {
         //spawn a random enemy
-        deployEnemy("Enemy 1");
+        deployRandomEnemy();
         enemiesSpawned++;
 
-        //once many enemies have been spawned, temporarily stop spawning
-        if (enemiesSpawned == enemyLimit) {
+        //once the enemy limit has been reached, stop spawning and wait till the next "wave"
+        if (enemiesSpawned == enemyLimit) 
+        {
+            //reset the enemies Spawned and reload rate for the next wave
             enemiesSpawned = 0;
-            reloadTime = initialReloadTime;
-            enemyLimit = UnityEngine.Random.Range(7, 15);
-            yield return new WaitForSeconds(5f);
+            reloadTime = roughSpawnRate;
+            ++cycle;
+            
+            //configure the new number of enemies in the next wave + the waitTime after that wave
+            if (cycle < enemiesSpawnedPerWave.Count) {
+                enemyLimit = UnityEngine.Random.Range(enemiesSpawnedPerWave[cycle].x, enemiesSpawnedPerWave[cycle].y);
+                yield return new WaitForSeconds(UnityEngine.Random.Range(timeBetweenWaves[cycle].x, timeBetweenWaves[cycle].y));
+            }
+
+            else
+                print("Victory! All " + (enemiesSpawnedPerWave.Count - 1) + " waves are over.");
         } 
-        //otherwise just take a few seconds before spawning a new enemy
+        //take a few seconds before spawning the next enemy
         else 
-            yield return new WaitForSeconds(reloadTime);  
-        
+            yield return new WaitForSeconds(reloadTime);
+
         StartCoroutine(spawnEnemies());
     }   
 
@@ -77,24 +100,25 @@ public class Spawner : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         if (reloadTime >= 0.75)
-            reloadTime -= 0.005f;
+            reloadTime -= Random.Range(0.04f, 0.06f);
 
         StartCoroutine(quickenSpawn());
     }
 
-    //Deploy a random enemy
+    //Deploy a random enemy (based off how many enemy types were specified for this level)
     void deployRandomEnemy()
     {
-        int r = UnityEngine.Random.Range(1, 26);
-        if (r >= 1 && r <= 5)
+        int r = UnityEngine.Random.Range(1, enemyRange());
+
+        if (r >= 1 && r <= 25)
             deployEnemy("Enemy 1");
-        if (r >= 6 && r <= 10)
+        if (r >= 26 && r <= 50)
             deployEnemy("Enemy 2");
-        if (r >= 11 && r <= 15)
+        if (r >= 51 && r <= 75)
             deployEnemy("Enemy 3");
-        if (r >= 16 && r <= 20)
+        if (r >= 76 && r <= 100)
             deployEnemy("Enemy 4");
-        if (r >= 21 && r <= 25)
+        if (r >= 101 && r <= 125)
             deployEnemy("Enemy 5");
     }
 
@@ -105,30 +129,26 @@ public class Spawner : MonoBehaviour
         GameObject enemy = findAndCycleEnemy(enemyName);
         Vector3 deployPos = new Vector3(1, 1, 1);
 
-        //set enemy spawn points
-        if (enemyName == "Enemy 1")
-            deployPos = E1_sp.transform.position;
+        //set the differnt enemies' spawn points
+        if (enemyName == "Enemy 1") deployPos = E1_sp.transform.position;
 
-        else if (enemyName == "Enemy 2") 
-            deployPos = E2_sp.transform.position;
+        else if (enemyName == "Enemy 2") deployPos = E2_sp.transform.position;
 
-        else if (enemyName == "Enemy 5") 
-            deployPos = E5_sp.transform.position;
-
-        //choose exploding reaper spawn point  
-        else if (enemyName == "Enemy 4") {
-            Vector3 r = Hill.GetChild(Random.Range(1, 11)).transform.position;
-            deployPos = new Vector3(r.x, r.y+0.6f, 0);  
-        }
-
-        //choose flying reaper spawn point 
-        else if (enemyName == "Enemy 3") {
-            deployPos = new Vector3(FlyingUp_sp.transform.position.x, 
+        else if (enemyName == "Enemy 3")
+        {
+            deployPos = new Vector3(FlyingUp_sp.transform.position.x,
             Random.Range(FlyingDown_sp.transform.position.y, FlyingUp_sp.transform.position.y), 0);
         }
 
-        else 
-            print ("Wtf do you want me to spawn. " + enemyName + " isn't a valid enemy.");
+        else if (enemyName == "Enemy 4")
+        {
+            Vector3 r = Hill.GetChild(Random.Range(1, 11)).transform.position;
+            deployPos = new Vector3(r.x, r.y + 0.81f, 0);
+        }
+
+        else if (enemyName == "Enemy 5") deployPos = E5_sp.transform.position;
+
+        else print ("Wtf do you want me to spawn. " + enemyName + " isn't a valid enemy.");
 
         //spawn enemy
         enemy.transform.position = deployPos;
@@ -195,15 +215,15 @@ public class Spawner : MonoBehaviour
 
     //Set every enemy at a different order to avoid overlap problems
     void assignEnemyOrder() {
-        enemyOrderFormat(E1_group, 10);
-        enemyOrderFormat(E2_group, 20);
-        enemyOrderFormat(E3_group, 30);
-        enemyOrderFormat(E4_group, 40);
-        enemyOrderFormat(E5_group, 50);
+        orderTheEnemies(E1_group, 10);
+        orderTheEnemies(E2_group, 20);
+        orderTheEnemies(E3_group, 30);
+        orderTheEnemies(E4_group, 40);
+        orderTheEnemies(E5_group, 50);
     }
 
     //Correctly order the enemies (which one comes on top)
-    void enemyOrderFormat(GameObject enemyGroup, int layerOffset) {
+    void orderTheEnemies(GameObject enemyGroup, int layerOffset) {
         for (int i = 1; i <= enemyGroup.transform.childCount; i++)
         {
             //set diff enemies' order in terms of which sprites come on top
@@ -216,8 +236,17 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    void Update() {
-        //print the frame rate in the console
-        //Debug.Log(1/Time.deltaTime);
+    //Choose from the specified number of enemy types
+    private int enemyRange() {
+        if (diffEnemies == 1) return 25;
+        else if (diffEnemies == 2) return 50;
+        else if (diffEnemies == 3) return 75;
+        else if (diffEnemies == 4) return 100;
+        else if (diffEnemies == 5) return 125;
+        else {            
+            Debug.LogError("Choose a number from 1-5 to represent the number of diff enemies that can be spawned");
+            return 0;
+        }
     }
+
 }

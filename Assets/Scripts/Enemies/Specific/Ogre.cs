@@ -6,6 +6,7 @@ using UnityEngine;
 public class Ogre : MonoBehaviour
 {
     public GameObject hill;
+    public GameObject groundedCollider;
 
     private Animator animator;
     private Rigidbody2D rig;
@@ -56,7 +57,8 @@ public class Ogre : MonoBehaviour
             
             rig.gravityScale = 0;
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
-       
+            groundedCollider.SetActive(false);
+
             //Is able to follow all arrows at the beginning 
             arrowIndex = 0;
 
@@ -86,19 +88,23 @@ public class Ogre : MonoBehaviour
         StartCoroutine(ThrowProjectile());
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnCollisionEnter2D(Collision2D col) 
     {
-        //Enemy has gotten close enough to the tower and should soon stop moving
-        if (col.gameObject.layer == 18) 
-            Invoke("stopApproachingTower", UnityEngine.Random.Range(0f, 14f));
-
-        //Enemy landed on the ground after its motion was somehow disrupted
+        //Ogre landed on the ground after knockback
         if (col.gameObject.layer == 14 && rig.gravityScale != 0)
         {
             rig.gravityScale = 0;
             rig.velocity = new Vector2(0, 0);
             eH.resetPath = true;
+            groundedCollider.SetActive(false);
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        //Enemy has gotten close enough to the tower and should soon stop moving
+        if (col.gameObject.layer == 18) 
+            Invoke("stopApproachingTower", UnityEngine.Random.Range(0f, 14f));
     } 
     
     void OnTriggerExit2D(Collider2D col)

@@ -10,6 +10,8 @@ public class Explosive_Reaper : MonoBehaviour
     Collider2D col;
 
     public GameObject hill;
+    public GameObject groundedCollider;
+
     private float speed;
     private bool counter = false;
     private int arrowIndex = 0;
@@ -60,6 +62,7 @@ public class Explosive_Reaper : MonoBehaviour
 
             rig.gravityScale = 0;
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
+            groundedCollider.SetActive(false);
 
             //Can start following any arrow at the start, but as arrowIndex goes up, the enemy can't refollow the arrow at a lower index 
             arrowIndex = 0;
@@ -97,6 +100,18 @@ public class Explosive_Reaper : MonoBehaviour
         spawn_anim.GetComponent<SpriteRenderer>().enabled = false;
 
         begin_motion = true;
+    }
+
+    void OnCollisionEnter2D(Collision2D col) 
+    {
+        //Reaper landed on the ground after knockback
+        if (col.gameObject.layer == 14 && rig.gravityScale != 0)
+        {
+            rig.gravityScale = 0;
+            rig.velocity = new Vector2(0, 0);
+            groundedCollider.SetActive(false);
+            eH.resetPath = true;
+        }
     }
 
     void OnTriggerStay2D(Collider2D col)

@@ -189,7 +189,7 @@ public class Enemy_Health : MonoBehaviour
             resetTimer -= Time.deltaTime;
 
         //freeze duration timer will count down here
-        if (freezeTimer >= 0) 
+        if (freezeTimer >= 0)  
             freezeTimer -= Time.deltaTime;  
 
         //When the freezeTimer has expired for a frozen enemy, unfreeze the enemy
@@ -284,6 +284,7 @@ public class Enemy_Health : MonoBehaviour
 
         //freeze the enemy animation / unfreeze the enemy animation after a small delay
         yield return new WaitForSeconds(0.05f);
+        renderer.color = (freeze) ? new Color32(0, 29, 157, 255) : new Color32(255, 255, 255, 255);
         animator.speed = freeze ? 0 : 1;
     }
 
