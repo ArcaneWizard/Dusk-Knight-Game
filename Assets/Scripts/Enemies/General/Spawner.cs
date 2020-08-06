@@ -92,11 +92,9 @@ public class Spawner : MonoBehaviour
                 
                 //spawn enemies sparsely while waiting for the next wave
                 StartCoroutine(spawnEnemiesBetweenWaves());
-                print("y");
                 yield return new WaitForSeconds(UnityEngine.Random.Range(timeBetweenWaves[cycle].x, timeBetweenWaves[cycle].y));
                 
                 StopCoroutine(spawnEnemiesBetweenWaves());
-                print("u");
                 StartCoroutine(displayText("A Large Wave is Incoming", 2.5f, 0.3f));
             }
 
@@ -107,10 +105,8 @@ public class Spawner : MonoBehaviour
         else 
             yield return new WaitForSeconds(reloadTime);
         
-        if (cycle < enemiesSpawnedPerWave.Count) {
+        if (cycle < enemiesSpawnedPerWave.Count) 
             StartCoroutine(spawnEnemies());
-            print("restat");
-        }
     }   
 
     //spawn some Enemies in between waves
@@ -134,7 +130,6 @@ public class Spawner : MonoBehaviour
     void deployRandomEnemy()
     {
         int r = Random.Range(1, enemyRange());
-        print(r);
 
         if (r >= 1 && r <= 25)
             deployEnemy("Enemy 1");
