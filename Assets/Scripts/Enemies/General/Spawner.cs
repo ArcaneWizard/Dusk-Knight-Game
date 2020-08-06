@@ -1,21 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour
 {
     [Space(10)]
     [Header("Spawn settings")]
     public float roughSpawnRate;
-    public int diffEnemies;
+    public int diffEnemyTypes;
 
     public List<Vector2> enemiesSpawnedPerWave;
     public List<Vector2> timeBetweenWaves;
 
     private int cycle = 0;
-    private float reloadTime = 1.5f;
-    private float enemiesSpawned;
-    private float enemyLimit;
+
+    [Space(10)]
+    [Header("READ ONLY")]
+    public float reloadTime = 1.5f;
+    public int enemiesSpawned;
+    public int enemyLimit;
 
     [Space(10)]
     [Header("Enemy types")]
@@ -42,13 +46,16 @@ public class Spawner : MonoBehaviour
     private int cE4 = 0;
     private int cE5 = 0;
 
+    public Text playerText;
+    public float textBlinkRate = 0.2f;
+
     void Awake()
     {
         //Set enemy wave settings
         cycle = 0;
         enemiesSpawned = 0;
         reloadTime = roughSpawnRate;
-        enemyLimit = UnityEngine.Random.Range(enemiesSpawnedPerWave[0].x, enemiesSpawnedPerWave[0].y);
+        enemyLimit = Mathf.RoundToInt(UnityEngine.Random.Range(enemiesSpawnedPerWave[0].x, enemiesSpawnedPerWave[0].y));
 
         //Start enemy spawning and enemy spawn rate methods
         StartCoroutine(spawnEnemies());
@@ -72,17 +79,25 @@ public class Spawner : MonoBehaviour
         enemiesSpawned++;
 
         //once the enemy limit has been reached, stop spawning and wait till the next "wave"
-        if (enemiesSpawned == enemyLimit) 
+        if (enemiesSpawned >= enemyLimit) 
         {
             //reset the enemies Spawned and reload rate for the next wave
             enemiesSpawned = 0;
             reloadTime = roughSpawnRate;
             ++cycle;
-            
+
             //configure the new number of enemies in the next wave + the waitTime after that wave
             if (cycle < enemiesSpawnedPerWave.Count) {
-                enemyLimit = UnityEngine.Random.Range(enemiesSpawnedPerWave[cycle].x, enemiesSpawnedPerWave[cycle].y);
+                enemyLimit = Mathf.RoundToInt(UnityEngine.Random.Range(enemiesSpawnedPerWave[cycle].x, enemiesSpawnedPerWave[cycle].y));
+                
+                //spawn enemies sparsely while waiting for the next wave
+                StartCoroutine(spawnEnemiesBetweenWaves());
+                print("y");
                 yield return new WaitForSeconds(UnityEngine.Random.Range(timeBetweenWaves[cycle].x, timeBetweenWaves[cycle].y));
+                
+                StopCoroutine(spawnEnemiesBetweenWaves());
+                print("u");
+                StartCoroutine(displayText("A Large Wave is Incoming", 2.5f, 0.3f));
             }
 
             else
@@ -91,16 +106,26 @@ public class Spawner : MonoBehaviour
         //take a few seconds before spawning the next enemy
         else 
             yield return new WaitForSeconds(reloadTime);
-
-        StartCoroutine(spawnEnemies());
+        
+        if (cycle < enemiesSpawnedPerWave.Count) {
+            StartCoroutine(spawnEnemies());
+            print("restat");
+        }
     }   
+
+    //spawn some Enemies in between waves
+    private IEnumerator spawnEnemiesBetweenWaves() {
+        deployRandomEnemy();
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(spawnEnemies());
+    }
 
     //spawn Enemies faster over the course of the game
     private IEnumerator  quickenSpawn()
     {
         yield return new WaitForSeconds(1);
         if (reloadTime >= 0.75)
-            reloadTime -= Random.Range(0.04f, 0.06f);
+            reloadTime -= Random.Range(0.01f, 0.015f);
 
         StartCoroutine(quickenSpawn());
     }
@@ -108,7 +133,8 @@ public class Spawner : MonoBehaviour
     //Deploy a random enemy (based off how many enemy types were specified for this level)
     void deployRandomEnemy()
     {
-        int r = UnityEngine.Random.Range(1, enemyRange());
+        int r = Random.Range(1, enemyRange());
+        print(r);
 
         if (r >= 1 && r <= 25)
             deployEnemy("Enemy 1");
@@ -143,7 +169,7 @@ public class Spawner : MonoBehaviour
         else if (enemyName == "Enemy 4")
         {
             Vector3 r = Hill.GetChild(Random.Range(1, 11)).transform.position;
-            deployPos = new Vector3(r.x, r.y + 0.81f, 0);
+            deployPos = new Vector3(r.x, r.y + 1.4f, 0);
         }
 
         else if (enemyName == "Enemy 5") deployPos = E5_sp.transform.position;
@@ -215,10 +241,10 @@ public class Spawner : MonoBehaviour
 
     //Set every enemy at a different order to avoid overlap problems
     void assignEnemyOrder() {
-        orderTheEnemies(E1_group, 10);
-        orderTheEnemies(E2_group, 20);
+        orderTheEnemies(E1_group, 20);
+        orderTheEnemies(E2_group, 40);
         orderTheEnemies(E3_group, 30);
-        orderTheEnemies(E4_group, 40);
+        orderTheEnemies(E4_group, 10);
         orderTheEnemies(E5_group, 50);
     }
 
@@ -238,15 +264,30 @@ public class Spawner : MonoBehaviour
 
     //Choose from the specified number of enemy types
     private int enemyRange() {
-        if (diffEnemies == 1) return 25;
-        else if (diffEnemies == 2) return 50;
-        else if (diffEnemies == 3) return 75;
-        else if (diffEnemies == 4) return 100;
-        else if (diffEnemies == 5) return 125;
+        if (diffEnemyTypes == 1) return 25;
+        else if (diffEnemyTypes == 2) return 50;
+        else if (diffEnemyTypes == 3) return 75;
+        else if (diffEnemyTypes == 4) return 100;
+        else if (diffEnemyTypes == 5) return 125;
         else {            
             Debug.LogError("Choose a number from 1-5 to represent the number of diff enemies that can be spawned");
             return 0;
         }
+    }
+
+    //display text to the player for a specified duration
+    private IEnumerator displayText(string description, float duration, float flashRate) {
+        playerText.text = description;
+        playerText.enabled = true;
+        
+        float progress = 0;
+        while ( progress < duration) {
+            playerText.enabled = (playerText.isActiveAndEnabled) ? false : true;
+            yield return new WaitForSeconds(flashRate);
+            progress += flashRate;
+        }
+
+        playerText.enabled = false;
     }
 
 }

@@ -5,7 +5,19 @@ using UnityEngine.UI;
 
 public class state : MonoBehaviour
 {
+    
+    [Space(10)]
+    [Header("Knight effects")]
+
+    public float effectDuration = 0.8f;
+    public float missedShotDmg = 10;
+    public float darkPain = 3;
+    public float lightRegen = 2;
+    public float darkDmgMultiplier = 2;
+    public float lightDmgMultiplier = 1;
+
     public static string knightState;
+    public static bool missedShot;
 
     [Space(10)]
     [Header("Sprites")]  
@@ -31,12 +43,6 @@ public class state : MonoBehaviour
     public ParticleSystem darkEffect;
     public ParticleSystem lightEffect;
 
-    public float effectDuration;
-
-    //Dark knight state effects
-    public static bool missedShot;
-    private float missedShotDmg = 10;
-
     void Awake() 
     {
         //start on Light Knight state
@@ -55,16 +61,16 @@ public class state : MonoBehaviour
         //Dark knight state: loses 2 hp/sec 
         if (knightState == "Dark") {
             if (health.hp > 0)
-                health.hp -= Time.deltaTime * 3f;
+                health.hp -= Time.deltaTime * darkPain;
 
-            player_bullet.dmgMultiplier = 2f;
+            player_bullet.dmgMultiplier = darkDmgMultiplier;
         }
 
         else {
             if (health.hp < health.maxHp)
-                health.hp += Time.deltaTime * 2f;
+                health.hp += Time.deltaTime * lightRegen;
                 
-            player_bullet.dmgMultiplier = 1f;
+            player_bullet.dmgMultiplier = lightDmgMultiplier;
         } 
 
         //Dark knight state: loss hp when you miss a shot

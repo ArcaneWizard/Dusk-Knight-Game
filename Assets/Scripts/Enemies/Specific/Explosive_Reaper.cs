@@ -24,6 +24,7 @@ public class Explosive_Reaper : MonoBehaviour
     public GameObject spawn_anim;
     private SpriteRenderer sr;
     private bool explode_once;
+    private bool spawn_once;
 
     void Awake()
     {
@@ -47,10 +48,13 @@ public class Explosive_Reaper : MonoBehaviour
             //reset explosion conditions
             explode_once = false;
 
-            //Orient Reaper to the left 
+            //set spawn conditions 
+            spawn_once = true;
+            groundedCollider.SetActive(true);
+            rig.gravityScale = 1;
+
+            //orient Reaper to face left 
             transform.rotation = Quaternion.Euler(0, 180, 0);
-            
-            StartCoroutine(activate());
         }
 
         if(begin_motion)
@@ -60,9 +64,9 @@ public class Explosive_Reaper : MonoBehaviour
             Quaternion finalDir = hill.transform.GetChild(1).transform.rotation;
             float distance = hill.transform.GetChild(0).transform.position.x - hill.transform.GetChild(1).transform.position.x;
 
-            rig.gravityScale = 0;
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
-            groundedCollider.SetActive(false);
+            groundedCollider.SetActive(true);
+            rig.gravityScale = 1;
 
             //Can start following any arrow at the start, but as arrowIndex goes up, the enemy can't refollow the arrow at a lower index 
             arrowIndex = 0;
@@ -111,6 +115,12 @@ public class Explosive_Reaper : MonoBehaviour
             rig.velocity = new Vector2(0, 0);
             groundedCollider.SetActive(false);
             eH.resetPath = true;
+
+            //first time it falls invisibly, it's actually spawning 
+            if (spawn_once) {
+                StartCoroutine(activate());
+                spawn_once = false;
+            }
         }
     }
 

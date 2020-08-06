@@ -11,11 +11,11 @@ public class Enemy_Health : MonoBehaviour
     private float lastHP;
 
     //enemies' hps
-    private int orc = 100;
-    private int ogre = 70;
+    private int orc = 90;
+    private int ogre = 80;
     private int goblin = 50;
     private int reaper_1 = 60;
-    private int reaper_3 = 70;
+    private int reaper_3 = 60;
 
     //enemies' speeds
     public static float orc_speed = 1.7f;
@@ -25,11 +25,11 @@ public class Enemy_Health : MonoBehaviour
     public static float R3_speed = 1.2f;
 
     //enemies' dmg 
-    public static float orcDmg = 3; //Every 1.2-4 seconds, it hits the tower (meelee)
-    public static float ogreDmg = 5; //Every 5-13 seconds, it shoots (short-med range)
-    public static float goblinDmg = 1.2f; //Every second (meelee)
-    public static float R1Dmg = 14f; //Once upon reaching the tower
-    public static float R3Dmg = 2f; //Every 2.5-5 seconds, it shoots (any range)
+    public static float orcDmg = 4; //Every 1.2-4 seconds, it hits the tower (meelee)   
+    public static float ogreDmg = 6; //Every 5-13 seconds, it shoots (short-med range)
+    public static float goblinDmg = 1f; //Every second (meelee)
+    public static float R1Dmg = 12f; //Once upon reaching the tower
+    public static float R3Dmg = 4f; //Every 2.5-7 seconds, it shoots (any range)
     
     //enemies' attributes and conditions
     [HideInInspector] public bool deploy = false;
@@ -82,17 +82,10 @@ public class Enemy_Health : MonoBehaviour
     [Header("Animation controllers")]
     public AnimatorOverrideController normal;
     public AnimatorOverrideController weak;
-    public AnimatorOverrideController powerful;
-    public AnimatorOverrideController weakPowerful;
 
     //powerful enemy attributes
-    private bool isPowerful;
-    [HideInInspector] public float dmgMultiplier;
-
-    //saving animation Parameters
-    List <AnimatorControllerParameterType> pTypes = new List <AnimatorControllerParameterType>();
-    List <string> pNames = new List <string>();      
-    List <string> pValues = new List <string>();    
+    [HideInInspector] public bool isPowerful;
+    [HideInInspector] public float dmgMultiplier; 
 
     // Start is called before the first frame update
     void Awake()
@@ -112,7 +105,6 @@ public class Enemy_Health : MonoBehaviour
         snowball = transform.GetChild(0).gameObject;
         floating_Texts = transform.GetChild(1).gameObject;
         fire = transform.GetChild(2).gameObject;
-
         tag = gameObject.tag;
 
         //Add floating text child objects to an array
@@ -127,7 +119,7 @@ public class Enemy_Health : MonoBehaviour
         int chance = Random.Range(1, 10);
 
         //If there is a powerful animation available, it might be more powerful 
-        isPowerful = (chance >= 8 && powerful) ? true : false;
+        isPowerful = (chance >= 5) ? true : false;
 
         //Set enemy's designated hp
         if (tag == "Enemy 1")  hp = goblin;  
@@ -152,14 +144,17 @@ public class Enemy_Health : MonoBehaviour
         resetPath = false;
 
         //reset Enemy physical attributes
-        transform.localScale = new Vector2(ogScaleX, ogScaleY);
         transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.localScale = new Vector2(ogScaleX, ogScaleY);
         renderer.color = new Color32(255, 255, 255, 255);
 
         //reset Enemy animation settings
         animator.speed = 1;
-        animator.enabled = true;
+        if (tag != "Enemy 4") animator.enabled = true;
         setAnimation("usual");
+
+        //size boost for powerful enemies
+        if (isPowerful) transform.localScale = new Vector2(ogScaleX, ogScaleY) * 1.2f;
     }
 
     void Update()
@@ -246,11 +241,11 @@ public class Enemy_Health : MonoBehaviour
     {
         //if the enemy should be hurt, trigger its hurt animation
         if (type == "red")
-            animator.runtimeAnimatorController = !isPowerful ? weak : weakPowerful;    
+            animator.runtimeAnimatorController = weak;
 
         //IF the enemy isn't hurt, trigger its normal animation
         if (type == "usual")
-            animator.runtimeAnimatorController = !isPowerful ? normal : powerful;    
+            animator.runtimeAnimatorController = normal;    
     }
 
     //player projectile calls this to freeze the enemy with the ice effect
@@ -417,65 +412,5 @@ public class Enemy_Health : MonoBehaviour
     {
         if (tag == enemyNumber)
             shop.jewels += jewels;
-    }
-
-    public void saveParametersState() 
-    {
-        pTypes.Clear();
-        pNames.Clear();
-        pValues.Clear();
-
-        //get a list of all parameter types                
-        for (int i = 0; i < animator.parameterCount; i++) 
-            pTypes.Add(animator.GetParameter(i).type);
-        
-        //get a list of all parameter names
-        AnimatorControllerParameter[] parameters = animator.parameters;        
-        foreach (AnimatorControllerParameter p in parameters)
-            pNames.Add(p.name);
-
-        //get a list of all parameter values   
-        int length = pTypes.Count;
-
-        for (int i = 0; i < length; i++) {
-            string value = GetParameterValue(pTypes[i].ToString(), pNames[i]);
-            pValues.Add(value);
-        }
-    }
-
-    private string GetParameterValue(string type, string pName)
-    {
-        //note for floats, when you call .Split(','), they will return 2 instead of 1. 
-        if (type == "Bool")
-            return animator.GetBool(pName).ToString();
-        if (type == "Float")
-            return animator.GetFloat(pName).ToString() + ",F";
-        if (type == "Int")
-            return animator.GetInteger(pName).ToString();  
-
-        print("Error, a parameter type that can't be saved was used");
-        return "null";      
-    }
-
-    private void SetParameterValue(string parameter, string value) {
-        string[] values = value.Split(','); 
-
-        //either a bool or an integer
-        if (values.Length == 1) {
-            int number;
-            bool trueOrFalse;
-            bool success = int.TryParse(values[0], out number);
-            bool success2 = bool.TryParse(values[0], out trueOrFalse);
-
-            if (success)
-                animator.SetInteger(parameter, number);
-            if (success2)
-                animator.SetBool(parameter, trueOrFalse); 
-        }
-
-        else {
-            float v = float.Parse(values[0]);
-            animator.SetFloat(parameter, v);
-        }
     }
 }

@@ -42,8 +42,8 @@ public class Flying_Reaper : MonoBehaviour
 
         minX = bottomLeft.x + 1;
         minY = bottomLeft.y + 1;
-        maxX = topRight.x - 1;
-        maxY = topRight.y - 1.35f;
+        maxX = topRight.x - 3f;
+        maxY = topRight.y - 2.5f;
     }
 
     void Update()

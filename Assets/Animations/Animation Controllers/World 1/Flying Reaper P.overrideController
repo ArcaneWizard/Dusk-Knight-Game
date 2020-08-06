@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Flying Reaper P
+  m_Controller: {fileID: 9100000, guid: 23afe75c1c8aa4b4f9702e439edded58, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 602ab35031d83de4ebb76cd3d87766c3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d9dcc29e722f6674088e22a2004e27c8, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 727a8e8aeb9a3be4498a43d88e61f6b6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 94d99cec5da027e4d87087f2931530b1, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c191805a49d85a04aa09666b0b3c30c4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 11e74cbb54cc01a4daba02a1e3ae03c4, type: 2}

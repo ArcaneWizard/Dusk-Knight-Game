@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ogre P
+  m_Controller: {fileID: 9100000, guid: e858e16885addf64dbba59b6a94c0a09, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c8255775d02c9aa4cb052de069a7112d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8de4a08288bf86048b2a4f5fdde4d6ce, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7b766e64effa7a0428bdd94c3327fec9, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4588dd8b00407124a8ad374abf7a6223, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2e8d1c83eb9dd2e48bd4977cb40c93ad, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a3ebd9ab5a612f94cb32d0fed570afaf, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d5d454f132f241c49a7570c605f83321, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 496535e6e16c7ec4f9d8939c214ec7f6, type: 2}

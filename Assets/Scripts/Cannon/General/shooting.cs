@@ -14,16 +14,17 @@ public class shooting : MonoBehaviour
     
     [Space(10)]
     [Header("Arrow Settings")]
-    public float arrowInitLength = 28f;
-    public float maxArrowLength = 60f;
-    public float arrowGrowRate = 2f;
+    public float arrowInitLength = 95f;
+    public float maxArrowLength = 200f;
+    public float arrowGrowRate = 32f;
     public float aimArrWidth = 1.2f;
-    public float chargeArrWidth = 1.2f;
-    public float arrowWidthGrowRate = 0.1f;
+    public float chargeArrWidth = 0.6f;
+    public float arrowWidthGrowRate = 0.14f;
     private float chargeArrowLength;
-    public float minSwipeToShoot = 0.1f;
+    public float minSwipeToShoot = 20f;
     public float zOffset = 0f;
     public float aimRotationExtreme = 75f;
+    public float shotForce = 0.8f;
 
     private int counter = 0;
     private float rot;
@@ -197,7 +198,7 @@ public class shooting : MonoBehaviour
                 lr_2.enabled = false;
 
                 //set important values that your cannon requires
-                magnitude = (endPosition - initPosition).magnitude;
+                magnitude = (endPosition - initPosition).magnitude * shotForce;
                 touchPercent = magnitude / Screen.width;
 
                 //if the player every dragged out the arrow, fire

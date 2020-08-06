@@ -69,8 +69,8 @@ public class Orc : MonoBehaviour
             Quaternion finalDir = hill.transform.GetChild(1).transform.rotation;
             float distance = hill.transform.GetChild(0).transform.position.x - hill.transform.GetChild(1).transform.position.x;
 
-            groundedCollider.SetActive(false); 
-            rig.gravityScale = 0;
+            groundedCollider.SetActive(true); 
+            rig.gravityScale = 1;
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
             
             //Is able to follow all arrows at the beginning 

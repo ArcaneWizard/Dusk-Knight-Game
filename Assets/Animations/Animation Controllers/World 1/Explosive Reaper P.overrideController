@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Explosive Reaper P
+  m_Controller: {fileID: 9100000, guid: c2374b79e3287f64e8f1513f6bbd4464, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 91bcd9607e574f14c9ab4928ac0f4248, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 38589bbc271834f4a871eb7ecb4f9da4, type: 2}
