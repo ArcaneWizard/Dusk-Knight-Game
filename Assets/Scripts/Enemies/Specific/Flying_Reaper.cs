@@ -65,10 +65,10 @@ public class Flying_Reaper : MonoBehaviour
         }
 
         //Orient the Dark Reaper in the correct direction 
-        if (transform.position.x > player.transform.position.x)
+        if (transform.position.x > player.transform.position.x && eH.hp > 0)
             transform.rotation = Quaternion.Euler(0, 180, 0);
             
-        else
+        else if (eH.hp > 0)
             transform.rotation = Quaternion.Euler(0, 0, 0);    
 
         //Never fall unless frozen

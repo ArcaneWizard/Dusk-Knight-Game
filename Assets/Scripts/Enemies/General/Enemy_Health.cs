@@ -119,7 +119,7 @@ public class Enemy_Health : MonoBehaviour
         int chance = Random.Range(1, 10);
 
         //If there is a powerful animation available, it might be more powerful 
-        isPowerful = (chance >= 5) ? true : false;
+        isPowerful = (chance >= 9) ? true : false;
 
         //Set enemy's designated hp
         if (tag == "Enemy 1")  hp = goblin;  

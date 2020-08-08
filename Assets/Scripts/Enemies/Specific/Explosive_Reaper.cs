@@ -50,6 +50,7 @@ public class Explosive_Reaper : MonoBehaviour
 
             //set spawn conditions 
             spawn_once = true;
+            col.enabled = false;
             groundedCollider.SetActive(true);
             rig.gravityScale = 1;
 

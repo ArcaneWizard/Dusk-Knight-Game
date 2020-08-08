@@ -27,9 +27,20 @@ public class weapon_loadout : MonoBehaviour
 
     void Awake() 
     {
-        //get all the weapon icons and store them in a list
-        foreach (RectTransform icon in Weapons) 
-            weaponImage.Add(icon.GetComponent<Image>());
+        int counter = 0;
+
+        //Based off your weapons loadout, activate the specified weapon tokens in the specified order
+        foreach (int weapon in weapons) {
+            Weapons.transform.GetChild(weapon+counter).SetSiblingIndex(counter);
+            Weapons.transform.GetChild(counter).gameObject.SetActive(true);
+            ++counter;
+        }
+
+        //get all the active weapon icons and store them in a list
+        foreach (RectTransform icon in Weapons) {
+            if (icon.gameObject.activeSelf)
+                weaponImage.Add(icon.GetComponent<Image>());
+        }
 
         //get the text that displays the ammo of each weapon icon and store all of them in a list
         foreach (Image i in weaponImage) 
