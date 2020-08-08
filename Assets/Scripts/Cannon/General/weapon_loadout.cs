@@ -92,8 +92,10 @@ public class weapon_loadout : MonoBehaviour
     //select a certain weapon manually
     public void selectWeaponManually() 
     {
-        currentWeapon = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.transform.GetSiblingIndex();
-        selectWeapon();
+        if (ammo[currentWeapon] > 0) {
+            currentWeapon = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.transform.GetSiblingIndex();
+            selectWeapon();
+        }
     }
 
     //update the ammo text to show the weapons' real ammo
