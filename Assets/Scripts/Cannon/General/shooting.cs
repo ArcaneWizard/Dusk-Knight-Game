@@ -66,6 +66,10 @@ public class shooting : MonoBehaviour
     private weapon_loadout wL;
     private AudioSource audioSource;
 
+    private Vector2 topLeft;
+    private Vector2 topRight;
+    public float rainOffset = 0.2f;
+
     [Space(10)]
     [Header("Bullet Type")]
     public GameObject[] bullets;
@@ -81,8 +85,12 @@ public class shooting : MonoBehaviour
         lr = Aim_Arrow.GetComponent<LineRenderer>();  
         lr_2 = Charge_Arrow.GetComponent<LineRenderer>();   
         wL = transform.GetComponent<weapon_loadout>();
+
         rage_count = initialRage;
         max_count = max_hits;
+
+        topLeft = camera.ViewportToWorldPoint(new Vector2(0,1)) + new Vector3 (3, 2, 0);
+        topRight = camera.ViewportToWorldPoint(new Vector2(1,1)) + new Vector3 (3, 2, 0);
     }
 
     //specify what weapon the player has
@@ -123,6 +131,8 @@ public class shooting : MonoBehaviour
         {
             rage_count -= max_hits;
             StartCoroutine(TripleShot(5));
+            StartCoroutine(Slow());
+            StartCoroutine(rainBullets(18));
         }
     }
 
@@ -375,6 +385,28 @@ public class shooting : MonoBehaviour
         shot_num = 1;
         transform.GetComponent<SpriteRenderer>().sprite = cannon;
     }
+    
+    public IEnumerator rainBullets(int bulletsToRain) {
+
+        float distance = topRight.x - topLeft.x;
+
+        for (int i = 0; i < bulletsToRain; i++) 
+        {
+            //set bullet's position and rotation
+            ammo[counter].transform.position = topLeft + new Vector2(distance * i / (float) (bulletsToRain-1), 0);
+            ammo[counter].transform.rotation = Quaternion.Euler(0, 0, 180f);
+            ammo[counter].GetComponent<player_bullet>().rainingBullet = true;
+
+            //active bullet and cycle to the next one in the future
+            ammo[counter].SetActive(false);
+            ammo[counter].SetActive(true);
+            counter += 1;
+            counter %= (weaponType.transform.childCount);
+
+            yield return new WaitForSeconds(rainOffset);
+        }
+    }
+
 
     //-------------------------------------------------------------------------------
     //------------------------------SHORT SUB-METHODS--------------------------------

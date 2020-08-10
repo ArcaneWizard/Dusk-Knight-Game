@@ -10,6 +10,8 @@ public class player_bullet : MonoBehaviour
     public float speed = 3500f;
     private bool enoughEnemiesHit, syncRotation;
     [HideInInspector] public bool oneLaunch = false;
+    [HideInInspector] public bool rainingBullet = false;
+
 
     //Bounds detection 
     Vector3 bottomLeft, topRight, p;
@@ -110,19 +112,39 @@ public class player_bullet : MonoBehaviour
                 renderer.sprite = DefaultSprite;
         }
         
+        //called once when the bullet is rained through a rage attack
+        if (rainingBullet) 
+        {
+            //configure specific weapon effects
+            configureBullet();
+            
+            //configure rigidbody settings
+            rig.velocity = new Vector2(0, -4f);
+            rig.gravityScale = 2.2f;
+
+            //don't rotate the bullet as it falls
+            syncRotation = false;
+
+            //no accidental splash dmg + call this method once
+            enoughEnemiesHit = false;
+            rainingBullet = false; 
+
+            //reset sprite to fully visibility and re-enable the collider 
+            renderer.color = new Color32(255, 255, 255, 255);
+            collider.enabled = true;
+
+            //if the bullet is animated upon destruction, reset its main sprite
+            if (DefaultSprite)
+                renderer.sprite = DefaultSprite;
+        }
+        
         //check when/if the bullet exits the screen bounds
-        if (!inBounds) // && weapon != "Mini Rockets")
+        if (!inBounds) 
             transform.gameObject.SetActive(false);
 
         //sync bullet rotation with how it travels through the air
         if (syncRotation == true && weapon != "Soul Axes")
            transform.up = rig.velocity.normalized;
-
-        //whirl method for mini Rocket
-        /*if (syncRotation == true && weapon == "Mini Rockets") {
-            rig.gravityScale = 0;            
-            rig.AddForce(transform.right * rocketCentripetalForce);
-        }*/
     }
     
     //ENEMY COLLISIONS
