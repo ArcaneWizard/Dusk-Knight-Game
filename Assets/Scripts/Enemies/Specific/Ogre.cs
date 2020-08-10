@@ -108,11 +108,9 @@ public class Ogre : MonoBehaviour
         if (col.gameObject.layer == 18) 
             Invoke("stopApproachingTower", UnityEngine.Random.Range(0f, 14f));
 
-        // slow down if collide with rage slow pulse thingy
+        //slow down if collide with rage slow pulse thingy
         if (col.gameObject.layer == 20)
-        {
             speedMult = 0.5f;
-        }
     } 
     
     void OnTriggerExit2D(Collider2D col)
@@ -153,7 +151,7 @@ public class Ogre : MonoBehaviour
                 //Don't change directions if this is the last movement arrow
                 if (index == col.gameObject.transform.parent.childCount - 1)
                 {
-                    rig.velocity = col.transform.rotation * -Vector3.right * speed;
+                    rig.velocity = col.transform.rotation * -Vector3.right * speed * speedMult;
                     return;
                 }
 

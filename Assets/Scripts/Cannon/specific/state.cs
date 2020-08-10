@@ -63,22 +63,21 @@ public class state : MonoBehaviour
     //Dark knight state effects
     void Update() 
     {
-        //check rage progression and change button accoridngly
-        if (shooting.rage_count >= shooting.max / 3 && shooting.rage_count < 2 * shooting.max / 3)
+        //check rage progression and change button accordingly
+        if (shooting.rage_count >= shooting.max_count / 3 && shooting.rage_count < 2 * shooting.max_count / 3)
         {
             rage_token.enabled = true;
             rage_token.sprite = pulse;
         }
-        else if (shooting.rage_count >= 2*shooting.max / 3 && shooting.rage_count < shooting.max)  
+        else if (shooting.rage_count >= 2*shooting.max_count / 3 && shooting.rage_count < shooting.max_count)  
         {
-
             rage_token.sprite = rainfire;
         }
-        else if (shooting.rage_count >= shooting.max)
+        else if (shooting.rage_count >= shooting.max_count)
         {
             rage_token.sprite = triple;
         }
-        else if (shooting.rage_count < shooting.max / 3)
+        else if (shooting.rage_count < shooting.max_count / 3)
         {
             rage_token.enabled = false;
         }

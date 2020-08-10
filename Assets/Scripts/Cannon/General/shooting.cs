@@ -46,16 +46,16 @@ public class shooting : MonoBehaviour
     [Header("Rage Mechanics")]
     public Image rage;
     public float max_hits;
+    public float initialRage;
     public ParticleSystem slow_effect;
     public Transform pulse;
     public Sprite triple_cannon;
     public Sprite cannon;
-    public float r3;
     public int proj_num;
     private int shot_num = 1;
 
     public static float rage_count;
-    public static float max;
+    public static float max_count;
 
     [Space(10)]
     [Header("Objects")]
@@ -81,8 +81,8 @@ public class shooting : MonoBehaviour
         lr = Aim_Arrow.GetComponent<LineRenderer>();  
         lr_2 = Charge_Arrow.GetComponent<LineRenderer>();   
         wL = transform.GetComponent<weapon_loadout>();
-        rage_count = 0;
-        max = max_hits;
+        rage_count = initialRage;
+        max_count = max_hits;
     }
 
     //specify what weapon the player has
@@ -99,6 +99,33 @@ public class shooting : MonoBehaviour
         counter = 0;
     }
 
+    //called when rage button is pressed and activates stages based on the shots accumulated
+    public void Rage()
+    {
+        //rage stage 1
+        if(rage_count >= max_hits/3 && rage_count < 2f/3f * max_hits)
+        {
+            rage_count -= max_hits / 3;
+            StartCoroutine(TripleShot(3));
+            StartCoroutine(Slow());
+        }
+
+        //rage stage 2
+        else if (rage_count >= 2f/3f * max_hits && rage_count < max_hits)
+        {
+            rage_count -= 2f/3f * max_hits;
+            StartCoroutine(TripleShot(3));
+            StartCoroutine(Slow());
+        }
+
+        //rage stage 3
+        else if(rage_count >= max_hits)
+        {
+            rage_count -= max_hits;
+            StartCoroutine(TripleShot(5));
+        }
+    }
+
     //-------------------------------------------------------------------------------
     //------------------------FINGER DRAG + HOLD CONTROLS----------------------------
     //-------------------------------------------------------------------------------
@@ -107,13 +134,10 @@ public class shooting : MonoBehaviour
     {
         //fill rage bar
         rage.fillAmount = rage_count / max_hits;
-        Debug.Log("rage bar is" + rage_count);
 
-        //dont let rage score increase beyond third teir rage
+        //dont let rage score increase beyond third tier rage
         if (rage_count > max_hits)
-        {
             rage_count = max_hits;
-        }
 
         float rotation, magnitude;
 
@@ -325,32 +349,6 @@ public class shooting : MonoBehaviour
             
         //lose one ammo
         wL.shotTaken();
-    }
-
-    //called when rage button is pressed and activates stages based on the shots accumulated
-    public void Rage()
-    {
-        //rage stage 1
-        if(rage_count >= max_hits /3 && rage_count < 2*max_hits/3)
-        {
-            rage_count -= max_hits / 3;
-            StartCoroutine(Slow());
-        }
-
-        //rage stage 2
-        else if (rage_count >= 2*max_hits / 3 && rage_count <max_hits)
-        {
-            rage_count -= 2*max_hits / 3;
-            //Put in rainfire function
-            //StartCoroutine(RainFire(proj_num));
-        }
-
-        //rage stage 3
-        else if(rage_count>= max_hits)
-        {
-            rage_count -= max_hits;
-            StartCoroutine(TripleShot(r3));
-        }
     }
 
     //launch a pulse that slows enemies on contact

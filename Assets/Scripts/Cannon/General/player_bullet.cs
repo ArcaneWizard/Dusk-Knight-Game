@@ -134,8 +134,6 @@ public class player_bullet : MonoBehaviour
             /* NOTE: (enoughEnemiesHit = true) ensures there is no accidental splash dmg when the bullet 
                collides with multiple enemies simulatanaeously */
 
-            shooting.rage_count++;
-
             if (weapon == "Arrows" && enoughEnemiesHit == false)
             {
                 //Show a dmg popup above the enemy with the dmg the arrow does
@@ -143,6 +141,7 @@ public class player_bullet : MonoBehaviour
 
                 //increase enemiesPierced every time this arrow passes through an enemy
                 enemiesPierced++;
+                shooting.rage_count++;
 
                 //Check if the maximum number of enemies this arrow can pierce through has been reached
                 if (enemiesPierced >= enemiesToBePierced) 
@@ -159,6 +158,8 @@ public class player_bullet : MonoBehaviour
             {
                 dmgPopup(boulderDmg, col);
                 enoughEnemiesHit = true;
+                shooting.rage_count++;
+                
                 gameObject.SetActive(false);                
             }
             
@@ -166,6 +167,7 @@ public class player_bullet : MonoBehaviour
             {
                 dmgPopup(iceShardDmg, col);
                 enoughEnemiesHit = true;
+                shooting.rage_count++;
 
                 //Call a method to freeze the enemy and then de-activate this bullet
                 col.transform.GetComponent<Enemy_Health>().activateFreeze();
@@ -175,6 +177,7 @@ public class player_bullet : MonoBehaviour
             if (weapon == "Cannon Balls" && enoughEnemiesHit == false)
             {
                 enoughEnemiesHit = true;
+                shooting.rage_count++;
 
                 //Deliver a knockback force only to light enemies
                 if (col.transform.GetComponent<Rigidbody2D>().mass < 2f)
@@ -187,7 +190,8 @@ public class player_bullet : MonoBehaviour
             
             if (weapon == "Soul Axes" && enoughEnemiesHit == false)
             {
-                enoughEnemiesHit = true;      
+                enoughEnemiesHit = true;  
+                shooting.rage_count++;
                 
                 //add hp-dependent dmg code here 
                 dmgPopup(soulAxeDmg, col); 
@@ -196,6 +200,7 @@ public class player_bullet : MonoBehaviour
 
             if (weapon == "Fireballs" && enoughEnemiesHit == false) {
                 enoughEnemiesHit = true;
+                shooting.rage_count++;
                 
                 //call a method to light the enemy on fire
                 col.transform.GetComponent<Enemy_Health>().activateFire();
@@ -205,6 +210,7 @@ public class player_bullet : MonoBehaviour
 
             if (weapon == "Mini Rockets" && enoughEnemiesHit == false) {
                 enoughEnemiesHit = true;
+                shooting.rage_count++;
                 
                 //stop whirling 
                 syncRotation = false;

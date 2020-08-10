@@ -145,7 +145,7 @@ public class Explosive_Reaper : MonoBehaviour
                 //Don't change directions if this is the last movement arrow
                 if (arrowIndex == col.gameObject.transform.parent.childCount - 1)
                 {
-                    rig.velocity = col.transform.rotation * -Vector3.right * speed;
+                    rig.velocity = col.transform.rotation * -Vector3.right * speed * speedMult;
                     return;
                 }
             }
