@@ -400,17 +400,5 @@ public class Enemy_Health : MonoBehaviour
         StartCoroutine(fade());
 
         animator.SetBool("Dead", true);
-
-        giveJewels("Enemy 1", 5);
-        giveJewels("Enemy 2", 3);
-        giveJewels("Enemy 3", 2);
-        giveJewels("Enemy 4", 3);
-        giveJewels("Enemy 5", 3);
-    }
-
-    private void giveJewels(string enemyNumber, int jewels)
-    {
-        if (tag == enemyNumber)
-            shop.jewels += jewels;
     }
 }

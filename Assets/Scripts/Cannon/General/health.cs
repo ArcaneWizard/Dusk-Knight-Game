@@ -48,7 +48,7 @@ public class health : MonoBehaviour
         //add camera shake when hurt
         if (lastHp > hp) {
             lastHp = hp;
-            StartCoroutine(shake.Shake(0.1f, 0.2f));
+            StartCoroutine(shake.Shake(0.1f));
         }
         
         //this bool can be checkmarked in the editor to test killing the tower

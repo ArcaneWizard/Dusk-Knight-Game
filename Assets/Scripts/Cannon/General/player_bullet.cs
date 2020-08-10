@@ -215,7 +215,8 @@ public class player_bullet : MonoBehaviour
                 enoughEnemiesHit = true;  
                 shooting.rage_count++;
                 
-                //add hp-dependent dmg code here 
+                StopCoroutine(rotateSoulAxe());
+
                 dmgPopup(soulAxeDmg, col); 
                 gameObject.SetActive(false);
             }            
@@ -311,7 +312,7 @@ public class player_bullet : MonoBehaviour
     {     
         syncRotation = true;
 
-        if (weapon == "Soul Axes")
+        if (weapon == "Soul Axes" && gameObject.activeSelf)
             StartCoroutine(rotateSoulAxe());
     }
 

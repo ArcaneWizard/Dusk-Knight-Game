@@ -281,7 +281,7 @@ public class shooting : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
 
         changeRotation(rot, touchPosition);
-        Fire(rot);
+        StartCoroutine(Fire(rot));
     }
 
     //Set cannon rotation
@@ -338,8 +338,11 @@ public class shooting : MonoBehaviour
     }
 
     //Fire the cannon
-    void Fire(float rot)
-    {
+    private IEnumerator Fire(float rot)
+    {            
+        //lose one ammo
+        wL.shotTaken();
+        
         for (int i = 0; i < shot_num; i++)
         {
             //set bullet's position and rotation
@@ -355,10 +358,9 @@ public class shooting : MonoBehaviour
             ammo[counter].SetActive(true);
             counter += 1;
             counter %= (weaponType.transform.childCount);
+
+            yield return new WaitForSeconds(0.05f);
         }
-            
-        //lose one ammo
-        wL.shotTaken();
     }
 
     //launch a pulse that slows enemies on contact
