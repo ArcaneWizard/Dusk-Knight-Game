@@ -16,6 +16,7 @@ public class Explosive_Reaper : MonoBehaviour
     private bool counter = false;
     private int arrowIndex = 0;
     private int index;
+    private float speedMult;
 
     private AudioSource audioSource;
     private Enemy_Health eH;
@@ -37,6 +38,7 @@ public class Explosive_Reaper : MonoBehaviour
         col = transform.GetComponent<PolygonCollider2D>();
 
         speed = -Enemy_Health.R1_speed;
+        speedMult = 1.0f;
     }
 
     void Update()
@@ -175,7 +177,7 @@ public class Explosive_Reaper : MonoBehaviour
             float distance = col.transform.position.x - col.transform.parent.GetChild(index + 1).transform.position.x;
 
             //Turn the enemy from its current direction to the next direction
-            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed * speedMult, finalDir * -Vector3.right * speed * speedMult, distance / 20f);
         }
     }
 
@@ -209,6 +211,12 @@ public class Explosive_Reaper : MonoBehaviour
             //do damage
             health.hp -= Enemy_Health.R1Dmg * eH.dmgMultiplier;
 
+        }
+
+        // slow down if collide with rage slow pulse thingy
+        if (col.gameObject.layer == 20)
+        {
+            speedMult = 0.5f;
         }
     }
 }

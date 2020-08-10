@@ -18,6 +18,7 @@ public class Goblin : MonoBehaviour
     private float speed;
     private int arrowIndex = 0;
     private int index;
+    private float speedMult;
 
     void Awake()
     {
@@ -27,6 +28,7 @@ public class Goblin : MonoBehaviour
         eH = transform.GetComponent<Enemy_Health>();
 
         speed = -Enemy_Health.goblin_speed;
+        speedMult = 1.0f;
     }
 
     void Update()
@@ -67,7 +69,7 @@ public class Goblin : MonoBehaviour
 
             if (progress > 2f/12f && progress < 0.5f && canAttack) {
                 canAttack = false;
-                Invoke("reloadAttack", 0.5f);
+                Invoke("reloadAttack", 0.5f/speedMult);
 
                 //do dmg to the player and play a sound
                 health.hp -= Enemy_Health.goblinDmg * eH.dmgMultiplier;
@@ -87,6 +89,12 @@ public class Goblin : MonoBehaviour
             //stop following the arrows
             dontGetCloser = true;
             rig.velocity = new Vector2(0, 0);
+        }
+
+        // slow down if collide with rage slow pulse thingy
+        if (col.gameObject.layer == 20)
+        {
+            speedMult = 0.5f;
         }
     }
 
@@ -158,7 +166,7 @@ public class Goblin : MonoBehaviour
             float distance = col.transform.position.x - col.transform.parent.GetChild(index + 1).transform.position.x;
 
             //Turn the enemy from its current direction to the next direction
-            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed * speedMult, finalDir * -Vector3.right * speed * speedMult, distance / 20f);
         }
 
         //If the goblin gets knocked towards the tower somehow

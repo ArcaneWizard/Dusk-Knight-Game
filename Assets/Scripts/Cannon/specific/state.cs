@@ -30,12 +30,17 @@ public class state : MonoBehaviour
     public Sprite lightKnightArmor;
     public Sprite lightKnightHands;
 
+    public Sprite pulse;
+    public Sprite rainfire;
+    public Sprite triple;
+
     [Space(10)]
     [Header("In-game components")]  
 
     public SpriteRenderer knightArmor;
     public SpriteRenderer knightHands;
     public Image stateToken;
+    public Image rage_token;
 
     [Space(10)]
     [Header("Particle effects")]  
@@ -58,6 +63,26 @@ public class state : MonoBehaviour
     //Dark knight state effects
     void Update() 
     {
+        //check rage progression and change button accoridngly
+        if (shooting.rage_count >= shooting.max / 3 && shooting.rage_count < 2 * shooting.max / 3)
+        {
+            rage_token.enabled = true;
+            rage_token.sprite = pulse;
+        }
+        else if (shooting.rage_count >= 2*shooting.max / 3 && shooting.rage_count < shooting.max)  
+        {
+
+            rage_token.sprite = rainfire;
+        }
+        else if (shooting.rage_count >= shooting.max)
+        {
+            rage_token.sprite = triple;
+        }
+        else if (shooting.rage_count < shooting.max / 3)
+        {
+            rage_token.enabled = false;
+        }
+
         //Dark knight state: loses 2 hp/sec 
         if (knightState == "Dark") {
             if (health.hp > 0)

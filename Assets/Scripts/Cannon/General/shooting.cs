@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class shooting : MonoBehaviour
 {
@@ -41,6 +43,21 @@ public class shooting : MonoBehaviour
     private List<GameObject> ammo = new List<GameObject>();
 
     [Space(10)]
+    [Header("Rage Mechanics")]
+    public Image rage;
+    public float max_hits;
+    public ParticleSystem slow_effect;
+    public Transform pulse;
+    public Sprite triple_cannon;
+    public Sprite cannon;
+    public float r3;
+    public int proj_num;
+    private int shot_num = 1;
+
+    public static float rage_count;
+    public static float max;
+
+    [Space(10)]
     [Header("Objects")]
     public Transform muzzle;
     public Camera camera;
@@ -64,6 +81,8 @@ public class shooting : MonoBehaviour
         lr = Aim_Arrow.GetComponent<LineRenderer>();  
         lr_2 = Charge_Arrow.GetComponent<LineRenderer>();   
         wL = transform.GetComponent<weapon_loadout>();
+        rage_count = 0;
+        max = max_hits;
     }
 
     //specify what weapon the player has
@@ -86,6 +105,16 @@ public class shooting : MonoBehaviour
 
     void Update()
     {
+        //fill rage bar
+        rage.fillAmount = rage_count / max_hits;
+        Debug.Log("rage bar is" + rage_count);
+
+        //dont let rage score increase beyond third teir rage
+        if (rage_count > max_hits)
+        {
+            rage_count = max_hits;
+        }
+
         float rotation, magnitude;
 
         //When one finger is on the screen
@@ -205,7 +234,7 @@ public class shooting : MonoBehaviour
                 if (magnitude > minSwipeToShoot) 
                    StartCoroutine(checkForWeaponChangeOrFire(rot, endPosition));
             }
-        }                
+        }
     }
     
     //-------------------------------------------------------------------------------
@@ -276,29 +305,82 @@ public class shooting : MonoBehaviour
 
     //Fire the cannon
     void Fire(float rot)
-    { 
+    {
+        for (int i = 0; i < shot_num; i++)
+        {
+            //set bullet's position and rotation
+            ammo[counter].transform.position = muzzle.GetChild(i).position;
+            ammo[counter].transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z - 90);
+            ammo[counter].GetComponent<player_bullet>().oneLaunch = false;
 
-        //set bullet's position and rotation
-        ammo[counter].transform.position = muzzle.position;
-        ammo[counter].transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z - 90);
-        ammo[counter].GetComponent<player_bullet>().oneLaunch = false;
-        
-        //play bullet fire sound
-        audioSource.PlayOneShot(Manage_Sounds.Instance.cannonShot, 0.8f * Manage_Sounds.soundMultiplier);
+            //play bullet fire sound
+            audioSource.PlayOneShot(Manage_Sounds.Instance.cannonShot, 0.8f * Manage_Sounds.soundMultiplier);
 
-        //active bullet and cycle to the next one in the future
-        ammo[counter].SetActive(false);
-        ammo[counter].SetActive(true);
-        counter += 1;
-        counter %= (weaponType.transform.childCount);
-
+            //active bullet and cycle to the next one in the future
+            ammo[counter].SetActive(false);
+            ammo[counter].SetActive(true);
+            counter += 1;
+            counter %= (weaponType.transform.childCount);
+        }
+            
         //lose one ammo
         wL.shotTaken();
     }
 
+    //called when rage button is pressed and activates stages based on the shots accumulated
+    public void Rage()
+    {
+        //rage stage 1
+        if(rage_count >= max_hits /3 && rage_count < 2*max_hits/3)
+        {
+            rage_count -= max_hits / 3;
+            StartCoroutine(Slow());
+        }
+
+        //rage stage 2
+        else if (rage_count >= 2*max_hits / 3 && rage_count <max_hits)
+        {
+            rage_count -= 2*max_hits / 3;
+            //Put in rainfire function
+            //StartCoroutine(RainFire(proj_num));
+        }
+
+        //rage stage 3
+        else if(rage_count>= max_hits)
+        {
+            rage_count -= max_hits;
+            StartCoroutine(TripleShot(r3));
+        }
+    }
+
+    //launch a pulse that slows enemies on contact
+    private IEnumerator Slow()
+    {
+        slow_effect.Play();
+        yield return new WaitForSeconds(0.75f);
+        slow_effect.Stop();
+        pulse.gameObject.SetActive(true);
+        pulse.GetComponent<Rigidbody2D>().velocity = new Vector3(10, 0, 0);
+
+        yield return new WaitUntil(() => pulse.position.x>18);
+
+        pulse.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+        pulse.gameObject.SetActive(false);
+        pulse.SetPositionAndRotation(new Vector3(-1.39f, -0.04f, 0.0f), Quaternion.Euler(0,0,0));
+    }
+
+    private IEnumerator TripleShot(float r3)
+    {
+        transform.GetComponent<SpriteRenderer>().sprite = triple_cannon;
+        shot_num = 3;
+        yield return new WaitForSeconds(r3);
+        shot_num = 1;
+        transform.GetComponent<SpriteRenderer>().sprite = cannon;
+    }
+
     //-------------------------------------------------------------------------------
     //------------------------------SHORT SUB-METHODS--------------------------------
-    //----------(Small methods that server to make code more readable)---------------
+    //----------(Small methods that serve to make code more readable)---------------
     //-------------------------------------------------------------------------------
 
     //Flash effect for the gatling gun sub-method
@@ -309,4 +391,5 @@ public class shooting : MonoBehaviour
         yield return new WaitForSeconds(r);
         transform.GetChild(2).gameObject.SetActive(false);
     }
+
 }

@@ -18,7 +18,6 @@ public class player_bullet : MonoBehaviour
 
     //Objects used
     public Camera camera;
-    private cameraShake shake;
     private Rigidbody2D rig;
     private SpriteRenderer renderer;
     private Collider2D collider;
@@ -26,16 +25,17 @@ public class player_bullet : MonoBehaviour
     private string weapon;
 
     //Weapon Dmg
-    private int arrowDmg = 30;
+    private int arrowDmg = 40;
+    private int boulderDmg = 80;
     private int iceShardDmg = 30;
     private int cannonBallDmg = 30;
-    private int rocketDmg = 10;
+    private int rocketDmg = 30;
     private int fireContactDmg = 20;
     private int soulAxeDmg; 
 
     private Vector2 soulAxeDmgBound = new Vector2(20, 80);
     public static int rocketExplosionDmg = 10;
-    public static float fireDmgPerSecond = 15f;
+    public static float fireDmgPerSecond = 10f;
 
     //Dmg multiplier based off knight's state
     public static float dmgMultiplier = 1;
@@ -74,7 +74,6 @@ public class player_bullet : MonoBehaviour
         renderer = transform.GetComponent<SpriteRenderer>();
         collider = transform.GetComponent<Collider2D>();
         animator = transform.GetComponent<Animator>();
-        shake = camera.transform.GetComponent<cameraShake>();
         weapon = transform.parent.name;
     }
 
@@ -91,7 +90,7 @@ public class player_bullet : MonoBehaviour
 
             //configure rigidbody settings
             rig.velocity = new Vector2(0, 0);
-            rig.gravityScale = 2.2f;
+            rig.gravityScale = 2;
             rig.AddForce(transform.up * speed * shooting.touchPercent);
 
             //rotate as the bullet falls
@@ -124,26 +123,43 @@ public class player_bullet : MonoBehaviour
             rig.gravityScale = 0;            
             rig.AddForce(transform.right * rocketCentripetalForce);
         }*/
-    }    
+    }
+    
+    //ENEMY COLLISIONS
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        //If the bullet collides with an enemy -----------------------------------------------------------
         if (col.gameObject.layer == 8)
         {
-            
-            //enoughEnemiesHit bool stops accidental splash dmg if the bullet hits multiple enemy colliders on the same frame
+            /* NOTE: (enoughEnemiesHit = true) ensures there is no accidental splash dmg when the bullet 
+               collides with multiple enemies simulatanaeously */
+
+            shooting.rage_count++;
+
             if (weapon == "Arrows" && enoughEnemiesHit == false)
             {
+                //Show a dmg popup above the enemy with the dmg the arrow does
                 dmgPopup(arrowDmg, col);
+
+                //increase enemiesPierced every time this arrow passes through an enemy
                 enemiesPierced++;
 
-                //the arrow can pierce through multiple enemies b4 disabling
+                //Check if the maximum number of enemies this arrow can pierce through has been reached
                 if (enemiesPierced >= enemiesToBePierced) 
                 {
+                    //Set this bool to stop accidental splash dmg
                     enoughEnemiesHit = true;
+
+                    //De-activate this bullet
                     gameObject.SetActive(false);
                 }
+            }
+            
+            if (weapon == "Boulders" && enoughEnemiesHit == false)
+            {
+                dmgPopup(boulderDmg, col);
+                enoughEnemiesHit = true;
+                gameObject.SetActive(false);                
             }
             
             if (weapon == "Ice shards" && enoughEnemiesHit == false)
@@ -151,7 +167,7 @@ public class player_bullet : MonoBehaviour
                 dmgPopup(iceShardDmg, col);
                 enoughEnemiesHit = true;
 
-                //Call a method to freeze the enemy 
+                //Call a method to freeze the enemy and then de-activate this bullet
                 col.transform.GetComponent<Enemy_Health>().activateFreeze();
                 gameObject.SetActive(false);                
             }
@@ -173,6 +189,7 @@ public class player_bullet : MonoBehaviour
             {
                 enoughEnemiesHit = true;      
                 
+                //add hp-dependent dmg code here 
                 dmgPopup(soulAxeDmg, col); 
                 gameObject.SetActive(false);
             }            
@@ -201,7 +218,7 @@ public class player_bullet : MonoBehaviour
             }
         }
 
-        //if the bullet collides with the hill ---------------------------------------------------------
+        //if the bullet collides with the hill
         if (col.gameObject.layer == 15)
         {
             //turn off rotation and the collider

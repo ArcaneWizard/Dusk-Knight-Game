@@ -23,6 +23,7 @@ public class Orc : MonoBehaviour
     private float speed;
     private int arrowIndex = 0;
     private int index;
+    private float speedMult;
 
     public AudioClip launch;
     public float launchVolume;
@@ -42,6 +43,7 @@ public class Orc : MonoBehaviour
 
         //move and jump to the left
         speed = -Enemy_Health.orc_speed;
+        speedMult = 1.0f;
         jumpForce.x = -jumpForce.x;
     }
 
@@ -78,6 +80,7 @@ public class Orc : MonoBehaviour
 
             //Keep on following the arrows until you get within range of the tower
             dontGetCloser = false;
+
         }   
 
         //Do dmg once every attack animation cycle
@@ -88,13 +91,14 @@ public class Orc : MonoBehaviour
 
             if (progress > 2f/12f && progress < 0.5f && canAttack) {
                 canAttack = false;
-                Invoke("reloadAttack", 0.5f);
+                Invoke("reloadAttack", 0.5f/speedMult);
 
                 //do dmg to the player and play a sound
                 health.hp -= Enemy_Health.orcDmg * eH.dmgMultiplier;
                 audioSource.PlayOneShot(Manage_Sounds.Instance.orcAttack, Manage_Sounds.soundMultiplier);
             }
         }
+
     }
 
     private void reloadAttack() {
@@ -105,7 +109,7 @@ public class Orc : MonoBehaviour
     private IEnumerator Jump() {
 
         //jump after a random number of seconds
-        yield return new WaitForSeconds(UnityEngine.Random.Range(timeTillJump.x, timeTillJump.y));
+        yield return new WaitForSeconds(UnityEngine.Random.Range(timeTillJump.x, timeTillJump.y)/speedMult);
         
         //Wait till the orc isn't frozen
         while (eH.freezeTimer > 0) {
@@ -170,6 +174,12 @@ public class Orc : MonoBehaviour
             //stop following the arrows
             dontGetCloser = true;
             rig.velocity = new Vector2(0, 0);
+        }
+
+        // slow down if collide with rage slow pulse thingy
+        if (col.gameObject.layer == 20)
+        {
+            speedMult = 0.5f;
         }
     }
 
@@ -239,7 +249,7 @@ public class Orc : MonoBehaviour
             float distance = col.transform.position.x - col.transform.parent.GetChild(index + 1).transform.position.x;
 
             //Turn the enemy from its current direction to the next direction
-            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed * speedMult, finalDir * -Vector3.right * speed * speedMult, distance / 20f);
         }
         
         //Orc jumped at the tower

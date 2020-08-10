@@ -134,13 +134,13 @@ public class Spawner : MonoBehaviour
         if (r >= 1 && r <= 25)
             deployEnemy("Enemy 1");
         if (r >= 26 && r <= 50)
-            deployEnemy("Enemy 2");
+            deployEnemy("Enemy 1");
         if (r >= 51 && r <= 75)
-            deployEnemy("Enemy 3");
+            deployEnemy("Enemy 1");
         if (r >= 76 && r <= 100)
-            deployEnemy("Enemy 4");
+            deployEnemy("Enemy 1");
         if (r >= 101 && r <= 125)
-            deployEnemy("Enemy 5");
+            deployEnemy("Enemy 1");
     }
 
     //Deploying enemy shortened to one method/line

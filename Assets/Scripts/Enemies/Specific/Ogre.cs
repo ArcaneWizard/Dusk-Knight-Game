@@ -22,6 +22,7 @@ public class Ogre : MonoBehaviour
     private float speed;
     private int arrowIndex = 0;
     private int index;
+    private float speedMult;
 
     void Awake()
     {
@@ -31,7 +32,8 @@ public class Ogre : MonoBehaviour
         eH = transform.GetComponent<Enemy_Health>();
 
         speed = -Enemy_Health.ogre_speed;
-        
+        speedMult = 1.0f;
+
         //when walking = false, the stand still and blink animation will be played over the walking animation
         walking = true;
     }
@@ -71,7 +73,7 @@ public class Ogre : MonoBehaviour
     private IEnumerator ThrowProjectile() {
         
         //enemy stops  after a random number of seconds
-        yield return new WaitForSeconds(UnityEngine.Random.Range(timeTillThrow.x, timeTillThrow.y));
+        yield return new WaitForSeconds(UnityEngine.Random.Range(timeTillThrow.x, timeTillThrow.y)/speedMult);
         rig.velocity = new Vector2(0, 0);
         animator.SetInteger("Stage", 2);
 
@@ -105,6 +107,12 @@ public class Ogre : MonoBehaviour
         //Enemy has gotten close enough to the tower and should soon stop moving
         if (col.gameObject.layer == 18) 
             Invoke("stopApproachingTower", UnityEngine.Random.Range(0f, 14f));
+
+        // slow down if collide with rage slow pulse thingy
+        if (col.gameObject.layer == 20)
+        {
+            speedMult = 0.5f;
+        }
     } 
     
     void OnTriggerExit2D(Collider2D col)
@@ -164,7 +172,7 @@ public class Ogre : MonoBehaviour
             float distance = col.transform.position.x - col.transform.parent.GetChild(index + 1).transform.position.x;
 
             //Turn the enemy from its current direction to the next direction
-            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
+            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed * speedMult, finalDir * -Vector3.right * speed * speedMult, distance / 20f);
         }
     }
 
