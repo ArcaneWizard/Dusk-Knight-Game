@@ -59,7 +59,8 @@ public class Ogre : MonoBehaviour
             
             rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
             groundedCollider.SetActive(true);
-            rig.gravityScale = 1;
+            rig.gravityScale = 1; 
+            speedMult = 1.0f;
 
             //Is able to follow all arrows at the beginning 
             arrowIndex = 0;

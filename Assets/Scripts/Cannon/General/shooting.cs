@@ -26,7 +26,7 @@ public class shooting : MonoBehaviour
     public float minSwipeToShoot = 20f;
     public float zOffset = 0f;
     public float aimRotationExtreme = 75f;
-    public float shotForce = 0.8f;
+    public float shotForce = 1.1f;
 
     private int counter = 0;
     private float rot;
@@ -43,15 +43,15 @@ public class shooting : MonoBehaviour
     private List<GameObject> ammo = new List<GameObject>();
 
     [Space(10)]
-    [Header("Rage Mechanics")]
+    [Header("Rage Mechanic")]
     public Image rage;
-    public float max_hits;
-    public float initialRage;
+    public float max_hits = 51;
+    public float initialRage = 0;
     public ParticleSystem slow_effect;
     public Transform pulse;
     public Sprite triple_cannon;
     public Sprite cannon;
-    public int proj_num;
+    private int proj_num;
     private int shot_num = 1;
 
     public static float rage_count;
@@ -114,7 +114,8 @@ public class shooting : MonoBehaviour
         if(rage_count >= max_hits/3 && rage_count < 2f/3f * max_hits)
         {
             rage_count -= max_hits / 3;
-            StartCoroutine(TripleShot(3));
+            rainOffset = 0.001f;
+            StartCoroutine(rainBullets(6));
             StartCoroutine(Slow());
         }
 
@@ -122,7 +123,8 @@ public class shooting : MonoBehaviour
         else if (rage_count >= 2f/3f * max_hits && rage_count < max_hits)
         {
             rage_count -= 2f/3f * max_hits;
-            StartCoroutine(TripleShot(3));
+            rainOffset = 0.13f;
+            StartCoroutine(rainBullets(18));
             StartCoroutine(Slow());
         }
 
@@ -130,9 +132,10 @@ public class shooting : MonoBehaviour
         else if(rage_count >= max_hits)
         {
             rage_count -= max_hits;
-            StartCoroutine(TripleShot(5));
+            rainOffset = 0.13f;
             StartCoroutine(Slow());
-            StartCoroutine(rainBullets(18));
+            StartCoroutine(rainBullets(22));
+            StartCoroutine(TripleShot(5));
         }
     }
 
@@ -145,9 +148,11 @@ public class shooting : MonoBehaviour
         //fill rage bar
         rage.fillAmount = rage_count / max_hits;
 
-        //dont let rage score increase beyond third tier rage
+        //dont let the rage meter go beyond or below its bounds
         if (rage_count > max_hits)
             rage_count = max_hits;
+        if (rage_count < 0)
+            rage_count = 0;
 
         float rotation, magnitude;
 
@@ -302,8 +307,8 @@ public class shooting : MonoBehaviour
     //Calculate and return the cannon's position for a given rotation
     private Vector2 cannonPosition(float rot)
      {
-        float posX = 0.16f;
-        float posY = 4.18f; 
+        float posX = 0.07f;
+        float posY = 4.09f; 
 
         if (rot > 0) {
             posX += rot * (0.1f) / (75f);
@@ -321,8 +326,8 @@ public class shooting : MonoBehaviour
     //Calculate and return the player head's position when looking up and down
     private Vector2 headPosition(float rot)
     {
-        float posX = -0.108f;
-        float posY = 2f;
+        float posX = 0.14f;
+        float posY = 4.7f;
 
         if (rot > 0) {
             posX += rot * (0.042f) / 15f;
@@ -366,9 +371,10 @@ public class shooting : MonoBehaviour
     //launch a pulse that slows enemies on contact
     private IEnumerator Slow()
     {
-        slow_effect.Play();
+        /*slow_effect.Play();
         yield return new WaitForSeconds(0.75f);
-        slow_effect.Stop();
+        slow_effect.Stop();*/
+        
         pulse.gameObject.SetActive(true);
         pulse.GetComponent<Rigidbody2D>().velocity = new Vector3(10, 0, 0);
 

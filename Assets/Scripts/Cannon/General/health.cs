@@ -19,6 +19,7 @@ public class health : MonoBehaviour
     public float reloadSceneDelay;
 
     private bool shakingIsOver;
+    private Vector2 initPos;
 
     public bool killTower;
 
@@ -29,6 +30,8 @@ public class health : MonoBehaviour
         maxHp = 110;
         hp = maxHp;
         lastHp = maxHp;
+
+        initPos = transform.localPosition;
     }
 
     void Update() {
@@ -59,7 +62,7 @@ public class health : MonoBehaviour
 
         //shaking effect when the player loses all their hp
         if (dead && !shakingIsOver) 
-            transform.localPosition = new Vector2(-10.49f, -3f + Mathf.Sin(Time.time * shakeRate)  * shakeVariance);
+            transform.localPosition = new Vector2(initPos.x, initPos.y + Mathf.Sin(Time.time * shakeRate)  * shakeVariance);
         
         //falling effect after the tower has been shook
         if (shakingIsOver) 

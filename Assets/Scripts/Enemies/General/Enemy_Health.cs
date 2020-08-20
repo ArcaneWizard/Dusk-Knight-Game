@@ -55,7 +55,6 @@ public class Enemy_Health : MonoBehaviour
 
     [Space(10)]
     [Header("GameObjects Referenced")]
-    public Shop shop;
     public GameObject player;
     public Manage_Sounds manage_Sounds;
 

@@ -55,6 +55,7 @@ public class Explosive_Reaper : MonoBehaviour
             col.enabled = false;
             groundedCollider.SetActive(true);
             rig.gravityScale = 1;
+            speedMult = 1;
 
             //orient Reaper to face left 
             transform.rotation = Quaternion.Euler(0, 180, 0);

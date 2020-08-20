@@ -62,10 +62,12 @@ public class weapon_loadout : MonoBehaviour
 
     //every shot, update ammo + swap weapons when out of ammo
     public void shotTaken() {
- 
+
         //use 1 ammo and update the ammo text
-        ammo[currentWeapon] -= 1;
-        updateAmmo();
+        if (ammo[currentWeapon] > 0) {
+            ammo[currentWeapon] -= 1;
+            updateAmmo();
+        }
 
         //swap to the next weapon when out of ammo + start reloading this weapon for the future
         if (ammo[currentWeapon] <= 0) {
@@ -92,8 +94,9 @@ public class weapon_loadout : MonoBehaviour
     //select a certain weapon manually
     public void selectWeaponManually() 
     {
-        if (ammo[currentWeapon] > 0) {
-            currentWeapon = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.transform.GetSiblingIndex();
+        int cW = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.transform.GetSiblingIndex();
+        if (ammo[cW] > 0) {
+            currentWeapon = cW;
             selectWeapon();
         }
     }

@@ -15,6 +15,7 @@ public class state : MonoBehaviour
     public float lightRegen = 2;
     public float darkDmgMultiplier = 2;
     public float lightDmgMultiplier = 1;
+    public float ragePerSecond = 2;
 
     public static string knightState;
     public static bool missedShot;
@@ -29,10 +30,6 @@ public class state : MonoBehaviour
     public Sprite darkKnightHands;
     public Sprite lightKnightArmor;
     public Sprite lightKnightHands;
-
-    public Sprite pulse;
-    public Sprite rainfire;
-    public Sprite triple;
 
     [Space(10)]
     [Header("In-game components")]  
@@ -56,7 +53,6 @@ public class state : MonoBehaviour
         updatePhysicalAppearance();
 
         //disable particle effects 
-        lightEffect.Stop();
         darkEffect.Stop();
     }
 
@@ -67,27 +63,29 @@ public class state : MonoBehaviour
         if (shooting.rage_count >= shooting.max_count / 3 && shooting.rage_count < 2 * shooting.max_count / 3)
         {
             rage_token.enabled = true;
-            rage_token.sprite = pulse;
         }
         else if (shooting.rage_count >= 2*shooting.max_count / 3 && shooting.rage_count < shooting.max_count)  
         {
-            rage_token.sprite = rainfire;
+            rage_token.enabled = true;
         }
         else if (shooting.rage_count >= shooting.max_count)
         {
-            rage_token.sprite = triple;
+            rage_token.enabled = true;
         }
         else if (shooting.rage_count < shooting.max_count / 3)
         {
             rage_token.enabled = false;
         }
 
-        //Dark knight state: loses 2 hp/sec 
+        //Dark knight state: lose 2 hp/sec 
         if (knightState == "Dark") {
             if (health.hp > 0)
                 health.hp -= Time.deltaTime * darkPain;
 
             player_bullet.dmgMultiplier = darkDmgMultiplier;
+            
+            if (shooting.rage_count < shooting.max_count) 
+                shooting.rage_count += Time.deltaTime * ragePerSecond;
         }
 
         else {
@@ -133,15 +131,12 @@ public class state : MonoBehaviour
     private IEnumerator spawnEffect() {
         if (knightState == "Light") {
             darkEffect.Stop();
-            lightEffect.Play();
         }
         else {
-            lightEffect.Stop();
             darkEffect.Play();
         }
         
         yield return new WaitForSeconds(effectDuration);
-        lightEffect.Stop();
         darkEffect.Stop();
     }
 }

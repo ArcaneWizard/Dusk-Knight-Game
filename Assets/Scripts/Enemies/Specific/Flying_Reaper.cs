@@ -56,6 +56,7 @@ public class Flying_Reaper : MonoBehaviour
         {
             eH.deploy = false;
             rig.gravityScale = 0;
+            speedMult = 1;
             weaponsCycle.reloadAttack = false;
             waiting = false;
 
