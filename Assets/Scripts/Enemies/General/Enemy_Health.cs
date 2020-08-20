@@ -18,7 +18,7 @@ public class Enemy_Health : MonoBehaviour
     private int reaper_3 = 60;
 
     //enemies' speeds
-    public static float orc_speed = 1.7f;
+    public static float orc_speed = 1.3f;
     public static float ogre_speed = 1.2f;
     public static float goblin_speed = 2.2f;
     public static float R1_speed = 1.8f;

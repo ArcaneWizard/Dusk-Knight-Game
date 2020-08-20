@@ -10270,6 +10270,11 @@ PrefabInstance:
       propertyPath: playerText
       value: 
       objectReference: {fileID: 892325198}
+    - target: {fileID: 8987661797338801440, guid: 48aabcdead3030647aee9d65174b9ea4,
+        type: 3}
+      propertyPath: diffEnemyTypes
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8987661798456349454, guid: 48aabcdead3030647aee9d65174b9ea4,
         type: 3}
       propertyPath: player
