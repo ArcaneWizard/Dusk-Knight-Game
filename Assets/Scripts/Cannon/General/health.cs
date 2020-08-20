@@ -74,6 +74,6 @@ public class health : MonoBehaviour
         yield return new WaitForSeconds(shakeDuration);
         shakingIsOver = true;
         yield return new WaitForSeconds(reloadSceneDelay);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
