@@ -39,9 +39,9 @@ public class cutscene : MonoBehaviour
         captions = new List<string>(new string[cutscenes.Count]);
 
         //add all captions to a list
-        captions[0] = "5 years ago, the Overlord of the Hills tried to siege our kingdom and failed.";
-        captions[1] = "But in that battle, we were forced to let an artifact of great darkness take over ourselves. You were the most affected by the artifact but you could not control your rage to be useful in battle.";
-        captions[2] = "Now, the war has begun once again and backed by newly formed alliances. It’s time for you to learn how to control your dark powers. Harness your rage and get ready to join the fight.";
+        captions[0] = "5 years ago, the Overlord of the Hills tried to siege our kingdom and failed. ";
+        captions[1] = "But in that battle, we were forced to let an artifact of great darkness take over ourselves. The artifact filled our soldiers were rage, and you were by far the most affected by it.";
+        captions[2] = "Now, the war has begun once again with newly formed alliances. It’s time for you to step out of the shadows, harness your rage and join the fight.";
 
         //display the first animated cutscene and caption
         animationSpeed = 0.7f;
