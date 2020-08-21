@@ -258,6 +258,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 89cf2f6920effd647a63b74bbf2909fa, type: 3}
   - {fileID: 21300000, guid: 881d1cf80babacc45b7322682d641f31, type: 3}
   - {fileID: 21300000, guid: 027596905aed88649abd13d1b3bd8058, type: 3}
+  - {fileID: 21300000, guid: 027596905aed88649abd13d1b3bd8058, type: 3}
   useRageEffect:
   - {fileID: 21300000, guid: 53011bef2e2dc9841b655a753589374b, type: 3}
   - {fileID: 21300000, guid: a19c258ff5731c449b8bb12b41a3446e, type: 3}
@@ -317,8 +318,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.000042915, y: 80.3}
-  m_SizeDelta: {x: 570.2, y: 86.7}
+  m_AnchoredPosition: {x: 1.9, y: 81.2}
+  m_SizeDelta: {x: 588.7, y: 88.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &366202199
 MonoBehaviour:
