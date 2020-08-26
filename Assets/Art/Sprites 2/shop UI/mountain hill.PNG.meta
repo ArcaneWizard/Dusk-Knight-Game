@@ -6,7 +6,7 @@ TextureImporter:
       213: 3419893214971235489
     second: mountain hill_0
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -60,6 +60,7 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  applyGammaDecoding: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -104,12 +105,12 @@ TextureImporter:
       name: mountain hill_0
       rect:
         serializedVersion: 2
-        x: 109
+        x: 2
         y: 0
-        width: 700
+        width: 807
         height: 478
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
