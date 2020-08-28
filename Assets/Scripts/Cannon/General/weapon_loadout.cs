@@ -9,7 +9,7 @@ public class weapon_loadout : MonoBehaviour
 
     [Space(10)]
     [Header("The 3 Weapons")]   
-    public List<int> weapons;
+    private List<int> weapons = new List<int>{0, 1, 2};
     private int currentWeapon = 0;
     
     [Space(10)]
@@ -27,13 +27,18 @@ public class weapon_loadout : MonoBehaviour
 
     void Awake() 
     {
-        int counter = 0;
+        int position = 0;
+        int offset = 0;
 
         //Based off your weapons loadout, activate the specified weapon tokens in the specified order
         foreach (int weapon in weapons) {
-            Weapons.transform.GetChild(weapon+counter).SetSiblingIndex(counter);
-            Weapons.transform.GetChild(counter).gameObject.SetActive(true);
-            ++counter;
+            Weapons.transform.GetChild(weapon+offset).SetSiblingIndex(position);
+            Weapons.transform.GetChild(position).gameObject.SetActive(true);
+
+            if (weapon != position)
+                ++offset;
+                
+            ++position;
         }
 
         //get all the active weapon icons and store them in a list

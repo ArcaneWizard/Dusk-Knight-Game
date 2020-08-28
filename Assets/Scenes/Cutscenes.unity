@@ -264,7 +264,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a19c258ff5731c449b8bb12b41a3446e, type: 3}
   - {fileID: 21300000, guid: 9240ba0da3606ef48954ec77e8b61b88, type: 3}
   - {fileID: 21300000, guid: 3fbed84f33343bb4ab94100e900bdb49, type: 3}
-  - {fileID: 21300000, guid: dad11275f5703bc4da4efcefd62b5f6a, type: 3}
   awakenDuskKnight:
   - {fileID: 21300000, guid: bb9eb764265ac5048895791941f27606, type: 3}
   - {fileID: 21300000, guid: 1ae58dcbc1ea6e643b453b610fb7fac5, type: 3}

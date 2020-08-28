@@ -9,7 +9,6 @@ public class Explosive_Reaper : MonoBehaviour
     Rigidbody2D rig;
     Collider2D col;
 
-    public GameObject hill;
     public GameObject groundedCollider;
 
     private float speed;
@@ -53,32 +52,21 @@ public class Explosive_Reaper : MonoBehaviour
             //set spawn conditions 
             spawn_once = true;
             col.enabled = false;
+
+            //reset its physics and motion
             groundedCollider.SetActive(true);
             rig.gravityScale = 1;
+            rig.velocity = new Vector2(0, 0);
             speedMult = 1;
 
-            //orient Reaper to face left 
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
-
-        if(begin_motion)
-        {
-            //Set enemy movement based off hill arrows that outline the hill
-            Quaternion initDir = hill.transform.GetChild(0).transform.rotation;
-            Quaternion finalDir = hill.transform.GetChild(1).transform.rotation;
-            float distance = hill.transform.GetChild(0).transform.position.x - hill.transform.GetChild(1).transform.position.x;
-
-            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
-            groundedCollider.SetActive(true);
-            rig.gravityScale = 1;
-
-            //Can start following any arrow at the start, but as arrowIndex goes up, the enemy can't refollow the arrow at a lower index 
+            //Is able to follow all arrows at the beginning 
             arrowIndex = 0;
-            
+
             //Keep on following the arrows until you get within range of the tower
             dontGetCloser = false;
 
-            begin_motion = false;
+            //orient Reaper to face left 
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
 
         //explode whenever the reaper dies
@@ -134,7 +122,7 @@ public class Explosive_Reaper : MonoBehaviour
         if (col.gameObject.layer == 13 && rig.gravityScale == 0 && dontGetCloser == false && eH.freezeTimer <= 0 && eH.hp > 0)
         {
             //If the enemy movement is disrupted by knockback or something and needs to be reset
-            if (eH.resetPath == true)
+            if (eH.resetPath && begin_motion)
             {
                 //call this if statement only once
                 eH.resetPath = false;
@@ -199,7 +187,7 @@ public class Explosive_Reaper : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        //Reaper is next to the tower
+        //reaper is next to the tower
         if (col.gameObject.layer == 17)
         {
             //stop following the arrows
@@ -214,10 +202,8 @@ public class Explosive_Reaper : MonoBehaviour
 
         }
 
-        // slow down if collide with rage slow pulse thingy
+        // slow down if u collide with the rage slow pulse thingy
         if (col.gameObject.layer == 20)
-        {
             speedMult = 0.5f;
-        }
     }
 }

@@ -555,14 +555,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Weapons: {fileID: 0}
-  weapons: 050000000200000001000000
   ammo:
-  - 30
-  - 12
-  - 14
-  - 16
-  - 18
-  - 20
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
+  - 25
   weaponSelected: {fileID: 21300000, guid: 50fa995f8a4ba2b4f80a30ca0b9cdb6d, type: 3}
   weaponNotSelected: {fileID: 21300000, guid: 3eafe3df737e73f4183835856c5a9baf, type: 3}
 --- !u!114 &1437217243037913093
@@ -592,7 +591,6 @@ MonoBehaviour:
   weaponType: {fileID: 0}
   rage: {fileID: 0}
   max_hits: 51
-  initialRage: 19
   slow_effect: {fileID: 1437217243591306446}
   pulse: {fileID: 1437217243572735131}
   triple_cannon: {fileID: 21300000, guid: fdbbba1849f55034492aff1c0abbb709, type: 3}
@@ -602,6 +600,7 @@ MonoBehaviour:
   weaponAnchor: {fileID: 1437217242296948519}
   arrowAnchor: {fileID: 1437217242379262194}
   rainOffset: 0.01
+  playerWeapons: {fileID: 0}
   bullets:
   - {fileID: 0}
   - {fileID: 0}
@@ -5732,8 +5731,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: cb1c1a0d2e208b14b8e3984281947404, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ef0befd3f8f565a4295e3562e3b6eb46, type: 3}
+  m_Color: {r: 0.764151, g: 0.72810614, b: 0.72810614, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

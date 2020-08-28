@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour
@@ -8,18 +9,21 @@ public class Spawner : MonoBehaviour
     [Space(10)]
     [Header("Spawn settings")]
     public float roughSpawnRate;
+    public float spawnRateFall = 0.2f;
+    public float wavesBeforeLast = 1;
     public int diffEnemyTypes;
 
     public List<Vector2> enemiesSpawnedPerWave;
-    public List<Vector2> timeBetweenWaves;
-
-    private int cycle = 0;
+    public List<float> timeBetweenWaves;
 
     [Space(10)]
     [Header("READ ONLY")]
     public float reloadTime = 1.5f;
+    public float btwnReloadTime = 2.4f;
+    private bool waveOver;
     public int enemiesSpawned;
     public int enemyLimit;
+    public int cycle = 0;
 
     [Space(10)]
     [Header("Enemy types")]
@@ -49,7 +53,7 @@ public class Spawner : MonoBehaviour
     public Text playerText;
     public float textBlinkRate = 0.2f;
 
-    void Awake()
+    void Start()
     {
         //Set enemy wave settings
         cycle = 0;
@@ -59,6 +63,7 @@ public class Spawner : MonoBehaviour
 
         //Start enemy spawning and enemy spawn rate methods
         StartCoroutine(spawnEnemies());
+        StartCoroutine(spawnEnemiesBetweenWaves());
         StartCoroutine(quickenSpawn());
 
         //Ensures enemies won't face overlap problems
@@ -83,7 +88,6 @@ public class Spawner : MonoBehaviour
         {
             //reset the enemies Spawned and reload rate for the next wave
             enemiesSpawned = 0;
-            reloadTime = roughSpawnRate;
             ++cycle;
 
             //configure the new number of enemies in the next wave + the waitTime after that wave
@@ -91,19 +95,24 @@ public class Spawner : MonoBehaviour
                 enemyLimit = Mathf.RoundToInt(UnityEngine.Random.Range(enemiesSpawnedPerWave[cycle].x, enemiesSpawnedPerWave[cycle].y));
                 
                 //spawn enemies sparsely while waiting for the next wave
-                StartCoroutine(spawnEnemiesBetweenWaves());
-                yield return new WaitForSeconds(UnityEngine.Random.Range(timeBetweenWaves[cycle].x, timeBetweenWaves[cycle].y));
+                waveOver = true;
+                yield return new WaitForSeconds(timeBetweenWaves[cycle]);
+                waveOver = false;
                 
-                StopCoroutine(spawnEnemiesBetweenWaves());
-                StartCoroutine(displayText("A Large Wave is Incoming", 2.5f, 0.3f));
+                //show the last wave is incoming message when 1 or 2 enemy waves are left
+                if (cycle == enemiesSpawnedPerWave.Count - wavesBeforeLast)
+                    StartCoroutine(displayText("The battle is nearing an end.", 3.5f, 0.3f));
+
+                //reset the reload Time again
+                reloadTime = roughSpawnRate -= Random.Range(0, spawnRateFall);
             }
 
-            else
-                print("Victory! All " + (enemiesSpawnedPerWave.Count - 1) + " waves are over.");
+            else   
+                StartCoroutine(endOfLevel());
         } 
         //take a few seconds before spawning the next enemy
         else 
-            yield return new WaitForSeconds(reloadTime);
+            yield return new WaitForSeconds(reloadTime - Random.Range(0, spawnRateFall));
         
         if (cycle < enemiesSpawnedPerWave.Count) 
             StartCoroutine(spawnEnemies());
@@ -111,17 +120,20 @@ public class Spawner : MonoBehaviour
 
     //spawn some Enemies in between waves
     private IEnumerator spawnEnemiesBetweenWaves() {
-        deployRandomEnemy();
-        yield return new WaitForSeconds(4f);
-        StartCoroutine(spawnEnemies());
+       while(1 == 1)
+       {
+            if (waveOver)
+                deployRandomEnemy();
+            yield return new WaitForSeconds(btwnReloadTime);
+        }
     }
 
     //spawn Enemies faster over the course of the game
     private IEnumerator  quickenSpawn()
     {
         yield return new WaitForSeconds(1);
-        if (reloadTime >= 0.75)
-            reloadTime -= Random.Range(0.01f, 0.015f);
+        if (reloadTime >= 1.2)
+            reloadTime -= Random.Range(0.02f, 0.03f);
 
         StartCoroutine(quickenSpawn());
     }
@@ -163,7 +175,7 @@ public class Spawner : MonoBehaviour
 
         else if (enemyName == "Enemy 4")
         {
-            Vector3 r = Hill.GetChild(Random.Range(1, 11)).transform.position;
+            Vector3 r = Hill.GetChild(Random.Range(1, Hill.childCount-8)).transform.position;
             deployPos = new Vector3(r.x, r.y + 1.4f, 0);
         }
 
@@ -259,11 +271,8 @@ public class Spawner : MonoBehaviour
 
     //Choose from the specified number of enemy types
     private int enemyRange() {
-        if (diffEnemyTypes == 1) return 25;
-        else if (diffEnemyTypes == 2) return 50;
-        else if (diffEnemyTypes == 3) return 75;
-        else if (diffEnemyTypes == 4) return 100;
-        else if (diffEnemyTypes == 5) return 125;
+        if (diffEnemyTypes >= 1 && diffEnemyTypes <= 5)
+            return 25 * diffEnemyTypes;
         else {            
             Debug.LogError("Choose a number from 1-5 to represent the number of diff enemies that can be spawned");
             return 0;
@@ -272,6 +281,7 @@ public class Spawner : MonoBehaviour
 
     //display text to the player for a specified duration
     private IEnumerator displayText(string description, float duration, float flashRate) {
+
         playerText.text = description;
         playerText.enabled = true;
         
@@ -283,6 +293,34 @@ public class Spawner : MonoBehaviour
         }
 
         playerText.enabled = false;
+    }
+
+    //complete the level only when all enemies are dead
+    private IEnumerator endOfLevel() {
+        while (!enemiesAllDead()) {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        //fade transition
+
+        //load lvl selection
+        SceneManager.LoadScene(0);
+    }
+
+    //return a bool regarding whether all enemies are dead
+    private bool enemiesAllDead() 
+    {
+        //check all enemy groups
+        foreach (Transform enemyGroup in transform) 
+        {
+            //check if any enemy in the enemy group is active
+            foreach (Transform enemy in enemyGroup) 
+            {
+                if (enemy.gameObject.activeSelf)
+                    return false;
+            }
+        }
+        return true;
     }
 
 }

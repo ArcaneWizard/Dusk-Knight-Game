@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Goblin : MonoBehaviour
 {
-    public GameObject hill;
     public GameObject groundedCollider;
 
     private Animator animator;
@@ -44,16 +43,12 @@ public class Goblin : MonoBehaviour
             animator.SetBool("Attack", false);
             animator.SetBool("Dead", false);
             canAttack = true;
-
-            //Set enemy movement based off hill arrows that outline the hill
-            Quaternion initDir = hill.transform.GetChild(0).transform.rotation;
-            Quaternion finalDir = hill.transform.GetChild(1).transform.rotation;
-            float distance = hill.transform.GetChild(0).transform.position.x - hill.transform.GetChild(1).transform.position.x;
             
-            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
-            groundedCollider.SetActive(true);
-            speedMult = 1.0f;
+           //Reset its physics and motion
+            rig.velocity = new Vector2(0, 0);
             rig.gravityScale = 1;
+            speedMult = 1;
+            groundedCollider.SetActive(true);
 
             //Is able to follow all arrows at the beginning 
             arrowIndex = 0;

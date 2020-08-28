@@ -139,13 +139,11 @@ MonoBehaviour:
   freezeTimer: 0
   fireTimer: 0
   resetPath: 0
-  shop: {fileID: 0}
   player: {fileID: 0}
   manage_Sounds: {fileID: 0}
   normal: {fileID: 0}
   weak: {fileID: 0}
-  weakPowerful: {fileID: 0}
-  powerful: {fileID: 0}
+  isPowerful: 0
   dmgMultiplier: 0
 --- !u!114 &119392298047295544
 MonoBehaviour:
@@ -161,8 +159,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   camera: {fileID: 0}
-  speedModifier: 3
+  speedModifier: 0.4
   moveDelay: 2.2
+  timeTillThrow: {x: 0, y: 0}
 --- !u!212 &119392298047295492
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -401,6 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile_Group: {fileID: 0}
+  bulletSpawnLocation: {fileID: 0}
   reload: {x: 0, y: 0}
   reloadAttack: 0
 --- !u!1 &119392298985037219
@@ -543,6 +543,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 119392298047295549}
     m_Modifications:
+    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
+        type: 3}
+      propertyPath: m_Name
+      value: Snowball 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3407287959589672602, guid: 4496dc49dab18374dad0a4de1c912faf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -608,16 +618,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.2021961
       objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
-        type: 3}
-      propertyPath: m_Name
-      value: Snowball 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3407287959589672603, guid: 4496dc49dab18374dad0a4de1c912faf,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4496dc49dab18374dad0a4de1c912faf, type: 3}
 --- !u!4 &3378039406224720683 stripped
@@ -633,6 +633,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 119392298985037228}
     m_Modifications:
+    - target: {fileID: 4102917060134122203, guid: 0d3bdc90397734b49a949a352ae89de8,
+        type: 3}
+      propertyPath: m_Name
+      value: Floating Text
+      objectReference: {fileID: 0}
     - target: {fileID: 4102917060134122150, guid: 0d3bdc90397734b49a949a352ae89de8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -687,11 +692,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4102917060134122203, guid: 0d3bdc90397734b49a949a352ae89de8,
-        type: 3}
-      propertyPath: m_Name
-      value: Floating Text
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d3bdc90397734b49a949a352ae89de8, type: 3}
@@ -708,6 +708,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 119392298985037228}
     m_Modifications:
+    - target: {fileID: 4102917060134122203, guid: 0d3bdc90397734b49a949a352ae89de8,
+        type: 3}
+      propertyPath: m_Name
+      value: Floating Text (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 4102917060134122150, guid: 0d3bdc90397734b49a949a352ae89de8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -762,11 +767,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4102917060134122203, guid: 0d3bdc90397734b49a949a352ae89de8,
-        type: 3}
-      propertyPath: m_Name
-      value: Floating Text (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d3bdc90397734b49a949a352ae89de8, type: 3}

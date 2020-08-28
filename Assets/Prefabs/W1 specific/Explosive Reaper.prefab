@@ -541,7 +541,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.14051029, y: -1.5364614}
+  m_Offset: {x: 0.14051029, y: -1.1787198}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -552,7 +552,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.20664728, y: 2.2564902}
+  m_Size: {x: 0.20664728, y: 2.9719734}
   m_EdgeRadius: 0
 --- !u!1 &3009865137336898294
 GameObject:
@@ -614,7 +614,6 @@ MonoBehaviour:
   freezeTimer: 0
   fireTimer: 0
   resetPath: 0
-  shop: {fileID: 0}
   player: {fileID: 0}
   manage_Sounds: {fileID: 0}
   normal: {fileID: 22100000, guid: ab559777372aa134e8a0584afff5d2ec, type: 2}
@@ -633,7 +632,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aff0e570080cbb44aa6afed51b41005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hill: {fileID: 0}
   groundedCollider: {fileID: 1930371532}
   spawn_anim: {fileID: 3009865137505574238}
 --- !u!212 &3009865137336898302

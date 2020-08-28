@@ -10,10 +10,13 @@ public class Enemy_Health : MonoBehaviour
     private float maxHP;
     private float lastHP;
 
+    //game-mode
+    public static string mode = "normal";
+
     //enemies' hps
-    private int orc = 90;
-    private int ogre = 80;
-    private int goblin = 50;
+    private int orc = 130;
+    private int ogre = 130;
+    private int goblin = 90;
     private int reaper_1 = 60;
     private int reaper_3 = 60;
 
@@ -118,7 +121,7 @@ public class Enemy_Health : MonoBehaviour
         int chance = Random.Range(1, 10);
 
         //If there is a powerful animation available, it might be more powerful 
-        isPowerful = (chance >= 9) ? true : false;
+        isPowerful = (chance >= 8) ? true : false;
 
         //Set enemy's designated hp
         if (tag == "Enemy 1")  hp = goblin;  
@@ -129,6 +132,12 @@ public class Enemy_Health : MonoBehaviour
         
         //health multiplier for powerful enemies
         if (isPowerful) hp *= 2;
+
+        //mode multiplier
+        if (mode == "normal")
+            hp *= 1.5f;
+        if (mode == "hard")
+            hp *= 2f;
 
         //dmg multiplier for powerful enemies
         if (isPowerful) isPowerfulDmgMultiplier();

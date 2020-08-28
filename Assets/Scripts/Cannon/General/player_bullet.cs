@@ -27,24 +27,23 @@ public class player_bullet : MonoBehaviour
     private string weapon;
 
     //Weapon Dmg
-    private int arrowDmg = 40;
-    private int boulderDmg = 80;
+    private int arrowDmg = 45;
     private int iceShardDmg = 30;
-    private int cannonBallDmg = 30;
+    private int cannonBallDmg = 90;
     private int rocketDmg = 30;
-    private int fireContactDmg = 20;
+    private int fireContactDmg = 30;
     private int soulAxeDmg; 
 
-    private Vector2 soulAxeDmgBound = new Vector2(20, 80);
+    private Vector2 soulAxeDmgBound = new Vector2(20, 100);
     public static int rocketExplosionDmg = 10;
-    public static float fireDmgPerSecond = 10f;
+    public static float fireDmgPerSecond = 20f;
 
     //Dmg multiplier based off knight's state
     public static float dmgMultiplier = 1;
 
-    //Weapon Effects 
+    //Arrow Effects 
     private int enemiesPierced = 0;
-    private int enemiesToBePierced = 1;
+    private int enemiesToBePierced = 2;
 
     //Rocket effects
     private int rocketSpeed = 100;
@@ -151,7 +150,7 @@ public class player_bullet : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.layer == 8)
+        if (col.gameObject.layer == 8 && col.transform.GetComponent<Enemy_Health>().hp > 0)
         {
             /* NOTE: (enoughEnemiesHit = true) ensures there is no accidental splash dmg when the bullet 
                collides with multiple enemies simulatanaeously */
@@ -176,15 +175,6 @@ public class player_bullet : MonoBehaviour
                 }
             }
             
-            if (weapon == "Boulders" && enoughEnemiesHit == false)
-            {
-                dmgPopup(boulderDmg, col);
-                enoughEnemiesHit = true;
-                shooting.rage_count++;
-                
-                gameObject.SetActive(false);                
-            }
-            
             if (weapon == "Ice shards" && enoughEnemiesHit == false)
             {
                 dmgPopup(iceShardDmg, col);
@@ -201,13 +191,12 @@ public class player_bullet : MonoBehaviour
                 enoughEnemiesHit = true;
                 shooting.rage_count++;
 
-                //Deliver a knockback force only to light enemies
+                /*//Deliver a knockback force only to light enemies
                 if (col.transform.GetComponent<Rigidbody2D>().mass < 2f)
-                    StartCoroutine(knockback(col, knockbackForce));
-                else {
-                    dmgPopup(cannonBallDmg, col);
-                    gameObject.SetActive(false);             
-                }   
+                    StartCoroutine(knockback(col, knockbackForce));*/
+
+                dmgPopup(cannonBallDmg, col);
+                gameObject.SetActive(false);        
             }
             
             if (weapon == "Soul Axes" && enoughEnemiesHit == false)
@@ -260,6 +249,12 @@ public class player_bullet : MonoBehaviour
 
             //reset enemies hit in a row
             enemiesHitSpree = 0;
+
+            //lose rage if you missed and hit the ground
+            if (weapon != "Arrows")
+                shooting.rage_count -= 1;
+            else if (weapon == "Arrows" && enemiesPierced == 0)
+                shooting.rage_count -= 1;
 
             //Return that you missed the shot
             state.missedShot = true;
@@ -377,7 +372,6 @@ public class player_bullet : MonoBehaviour
     {
         if (weapon == "Arrows") {
             enemiesPierced = 0;
-            enemiesToBePierced = UnityEngine.Random.Range(1, 3);
         }
 
         if (weapon == "Cannon Balls") {

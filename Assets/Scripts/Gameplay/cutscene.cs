@@ -40,7 +40,7 @@ public class cutscene : MonoBehaviour
 
         //add all captions to a list
         captions[0] = "5 years ago, the Overlord of the Hills tried to siege our kingdom and failed. ";
-        captions[1] = "But in that battle, we were forced to let an artifact of great darkness take over ourselves. The artifact filled our soldiers were rage, and you were by far the most affected by it.";
+        captions[1] = "But in that battle, we were forced to let an artifact of great darkness take over ourselves. The artifact consumed our soldiers with rage, and you were by far the most affected by it.";
         captions[2] = "Now, the war has begun once again with newly formed alliances. It’s time for you to step out of the shadows, harness your rage and join the fight.";
 
         //display the first animated cutscene and caption

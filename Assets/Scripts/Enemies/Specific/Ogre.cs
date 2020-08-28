@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Ogre : MonoBehaviour
 {
-    public GameObject hill;
     public GameObject groundedCollider;
 
     private Animator animator;
@@ -51,16 +50,12 @@ public class Ogre : MonoBehaviour
             animator.SetInteger("Stage", 0);
             animator.SetBool("Dead", false);
             StartCoroutine(ThrowProjectile());
-
-            //Set enemy movement based off hill arrows that outline the hill
-            Quaternion initDir = hill.transform.GetChild(0).transform.rotation;
-            Quaternion finalDir = hill.transform.GetChild(1).transform.rotation;
-            float distance = hill.transform.GetChild(0).transform.position.x - hill.transform.GetChild(1).transform.position.x;
-            
-            rig.velocity = Vector3.Lerp(initDir * -Vector3.right * speed, finalDir * -Vector3.right * speed, distance / 20f);
+           
+           //Reset its physics and motion
+            rig.velocity = new Vector2(0, 0);
+            rig.gravityScale = 1;
+            speedMult = 1;
             groundedCollider.SetActive(true);
-            rig.gravityScale = 1; 
-            speedMult = 1.0f;
 
             //Is able to follow all arrows at the beginning 
             arrowIndex = 0;

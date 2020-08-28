@@ -45,8 +45,8 @@ public class shooting : MonoBehaviour
     [Space(10)]
     [Header("Rage Mechanic")]
     public Image rage;
-    public float max_hits = 51;
-    public float initialRage = 0;
+    public float max_hits = 93;
+    private float initialRage = 0;
     public ParticleSystem slow_effect;
     public Transform pulse;
     public Sprite triple_cannon;
@@ -71,8 +71,9 @@ public class shooting : MonoBehaviour
     public float rainOffset = 0.2f;
 
     [Space(10)]
-    [Header("Bullet Type")]
-    public GameObject[] bullets;
+    [Header("Player Bullets")]
+    public GameObject playerWeapons;
+    [HideInInspector] public List<GameObject> bullets = new List<GameObject>();
 
     [Space(10)]
     [Header("Player Character")]
@@ -81,16 +82,23 @@ public class shooting : MonoBehaviour
 
     void Awake()
     {
+        //define initial components 
         audioSource = transform.GetComponent<AudioSource>();
         lr = Aim_Arrow.GetComponent<LineRenderer>();  
         lr_2 = Charge_Arrow.GetComponent<LineRenderer>();   
         wL = transform.GetComponent<weapon_loadout>();
 
+        //initial rage settings
         rage_count = initialRage;
         max_count = max_hits;
-
+        
+        //camera bounds to reference later
         topLeft = camera.ViewportToWorldPoint(new Vector2(0,1)) + new Vector3 (3, 2, 0);
         topRight = camera.ViewportToWorldPoint(new Vector2(1,1)) + new Vector3 (3, 2, 0);
+
+        //add all weapons' bullets to the bullet list
+        foreach (Transform weapon in playerWeapons.transform) 
+            bullets.Add(weapon.gameObject);
     }
 
     //specify what weapon the player has
@@ -135,7 +143,7 @@ public class shooting : MonoBehaviour
             rainOffset = 0.13f;
             StartCoroutine(Slow());
             StartCoroutine(rainBullets(22));
-            StartCoroutine(TripleShot(5));
+            StartCoroutine(TripleShot(2));
         }
     }
 

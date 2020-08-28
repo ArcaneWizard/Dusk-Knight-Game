@@ -15,7 +15,7 @@ public class Flying_Reaper : MonoBehaviour
     public Camera camera;
 
     private float speed;
-    public float speedModifier;  
+    private float speedModifier = 0.2f;  
 
     private Vector3 bottomLeft, topRight, randomPosition;
     private float minX, minY, maxX, maxY;
@@ -24,7 +24,7 @@ public class Flying_Reaper : MonoBehaviour
     private float speedMult;
 
 
-    public float moveDelay;
+    private float moveDelay = 0.35f;
     public Vector2 timeTillThrow;
 
     void Awake() {
