@@ -99,4 +99,10 @@ public class lvl_selection : MonoBehaviour
         //Load the scene corresponding to the most recent lvl selected
         SceneManager.LoadScene(lvlSelected + 2);
     }
+
+    public void shopping()
+    {
+        SceneManager.LoadScene(1);
+    }
 }
+

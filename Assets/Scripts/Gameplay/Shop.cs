@@ -6,6 +6,7 @@ using UnityEngine.Advertisements;
 using UnityEngine.EventSystems;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Shop : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Shop : MonoBehaviour
     public GameObject shade;
     public static int towerlevel;
     public int maxlvl;
+    public GameObject Error;
 
     //order not final, merely placeholder blurbs for now
     private string[] blurbs = {"This is the tower", "This is the slingshot", "this is the arrow", "this is the ice shard", "this is the soul axe", "this is the rocket", "this is the fireball", "Thsi is the shotgun" };
@@ -56,6 +58,7 @@ public class Shop : MonoBehaviour
     public Image tower;
     public Image CB_Image;
     public GameObject Buttons;
+    public GameObject Draggies;
 
     // Start is called before the first frame update
     void Awake()
@@ -65,6 +68,8 @@ public class Shop : MonoBehaviour
         jewels = PlayerPrefs.GetInt("Jewels");
         Advertisement.Initialize("3577863", true);
         gameObject.AddComponent<AudioSource>();
+
+        jewelText.text = "" + jewels;
 
         for (int i = 0; i < cannonlevels.Length; i++)
         {
@@ -117,22 +122,6 @@ public class Shop : MonoBehaviour
     {
         PlayerPrefs.SetInt("Jewels", jewels);
 
-        if (jewelText.gameObject != null)
-        jewelText.text = jewels.ToString();
-
-        //Change in-game menu buttons as you equip weapons
-        for (int i = 0; i < names.Length; i++)
-        {
-            if (PlayerPrefs.GetInt(names[i]) == 1)
-            {
-                Button[] buttons = Resources.FindObjectsOfTypeAll<Button>();
-                for (int j = 0; j < buttons.Length; j++)
-                {
-                    if (buttons[j].gameObject.name == names[i] + "!") 
-                        buttons[j].gameObject.SetActive(true);
-                }
-            }
-        }
 
     }
 
@@ -192,5 +181,15 @@ public class Shop : MonoBehaviour
             transform.GetChild(0).transform.GetChild(2).gameObject.SetActive(true);
         else
             Debug.LogError("Ad Panel's child position was changed. Please revert your changes.");
+    }
+
+    public void GoBack()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void DisableError()
+    {
+        Error.SetActive(false);
     }
 }
