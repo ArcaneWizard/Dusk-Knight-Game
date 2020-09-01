@@ -756,8 +756,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b261f447d132048419ecfa6e84c4b0a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equiped: 010000000200000003000000
-  error: {fileID: 33404655}
 --- !u!114 &183849898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1093,7 +1091,7 @@ RectTransform:
   - {fileID: 800923049}
   - {fileID: 1255277092}
   m_Father: {fileID: 253551438}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1149,7 +1147,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1206,11 +1204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a71319903ecfa498ab6fd27fe6f0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 2011288452}
-  origin: {x: 0, y: 0, z: 0}
-  c_group: {fileID: 0}
-  draggable: 0
-  Error: {fileID: 33404655}
 --- !u!225 &241012413
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1327,7 +1320,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1202786922}
   - {fileID: 1918763296}
   - {fileID: 1073653690}
   - {fileID: 241012408}
@@ -1335,6 +1327,7 @@ RectTransform:
   - {fileID: 1796381763}
   - {fileID: 633166414}
   - {fileID: 1182272060}
+  - {fileID: 1202786922}
   m_Father: {fileID: 2011288453}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2640,7 +2633,7 @@ RectTransform:
   - {fileID: 954262017}
   - {fileID: 2085098666}
   m_Father: {fileID: 253551438}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -2696,7 +2689,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 6
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2753,11 +2746,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a71319903ecfa498ab6fd27fe6f0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 2011288452}
-  origin: {x: 0, y: 0, z: 0}
-  c_group: {fileID: 0}
-  draggable: 0
-  Error: {fileID: 33404655}
 --- !u!225 &633166419
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -4440,7 +4428,7 @@ RectTransform:
   - {fileID: 199444323}
   - {fileID: 873023186}
   m_Father: {fileID: 253551438}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4534,7 +4522,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4553,11 +4541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a71319903ecfa498ab6fd27fe6f0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 2011288452}
-  origin: {x: 0, y: 0, z: 0}
-  c_group: {fileID: 0}
-  draggable: 0
-  Error: {fileID: 33404655}
 --- !u!225 &1073653695
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5059,7 +5042,7 @@ RectTransform:
   - {fileID: 1338439408}
   - {fileID: 1715712502}
   m_Father: {fileID: 253551438}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -5115,7 +5098,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 7
+          m_IntArgument: 6
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -5172,11 +5155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a71319903ecfa498ab6fd27fe6f0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 2011288452}
-  origin: {x: 0, y: 0, z: 0}
-  c_group: {fileID: 0}
-  draggable: 0
-  Error: {fileID: 33404655}
 --- !u!225 &1182272065
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5298,7 +5276,7 @@ RectTransform:
   - {fileID: 927379820}
   - {fileID: 1301911774}
   m_Father: {fileID: 253551438}
-  m_RootOrder: 0
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -5354,7 +5332,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -5696,8 +5674,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b261f447d132048419ecfa6e84c4b0a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equiped: 010000000200000003000000
-  error: {fileID: 33404655}
 --- !u!114 &1215039666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7159,7 +7135,7 @@ RectTransform:
   - {fileID: 2067735364}
   - {fileID: 1052072315}
   m_Father: {fileID: 253551438}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -7272,11 +7248,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a71319903ecfa498ab6fd27fe6f0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 2011288452}
-  origin: {x: 0, y: 0, z: 0}
-  c_group: {fileID: 0}
-  draggable: 0
-  Error: {fileID: 33404655}
 --- !u!225 &1627579527
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -7844,8 +7815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b261f447d132048419ecfa6e84c4b0a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equiped: 010000000200000003000000
-  error: {fileID: 33404655}
 --- !u!114 &1754651734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7994,7 +7963,7 @@ RectTransform:
   - {fileID: 305725104}
   - {fileID: 742375282}
   m_Father: {fileID: 253551438}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -8107,11 +8076,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a71319903ecfa498ab6fd27fe6f0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 2011288452}
-  origin: {x: 0, y: 0, z: 0}
-  c_group: {fileID: 0}
-  draggable: 0
-  Error: {fileID: 33404655}
 --- !u!225 &1796381768
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -8391,7 +8355,7 @@ RectTransform:
   - {fileID: 1991081812}
   - {fileID: 2009137812}
   m_Father: {fileID: 253551438}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -8447,7 +8411,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -8504,11 +8468,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a71319903ecfa498ab6fd27fe6f0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 2011288452}
-  origin: {x: 0, y: 0, z: 0}
-  c_group: {fileID: 0}
-  draggable: 0
-  Error: {fileID: 33404655}
 --- !u!225 &1918763301
 CanvasGroup:
   m_ObjectHideFlags: 0
