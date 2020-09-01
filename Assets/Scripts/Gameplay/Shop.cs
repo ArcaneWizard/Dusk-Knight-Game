@@ -17,7 +17,7 @@ public class Shop : MonoBehaviour
     public GameObject Error;
 
     //order not final, merely placeholder blurbs for now
-    private string[] blurbs = {"This is the tower", "This is the slingshot", "this is the arrow", "this is the ice shard", "this is the soul axe", "this is the rocket", "this is the fireball", "Thsi is the shotgun" };
+    private string[] blurbs = new string[8];
 
     //each item is a level indication for a weapon/tower with 0 indicating unpurchased and -1 indicating locked
     //listed in the same order as the blurbs
@@ -47,7 +47,7 @@ public class Shop : MonoBehaviour
     public int gold;
     private int price;
 
-    private string[] names = { "Tower", "Slinghsot", "Arrow", "Ice Shard", "Soul Axe", "Rocket", "Fireball", "Shotgun" };
+    private string[] names = { "Tower", "Slinghsot", "Arrow", "Ice Shard", "Fireball", "Soul Axe", "Rocket", "Shotgun" };
 
     private bool gameHasStarted = false;
     public static Shop ShopInstance { get; private set; }
@@ -76,32 +76,43 @@ public class Shop : MonoBehaviour
                 Buttons.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
             }
         }
+
+        blurbs[0] = "Your tower is your greatest line of defense. Upgrade it to withstand more damage";
+        blurbs[1] = "A hard metallic object that does a ton of dmg. Upgrade it to raise its dmg";
+        blurbs[2] = "These arrows are so sharp they pierce through multiple enemies. Upgrades raise the # of enemies the arrow can pierce through.";
+        blurbs[3] = "Brrr. Freeze enemies to slow them down. Upgrades increase the freeze duration";
+        blurbs[4] = "Light enemies on fire and watch them burn. Upgrades increase the fire's duration";
+        blurbs[5] = "Crafted alongside your tower, this axe grows stronger as your tower weakens. Upgrade it to raise its damage range.";
+        blurbs[6] = "After surveying the reapers, we've managed to reverse engineer this explosive rocket. Upgrade to raise its splash damage";
+        blurbs[7] = "No one likes to get hit by the shotgun. This thing ways a ton, but it has limited range as a result.";
+
     }
 
     //If a bought weapon's icon is pressed, popup the weapon description panel
-    public void Select(int indx)
+    public void Select()
     {
-        //keep track of which weapon was opened
-        weapon = indx;
+        //keep track of which weapon you clicked on 
+        GameObject button = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        weapon = button.transform.GetSiblingIndex();
 
-        if (cannonlevels[indx] != -1)
+        if (cannonlevels[weapon] != -1)
         {
             panel.SetActive(true);
             shade.SetActive(true);
-            weaponT.text = names[indx];
-            DescriptionT.text = blurbs[indx];
-            if (cannonlevels[indx] < maxlvl)
-                weaponCostT.text = "" + prices[indx, cannonlevels[indx]];
+            weaponT.text = names[weapon];
+            DescriptionT.text = blurbs[weapon];
+            if (cannonlevels[weapon] < maxlvl)
+                weaponCostT.text = "" + prices[weapon, cannonlevels[weapon]];
 
-            if (cannonlevels[indx] != 0)
+            if (cannonlevels[weapon] != 0)
                 PurchaseText.text = "Upgrade";
             else
                 PurchaseText.text = "Buy";
 
-            if (cannonlevels[indx] < 1)
+            if (cannonlevels[weapon] < 1)
                 leveltext.text = "Level 1";
             else
-                leveltext.text = "Level " + cannonlevels[indx];
+                leveltext.text = "Level " + cannonlevels[weapon];
         }
     }
 
