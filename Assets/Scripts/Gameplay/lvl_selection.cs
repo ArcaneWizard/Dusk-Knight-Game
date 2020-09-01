@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class lvl_selection : MonoBehaviour
 {
+    public GameObject loadingPanel;
+    public Image loadingBar;
     public List<Sprite> previews; 
     private List<string> descriptions = new List<string>(new string[11]);
     public Transform Levels;
@@ -94,15 +96,31 @@ public class lvl_selection : MonoBehaviour
         }
     }
 
-    public void startLevel() 
-    {
-        //Load the scene corresponding to the most recent lvl selected
-        SceneManager.LoadScene(lvlSelected + 2);
+    public void startTheLevel() {
+
+        //turn on the temporary loading screen
+        loadingPanel.gameObject.SetActive(true);
+        StartCoroutine(loadLevel());
     }
 
-    public void shopping()
-    {
+    public void shop() {
         SceneManager.LoadScene(1);
     }
-}
 
+    private IEnumerator loadLevel() 
+    {        
+        yield return new WaitForSeconds(0.05f);
+
+        //create async operation
+        AsyncOperation gameLevel = SceneManager.LoadSceneAsync(lvlSelected + 2);
+
+        while (gameLevel.progress < 1) 
+        {
+            //take the progress and visually show it through the bar's fill
+            loadingBar.fillAmount = gameLevel.progress;
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    
+}

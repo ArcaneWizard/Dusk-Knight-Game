@@ -26,7 +26,7 @@ public class health : MonoBehaviour
     public Image healthBar;
     public cameraShake shake;
 
-    void Awake() {
+    void Start() {
         maxHp = 110;
         hp = maxHp;
         lastHp = maxHp;

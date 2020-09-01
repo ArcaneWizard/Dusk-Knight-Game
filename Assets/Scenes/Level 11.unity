@@ -8820,6 +8820,11 @@ PrefabInstance:
       propertyPath: Projectile_Group
       value: 
       objectReference: {fileID: 360035713}
+    - target: {fileID: 5225947797844569151, guid: 48aabcdead3030647aee9d65174b9ea4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48aabcdead3030647aee9d65174b9ea4, type: 3}
 --- !u!4 &1511217408 stripped

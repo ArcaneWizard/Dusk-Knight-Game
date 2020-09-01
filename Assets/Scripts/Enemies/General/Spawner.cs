@@ -61,19 +61,25 @@ public class Spawner : MonoBehaviour
         reloadTime = roughSpawnRate;
         enemyLimit = Mathf.RoundToInt(UnityEngine.Random.Range(enemiesSpawnedPerWave[0].x, enemiesSpawnedPerWave[0].y));
 
-        //Start enemy spawning and enemy spawn rate methods
-        StartCoroutine(spawnEnemies());
-        StartCoroutine(spawnEnemiesBetweenWaves());
-        StartCoroutine(quickenSpawn());
-
         //Ensures enemies won't face overlap problems
         assignEnemyOrder();
+
+        //Start spawning enemies if there is no info panel for this lvl
+        if (!transform.GetComponent<Info_Panel>().enabled)
+            startSpawningEnemies();
         
         //In case the spawn settings are set up wrong
         if (enemiesSpawnedPerWave.Count != timeBetweenWaves.Count) 
             Debug.LogError("The two lists in the Spawn settings need to have the same number of elements");
         else if (enemiesSpawnedPerWave.Count == 0)
             Debug.LogError("Please fill out the Spawn settings");
+    }
+
+    //Start enemy spawning and enemy spawn rate methods
+    public void startSpawningEnemies() {
+        StartCoroutine(spawnEnemies());
+        StartCoroutine(spawnEnemiesBetweenWaves());
+        StartCoroutine(quickenSpawn());
     }
 
     //spawn enemies every reloadTime seconds

@@ -8669,6 +8669,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1084701151}
+    - target: {fileID: 2155342436334553512, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684110341542338832, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_Text
+      value: It appears Explosive Reapers can teleport anywhere they wish and will
+        ram into your tower with a BOOM.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6965bd803e32a340a3ce7e8058e24d0, type: 3}
 --- !u!114 &1430617864 stripped
@@ -8743,6 +8754,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1430617871 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2155342436334553512, guid: e6965bd803e32a340a3ce7e8058e24d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1430617863}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1456033834
 GameObject:
   m_ObjectHideFlags: 0
@@ -12086,6 +12103,11 @@ PrefabInstance:
       propertyPath: Projectile_Group
       value: 
       objectReference: {fileID: 681663805}
+    - target: {fileID: 5225947797844569151, guid: 48aabcdead3030647aee9d65174b9ea4,
+        type: 3}
+      propertyPath: infoPanel
+      value: 
+      objectReference: {fileID: 1430617871}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48aabcdead3030647aee9d65174b9ea4, type: 3}
 --- !u!4 &1959396014 stripped

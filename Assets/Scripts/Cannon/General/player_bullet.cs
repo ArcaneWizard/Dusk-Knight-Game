@@ -60,7 +60,7 @@ public class player_bullet : MonoBehaviour
     //Main sprite for animated bullet
     public Sprite DefaultSprite;
     
-    void Awake() {
+    void Start() {
        //Get bounds of the screen for any screen size
         bottomLeft = camera.ViewportToWorldPoint(new Vector2(0,0));
         topRight = camera.ViewportToWorldPoint(new Vector2(1,1));

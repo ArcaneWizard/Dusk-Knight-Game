@@ -1338,6 +1338,11 @@ PrefabInstance:
       propertyPath: Projectile_Group
       value: 
       objectReference: {fileID: 199440211}
+    - target: {fileID: 5225947797844569151, guid: 48aabcdead3030647aee9d65174b9ea4,
+        type: 3}
+      propertyPath: infoPanel
+      value: 
+      objectReference: {fileID: 1177769999}
     - target: {fileID: 509790084232348857, guid: 48aabcdead3030647aee9d65174b9ea4,
         type: 3}
       propertyPath: hill
@@ -6929,9 +6934,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468228848494147, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468228848494147, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468228889823932, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468228889823932, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -6939,9 +6956,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468228194895638, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468228194895638, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468227967772194, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468227967772194, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -6949,9 +6978,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468226988163326, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468226988163326, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468228001160188, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468228001160188, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -6959,9 +7000,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468226854997376, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468226854997376, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468228177434275, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468228177434275, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -6969,9 +7022,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468227038099781, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468227038099781, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468228455143159, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468228455143159, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -6979,9 +7044,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468227022769516, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468227022769516, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468227342358764, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468227342358764, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -6989,9 +7066,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468226839783188, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468226839783188, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468226931907387, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468226931907387, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -6999,9 +7088,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468227337804505, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468227337804505, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468227527405048, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468227527405048, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -7009,9 +7110,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468227756311719, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468227756311719, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468227575014722, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468227575014722, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -7019,9 +7132,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468226829714172, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468226829714172, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468228340080959, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468228340080959, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -7029,9 +7154,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468227955501246, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468227955501246, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468228368264286, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468228368264286, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -7039,9 +7176,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468227477762354, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468227477762354, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468227855258093, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468227855258093, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -7049,9 +7198,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468228279145256, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468228279145256, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468227702800335, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468227702800335, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -7059,9 +7220,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468227832836413, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468227832836413, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468228572314790, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468228572314790, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -7069,9 +7242,21 @@ PrefabInstance:
       objectReference: {fileID: 1979612528}
     - target: {fileID: 6390468227245220540, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
+    - target: {fileID: 6390468227245220540, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1979612528}
+    - target: {fileID: 6390468227180629000, guid: 148eebd750e138044ae874fc9c41fda2,
+        type: 3}
+      propertyPath: DefaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64deb7947fb191f4695484ab26ed3d71,
+        type: 3}
     - target: {fileID: 6390468227180629000, guid: 148eebd750e138044ae874fc9c41fda2,
         type: 3}
       propertyPath: camera
@@ -10335,16 +10520,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1202886516133976703, guid: ff679b0b664075747bd551c6fe55d0c1,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.71999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 1202886516133976703, guid: ff679b0b664075747bd551c6fe55d0c1,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 11.58
-      objectReference: {fileID: 0}
     - target: {fileID: 1202886516687746679, guid: ff679b0b664075747bd551c6fe55d0c1,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -10384,6 +10559,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202886516133976703, guid: ff679b0b664075747bd551c6fe55d0c1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.71999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202886516133976703, guid: ff679b0b664075747bd551c6fe55d0c1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11.58
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff679b0b664075747bd551c6fe55d0c1, type: 3}
@@ -10675,6 +10860,17 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2155342436334553512, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684110341542338832, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_Text
+      value: Ogres are sly creatures. They love to toss boulders and rocks around,
+        so expect them to attack from afar.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6965bd803e32a340a3ce7e8058e24d0, type: 3}
 --- !u!114 &1177769992 stripped
@@ -10749,6 +10945,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1177769999 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2155342436334553512, guid: e6965bd803e32a340a3ce7e8058e24d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1177769991}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1180383493
 GameObject:
   m_ObjectHideFlags: 0

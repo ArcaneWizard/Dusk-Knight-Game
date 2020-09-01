@@ -14,11 +14,11 @@ public class Enemy_Health : MonoBehaviour
     public static string mode = "normal";
 
     //enemies' hps
-    private int orc = 130;
-    private int ogre = 130;
+    private int orc = 150;
+    private int ogre = 120;
     private int goblin = 90;
-    private int reaper_1 = 60;
-    private int reaper_3 = 60;
+    private int reaper_1 = 90;
+    private int reaper_3 = 100;
 
     //enemies' speeds
     public static float orc_speed = 1.3f;

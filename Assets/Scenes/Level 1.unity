@@ -1428,6 +1428,134 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3941335866059419470, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 660.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941335866059419470, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941335866059419470, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 252.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941335866059419470, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -39.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941335866059419470, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941335866059419470, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739485922267824647, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742883563694281867, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9f59c3ae7715ec94fb28358e1c1b6c97,
+        type: 3}
+    - target: {fileID: 5742883563694281867, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.30579588
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742883563694281867, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.21867211
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742883563694281867, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.3679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 2885271236120846858, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_EffectDistance.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2885271236120846858, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_EffectDistance.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134865305649277423, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 091b50b70205da14e9d008a1bc4f4713,
+        type: 3}
+    - target: {fileID: 1134865305649277423, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134865305649277423, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.89246774
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134865305649277423, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.41509432
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134865305649277423, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134865305649277423, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134865305649277423, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 349323176519813232, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 349323176519813232, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_EffectDistance.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 349323176519813232, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_EffectDistance.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2155342436334553512, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684110341542338832, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_Text
+      value: WATCH OUT for GOBLINS! These speedy creatures excel at chopping down
+        trees and other obstacles in their path.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6965bd803e32a340a3ce7e8058e24d0, type: 3}
 --- !u!114 &128937959 stripped
@@ -4335,6 +4463,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &474060014 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2155342436334553512, guid: e6965bd803e32a340a3ce7e8058e24d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 128937958}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &481313110
 GameObject:
   m_ObjectHideFlags: 0
@@ -10869,6 +11003,11 @@ PrefabInstance:
       propertyPath: hill
       value: 
       objectReference: {fileID: 1170541755}
+    - target: {fileID: 5225947797844569151, guid: 48aabcdead3030647aee9d65174b9ea4,
+        type: 3}
+      propertyPath: infoPanel
+      value: 
+      objectReference: {fileID: 474060014}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48aabcdead3030647aee9d65174b9ea4, type: 3}
 --- !u!1 &1315570941

@@ -25,18 +25,29 @@ public class weapon_loadout : MonoBehaviour
     public Sprite weaponNotSelected;
     private shooting shooting;
 
-    void Awake() 
+    void Start() 
     {
+        //defining components
+        shooting = transform.GetComponent<shooting>();
+
         int position = 0;
         int offset = 0;
 
         //Based off your weapons loadout, activate the specified weapon tokens in the specified order
-        foreach (int weapon in weapons) {
-            Weapons.transform.GetChild(weapon+offset).SetSiblingIndex(position);
+        for (int i = 0; i < weapons.Count; i++) {
+            Weapons.transform.GetChild(weapons[i]+offset).SetSiblingIndex(position);
             Weapons.transform.GetChild(position).gameObject.SetActive(true);
 
-            if (weapon != position)
-                ++offset;
+            offset = 0;
+
+            if (i < weapons.Count - 1)
+            {
+                for (int j = 0; j < i + 1; j++)
+                {
+                    if (weapons[j] > weapons[i + 1])
+                        offset++;
+                }
+            }
                 
             ++position;
         }
@@ -53,16 +64,10 @@ public class weapon_loadout : MonoBehaviour
 
         //keep a copy of the max ammo counts of each weapon
         ammoCopy = ammo.ToArray();
-    }
-
-    void Start() 
-    {
-        //defining components
-        shooting = transform.GetComponent<shooting>();
 
         //equip the right weapon
-        selectWeapon();
-        updateAmmo();
+        Invoke("selectWeapon", 0.1f);
+        Invoke("updateAmmo", 0.1f);
     }
 
     //every shot, update ammo + swap weapons when out of ammo

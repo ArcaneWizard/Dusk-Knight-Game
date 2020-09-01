@@ -1250,6 +1250,11 @@ PrefabInstance:
       propertyPath: hill
       value: 
       objectReference: {fileID: 102527112}
+    - target: {fileID: 5225947797844569151, guid: 48aabcdead3030647aee9d65174b9ea4,
+        type: 3}
+      propertyPath: infoPanel
+      value: 
+      objectReference: {fileID: 633648996}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48aabcdead3030647aee9d65174b9ea4, type: 3}
 --- !u!4 &95923352 stripped
@@ -4583,6 +4588,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 954592451}
+    - target: {fileID: 2155342436334553512, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684110341542338832, guid: e6965bd803e32a340a3ce7e8058e24d0,
+        type: 3}
+      propertyPath: m_Text
+      value: ORCS are APPROACHING. They may look heavy and slow, but out of nowhere
+        they will spring at you given the chance.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6965bd803e32a340a3ce7e8058e24d0, type: 3}
 --- !u!114 &633648989 stripped
@@ -4657,6 +4673,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &633648996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2155342436334553512, guid: e6965bd803e32a340a3ce7e8058e24d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 633648988}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &634694155
 GameObject:
   m_ObjectHideFlags: 0

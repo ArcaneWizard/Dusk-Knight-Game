@@ -80,7 +80,7 @@ public class shooting : MonoBehaviour
 
     public GameObject player_Head;
 
-    void Awake()
+    void Start()
     {
         //define initial components 
         audioSource = transform.GetComponent<AudioSource>();
@@ -97,6 +97,7 @@ public class shooting : MonoBehaviour
         topRight = camera.ViewportToWorldPoint(new Vector2(1,1)) + new Vector3 (3, 2, 0);
 
         //add all weapons' bullets to the bullet list
+        bullets.Clear();
         foreach (Transform weapon in playerWeapons.transform) 
             bullets.Add(weapon.gameObject);
     }
